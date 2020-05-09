@@ -1,6 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
-import { Badge } from 'reactstrap';
+
 import React, { useState, Component } from 'react';
 import {
   Collapse,
