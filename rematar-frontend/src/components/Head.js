@@ -33,12 +33,12 @@ const Head = (props, flag) => {
   return (
     <div  className="Head">
       <Navbar color="dark" light expand="mt" style={{color: "white"}}>
-        <NavbarBrand href="/" style={{color: "white"}}>Menu</NavbarBrand>
+        <NavbarBrand href="menu" style={{color: "white"}}>Menu</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar >
             <NavItem>
-              <NavLink href="/components/" style={{color: "white"}}>Terrenos</NavLink>
+              <NavLink href="terrenos" style={{color: "white"}}>Terrenos</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="remates" style={{color: "white"}} >Remates</NavLink>
@@ -57,10 +57,10 @@ const Head = (props, flag) => {
                     Reset
                   </DropdownItem>
                 </DropdownMenu>
+                <NavLink href="contact" style={{color: "white"}} >Contactos</NavLink>
+                <NavLink href="login" style={{color: "white"}} >{text}</NavLink>
             </UncontrolledDropdown>
-
           </Nav>
-          <NavbarText className="login" style={{color: "white"}} >{text}</NavbarText>
         </Collapse>
       </Navbar>
     </div>
