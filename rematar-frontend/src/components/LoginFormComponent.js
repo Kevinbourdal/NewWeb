@@ -74,7 +74,7 @@ class Login extends Component {
                                                 <Col>
                                                     <AppNavbarBrand
                                                     full={{ src:"https://cdn.shopify.com/s/files/1/2245/4189/files/todoenremate-logo_x250.png?v=1548202790",
-                                                            width: 300,
+                                                            width: 200,
                                                             alt: 'Remates Calamuchita Logo' }}
                                                     />
                                                 </Col>

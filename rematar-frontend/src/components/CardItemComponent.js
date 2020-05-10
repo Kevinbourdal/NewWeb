@@ -37,7 +37,7 @@ class CardItem extends Component {
                     <CardHeader className="m-0 p-0">
                         <Row className="position-static">
                             <Col>
-                                <UncontrolledCarousel className="" items={this.items} indicators={false} />
+                                <UncontrolledCarousel className="" items={this.items} indicators={false} autoPlay={false}/>
                             </Col>
                         </Row>
                         <Row className="position-absolute">

@@ -3,20 +3,22 @@ import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import LoginForm from './components/LoginFormComponent';
 import Contact from './components/ContactComponent';
 import Head from './components/Head';
+import FooterPage from './components/Footer';
+import PrincipalPage from './components/PrincipalPage'
 import CardGallery from "./components/CardGalleryComponent";
-import FooterPage from "./components/Footer";
 import DataLots from "./components/DataLotsComponent";
 import SimpleMap from './components/SimpleMap';
 import { Row, Col } from 'reactstrap';
 import { itemslist } from './data/items_terrenos';
 import { items } from "./data/Lote1";
 
+
 class App extends Component {
     render() {
         return (
             <div className={"bg-light"}>
                 <Head />
-                <BrowserRouter>
+                  <BrowserRouter>
                     <Switch>
                         <Route exact path={"/"}>
                             <Redirect to={{pathname: "/home"}}/>
@@ -24,26 +26,14 @@ class App extends Component {
                         <Route exact path="/login">
                            <LoginForm />
                         </Route>
+                        <Route exact path="/contact">
+                            <Contact />
+                        </Route>
                         <Route exact path={"/home"}>
                             <CardGallery itemslist={itemslist}/>
                         </Route>
                         <Route exact path={"/Lots"}>
-                            <div>
-                                <Row>
-                                    <Col>
-
-                                    </Col>
-                                    <Col>
-                                        <DataLots data={items.data}
-                                                  pretitle={items.pretitle}
-                                                  title={items.title}
-                                                  subtitle={items.subtitle}
-                                                  precio={items.precio}
-                                        />
-                                    </Col>
-                                </Row>
-
-                            </div>
+                            <PrincipalPage />
                             <div className="container text-center">
                                 <Col>
                                     <Row className="text-primary">
@@ -63,6 +53,7 @@ class App extends Component {
                </BrowserRouter>
                    <FooterPage/>
             </div>
+
         );
     }
 }

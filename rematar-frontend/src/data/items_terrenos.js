@@ -20,4 +20,4 @@ const items = {
     ]
 };
 
-export const itemslist =[items, items, items, items, items, items, items, items, items, items, items, items, items, items ];
+export const itemslist =[items, items, items];
