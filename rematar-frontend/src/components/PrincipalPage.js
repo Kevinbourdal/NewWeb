@@ -1,6 +1,7 @@
 import React from "react";
 import {  MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer } from "mdbreact";
 
+
 const PrincipalPage = () => {
 
   return (
@@ -17,11 +18,11 @@ const PrincipalPage = () => {
           <MDBRow>
             <MDBCol md="12" lg="6">
               <div className="mb-4">
-                <MDBView hover rounded className="z-depth-1-half mb-4">
+                <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail " >
                 <MDBCarousel activeItem={1} length={3} showControls={true} showIndicators={true} thumbnails className="z-depth-1">
                     <MDBCarouselInner>
                       <MDBCarouselItem itemId="1">
-                        <img className="d-block w-100" src="https://d2gue86ezsmq5i.cloudfront.net/eyJidWNrZXQiOiJyZXNlbS1hciIsImtleSI6IjQyNjAvMjAwNzI2MjA2OS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjg0MCwiaGVpZ2h0Ijo2MzAsImZpdCI6ImNvdmVyIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfX19"
+                        <img className="d-block w-100" src="https://www.agroempresario.com.ar/img/upload/nuevos/nota/b8c0b0064cf4db460497.jpg"
                         alt="First slide" />
                       </MDBCarouselItem>
                       <MDBCarouselItem itemId="2">
@@ -77,7 +78,7 @@ const PrincipalPage = () => {
                     <MDBView hover rounded className="z-depth-1-half mb-4">
                       <img
                         className="img-fluid"
-                        src="https://mdbootstrap.com/img/Photos/Others/img%20(29).jpg"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNrjw1sOj6Qn-NfEIGfKCOVe0UB7ZT0IO-MFQ-qq3YrZAWalsr&usqp=CAU"
                         alt=""
                       />
                       <a href="#!">
@@ -110,10 +111,10 @@ const PrincipalPage = () => {
               }}>
                 <MDBRow>
                   <MDBCol md="3">
-                    <MDBView hover rounded className="z-depth-1-half mb-4">
+                    <MDBView hover rounded className="z-depth-2-half mb-4">
                       <img
                         className="img-fluid"
-                        src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(45).jpg"
+                        src="https://www.turismocordoba.com.ar/util/v2018/img/ini-cabanas-sierras.jpg"
                         alt=""
                       />
                       <a href="#!">
@@ -145,10 +146,10 @@ const PrincipalPage = () => {
                   }}>
                 <MDBRow>
                   <MDBCol md="3">
-                    <MDBView hover rounded className="z-depth-1-half mb-4">
+                    <MDBView hover rounded className="z-depth-2-half mb-4">
                       <img
                         className="img-fluid"
-                        src="https://mdbootstrap.com/img/Photos/Others/images/87.jpg"
+                        src="https://live.staticflickr.com/1870/44353796801_4efde3e2a6_b.jpg"
                         alt=""
                       />
                       <a href="#!">
@@ -181,7 +182,7 @@ const PrincipalPage = () => {
                     <MDBView hover rounded className="z-depth-1-half mb-4">
                       <img
                         className="img-fluid"
-                        src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCUwva-_MJf0aA7UdhmStIysDS3AmHoYpL9pMXvANGye9Yo_ok&usqp=CAU"
                         alt=""
                       />
                       <a href="#!">
@@ -210,6 +211,9 @@ const PrincipalPage = () => {
           </MDBRow>
         </MDBCardBody>
       </MDBCard>
+
+
   );
+
 }
 export default PrincipalPage;
