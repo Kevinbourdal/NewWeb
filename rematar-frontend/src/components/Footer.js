@@ -38,8 +38,8 @@ const FooterPage = () => {
       <div className="text-center">
            <ul className="list-unstyled list-inline">
              <li className="list-inline-item">
-               <a className="btn-floating btn-sm btn-fb mx-1">
-                 <i className="fab fa-facebook-f"> </i>
+               <a className="btn-floating btn-sm btn-fb ">
+                 <i className="fab fa-facebook-f" style={{width:"20px" }}> </i>
                </a>
              </li>
              <li className="list-inline-item">
