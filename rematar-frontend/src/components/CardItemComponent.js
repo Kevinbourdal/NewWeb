@@ -32,10 +32,17 @@ class CardItem extends Component {
     render(){
         // TODO: setear fijo el tamaño de la imagen
         return (
-            <Container>
-                <Card >
-                    <CardHeader >
-                        <UncontrolledCarousel items={this.items} indicators={false} />
+            <Container className="d-sm-block">
+                <Card className="d-sm-block">
+                    <CardHeader className="m-0 p-0">
+                        <Row className="position-static">
+                            <Col>
+                                <UncontrolledCarousel className="" items={this.items} indicators={false} />
+                            </Col>
+                        </Row>
+                        <Row className="position-absolute">
+
+                        </Row>
                     </CardHeader>
                     <CardBody>
                         <CardTitle>
@@ -45,21 +52,21 @@ class CardItem extends Component {
                             { this.subtitle || '' }
                         </CardSubtitle>
                         <br/>
-                        <CardFooter className="text-muted">
-                            <Row>
-                                <Col>
-                                    <a href={this.href || '#'}>
-                                        <Button color={"success"}>Ver</Button>
-                                    </a>
-                                </Col>
-                                <Col>
-                                    <CardText>
-                                        <small className="text-muted">{ this.footer || '' }</small>
-                                    </CardText>
-                                </Col>
-                            </Row>
-                        </CardFooter>
                     </CardBody>
+                    <CardFooter className="text-muted">
+                        <Row>
+                            <Col>
+                                <a href={this.href || '#'}>
+                                    <Button color={"success"}>Ver</Button>
+                                </a>
+                            </Col>
+                            <Col>
+                                <CardText>
+                                    <small className="text-muted">{ this.footer || '' }</small>
+                                </CardText>
+                            </Col>
+                        </Row>
+                    </CardFooter>
                 </Card>
             </Container>
         );

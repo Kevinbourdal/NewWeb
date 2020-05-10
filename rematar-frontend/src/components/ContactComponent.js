@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import InputField from './InputFieldComponent'
-import { Button, FormGroup, Form, Row, Col, Card, CardBody, CardGroup, Container, DropdownItem, Alert } from 'reactstrap'
+import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
 
 class Contact extends Component {
     constructor(props) {
