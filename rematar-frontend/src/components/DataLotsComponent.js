@@ -44,9 +44,9 @@ class DataLots extends Component {
         //TODO: poner como ImgOverlay la siguente imagen del caroucel
         return (
             <div className="app flex-row align-items-center">
-                <Container>
+                <Container className="px-md-0 pl-md-4 pl-lg-4">
                     <CardGroup>
-                        <Card className="p-4">
+                        <Card className="p-0">
                             <CardHeader className="text-uppercase">
                                 <h6><small className="text-muted text-sm-left">{ this.pretitle }</small></h6>
                                 <Row>

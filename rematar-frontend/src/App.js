@@ -5,12 +5,9 @@ import Contact from './components/ContactComponent';
 import Head from './components/Head';
 import FooterPage from './components/Footer';
 import PrincipalPage from './components/PrincipalPage'
-import CardGallery from "./components/CardGalleryComponent";
-import DataLots from "./components/DataLotsComponent";
-import SimpleMap from './components/SimpleMap';
+import HomePage from "./components/HomePageComponent";
 import { Row, Col } from 'reactstrap';
 import { itemslist } from './data/items_terrenos';
-import { items } from "./data/Lote1";
 
 
 class App extends Component {
@@ -30,7 +27,7 @@ class App extends Component {
                             <Contact />
                         </Route>
                         <Route exact path={"/home"}>
-                            <CardGallery itemslist={itemslist}/>
+                            <HomePage items={itemslist[0]} itemslist={itemslist} />
                         </Route>
                         <Route exact path={"/Lots"}>
                             <PrincipalPage />
@@ -40,7 +37,7 @@ class App extends Component {
                                         <h1><b><a href="/home" >Otros Terrenos</a></b></h1>
                                     </Row>
                                     <Row>
-                                        <CardGallery itemslist={itemslist}/>
+                                        <HomePage items={itemslist[0]} itemslist={itemslist}/>
                                     </Row>
                                 </Col>
                             </div>
@@ -69,4 +66,6 @@ export default App;
                     </script>
                 </div>
 
+
+<CardGallery itemslist={itemslist}/>
  */

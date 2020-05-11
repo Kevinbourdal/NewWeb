@@ -9,7 +9,7 @@ const PrincipalPage = () => {
 
   return (
     <MDBCard
-        className="my-5 px-5 mx-auto"
+        className="my-4 px-0 mx-auto"
         style={{ fontWeight: 300, maxWidth: "90%" }}>
         <MDBCardBody style={{ paddingTop: 0 }}>
           <h2 className="h1-responsive font-weight-bold my-5 text-center">

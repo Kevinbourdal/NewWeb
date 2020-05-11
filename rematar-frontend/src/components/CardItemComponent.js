@@ -12,6 +12,7 @@ import {
     CardSubtitle,
     CardFooter,
     Button } from 'reactstrap';
+import './CardItemComponent.css';
 
 class CardItem extends Component {
     constructor(props) {
@@ -32,24 +33,21 @@ class CardItem extends Component {
     render(){
         // TODO: setear fijo el tamaño de la imagen
         return (
-            <Container className="d-sm-block">
-                <Card className="d-sm-block">
-                    <CardHeader className="m-0 p-0">
+            <Container className="m-0 p-0 shadow">
+                <Card className="m-0 p-0">
+                    <CardHeader className="m-0 p-0 shadow">
                         <Row className="position-static">
                             <Col>
-                                <UncontrolledCarousel className="" items={this.items} indicators={false} autoPlay={false}/>
+                                <UncontrolledCarousel items={[this.items[0]]} controls={false} indicators={false} autoPlay={false}/>
                             </Col>
                         </Row>
-                        <Row className="position-absolute">
-
-                        </Row>
                     </CardHeader>
-                    <CardBody>
+                    <CardBody >
                         <CardTitle>
-                            { this.title || '' }
+                            <a href={this.href || '#'} className="text-dark" type=""><h4><b>{ this.title || '' }</b></h4></a>
                         </CardTitle>
                         <CardSubtitle>
-                            { this.subtitle || '' }
+                            <b>{ this.subtitle || '' }</b>
                         </CardSubtitle>
                         <br/>
                     </CardBody>
@@ -57,7 +55,7 @@ class CardItem extends Component {
                         <Row>
                             <Col>
                                 <a href={this.href || '#'}>
-                                    <Button color={"success"}>Ver</Button>
+                                    <Button className="btn-lg" color={"danger"}>Detalles <i className="fa fa-angle-right fa-right"></i></Button>
                                 </a>
                             </Col>
                             <Col>
