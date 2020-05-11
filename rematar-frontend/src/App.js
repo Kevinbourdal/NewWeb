@@ -5,7 +5,7 @@ import Contact from './components/ContactComponent';
 import Head from './components/Head';
 import FooterPage from './components/Footer';
 import PrincipalPage from './components/PrincipalPage'
-
+import SimpleMap from './components/SimpleMap'
 import CardGallery from "./components/CardGalleryComponent";
 import { itemslist } from './data/items_terrenos';
 
@@ -28,6 +28,7 @@ class App extends Component {
                         </Route>
                         <Route path="/remates">
                             <PrincipalPage />
+                            <SimpleMap />
                         </Route>
                         <Route exact path={"/home"}>
                             <CardGallery itemslist={itemslist}/>
