@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { CardDeck } from 'reactstrap';
 import CardItem from "./CardItemComponent";
 import Container from "reactstrap/es/Container";
 
@@ -16,12 +17,18 @@ class CardGallery extends Component {
 
     render() {
         return (
-            <Container>
-                <div className="row mt-4">
+            <Container >
+                <div className="row mt-5">
                     <div className="row">
+                            <h2><b>Lotes disponibles:</b></h2>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="row mt-5">
+                        <CardDeck>
                         {this.itemslist.map((data, index) =>
-                            <div className="col-md-4">
-                                <div className="mt-4">
+                            <div className="col-md-4 mr-0 ml-0 pr-1 pl-1">
+                                <div className="mt-0 pt-1 pb-1 mr-0 ml-0">
                                     <CardItem title={data['title']}
                                               subtitle={data['subtitle']}
                                               footer={data['footer']}
@@ -31,6 +38,7 @@ class CardGallery extends Component {
                                 </div>
                             </div>
                         )}
+                        </CardDeck>
                     </div>
                 </div>
             </Container>

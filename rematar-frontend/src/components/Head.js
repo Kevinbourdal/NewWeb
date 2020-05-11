@@ -1,5 +1,4 @@
-
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import {
   Collapse,
   Navbar,
@@ -32,15 +31,15 @@ const Head = (props, flag) => {
   return (
     <div  className="Head">
       <Navbar color="dark" light expand="mt" style={{color: "white"}}>
-        <NavbarBrand href="menu" style={{color: "white"}}>Menu</NavbarBrand>
+        <NavbarBrand href="/" style={{color: "white"}}>Menu</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar >
             <NavItem>
-              <NavLink href="terrenos" style={{color: "white"}}>Terrenos</NavLink>
+              <NavLink href="Home" style={{color: "white"}}>Terrenos</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="remates" style={{color: "white"}} >Remates</NavLink>
+              <NavLink href="Home" style={{color: "white"}} >Remates</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar >
               <DropdownToggle nav={true} caret={true} style={{color: "white"}}>Options</DropdownToggle>

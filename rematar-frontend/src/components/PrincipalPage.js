@@ -1,12 +1,15 @@
 import React from "react";
 import {  MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer } from "mdbreact";
+import {Col, Row} from "reactstrap";
+import DataLots from "./DataLotsComponent";
+import {items} from "../data/Lote1";
 
 
 const PrincipalPage = () => {
 
   return (
     <MDBCard
-        className="my-5 px-5 mx-auto"
+        className="my-4 px-0 mx-auto"
         style={{ fontWeight: 300, maxWidth: "90%" }}>
         <MDBCardBody style={{ paddingTop: 0 }}>
           <h2 className="h1-responsive font-weight-bold my-5 text-center">
@@ -15,9 +18,9 @@ const PrincipalPage = () => {
           <h5 className="dark-grey-text mx-auto mb-5 w-75 text-center">
           LOTE 4 MZ "E" B°LA MILKA
           </h5>
-          <MDBRow>
-            <MDBCol md="12" lg="6">
-              <div className="mb-4">
+          <MDBRow className="m-0 p-0">
+            <MDBCol className="m-0 p-0">
+              <div className="m-0 p-0">
                 <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail " >
                 <MDBCarousel activeItem={1} length={3} showControls={true} showIndicators={true} thumbnails className="z-depth-1">
                     <MDBCarouselInner>
@@ -67,145 +70,19 @@ const PrincipalPage = () => {
                 </p>
               </div>
             </MDBCol>
+            <MDBCol className="m-0 p-0">
+              <div>
+                <Row>
+                  <Col>
+                    <DataLots data={items.data}
+                              pretitle={items.pretitle}
+                              title={items.title}
+                              subtitle={items.subtitle}
+                              precio={items.precio}
+                    />
+                  </Col>
+                </Row>
 
-            <MDBCol md="12" lg="6">
-              <div style={{
-                borderBottom: "1px solid #e0e0e0",
-                marginBottom: "1.5rem"
-              }}>
-                <MDBRow>
-                  <MDBCol md="3">
-                    <MDBView hover rounded className="z-depth-1-half mb-4">
-                      <img
-                        className="img-fluid"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNrjw1sOj6Qn-NfEIGfKCOVe0UB7ZT0IO-MFQ-qq3YrZAWalsr&usqp=CAU"
-                        alt=""
-                      />
-                      <a href="#!">
-                        <MDBMask overlay="white-slight" className="waves-light" />
-                      </a>
-                    </MDBView>
-                  </MDBCol>
-                  <MDBCol md="9">
-                    <p className="font-weight-bold dark-grey-text">
-                      26/02/2018
-                    </p>
-                    <div className="d-flex justify-content-between">
-                      <MDBCol size="11" className="text-truncate pl-0 mb-3">
-                        <a href="#!" className="dark-grey-text">
-                          At vero eos et accusamus et iusto odio dignissimos
-                          ducimus qui blanditiis
-                        </a>
-                      </MDBCol>
-                      <a href="#!">
-                        <MDBIcon icon="angle-double-right" />
-                      </a>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
-              </div>
-
-              <div style={{
-                borderBottom: "1px solid #e0e0e0",
-                marginBottom: "1.5rem"
-              }}>
-                <MDBRow>
-                  <MDBCol md="3">
-                    <MDBView hover rounded className="z-depth-2-half mb-4">
-                      <img
-                        className="img-fluid"
-                        src="https://www.turismocordoba.com.ar/util/v2018/img/ini-cabanas-sierras.jpg"
-                        alt=""
-                      />
-                      <a href="#!">
-                        <MDBMask overlay="white-slight" className="waves-light" />
-                      </a>
-                    </MDBView>
-                  </MDBCol>
-                  <MDBCol md="9">
-                    <p className="font-weight-bold dark-grey-text">
-                      25/02/2018
-                    </p>
-                    <div className="d-flex justify-content-between">
-                      <MDBCol size="11" className="text-truncate pl-0 mb-3">
-                        <a href="#!" className="dark-grey-text">
-                          Itaque earum rerum hic tenetur a sapiente delectus
-                        </a>
-                      </MDBCol>
-                      <a href="#!">
-                        <MDBIcon icon="angle-double-right" />
-                      </a>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
-              </div>
-
-              <div style={{
-                    borderBottom: "1px solid #e0e0e0",
-                    marginBottom: "1.5rem"
-                  }}>
-                <MDBRow>
-                  <MDBCol md="3">
-                    <MDBView hover rounded className="z-depth-2-half mb-4">
-                      <img
-                        className="img-fluid"
-                        src="https://live.staticflickr.com/1870/44353796801_4efde3e2a6_b.jpg"
-                        alt=""
-                      />
-                      <a href="#!">
-                        <MDBMask overlay="white-slight" className="waves-light" />
-                      </a>
-                    </MDBView>
-                  </MDBCol>
-                  <MDBCol md="9">
-                    <p className="font-weight-bold dark-grey-text">
-                      24/03/2018
-                    </p>
-                    <div className="d-flex justify-content-between">
-                      <MDBCol size="11" className="text-truncate pl-0 mb-3">
-                        <a href="#!" className="dark-grey-text">
-                          Soluta nobis est eligendi optio cumque nihil impedit
-                          quo minus
-                        </a>
-                      </MDBCol>
-                      <a href="#!">
-                        <MDBIcon icon="angle-double-right" />
-                      </a>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
-              </div>
-
-              <div className="mb-4">
-                <MDBRow>
-                  <MDBCol md="3">
-                    <MDBView hover rounded className="z-depth-1-half mb-4">
-                      <img
-                        className="img-fluid"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCUwva-_MJf0aA7UdhmStIysDS3AmHoYpL9pMXvANGye9Yo_ok&usqp=CAU"
-                        alt=""
-                      />
-                      <a href="#!">
-                        <MDBMask overlay="white-slight" className="waves-light" />
-                      </a>
-                    </MDBView>
-                  </MDBCol>
-                  <MDBCol md="9">
-                    <p className="font-weight-bold dark-grey-text">
-                      23/02/2018
-                    </p>
-                    <div className="d-flex justify-content-between">
-                      <MDBCol size="11" className="text-truncate pl-0 mb-3">
-                        <a href="#!" className="dark-grey-text">
-                          Duis aute irure dolor in reprehenderit in voluptate
-                        </a>
-                      </MDBCol>
-                      <a href="#!">
-                        <MDBIcon icon="angle-double-right" />
-                      </a>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
               </div>
             </MDBCol>
           </MDBRow>

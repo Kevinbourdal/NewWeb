@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import InputField from './InputFieldComponent'
-import { Button, FormGroup, Form, Row, Col, Card, CardBody, CardGroup, Container, DropdownItem, Alert } from 'reactstrap'
+import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
 
 class Contact extends Component {
     constructor(props) {
@@ -74,7 +74,7 @@ class Contact extends Component {
                                                 <Col>
                                                     <AppNavbarBrand
                                                     full={{ src:"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDsASM3t_PpN2htpuY37B25sKuiNV7PXvIDTOP6_wbHaHHLxdz&usqp=CAU",
-                                                            width: 300,
+                                                            width: 200,
                                                             alt: 'Remates Calamuchita Logo' }}
                                                     />
                                                 </Col>
