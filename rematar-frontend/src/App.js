@@ -5,13 +5,10 @@ import Contact from './components/ContactComponent';
 import Head from './components/Head';
 import FooterPage from './components/Footer';
 import PrincipalPage from './components/PrincipalPage'
-<<<<<<< HEAD
 import SimpleMap from './components/SimpleMap'
 import CardGallery from "./components/CardGalleryComponent";
-=======
 import HomePage from "./components/HomePageComponent";
 import { Row, Col } from 'reactstrap';
->>>>>>> 8e1647c66cef3d398cfb7e585b65c58aed298852
 import { itemslist } from './data/items_terrenos';
 
 
@@ -28,8 +25,15 @@ class App extends Component {
                         <Route exact path="/login">
                            <LoginForm />
                         </Route>
+                        <Route exact path="/remates">
+                          <HomePage items={itemslist[0]} itemslist={itemslist} />
+                        </Route>
+                        <Route exact path="/terrenos">
+                          <Contact />
+                        </Route>
                         <Route exact path="/contact">
                             <Contact />
+                            </Route>
                         <Route exact path={"/home"}>
                             <HomePage items={itemslist[0]} itemslist={itemslist} />
                         </Route>
@@ -38,11 +42,8 @@ class App extends Component {
                             <SimpleMap />
                             <div className="container text-center">
                                 <Col>
-                                    <Row className="text-primary">
-                                        <h1><b><a href="/home" >Otros Terrenos</a></b></h1>
-                                    </Row>
                                     <Row>
-                                        <HomePage items={itemslist[0]} itemslist={itemslist}/>
+                                        <CardGallery itemslist={itemslist}/>
                                     </Row>
                                 </Col>
                             </div>
@@ -53,7 +54,7 @@ class App extends Component {
                         </Route>
                    </Switch>
                </BrowserRouter>
-                   <FooterPage/>
+               <FooterPage/>
             </div>
 
         );

@@ -62,7 +62,7 @@ class Contact extends Component {
 
 	render() {
 	    return(
-	         <div className="app flex-row align-items-center">
+	         <div className="app flex-row align-items-center mt-4">
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="8">

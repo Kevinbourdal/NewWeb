@@ -62,7 +62,7 @@ class Login extends Component {
             return <Redirect to={{pathname: '/home', state: {from: this.props.location}}}/>;
         }
         return (
-            <div className="app flex-row align-items-center">
+            <div className="app flex-row align-items-center mt-4">
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="8">
