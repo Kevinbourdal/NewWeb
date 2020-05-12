@@ -12,7 +12,6 @@ class HomePage extends Component {
     }
 
     render() {
-        console.log(this.items)
         return (
             <div className="/">
                 <div className="container-fluid no-padding h-25">
