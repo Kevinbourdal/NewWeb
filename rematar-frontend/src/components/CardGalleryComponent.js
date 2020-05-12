@@ -20,7 +20,7 @@ class CardGallery extends Component {
             <Container >
                 <div className="row mt-5  width: 100%">
                     <div className="row">
-                            <h2><b>Lotes disponibles:</b></h2>
+                            <h2><b>{ this.itemslist.length } Lotes disponibles:</b></h2>
                     </div>
                 </div>
                 <div className="row">

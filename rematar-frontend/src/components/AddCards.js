@@ -7,29 +7,34 @@ import {AppNavbarBrand} from "@coreui/react";
 
 class AddCards extends Component {
      constructor () {
-           super();
+           super(Component);
            this.state = {
                 title: '',
                 price: -1,
                 subtitle: '',
+                footer: '',
                 description: '',
-                type: 'lote'
+                url_images: [],
+                type: 'lote',
+                href: "/Lots"
            };
            this.handleInputChange = this.handleInputChange.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
      }
 
- handleSubmit(e) {
+     handleSubmit(e) {
+         e.preventDefault();
+         this.state.items = [{'src': this.state.url_images, 'key': 1}]
+         this.props.onAddItem(this.state);
+         alert('saved');
+      }
 
-  }
-
- handleInputChange(e) {
-    const {value, name} = e.target;
-    console.log(value, name);
-    this.setState({
-       [name]: value
-     });
- }
+     handleInputChange(e) {
+         const {value, name} = e.target;
+         this.setState({
+            [name]: value
+         });
+     }
 
     validateForm() {
         return this.state.title.length > 0 && this.state.price >= 0;
@@ -63,7 +68,12 @@ class AddCards extends Component {
                                      }}/>
                                  </div>
                                    <div className="form-group">
-                                       <InputField name={"price"} label={"Precio"} type={"num"} i="si"  change={(e) => {
+                                       <InputField name={"price"} label={"Precio"} type={"number"} i="si" change={(e) => {
+                                           this.handleInputChange(e);
+                                       }}/>
+                                   </div>
+                                   <div className="form-group">
+                                       <InputField name={"url_image"} label={"Imagen url"} type={"text"}  change={(e) => {
                                            this.handleInputChange(e);
                                        }}/>
                                    </div>
@@ -74,23 +84,23 @@ class AddCards extends Component {
                                    </div>
                                  <div className="form-group">
                                      <label className="">Tipo</label>
-                                   <select name="type"
-                                           value="Campo"
-                                           className="form-control"
-                                           onChange={this.handleInputChange}
-                                     ><option selected className="justify-content-center">
-                                           Campo
-                                       </option>
-                                       <option>
-                                           Casa
-                                       </option>
-                                       <option>
-                                           Lote
-                                       </option>
-                                   </select>
+                                       <select name="type"
+                                               value="Campo"
+                                               className="form-control"
+                                               onChange={this.handleInputChange}
+                                         ><option selected className="justify-content-center">
+                                               Campo
+                                           </option>
+                                           <option>
+                                               Casa
+                                           </option>
+                                           <option>
+                                               Lote
+                                           </option>
+                                       </select>
                                  </div>
                                  <button type="submit" className="btn btn-danger" disabled={!this.validateForm()}>
-                                   Agregar
+                                    Agregar
                                  </button>
                                </form>
                              </CardBody>
