@@ -135,6 +135,7 @@ class Contact extends Component {
                                             <Row>
                                                 <Col>
                                                     <Button
+                                                        href={"/home" || '#'}
                                                         color="primary btn-danger"
                                                         disabled={!this.validateForm()}
                                                     >

@@ -69,7 +69,7 @@ class Login extends Component {
                             <CardGroup >
                                 <Card className="p-4">
                                     <CardBody className="text-center">
-                                        <Form onSubmit={this.handleSubmit}>
+                                        <Form >
                                             <Row>
                                                 <Col>
                                                     <AppNavbarBrand
@@ -110,10 +110,10 @@ class Login extends Component {
                                             </Row>
                                             <Row>
                                                 <Col>
-                                                    <Button
-                                                        color="primary btn-danger"
-                                                        disabled={!this.validateForm()}
-                                                    >
+                                                        <Button href={"/home" || '#'}
+                                                            color="primary btn-dark"
+                                                            disabled={!this.validateForm()}
+                                                        >
                                                         Entrar
                                                     </Button>
                                                 </Col>

@@ -26,10 +26,9 @@ class DataLots extends Component {
     render() {
         let data_table = this.data.map((dato, index) => {
             return (
-                <tr>
-                    <th scope="row">{ index }</th>
-                    <th>{ dato[0] }</th>
-                    <td>{ dato[1] }</td>
+                <tr className="ml-5">
+                    <th className="ml-5">{ dato[0] }</th>
+                    <td className="ml-5">{ dato[1] }</td>
                 </tr>
             )
         });
@@ -47,19 +46,6 @@ class DataLots extends Component {
                 <Container className="px-md-0 pl-md-4 pl-lg-4">
                     <CardGroup>
                         <Card className="p-0 shadow">
-                            <CardHeader className="text-uppercase">
-                                <h6><small className="text-muted text-sm-left">{ this.pretitle }</small></h6>
-                                <Row>
-                                    <Col>
-                                        <CardTitle><h4>{ this.title }  </h4></CardTitle>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <CardSubtitle><small>{ this.subtitle }</small></CardSubtitle>
-                                    </Col>
-                                </Row>
-                            </CardHeader>
                             <br/>
                             <CardBody className="text-center">
                                 <Row>
@@ -99,3 +85,20 @@ class DataLots extends Component {
 }
 
 export default DataLots;
+
+
+/*
+<CardHeader className="text-uppercase">
+                                <h6><small className="text-muted text-sm-left">{ this.pretitle }</small></h6>
+                                <Row>
+                                    <Col>
+                                        <CardTitle><h4>{ this.title }  </h4></CardTitle>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <CardSubtitle><small>{ this.subtitle }</small></CardSubtitle>
+                                    </Col>
+                                </Row>
+                            </CardHeader>
+ */

@@ -14,6 +14,10 @@ const FooterPage = () => {
             Todos los derechos reservados
             </p>
           </MDBCol>
+          <g id="Capa_3" data-name="Capa 3">
+            <polygon points="226.29 235.05 37.72 235.05 37.72 46.53 226.29 46.53 226.29 56.43 264.02 25.34 264.02 8.82 0 8.82 0 272.76 264.02 272.76 264.02 109.24 226.29 154.48 226.29 235.05"></polygon>
+            <polygon points="86.78 84.89 72.22 100.77 165.28 208.03 327.35 13.61 314.58 0 165.28 122.84 86.78 84.89"></polygon>
+          </g>
 
           <MDBCol md="3">
           <h5 className="text-uppercase mb-2 mt-3 font-weight-bold">
@@ -44,7 +48,6 @@ const FooterPage = () => {
              </li>
              <li className="list-inline-item">
                <a className="btn-floating btn-sm btn-tw mx-1" href="#bottom">
-                 <i className="fab fa-twitter"> </i>
                </a>
              </li>
              <li className="list-inline-item">
