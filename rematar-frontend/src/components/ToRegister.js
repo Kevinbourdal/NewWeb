@@ -132,7 +132,7 @@ class ToRegister extends React.Component {
               </div>
             </div>
           </MDBCol>
-          <MDBBtn color='primary' type='submit'>
+          <MDBBtn color='primary' type='submit' href="./home">
             Registrarse
           </MDBBtn>
         </form>
