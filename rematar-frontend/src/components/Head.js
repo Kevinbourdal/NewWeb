@@ -10,7 +10,7 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  Row, Col
 } from 'reactstrap';
 
 
@@ -30,9 +30,14 @@ const Head = (props, flag) => {
 
   return (
     <div  className="Head">
-      <Navbar color="dark" light expand="mt" style={{color: "white"}}>
-        <NavbarBrand href="/" style={{color: "white"}}>Menu</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
+      <Navbar color="dark" light expand="mt" style={{background:"red"}}>
+      <Row>
+
+      <Col>
+        <NavbarToggler style={{color: "danger"}} onClick={toggle} />
+      </Col>
+
+      </Row>
         <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar >
             <NavItem>
@@ -41,23 +46,8 @@ const Head = (props, flag) => {
             <NavItem>
               <NavLink href="Home" style={{color: "white"}} >Remates</NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar >
-              <DropdownToggle nav={true} caret={true} style={{color: "white"}}>Options</DropdownToggle>
-                <DropdownMenu className="bg-dark">
-                  <DropdownItem  style={{color: "white"}}>
-                    Menor valor
-                  </DropdownItem>
-                  <DropdownItem style={{color: "white"}}>
-                    Mayor valor
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem style={{color: "white"}}>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-                <NavLink href="contact" style={{color: "white"}} >Contactos</NavLink>
-                <NavLink href="login" style={{color: "white"}} >{text}</NavLink>
-            </UncontrolledDropdown>
+            <NavLink href="contact" style={{color: "white"}} >Contactos</NavLink>
+            <NavLink href="login" style={{color: "white"}} >{text}</NavLink>
           </Nav>
         </Collapse>
       </Navbar>
@@ -66,3 +56,21 @@ const Head = (props, flag) => {
   }
 
 export default Head;
+
+/*
+<UncontrolledDropdown nav inNavbar >
+  <DropdownToggle nav={true} caret={true} style={{color: "white"}}>Options</DropdownToggle>
+    <DropdownMenu className="bg-dark">
+      <DropdownItem  style={{color: "white"}}>
+        Menor valor
+      </DropdownItem>
+      <DropdownItem style={{color: "white"}}>
+        Mayor valor
+      </DropdownItem>
+      <DropdownItem divider />
+      <DropdownItem style={{color: "white"}}>
+        Reset
+      </DropdownItem>
+    </DropdownMenu>
+</UncontrolledDropdown>
+*/

@@ -46,7 +46,7 @@ class DataLots extends Component {
             <div className="app flex-row align-items-center">
                 <Container className="px-md-0 pl-md-4 pl-lg-4">
                     <CardGroup>
-                        <Card className="p-0">
+                        <Card className="p-0 shadow">
                             <CardHeader className="text-uppercase">
                                 <h6><small className="text-muted text-sm-left">{ this.pretitle }</small></h6>
                                 <Row>

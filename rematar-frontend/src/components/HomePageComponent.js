@@ -17,7 +17,7 @@ class HomePage extends Component {
             <div className="/">
                 <div className="container-fluid no-padding h-25">
                     <div className="row ">
-                        <div  style={{ height: '70vh'  }} className="col-md-12 p-0 m-0">
+                        <div  style={{ height: '70vh' }} className="col-md-12 p-0 m-0">
                             <CardImg  className="h-100" src="https://mobimg.b-cdn.net/pic/v2/gallery/preview/dorogi-gory-pejzazh-9109.jpg"/>
                             <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75">
                                 <div className="">
@@ -35,7 +35,7 @@ class HomePage extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row mt-5">
+                <div className="mt-5">
 
                 <CardGallery itemslist={this.itemslist}/>
 

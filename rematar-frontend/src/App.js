@@ -5,7 +5,6 @@ import Contact from './components/ContactComponent';
 import Head from './components/Head';
 import FooterPage from './components/Footer';
 import PrincipalPage from './components/PrincipalPage'
-import SimpleMap from './components/SimpleMap'
 import CardGallery from "./components/CardGalleryComponent";
 import HomePage from "./components/HomePageComponent";
 import { Row, Col } from 'reactstrap';
@@ -39,7 +38,6 @@ class App extends Component {
                         </Route>
                         <Route exact path={"/Lots"}>
                             <PrincipalPage />
-                            <SimpleMap />
                             <div className="container text-center">
                                 <Col>
                                     <Row>

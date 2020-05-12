@@ -18,7 +18,7 @@ class CardGallery extends Component {
     render() {
         return (
             <Container >
-                <div className="row mt-5">
+                <div className="row mt-5  width: 100%">
                     <div className="row">
                             <h2><b>Lotes disponibles:</b></h2>
                     </div>

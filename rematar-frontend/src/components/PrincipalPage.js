@@ -1,6 +1,7 @@
 import React from "react";
-import {  MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer } from "mdbreact";
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer } from "mdbreact";
 import {Col, Row} from "reactstrap";
+import SimpleMap from './SimpleMap';
 import DataLots from "./DataLotsComponent";
 import {items} from "../data/Lote1";
 
@@ -8,9 +9,7 @@ import {items} from "../data/Lote1";
 const PrincipalPage = () => {
 
   return (
-    <MDBCard
-        className="my-4 px-0 mx-auto"
-        style={{ fontWeight: 300, maxWidth: "90%" }}>
+    <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 300, maxWidth: "90%" }}>
         <MDBCardBody style={{ paddingTop: 0 }}>
           <h2 className="h1-responsive font-weight-bold my-5 text-center">
             Terreno en villa del dique
@@ -82,8 +81,12 @@ const PrincipalPage = () => {
                     />
                   </Col>
                 </Row>
-
               </div>
+            </MDBCol>
+          </MDBRow>
+          <MDBRow className="mt-5">
+            <MDBCol>
+              <SimpleMap />
             </MDBCol>
           </MDBRow>
         </MDBCardBody>
