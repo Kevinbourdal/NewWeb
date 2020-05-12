@@ -29,6 +29,7 @@ class App extends Component {
                             </Route>
                         <Route exact path="/remates">
                           <HomePage items={itemslist[0]} itemslist={itemslist} />
+
                         </Route>
                         <Route exact path="/terrenos">
                           <Contact />
