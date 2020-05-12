@@ -30,81 +30,63 @@ const App = () => {
     const [login, setLogin] = useStateWithLocalStorage(
         'login'
     );
+    const [name, setName] = useStateWithLocalStorage(
+        'name'
+    );
 
     const onChange = event => {
         setLogin(login==='false' ? 'true':'false');
+        setName('Pepe lui');
     }
-    // const [items, setItems] = useState(sessionStorage.getItem('items') || itemslist);
-    // const [login, setLogin] = useState( localStorage.getItem('login') || false);
-    //
-    // useEffect(() => {
-    //     sessionStorage.setItem('login', login);
-    // }, [login]);
-    //
-    // const onLogin = event => {
-    //     alert('aca');
-    //     setLogin(!login);
-    // }
+    return (
+        <div className={"bg-light"}>
+            <Head login={login} name={name} onChange={onChange}/>
+              <BrowserRouter>
+                <Switch>
+                    <Route exact path={"/"}>
+                        <Redirect to={{pathname: "/home"}}/>
+                    </Route>
+                    <Route exact path="/login">
+                       <LoginForm login={login} onChange={onChange}/>
+                    </Route>
+                    <Route exact path="/logout">
+                        <Redirect to={{pathname: "/home"}}/>
+                    </Route>
+                    <Route exact path="/registrarse">
+                        <ToRegister />
+                    </Route>
+                    <Route exact path="/remates">
+                      <HomePage items={itemslist[0]} itemslist={itemslist} />
+                    </Route>
+                    <Route exact path="/contact">
+                        <Contact />
+                        </Route>
+                    <Route exact path={"/home"}>
+                        <HomePage items={itemslist[0]} itemslist={itemslist} />
+                    </Route>
+                    <Route exact path={"/Lots"}>
+                        <PrincipalPage />
+                        <div className="container text-center">
+                            <Col>
+                                <Row>
+                                    <CardGallery itemslist={itemslist}/>
+                                </Row>
+                            </Col>
+                        </div>
 
-    // const onChange = item => {
-    //     sessionStorage.setItem('items', [...items, item]);
-    // }
+                    </Route>
+                    <Route exact path="/contact">
+                        <Contact />
+                    </Route>
+                    <Route exact path="/new">
+                        <AddCards onAddItem={()=>{}}/>
+                    </Route>
+               </Switch>
+           </BrowserRouter>
+           <FooterPage/>
+        </div>
 
-    //this.handleAddItems = this.handleAddItems.bind(this);
-    // handleAddItems(item) {
-    //     this.setState({
-    //         itemlist: [...this.state.itemslist, item]
-    //     });
-    // }
-        return (
-            <div className={"bg-light"}>
-                <Head login={login} onChange={onChange}/>
-                  <BrowserRouter>
-                    <Switch>
-                        <Route exact path={"/"}>
-                            <Redirect to={{pathname: "/home"}}/>
-                        </Route>
-                        <Route exact path="/login">
-                           <LoginForm login={login} onChange={onChange}/>
-                        </Route>
-                        <Route exact path="/logout">
-                            <Redirect to={{pathname: "/home"}}/>
-                        </Route>
-                        <Route exact path="/registrarse">
-                            <ToRegister />
-                        </Route>
-                        <Route exact path="/remates">
-                          <HomePage items={itemslist[0]} itemslist={itemslist} />
-                        </Route>
-                        <Route exact path="/contact">
-                            <Contact />
-                            </Route>
-                        <Route exact path={"/home"}>
-                            <HomePage items={itemslist[0]} itemslist={itemslist} />
-                        </Route>
-                        <Route exact path={"/Lots"}>
-                            <PrincipalPage />
-                            <div className="container text-center">
-                                <Col>
-                                    <Row>
-                                        <CardGallery itemslist={itemslist}/>
-                                    </Row>
-                                </Col>
-                            </div>
-
-                        </Route>
-                        <Route exact path="/contact">
-                            <Contact />
-                        </Route>
-                        <Route exact path="/new">
-                            <AddCards onAddItem={()=>{}}/>
-                        </Route>
-                   </Switch>
-               </BrowserRouter>
-               <FooterPage/>
-            </div>
-
-        );
+    );
 }
 
 export default App;

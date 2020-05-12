@@ -28,9 +28,9 @@ class HomePage extends Component {
                                         <h1 className="w-100">Remates Calamuchita</h1>
                                         <MDBContainer  className=" mr-5 ">
                                         <MDBFormInline className="md-form ml-5  ">
-                                           <input className="form-control mr-sm-1" style={{width:"80%"}} type="text" placeholder="Buscar" aria-label="Search" />
+                                           <input className="form-control mr-sm-1 text-white" style={{width:"80%"}} type="text" placeholder="Buscar" aria-label="Search" />
                                              <MDBBtn gradient="aqua" rounded size="sm" type="submit" className="mr-5">
-                                               Buscar
+                                               <b>Buscar</b>
                                              </MDBBtn>
                                        </MDBFormInline>
                                       </MDBContainer>
@@ -52,9 +52,6 @@ class HomePage extends Component {
                     </MDBRow>
                 </MDBContainer>
             </div>
-
-
-
         );
     }
 }
