@@ -48,6 +48,7 @@ const Head = (props, flag) => {
             </NavItem>
             <NavLink href="contact" style={{color: "white"}} >Contactos</NavLink>
             <NavLink href="login" style={{color: "white"}} >{text}</NavLink>
+            <NavLink href="registrarse" style={{color: "white"}} >Registrarse</NavLink>
           </Nav>
         </Collapse>
       </Navbar>

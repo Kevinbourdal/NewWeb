@@ -9,7 +9,7 @@ import CardGallery from "./components/CardGalleryComponent";
 import HomePage from "./components/HomePageComponent";
 import { Row, Col } from 'reactstrap';
 import { itemslist } from './data/items_terrenos';
-
+import ToRegister from './components/ToRegister';
 
 class App extends Component {
     render() {
@@ -24,6 +24,9 @@ class App extends Component {
                         <Route exact path="/login">
                            <LoginForm />
                         </Route>
+                        <Route exact path="/registrarse">
+                            <ToRegister />
+                            </Route>
                         <Route exact path="/remates">
                           <HomePage items={itemslist[0]} itemslist={itemslist} />
                         </Route>
