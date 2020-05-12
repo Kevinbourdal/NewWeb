@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
+import { Row, Col, CardBody, CardGroup, Container } from 'reactstrap'
 import InputField from "./InputFieldComponent";
-
-import {AppNavbarBrand} from "@coreui/react";
 
 
 class AddCards extends Component {
@@ -23,9 +21,7 @@ class AddCards extends Component {
      }
 
      handleSubmit(e) {
-         e.preventDefault();
-         this.state.items = [{'src': this.state.url_images, 'key': 1}]
-         this.props.onAddItem(this.state);
+         this.setState({items: [{'src': this.state.url_images, 'key': 1}]})
          alert('saved');
       }
 

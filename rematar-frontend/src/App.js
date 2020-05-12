@@ -79,7 +79,7 @@ const App = () => {
                         <Contact />
                     </Route>
                     <Route exact path="/new">
-                        <AddCards onAddItem={()=>{}}/>
+                        <AddCards />
                     </Route>
                </Switch>
            </BrowserRouter>

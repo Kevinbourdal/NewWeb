@@ -6,8 +6,7 @@ import {
   Nav,
   NavItem,
   NavLink,
-    NavbarBrand,
-    Row, Col
+  NavbarBrand,
 } from 'reactstrap';
 
 
@@ -68,21 +67,3 @@ const Head = ({login, name, onChange}) => {
 
 
 export default Head;
-
-/*
-<UncontrolledDropdown nav inNavbar >
-  <DropdownToggle nav={true} caret={true} style={{color: "white"}}>Options</DropdownToggle>
-    <DropdownMenu className="bg-dark">
-      <DropdownItem  style={{color: "white"}}>
-        Menor valor
-      </DropdownItem>
-      <DropdownItem style={{color: "white"}}>
-        Mayor valor
-      </DropdownItem>
-      <DropdownItem divider />
-      <DropdownItem style={{color: "white"}}>
-        Reset
-      </DropdownItem>
-    </DropdownMenu>
-</UncontrolledDropdown>
-*/
