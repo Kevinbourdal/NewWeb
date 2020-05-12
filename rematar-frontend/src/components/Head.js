@@ -41,10 +41,7 @@ const Head = (props, flag) => {
         <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar >
             <NavItem>
-              <NavLink href="Home" style={{color: "white"}}>Terrenos</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="Home" style={{color: "white"}} >Remates</NavLink>
+              <NavLink href="home" style={{color: "white"}} >Terrenos</NavLink>
             </NavItem>
             <NavLink href="contact" style={{color: "white"}} >Contactos</NavLink>
             <NavLink href="login" style={{color: "white"}} >{text}</NavLink>

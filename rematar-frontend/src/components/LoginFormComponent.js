@@ -111,7 +111,7 @@ class Login extends Component {
                                             <Row>
                                                 <Col>
                                                     <Button
-                                                        color="primary"
+                                                        color="primary btn-danger"
                                                         disabled={!this.validateForm()}
                                                     >
                                                         Entrar

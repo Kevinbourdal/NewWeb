@@ -1,89 +1,105 @@
-
 import React, { Component } from 'react';
+import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
+import InputField from "./InputFieldComponent";
+
+import {AppNavbarBrand} from "@coreui/react";
+
 
 class AddCards extends Component {
- constructor () {
-   super();
-   this.state = {
-     title: '',
-     responsible: '',
-     description: '',
-     priority: 'low'
-   };
-   this.handleInputChange = this.handleInputChange.bind(this);
-   this.handleSubmit = this.handleSubmit.bind(this);
- }
+     constructor () {
+           super();
+           this.state = {
+                title: '',
+                price: -1,
+                subtitle: '',
+                description: '',
+                type: 'lote'
+           };
+           this.handleInputChange = this.handleInputChange.bind(this);
+           this.handleSubmit = this.handleSubmit.bind(this);
+     }
 
  handleSubmit(e) {
-   e.preventDefault();
-   this.props.onAddTodo(this.state);
-   this.setState({
-     title: '',
-     responsible: '',
-     description: '',
-     priority: 'low'
-   });
- }
+
+  }
 
  handleInputChange(e) {
-   const {value, name} = e.target;
-   console.log(value, name);
-   this.setState({
-     [name]: value
-   });
+    const {value, name} = e.target;
+    console.log(value, name);
+    this.setState({
+       [name]: value
+     });
  }
+
+    validateForm() {
+        return this.state.title.length > 0 && this.state.price >= 0;
+}
 
  render() {
    return (
-     <div className="card">
-       <form onSubmit={this.handleSubmit} className="card-body">
-         <div className="form-group">
-           <input
-             type="text"
-             name="title"
-             className="form-control"
-             value={this.state.title}
-             onChange={this.handleInputChange}
-             placeholder="Title"
-             />
-         </div>
-         <div className="form-group">
-           <input
-             type="text"
-             name="responsible"
-             className="form-control"
-             value={this.state.responsible}
-             onChange={this.handleInputChange}
-             placeholder="Responsible"
-             />
-         </div>
-         <div className="form-group">
-           <input
-             type="text"
-             name="description"
-             className="form-control"
-             value={this.state.description}
-             onChange={this.handleInputChange}
-             placeholder="Description"
-             />
-         </div>
-         <div className="form-group">
-           <select
-               name="priority"
-               className="form-control"
-               value={this.state.priority}
-               onChange={this.handleInputChange}
-             >
-            <p className="text muted">
-            <b>Precio</b>
-            </p>
-           </select>
-         </div>
-         <button type="submit" className="btn btn-primary">
-           Agregar
-         </button>
-       </form>
-     </div>
+       <div className="app flex-row align-items-center mt-4">
+           <Container>
+               <Row className="justify-content-center">
+                   <Col md="8">
+                       <CardGroup >
+                         <div className="card p-4">
+                           <CardBody className="text-center">
+                               <form onSubmit={this.handleSubmit} className="card-body">
+                                   <Row>
+                                       <Col>
+                                           <h3>Nuevo item</h3>
+                                       </Col>
+                                   </Row>
+                                 <div className="form-group">
+                                     <InputField name={"title"} label={"Titulo"} type={"text"} change={(e) => {
+                                         this.handleInputChange(e);
+                                     }}/>
+                                 </div>
+                                 <div className="form-group">
+                                 </div>
+                                 <div className="form-group">
+                                     <InputField name={"subtitle"} label={"Subtitulo"} type={"text"}  change={(e) => {
+                                         this.handleInputChange(e);
+                                     }}/>
+                                 </div>
+                                   <div className="form-group">
+                                       <InputField name={"price"} label={"Precio"} type={"num"} i="si"  change={(e) => {
+                                           this.handleInputChange(e);
+                                       }}/>
+                                   </div>
+                                   <div className="form-group">
+                                       <InputField name={"description"} label={"Descripcion"} type={"textarea"}  change={(e) => {
+                                           this.handleInputChange(e);
+                                       }}/>
+                                   </div>
+                                 <div className="form-group">
+                                     <label className="">Tipo</label>
+                                   <select name="type"
+                                           value="Campo"
+                                           className="form-control"
+                                           onChange={this.handleInputChange}
+                                     ><option selected className="justify-content-center">
+                                           Campo
+                                       </option>
+                                       <option>
+                                           Casa
+                                       </option>
+                                       <option>
+                                           Lote
+                                       </option>
+                                   </select>
+                                 </div>
+                                 <button type="submit" className="btn btn-danger" disabled={!this.validateForm()}>
+                                   Agregar
+                                 </button>
+                               </form>
+                             </CardBody>
+                         </div>
+                       </CardGroup>
+                   </Col>
+               </Row>
+           </Container>
+       </div>
    )
  }
 
