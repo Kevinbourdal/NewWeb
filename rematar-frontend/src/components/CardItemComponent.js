@@ -55,7 +55,7 @@ class CardItem extends Component {
                         <Row>
                             <Col>
                                 <a href={this.href || '#'}>
-                                    <Button className="btn-lg" color={"danger"}>Detalles <i className="fa fa-angle-right fa-right"></i></Button>
+                                    <Button className="btn-lg" color={"danger"}>Detalles</Button>
                                 </a>
                             </Col>
                             <Col>

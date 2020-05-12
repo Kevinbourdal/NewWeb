@@ -70,7 +70,7 @@ class DataLots extends Component {
                             <CardFooter className="justify-content-center align-content-center text-center">
                                 <Row>
                                     <Col>
-                                        <Button className="btn btn-danger">
+                                        <Button className="btn btn-red">
                                             Ofertar con ${ this.precio }
                                         </Button>
                                     </Col>

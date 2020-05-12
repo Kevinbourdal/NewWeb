@@ -3,14 +3,11 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  Row, Col
+  Row,
+  Col
 } from 'reactstrap';
 
 
@@ -41,7 +38,7 @@ const Head = (props, flag) => {
         <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar >
             <NavItem>
-              <NavLink href="home" style={{color: "white"}} >Terrenos</NavLink>
+              <NavLink href="home" style={{color: "white"}} >Inicio</NavLink>
             </NavItem>
             <NavLink href="contact" style={{color: "white"}} >Contactos</NavLink>
             <NavLink href="login" style={{color: "white"}} >{text}</NavLink>

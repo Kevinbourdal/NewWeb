@@ -86,6 +86,7 @@ class Login extends Component {
                                                 <Col>
                                                     <InputField label={'Email'}
                                                                 type={"email"}
+                                                                ph ={'Ejemplo@hotmail.com'}
                                                                 name={"email"}
                                                                 i={'y'}
                                                                 change={(e) => {
@@ -100,6 +101,7 @@ class Login extends Component {
                                                     <InputField label={'Contraseña'}  // TODO: las pass se ve en la url
                                                                 type={"password"}
                                                                 name={"password"}
+                                                                ph ={'**********'}
                                                                 i={'y'}
                                                                 change={(e) => {
                                                                     //this.validateEmail(e)
