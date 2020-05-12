@@ -83,8 +83,9 @@ class Contact extends Component {
                                             </p>
                                             <Row>
                                                 <Col>
-                                                    <InputField label={'Nombre'}
-                                                                type={"text"}
+                                                    <InputField label={'Nombre  *'}
+                                                                ph ={'Nombre y apellido'}
+                                                                type={"name"}
                                                                 name={"name"}
                                                                 i={'y'}
                                                                 change={(e) => {
@@ -99,6 +100,7 @@ class Contact extends Component {
                                                     <InputField label={'Email'}
                                                                 type={"email"}
                                                                 name={"email"}
+                                                                ph ={'Ejemplo@hotmail.com'}
                                                                 i={'y'}
                                                                 change={(e) => {
                                                                     //this.validateEmail(e)
@@ -111,7 +113,9 @@ class Contact extends Component {
                                                 <Col>
                                                     <InputField label={'Celular'}
                                                                 type={"number"}
-                                                                name={"phone"} i={'y'}
+                                                                name={"phone"}
+                                                                ph ={'351-2389586'}
+                                                                i={'y'}
                                                                 change={(e) => {
                                                                     //this.validateEmail(e)
                                                                     this.handleChange(e);
@@ -123,6 +127,7 @@ class Contact extends Component {
                                                 <Col>
                                                     <InputField label={'Consulta'}
                                                                 type={"textarea"}
+                                                                ph={'Tu consulta'}
                                                                 name={"body"} i={'y'}
                                                                 change={(e) => {
                                                                     //this.validateEmail(e)

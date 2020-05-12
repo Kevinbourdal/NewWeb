@@ -3,18 +3,13 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  Row, Col
 } from 'reactstrap';
 
 
-const Head = ({props, login, onChange}) => {
+const Head = ({login, onChange}) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
@@ -42,7 +37,7 @@ const Head = ({props, login, onChange}) => {
             <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar >
                 <NavItem>
-                   <NavLink href="/home" style={{color: "white"}} >Terrenos</NavLink>
+                    <NavLink href="home" style={{color: "white"}} >Inicio</NavLink>
                 </NavItem>
                 <NavLink href="/contact" style={{color: "white"}} >Contactos</NavLink>
                 <br/>
@@ -55,6 +50,7 @@ const Head = ({props, login, onChange}) => {
         </div>
     );
 }
+
 
 export default Head;
 

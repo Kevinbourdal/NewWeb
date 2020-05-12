@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer } from "mdbreact";
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBCarousel, MDBCarouselInner, MDBCarouselItem } from "mdbreact";
 import {Col, Row} from "reactstrap";
 import SimpleMap from './SimpleMap';
 import DataLots from "./DataLotsComponent";
@@ -44,7 +44,7 @@ const PrincipalPage = () => {
                 <div className="d-flex justify-content-between">
                   <a href="#!" className="deep-orange-text">
                     <h5 className="font-weight-bold">
-                      <MDBIcon icon="utensils" className="pr-2" />
+                      <MDBIcon icon="book-open" className="pr-2" />
                       Descripcion
                     </h5>
                   </a>

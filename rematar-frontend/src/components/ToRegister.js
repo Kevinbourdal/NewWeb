@@ -6,6 +6,7 @@ class ToRegister extends React.Component {
     fname: '',
     lname: '',
     email: '',
+    password:'',
     city: '',
     state: ''
   };
@@ -61,23 +62,41 @@ class ToRegister extends React.Component {
             </MDBCol>
             <MDBCol md='4'>
               <MDBInput
-                icon='envelope-open'
-                value={this.state.email}
+                icon='unlock'
+                value={this.state.password}
                 onChange={this.changeHandler}
-                type='email'
-                id='materialFormRegisterConfirmEx3'
-                name='email'
-                label='Email'
+                type='password'
+                id='materialFormRegisterPasswordEx4'
+                name='password'
+                label='contraseña'
                 outline
                 required
               >
-                <small id='emailHelp' className='form-text text-muted'>
-                  Nunca compartiremos su correo electrónico con nadie más.
-                </small>
+                <div className='invalid-feedback ml-3 pl-3'>
+                  Ingrese una contraseña
+                </div>
+                <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
               </MDBInput>
             </MDBCol>
           </MDBRow>
           <MDBRow>
+          <MDBCol md='4'>
+            <MDBInput
+              icon='envelope-open'
+              value={this.state.email}
+              onChange={this.changeHandler}
+              type='email'
+              id='materialFormRegisterConfirmEx3'
+              name='email'
+              label='Email'
+              outline
+              required
+            >
+              <small id='emailHelp' className='form-text text-muted'>
+                Nunca compartiremos su correo electrónico con nadie más.
+              </small>
+            </MDBInput>
+          </MDBCol>
             <MDBCol md='4'>
               <MDBInput select className="browser-default custom-select"
                 icon='city'
@@ -111,9 +130,10 @@ class ToRegister extends React.Component {
                 <div className='invalid-feedback ml-3 pl-3'>
                   Por favor, introduzca una localidad válida.
                 </div>
-                <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
+                <div className='valid-feedback ml-3 pl-3'>Valido!!</div>
               </MDBInput>
             </MDBCol>
+
           </MDBRow>
           <MDBCol md='4' className='mb-3'>
             <div className='custom-control custom-checkbox pl-3'>
@@ -124,6 +144,7 @@ class ToRegister extends React.Component {
                 id='invalidCheck'
                 required
               />
+
               <label className='custom-control-label' htmlFor='invalidCheck'>
                 Acepto los términos y condiciones
               </label>
@@ -132,7 +153,7 @@ class ToRegister extends React.Component {
               </div>
             </div>
           </MDBCol>
-          <MDBBtn color='primary' type='submit' href="./home">
+          <MDBBtn color='primary' type='submit' onSubmit={this.submitHandler} href="">
             Registrarse
           </MDBBtn>
         </form>

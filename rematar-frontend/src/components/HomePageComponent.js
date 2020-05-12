@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { UncontrolledCarousel, Container, Row, Col, CardImg, CardImgOverlay, CardTitle, CardText } from 'reactstrap';
+import {Row, CardImg, CardImgOverlay} from 'reactstrap';
 import CardGallery from "./CardGalleryComponent";
+import {MDBContainer, MDBRow, MDBBtn,MDBFormInline} from "mdbreact";
 
 class HomePage extends Component {
     constructor(props) {
@@ -23,22 +24,33 @@ class HomePage extends Component {
                                     <Row className="my-5">
                                         <h3 className="w-100 text-white mt-4">10 Lotes nuevos este mes</h3>
                                     </Row>
-                                    <Row className="my-5">
+                                    <Row className="my-2">
                                         <h1 className="w-100">Remates Calamuchita</h1>
+                                        <MDBContainer  className=" mr-5 ">
+                                        <MDBFormInline className="md-form ml-5  ">
+                                           <input className="form-control mr-sm-1" style={{width:"80%"}} type="text" placeholder="Buscar" aria-label="Search" />
+                                             <MDBBtn gradient="aqua" rounded size="sm" type="submit" className="mr-5">
+                                               Buscar
+                                             </MDBBtn>
+                                       </MDBFormInline>
+                                      </MDBContainer>
                                     </Row>
-                                    <Row className="my-5">
+                                    <Row className="my-2">
                                         <h3 className="w-100">Encontra las mejores inversion en los remates de terrenos, casas, Campos, etc..</h3>
                                     </Row>
                                 </div>
                             </CardImgOverlay>
+
                         </div>
                     </div>
                 </div>
-                <div className="mt-5">
-
-                <CardGallery itemslist={this.itemslist}/>
-
-                </div>
+                <MDBContainer className="mt-2">
+                    <MDBRow>
+                         <div>
+                         <CardGallery itemslist={this.itemslist}/>
+                      </div>
+                    </MDBRow>
+                </MDBContainer>
             </div>
 
 
