@@ -56,7 +56,6 @@ class Contact extends Component {
 	};
 
 	validateForm() {
-	    console.log(this.state.email, this.state.name, this.state.body)
 		return this.state.email.length > 0 && this.state.name.length > 0 && this.state.body.length > 0;
 	}
 

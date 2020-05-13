@@ -20,15 +20,15 @@ class CardGallery extends Component {
             <Container >
                 <div className="row mt-5  width: 100%">
                     <div className="row">
-                            <h2><b>Lotes disponibles:</b></h2>
+                            <h2><b>{ this.itemslist.length } Lotes disponibles:</b></h2>
                     </div>
                 </div>
                 <div className="row">
                     <div className="row mt-5">
                         <CardDeck>
                         {this.itemslist.map((data, index) =>
-                            <div className="col-md-4 mr-0 ml-0 pr-1 pl-1">
-                                <div className="mt-0 pt-1 pb-1 mr-0 ml-0">
+                            <div className="col-md-4 mr-0 ml-0 pr- pl-3">
+                                <div className="mt-0 pt-3 pb-3 mr-0 ml-0">
                                     <CardItem title={data['title']}
                                               subtitle={data['subtitle']}
                                               footer={data['footer']}

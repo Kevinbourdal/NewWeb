@@ -8,12 +8,13 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: false,
+            login: false,
             email: '',
             password: '',
             loginError: false,
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
     }
     handleChange = async (event) => {
@@ -26,9 +27,9 @@ class Login extends Component {
     };
 
     handleSubmit = (event) => {
-         alert('Comprear Version Pro para logearse');
-         return false;
-    /* TODO: Ver esto
+        this.setState({ login: true })
+        this.props.onChange(event);
+        /* TODO: Ver esto
         event.preventDefault();
         this.setState({ isLoading: true });
 
@@ -58,8 +59,9 @@ class Login extends Component {
 	}
 
     render() {
-        if (this.props.isAuthenticated) {
-            return <Redirect to={{pathname: '/home', state: {from: this.props.location}}}/>;
+	    console.log(this.props.login)
+        if (this.props.login === 'true') {
+            return <Redirect to={{pathname: '/home'}}/>;
         }
         return (
             <div className="app flex-row align-items-center mt-4">
@@ -69,7 +71,7 @@ class Login extends Component {
                             <CardGroup >
                                 <Card className="p-4">
                                     <CardBody className="text-center">
-                                        <Form >
+                                        <Form onSubmit={this.handleSubmit}>
                                             <Row>
                                                 <Col>
                                                     <AppNavbarBrand
@@ -112,10 +114,10 @@ class Login extends Component {
                                             </Row>
                                             <Row>
                                                 <Col>
-                                                        <Button href={"/home" || '#'}
+                                                    <Button
                                                             color="primary btn-dark"
                                                             disabled={!this.validateForm()}
-                                                        >
+                                                    >
                                                         Entrar
                                                     </Button>
                                                 </Col>
