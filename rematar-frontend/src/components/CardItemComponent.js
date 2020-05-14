@@ -33,10 +33,10 @@ class CardItem extends Component {
     render(){
         // TODO: setear fijo el tamaño de la imagen
         return (
-            <Container className="m-0 p-0 shadow">
+            <Container className="m-0 p-0 shadow imagen-fluid">
                 <Card className="m-0 p-0">
                     <CardHeader className="m-0 p-0 shadow">
-                        <Row className="position-static">
+                        <Row  className="position-static">
                             <Col>
                                 <UncontrolledCarousel items={[this.items[0]]} controls={false} indicators={false} autoPlay={false}/>
                             </Col>
@@ -52,7 +52,7 @@ class CardItem extends Component {
                         <br/>
                     </CardBody>
                     <CardFooter className="text-muted">
-                        <Row>
+                        <div>
                             <Col>
                                 <a href={this.href || '#'}>
                                     <Button className="btn-lg" color={"danger"}>Detalles</Button>
@@ -63,7 +63,7 @@ class CardItem extends Component {
                                     <small className="text-muted">{ this.footer || '' }</small>
                                 </CardText>
                             </Col>
-                        </Row>
+                        </div>
                     </CardFooter>
                 </Card>
             </Container>
