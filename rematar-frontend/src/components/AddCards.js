@@ -64,7 +64,7 @@ class AddCards extends Component {
                                      }}/>
                                  </div>
                                    <div className="form-group">
-                                       <InputField name={"price"} label={"Precio"} type={"number"} i="si" change={(e) => {
+                                       <InputField name={"price"} label={"Precio"} type={"number"} change={(e) => {
                                            this.handleInputChange(e);
                                        }}/>
                                    </div>

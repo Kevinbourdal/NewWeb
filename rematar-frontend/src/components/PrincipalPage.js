@@ -3,11 +3,19 @@ import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBCar
 import {Col, Row} from "reactstrap";
 import SimpleMap from './SimpleMap';
 import DataLots from "./DataLotsComponent";
+import Timer from './TimerComponent';
 import {items} from "../data/Lote1";
 
 
 const PrincipalPage = () => {
 
+  let DescriptionText = (
+      items['description'].split('\n').map((item, i) =>
+        <p className="dark-grey-text mb-lg-0 mb-md-5 mb-4" key={i}>
+          { item }
+        </p>
+
+  ));
   return (
     <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 300, maxWidth: "90%" }}>
         <MDBCardBody style={{ paddingTop: 0 }}>
@@ -15,8 +23,9 @@ const PrincipalPage = () => {
             Terreno en villa del dique
           </h2>
           <h5 className="dark-grey-text mx-auto mb-5 w-75 text-center">
-          LOTE 4 MZ "E" B°LA MILKA
+          Financiacion Lote 200m2
           </h5>
+          <Timer />
           <MDBRow className="m-0 p-0">
             <MDBCol className="m-0 p-0">
               <div className="m-0 p-0">
@@ -48,25 +57,16 @@ const PrincipalPage = () => {
                       Descripcion
                     </h5>
                   </a>
+
                   <p className="font-weight-bold dark-grey-text">
                     <MDBIcon far icon="clock" className="pr-2" />
-                  10/05/2020
+                    publicado: 10/05/2020
                   </p>
                 </div>
                 <h6 className="font-weight-bold dark-grey-text mb-3 p-0">
                   <a href="#!">LOTE BALDIO y DESOCUPADO</a>
                 </h6>
-                <p className="dark-grey-text mb-lg-0 mb-md-5 mb-4">
-                Lote 4 Manzana "E" - sup. 194,60m2
-
-                frente a Cno. Interprovincial, fondo a calle José M. Drago, a 30m de calle Catamarca,   B°La Milka
-
-                ciudad de SAN FRANCISCO
-
-                EXHIBICION PERSONALIZADA A CONCERTAR CON EL MARTILLERO CARLOS ORTIZ HERNANDEZ
-
-                LOS DIAS 12 y 13/03, de 9:30 a 16:30hs
-                </p>
+                { DescriptionText }
               </div>
             </MDBCol>
             <MDBCol className="m-0 p-0">

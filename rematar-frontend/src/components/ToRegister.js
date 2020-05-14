@@ -23,6 +23,11 @@ class ToRegister extends React.Component {
   render() {
     return (
       <div className="mt-5 ml-5 mr-5 mb-5">
+        <div>
+          <h2>
+            Registrarse
+          </h2>
+        </div>
         <form
           className='needs-validation'
           onSubmit={this.submitHandler}

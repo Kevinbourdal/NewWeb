@@ -27,8 +27,6 @@ const InputField = ({name, label, type, id, ft, i, change, ph}) => {
         }
         icon = (
             <MDBIcon className="mt-2 mr-2" icon={icon_type} ></MDBIcon>
-
-
         )
     }
     return (

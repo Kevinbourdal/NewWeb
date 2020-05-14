@@ -18,14 +18,18 @@ class DataLots extends Component {
         this.title = this.props.title;
         this.subtitle = this.props.subtitle;
         this.precio = this.props.precio;
+        this.Ofertar = this.Ofertar.bind(this);
     }
 
+    Ofertar = (event) => {
+        alert('Comprar la version pro.');
+    }
     render() {
         let data_table = this.data.map((dato, index) => {
             return (
                 <tr className="ml-5">
                     <th className="ml-5">{ dato[0] }</th>
-                    <td className="ml-5">{ dato[1] }</td>
+                    <th className="ml-5">{ dato[1] }</th>
                 </tr>
             )
         });
@@ -56,7 +60,8 @@ class DataLots extends Component {
                                 <br/>
                                 <Row>
                                     <Col>
-                                        <Table dark={true} responsive={true} className="text-left">
+                                        <h5>Tabla de información</h5>
+                                        <Table  responsive={true} className="text-left table-striped">
                                             <tbody>
                                                 { data_table }
                                             </tbody>
@@ -67,8 +72,8 @@ class DataLots extends Component {
                             <CardFooter className="justify-content-center align-content-center text-center">
                                 <Row>
                                     <Col>
-                                        <Button className="btn btn-red">
-                                            Ofertar con ${ this.precio }
+                                        <Button className="btn btn-red btn-lg" onClick={this.Ofertar}>
+                                            <b><h5>Ofertar con ${ this.precio }</h5></b>
                                         </Button>
                                     </Col>
                                 </Row>

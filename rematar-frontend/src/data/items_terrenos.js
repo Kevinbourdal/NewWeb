@@ -1,6 +1,6 @@
 
 const item1 = {
-    'title': 'Terreno',
+    'title': 'Terreno en villa del dique',
     'subtitle': 'Sierras de cordoba\n1000mts2\nacceso al rio',
     'footer': 'finaliza el 01/06/2020',
     'href': '/Lots',
