@@ -39,7 +39,7 @@ export default class Timer extends Component {
         const { days, hour, minutes, seconds } = this.state
         return (
 
-                <Alert color="success" className="text-center">
+                <Alert color="success" className="text-center" >
                     Tiempo restante:
                     { minutes === 0 && seconds === 0
                         ? <h1>Finalizado!</h1>

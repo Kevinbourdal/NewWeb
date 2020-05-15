@@ -14,5 +14,37 @@ export const items = {
              ['Superficie', '194,60m2'],
              ['Precio Base', 'AR$150000'],
              ['Luz', 'A 10 cuadras'],
-             ['Ocupado', 'No']]
+             ['Ocupado', 'No']],
+    'dataoffers' : [
+        {
+        'fname': 'Pepe',
+        'lname': 'Lui',
+        'amount': 250000,
+        'date': '15/06/2020',
+        'hour': '12:21',
+        'diff': +50000
+       }, {
+            'fname': 'El',
+            'lname': 'kevin',
+            'amount': 200000,
+            'date': '14/06/2020',
+            'hour': '12:21',
+            'diff': +100000
+        }, {
+            'fname': 'johaquin',
+            'lname': 'Cat',
+            'amount': 100000,
+            'date': '15/06/2020',
+            'hour': '12:21',
+            'diff': +20000
+        },{
+            'fname': 'Pepe',
+            'lname': 'Lui',
+            'amount': 950000,
+            'date': '15/06/2020',
+            'hour': '12:21',
+            'diff': +5000
+        },
+   ]
 };
+

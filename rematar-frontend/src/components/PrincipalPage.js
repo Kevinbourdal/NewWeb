@@ -4,7 +4,8 @@ import {Col, Row} from "reactstrap";
 import SimpleMap from './SimpleMap';
 import DataLots from "./DataLotsComponent";
 import Timer from './TimerComponent';
-import {items} from "../data/Lote1";
+import { items } from "../data/Lote1";
+import OffersLive from './OffersLiveComponent';
 
 
 const PrincipalPage = () => {
@@ -16,6 +17,7 @@ const PrincipalPage = () => {
         </p>
 
   ));
+  console.log(items);
   return (
     <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 300, maxWidth: "90%" }}>
         <MDBCardBody style={{ paddingTop: 0 }}>
@@ -84,6 +86,18 @@ const PrincipalPage = () => {
               </div>
             </MDBCol>
           </MDBRow>
+          <br />
+          <br />
+          <br />
+          <MDBRow>
+            <MDBCol>
+              <OffersLive />
+            </MDBCol>
+          </MDBRow>
+          <br />
+          <br />
+          <br />
+          <hr/>
           <MDBRow className="mt-5">
             <MDBCol>
               <SimpleMap />
