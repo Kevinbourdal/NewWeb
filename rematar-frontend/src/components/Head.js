@@ -27,7 +27,7 @@ const Head = ({login, name, onChange}) => {
         RegisterTag = ( <NavLink href="registrarse" style={{color: "white"}} >Registrarse</NavLink> )
     } else if (login==='true') {
         Nametag = (
-            <NavLink href="home">
+            <NavLink href="Profile">
                 <i className="fas fa-user">
                   <NavbarBrand className="mr-0 ml-2 text-center" style={{color: "white"}}><b>{ name }</b></NavbarBrand>
                 </i>

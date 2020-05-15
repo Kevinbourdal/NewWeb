@@ -11,6 +11,7 @@ import HomePage from "./components/HomePageComponent";
 import { Row, Col } from 'reactstrap';
 import ToRegister from './components/ToRegister';
 import AddCards from "./components/AddCards";
+import Profile from "./components/Profile"
 
 import { itemslist } from './data/items_terrenos';
 
@@ -36,7 +37,8 @@ const App = () => {
 
     const onChange = event => {
         setLogin(login==='false' ? 'true':'false');
-        setName('Pepe lui');
+        setName('charly');
+
     }
     return (
         <div className={"bg-light"}>
@@ -45,6 +47,10 @@ const App = () => {
                 <Switch>
                     <Route exact path={"/"}>
                         <Redirect to={{pathname: "/home"}}/>
+                    </Route>
+                    <Route exact path={"/Profile"}>
+                        <Redirect to={{pathname: "/Profile"}}/>
+                        <Profile />
                     </Route>
                     <Route exact path="/login">
                        <LoginForm login={login} onChange={onChange}/>
