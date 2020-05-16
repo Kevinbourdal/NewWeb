@@ -1,14 +1,14 @@
 import React from 'react';
 import {MDBCard, MDBCardBody, MDBCardImage,MDBRow, MDBCardTitle, MDBCardText, MDBCol, MDBListGroupItem, MDBContainer, MDBTable } from 'mdbreact';
-import { items } from "../data/Lote1";
+import { ofertas } from "../data/ofertasenvivo";
 
 
 const Profile = () => {
 
 
-  let data_table = items["dataoffers"].map((offer, index) => {
+  let data_table = ofertas.map((offer, index) => {
       return (
-          <tbody>
+          <tbody className="text-center">
               { index === 0 ?
                   <tr className="ml-5 bg-success">
                       <th className="ml-5">{index+1}</th>
@@ -17,7 +17,7 @@ const Profile = () => {
                       <td className="ml-5"><b>{offer['amount']}</b></td>
                       <td className="ml-5">{offer['date']}</td>
                       <td className="ml-5">{offer['hour']}</td>
-                      <td className="ml-5">+{offer['diff']}</td>
+                      <td className="ml-5">{offer['diff']}</td>
                   </tr>
               :
                   <tr className="ml-5">
@@ -27,7 +27,7 @@ const Profile = () => {
                       <td className="ml-5"><b>{offer['amount']}</b></td>
                       <td className="ml-5">{offer['date']}</td>
                       <td className="ml-5">{offer['hour']}</td>
-                      <td className="ml-5">+{offer['diff']}</td>
+                      <td className="ml-5">{offer['diff']}</td>
                   </tr>
               }
           </tbody>
