@@ -38,7 +38,7 @@ const Profile = () => {
    <MDBRow className="mt-5 ml-1 ">
      <MDBCol style={{ maxWidth: "22rem" }}>
       <MDBCard>
-        <MDBCardImage className="img-fluid" src="https://images-na.ssl-images-amazon.com/images/I/712LZZEzwdL._AC_SY879_.jpg"waves />
+        <MDBCardImage className="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRDtWTHP7xJi_pW4PIXMutI94wDRz33U75VYV6sCToXjMUyMJF8&usqp=CAU"waves />
         <MDBCardBody>
           <MDBCardTitle >Perfil</MDBCardTitle>
          <MDBListGroupItem><i  className="text-muted" >Mail : </i> ejemplo@outlook.com</MDBListGroupItem>
