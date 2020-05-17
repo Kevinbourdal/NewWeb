@@ -8,12 +8,13 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: false,
+            login: false,
             email: '',
             password: '',
             loginError: false,
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
     }
     handleChange = async (event) => {
@@ -26,9 +27,9 @@ class Login extends Component {
     };
 
     handleSubmit = (event) => {
-         alert('Comprear Version Pro para logearse');
-         return false;
-    /* TODO: Ver esto
+        this.setState({ login: true })
+        this.props.onChange(event);
+        /* TODO: Ver esto
         event.preventDefault();
         this.setState({ isLoading: true });
 
@@ -58,11 +59,12 @@ class Login extends Component {
 	}
 
     render() {
-        if (this.props.isAuthenticated) {
-            return <Redirect to={{pathname: '/home', state: {from: this.props.location}}}/>;
+	    console.log(this.props.login)
+        if (this.props.login === 'true') {
+            return <Redirect to={{pathname: '/home'}}/>;
         }
         return (
-            <div className="app flex-row align-items-center">
+            <div className="app flex-row align-items-center mt-4">
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="8">
@@ -74,7 +76,7 @@ class Login extends Component {
                                                 <Col>
                                                     <AppNavbarBrand
                                                     full={{ src:"https://cdn.shopify.com/s/files/1/2245/4189/files/todoenremate-logo_x250.png?v=1548202790",
-                                                            width: 300,
+                                                            width: 200,
                                                             alt: 'Remates Calamuchita Logo' }}
                                                     />
                                                 </Col>
@@ -86,6 +88,7 @@ class Login extends Component {
                                                 <Col>
                                                     <InputField label={'Email'}
                                                                 type={"email"}
+                                                                ph ={'Ejemplo@hotmail.com'}
                                                                 name={"email"}
                                                                 i={'y'}
                                                                 change={(e) => {
@@ -100,6 +103,7 @@ class Login extends Component {
                                                     <InputField label={'Contraseña'}  // TODO: las pass se ve en la url
                                                                 type={"password"}
                                                                 name={"password"}
+                                                                ph ={'**********'}
                                                                 i={'y'}
                                                                 change={(e) => {
                                                                     //this.validateEmail(e)
@@ -111,8 +115,8 @@ class Login extends Component {
                                             <Row>
                                                 <Col>
                                                     <Button
-                                                        color="primary"
-                                                        disabled={!this.validateForm()}
+                                                            color="primary btn-dark"
+                                                            disabled={!this.validateForm()}
                                                     >
                                                         Entrar
                                                     </Button>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import InputField from './InputFieldComponent'
-import { Button, FormGroup, Form, Row, Col, Card, CardBody, CardGroup, Container, DropdownItem, Alert } from 'reactstrap'
+import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
 
 class Contact extends Component {
     constructor(props) {
@@ -56,13 +56,12 @@ class Contact extends Component {
 	};
 
 	validateForm() {
-	    console.log(this.state.email, this.state.name, this.state.body)
 		return this.state.email.length > 0 && this.state.name.length > 0 && this.state.body.length > 0;
 	}
 
 	render() {
 	    return(
-	         <div className="app flex-row align-items-center">
+	         <div className="app flex-row align-items-center mt-4">
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="8">
@@ -74,7 +73,7 @@ class Contact extends Component {
                                                 <Col>
                                                     <AppNavbarBrand
                                                     full={{ src:"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDsASM3t_PpN2htpuY37B25sKuiNV7PXvIDTOP6_wbHaHHLxdz&usqp=CAU",
-                                                            width: 300,
+                                                            width: 200,
                                                             alt: 'Remates Calamuchita Logo' }}
                                                     />
                                                 </Col>
@@ -84,8 +83,9 @@ class Contact extends Component {
                                             </p>
                                             <Row>
                                                 <Col>
-                                                    <InputField label={'Nombre'}
-                                                                type={"text"}
+                                                    <InputField label={'Nombre  *'}
+                                                                ph ={'Nombre y apellido'}
+                                                                type={"name"}
                                                                 name={"name"}
                                                                 i={'y'}
                                                                 change={(e) => {
@@ -100,6 +100,7 @@ class Contact extends Component {
                                                     <InputField label={'Email'}
                                                                 type={"email"}
                                                                 name={"email"}
+                                                                ph ={'Ejemplo@hotmail.com'}
                                                                 i={'y'}
                                                                 change={(e) => {
                                                                     //this.validateEmail(e)
@@ -112,7 +113,9 @@ class Contact extends Component {
                                                 <Col>
                                                     <InputField label={'Celular'}
                                                                 type={"number"}
-                                                                name={"phone"} i={'y'}
+                                                                name={"phone"}
+                                                                ph ={'351-2389586'}
+                                                                i={'y'}
                                                                 change={(e) => {
                                                                     //this.validateEmail(e)
                                                                     this.handleChange(e);
@@ -124,6 +127,7 @@ class Contact extends Component {
                                                 <Col>
                                                     <InputField label={'Consulta'}
                                                                 type={"textarea"}
+                                                                ph={'Tu consulta'}
                                                                 name={"body"} i={'y'}
                                                                 change={(e) => {
                                                                     //this.validateEmail(e)
@@ -135,7 +139,8 @@ class Contact extends Component {
                                             <Row>
                                                 <Col>
                                                     <Button
-                                                        color="primary"
+                                                        href={"/home" || '#'}
+                                                        color="primary btn-danger"
                                                         disabled={!this.validateForm()}
                                                     >
                                                         Enviar
