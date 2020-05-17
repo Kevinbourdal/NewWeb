@@ -1,6 +1,15 @@
+## Rematar frontend
+Clone it, and you must install dependencies packages
+
+### `npm i`
+
+- **Troubleshooting:**  
+If you don't have **npm**, must install **NodeJs** from [here](https://nodejs.org/es/)
+
+---
+## Available Scripts
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
 In the project directory, you can run:
 
