@@ -49,7 +49,6 @@ const App = () => {
                         <Redirect to={{pathname: "/home"}}/>
                     </Route>
                     <Route exact path={"/Profile"}>
-                        <Redirect to={{pathname: "/Profile"}}/>
                         <Profile />
                     </Route>
                     <Route exact path="/login">

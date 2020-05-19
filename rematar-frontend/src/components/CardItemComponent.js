@@ -12,7 +12,6 @@ import {
     CardSubtitle,
     CardFooter,
     Button } from 'reactstrap';
-import './CardItemComponent.css';
 
 class CardItem extends Component {
     constructor(props) {
@@ -55,7 +54,7 @@ class CardItem extends Component {
                         <div>
                             <Col>
                                 <a href={this.href || '#'}>
-                                    <Button className="btn-lg" color={"danger"}>Detalles</Button>
+                                    <Button className="btn-lg stretched-link" color={"danger"}>Detalles</Button>
                                 </a>
                             </Col>
                             <Col>
