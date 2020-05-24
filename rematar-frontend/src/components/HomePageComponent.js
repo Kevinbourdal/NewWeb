@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Row, CardImg, CardImgOverlay, Carousel,
+import {Row, Card, CardImg, CardImgOverlay, Carousel,
     CarouselItem,
     CarouselControl,
     CarouselIndicators,
@@ -50,19 +50,20 @@ const HomePage = (props) => {
     // render() {
         //  <CardImg  className="h-100" src="https://mobimg.b-cdn.net/pic/v2/gallery/preview/dorogi-gory-pejzazh-9109.jpg"/>
         return (
-            <div>
-                <div className="row" style={{ height: '600px'}}>
-                    <div className="container-fluid no-padding h-25">
+            <div className="p-0 m-0">
+                <div className="p-0 m-0" style={{ height: '600px'}}>
+                    <div className="container-fluid no-padding h-25 p-0 m-0 ">
 
                         <div  style={{ height: '70vh' }} className="p-0 m-0">
-                            <div>
-                                <style>
-                                    {`.custom-tag {
+                            <style>
+                                {`.custom-tag {
                                       max-width: 100%;
                                       height: 600px;
                                       background: black;
                                     }`}
-                                </style>
+                            </style>
+                                <Card style={{ width: "100%"}}>
+
                                 <Carousel
                                     slide={false}
                                     activeIndex={activeIndex}
@@ -74,43 +75,42 @@ const HomePage = (props) => {
                                     <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
                                 </Carousel>
 
-                            <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
-                                <div className="">
-                                    <Row className="my-5">
-                                        <h3 className="w-100 text-white-100 mt-4">10 Lotes nuevos este mes</h3>
-                                    </Row>
-                                    <Row className="my-5">
-                                        <h1 className="w-100" ><b className="">  Remates Calamuchita  </b></h1>
-                                    </Row>
-                                    <Row className="my-5">
-                                        <h2 className="w-100"></h2>
-                                    </Row>
-                                    <Row className="my-5">
-                                        <MDBContainer  className=" mr-5">
-                                            <MDBFormInline className="md-form ml-5">
-                                             <input className="form-control mr-sm-1 text-white"
-                                                    style={{width:"80%"}}
-                                                    type="text"
-                                                    placeholder="Buscar"
-                                                    aria-label="Search" />
+                                <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
+                                    <div className="">
+                                        <Row className="my-5">
+                                            <h3 className="w-100 text-white-100 mt-4">10 Lotes nuevos este mes</h3>
+                                        </Row>
+                                        <Row className="my-5">
+                                            <h1 className="w-100" ><b className="">  Remates Calamuchita  </b></h1>
+                                        </Row>
 
-                                             <MDBBtn gradient="aqua" rounded size="sm" type="submit">
-                                                <b>Buscar</b>
-                                             </MDBBtn>
-                                            </MDBFormInline>
-                                        </MDBContainer>
-                                    </Row>
-                                    <Row className="my-5">
-                                        <h2 className="w-100">Encontra las mejores inversion en los remates de terrenos, casas, Campos, etc..</h2>
-                                    </Row>
+                                        <Row className="my-5">
+                                            <MDBContainer  className=" mr-5">
+                                                <MDBFormInline className="md-form ml-5">
+                                                 <input className="form-control mr-sm-1 text-white"
+                                                        style={{width:"80%"}}
+                                                        type="text"
+                                                        placeholder="Buscar"
+                                                        aria-label="Search" />
 
-                                </div>
-                            </CardImgOverlay>
-                            </div>
+                                                 <MDBBtn gradient="aqua" rounded size="sm" type="submit">
+                                                    <b>Buscar</b>
+                                                 </MDBBtn>
+                                                </MDBFormInline>
+                                            </MDBContainer>
+                                        </Row>
+                                        <Row className="my-5">
+                                            <h2 className="w-100">Encontra las mejores inversion en los remates de terrenos, casas, Campos, etc..</h2>
+                                        </Row>
+
+                                    </div>
+                                </CardImgOverlay>
+                                </Card>
+
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="col">
                      <CardGallery itemslist={itemslist}/>
                 </div>
             </div>
