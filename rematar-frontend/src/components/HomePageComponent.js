@@ -74,7 +74,7 @@ const HomePage = (props) => {
                                     <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
                                 </Carousel>
 
-                            <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75">
+                            <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
                                 <div className="">
                                     <Row className="my-5">
                                         <h3 className="w-100 text-white-100 mt-4">10 Lotes nuevos este mes</h3>
