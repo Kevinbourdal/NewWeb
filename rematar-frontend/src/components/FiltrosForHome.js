@@ -54,7 +54,7 @@ render() {
                        type='number'/>
                </MDBCol>
            </MDBRow>
-            <MDBBtn color="primary" className="ml-5">Filtrar</MDBBtn>
+            <MDBBtn color="primary" className="ml-5 my-4">Filtrar</MDBBtn>
            </div>
 
  )}

@@ -119,7 +119,7 @@ const HomePage = (props) => {
                </div>
                <MDBRow >
                   <MDBCol className="col-md-3 mt-3 "  >
-                     <section className="rounded-lg card "  style={{backgroundColor:'#bdbdbd ', width:"100%" , height: '100%'}} >
+                     <section className="rounded-lg card "  style={{backgroundColor:'#bdbdbd ', width:"100%"}} >
                         <FiltrosForHome />
                      </section>
                   </MDBCol>
