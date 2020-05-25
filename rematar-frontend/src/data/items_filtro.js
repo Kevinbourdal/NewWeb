@@ -15,8 +15,5 @@ export const filtro = {
             'item4': 'Casas'
 
           },
-    'Filtrar por precio':{
-
-    },
 
 };
