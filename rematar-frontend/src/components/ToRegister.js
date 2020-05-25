@@ -5,6 +5,7 @@ class ToRegister extends React.Component {
   state = {
     fname: '',
     lname: '',
+    dni: '',
     email: '',
     password:'',
     city: '',
@@ -12,8 +13,28 @@ class ToRegister extends React.Component {
   };
 
   submitHandler = event => {
-    event.preventDefault();
+    //event.preventDefault();  No se que hace por eso lo comente
     event.target.className += ' was-validated';
+
+    // enviamos los datos al backend
+    fetch(
+        "http://0.0.0.0:5000/api/register",
+        {
+          headers: {
+            'Content-Type': 'text/json',
+          },
+          mode: 'cors',
+          method: 'POST',
+          body: JSON.stringify({
+            ...this.state
+          })
+        }
+    ).then(data => {return data.json()}
+    ).then(res => {alert("usuario num  " + res.data['id'])}
+    ).catch(error => {
+      console.log("Fail");
+    }
+    )
   };
 
   changeHandler = event => {
@@ -31,7 +52,7 @@ class ToRegister extends React.Component {
         <form
           className='needs-validation'
           onSubmit={this.submitHandler}
-          noValidate>
+          >
 
 
           <MDBRow>
@@ -67,13 +88,13 @@ class ToRegister extends React.Component {
             </MDBCol>
             <MDBCol md='4'>
               <MDBInput
-                icon='unlock'
-                value={this.state.password}
+                icon='address-card'
+                value={this.state.dni}
                 onChange={this.changeHandler}
-                type='password'
+                type='number'
                 id='materialFormRegisterPasswordEx4'
-                name='password'
-                label='contraseña'
+                name='dni'
+                label='DNI'
                 outline
                 required
               >
@@ -85,6 +106,24 @@ class ToRegister extends React.Component {
             </MDBCol>
           </MDBRow>
           <MDBRow>
+            <MDBCol md='4'>
+              <MDBInput
+                  icon='unlock'
+                  value={this.state.password}
+                  onChange={this.changeHandler}
+                  type='password'
+                  id='materialFormRegisterPasswordEx4'
+                  name='password'
+                  label='contraseña'
+                  outline
+                  required
+              >
+                <div className='invalid-feedback ml-3 pl-3'>
+                  Ingrese una contraseña
+                </div>
+                <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
+              </MDBInput>
+            </MDBCol>
           <MDBCol md='4'>
             <MDBInput
               icon='envelope-open'
@@ -158,7 +197,7 @@ class ToRegister extends React.Component {
               </div>
             </div>
           </MDBCol>
-          <MDBBtn color='primary' type='submit' onSubmit={this.submitHandler} href="">
+          <MDBBtn color='primary' type='submit' href="">
             Registrarse
           </MDBBtn>
         </form>
