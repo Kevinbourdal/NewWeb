@@ -9,7 +9,7 @@ const FooterPage = () => {
       <MDBContainer fluid className="text-center mt-2 text-md-left bg-dark">
         <MDBRow>
           <MDBCol className="lg-2">
-            <h4 className="text-uppercase mb-2 mt-3 font-weight-bold">Remates calamuchita</h4>
+            <h4 className="text-uppercase mb-2 mt-3 font-weight-bold">Subastas en web</h4>
             <hr className="accent-1 mb-3 mt-2 d-inline-block mx-auto danger-color" style={{ width: "150px" }}  />
             <p>
             Todos los derechos reservados
@@ -62,7 +62,7 @@ const FooterPage = () => {
       </MDBContainer>
         <div className="footer-copyright text-center py-3">
         <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright <a href="home" style={{color:"black"}} > Remates Calamuchita </a>
+          &copy; {new Date().getFullYear()} Copyright <a href="home" style={{color:"black"}} > Subastas en web </a>
         </MDBContainer>
       </div>
     </MDBFooter>

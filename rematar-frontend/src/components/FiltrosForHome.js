@@ -19,10 +19,10 @@ render() {
 
       return (
         <div>
-          <h4 className="mr-3">{key}</h4>
+          <h4 className="ml-4">{key}</h4>
 
           {Object.values(this.state.filtro[key]).map((value) =>
-              <div className="mt-2 ml-3"  >
+              <div className="mt-2 ml-5"  >
                 <h6>
                   <a href="#" className="text-muted" >
                      {value}
@@ -37,17 +37,18 @@ render() {
 
       return(
         <div  style={{color:'black'}} className="mt-3 ml-3" >
-           {lugares}
+               {lugares}
            <MDBRow>
-               <MDBCol className="ml-3">
+               <MDBCol className="mr-1 ">
             <MDBInput
-
+                background={"black"}
                 name="precio"
                 label='$ Desde'
                 type='number'/>
                </MDBCol>
-               <MDBCol className="mr-4">
+               <MDBCol className="mr-2 ">
                    <MDBInput
+                       background={"black"}
                        name="precio"
                        label='$ Hasta'
                        type='number'/>
