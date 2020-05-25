@@ -82,7 +82,7 @@ class Login extends Component {
                                                 </Col>
                                             </Row>
                                             <p className="text-muted">
-                                                <b>Login</b> - Remates Calamuchita
+                                                <b>Login</b> - Subastas en web
                                             </p>
                                             <Row>
                                                 <Col>
