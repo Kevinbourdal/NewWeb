@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Cristian Contrera
 
-DOCKER_NAME="frontend"
+DOCKER_NAME="frontend-dev"
 DOCKER_PROD_NAME="frontend-prod"
 
 if [ "$1" == 'prod' ];
@@ -28,6 +28,6 @@ then
 fi
 
 echo "Image ready, starting container.."
-docker run -it -p 3000:3000 DOCKER_NAME
+docker run -it -p 3000:3000 $DOCKER_NAME
 
 
