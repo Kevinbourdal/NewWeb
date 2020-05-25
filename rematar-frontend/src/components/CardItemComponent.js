@@ -12,6 +12,7 @@ import {
     CardSubtitle,
     CardFooter,
     Button } from 'reactstrap';
+import './CardItemComponent.css';
 
 class CardItem extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class CardItem extends Component {
         // TODO: setear fijo el tamaño de la imagen
         return (
             <Container className="m-0 p-0 shadow imagen-fluid">
-                <Card className="m-0 p-0">
+                <Card className="btn m-0 p-0">
                     <CardHeader className="m-0 p-0 shadow">
                         <Row  className="position-static">
                             <Col>
@@ -54,7 +55,7 @@ class CardItem extends Component {
                         <div>
                             <Col>
                                 <a href={this.href || '#'}>
-                                    <Button className="btn-lg stretched-link" color={"danger"}>Detalles</Button>
+                                    <Button className="btn-lg" color={"danger"}>Detalles</Button>
                                 </a>
                             </Col>
                             <Col>

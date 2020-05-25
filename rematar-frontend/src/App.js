@@ -11,7 +11,8 @@ import HomePage from "./components/HomePageComponent";
 import { Row, Col } from 'reactstrap';
 import ToRegister from './components/ToRegister';
 import AddCards from "./components/AddCards";
-import Profile from "./components/Profile"
+import Profile from "./components/Profile";
+
 
 import { itemslist } from './data/items_terrenos';
 
@@ -41,7 +42,7 @@ const App = () => {
 
     }
     return (
-        <div className={"bg-light"}>
+        <div style={{backgroundColor:'#e0e0e0 '}}   >
             <Head login={login} name={name} onChange={onChange}/>
               <BrowserRouter>
                 <Switch>
@@ -49,6 +50,7 @@ const App = () => {
                         <Redirect to={{pathname: "/home"}}/>
                     </Route>
                     <Route exact path={"/Profile"}>
+                        <Redirect to={{pathname: "/Profile"}}/>
                         <Profile />
                     </Route>
                     <Route exact path="/login">

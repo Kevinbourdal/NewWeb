@@ -18,13 +18,9 @@ class CardGallery extends Component {
     render() {
         return (
             <Container >
-                <div className="row mt-5  ml-5 width: 100%">
-                    <div className="row">
-                            <h2><b>{ this.itemslist.length } Lotes disponibles:</b></h2>
-                    </div>
-                </div>
+
                 <div className="row">
-                    <div className="row mt-5">
+                    <div className="row mt-2">
                         <CardDeck>
                         {this.itemslist.map((data, index) =>
                             <div className="col-md-4 mr-0 ml-0 pr- pl-3">
