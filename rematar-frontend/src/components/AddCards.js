@@ -21,7 +21,7 @@ class AddCards extends Component {
      }
 
      handleSubmit(e) {
-         this.setState({items: [{'src': this.state.url_images, 'key': 1}]})
+         this.setState({items: [{'src': this.state.url_images, 'key':[]}]})
          alert('saved');
       }
 
@@ -68,8 +68,8 @@ class AddCards extends Component {
                                            this.handleInputChange(e);
                                        }}/>
                                    </div>
-                                   <div className="form-group">
-                                       <InputField name={"url_image"} label={"Imagen url"} type={"text"}  change={(e) => {
+                                   <div className="picture-uploader-controls">
+                                       <InputField name={"url_image"} label={"Imagen url"} type="file"  onChange={(e) => {
                                            this.handleInputChange(e);
                                        }}/>
                                    </div>
