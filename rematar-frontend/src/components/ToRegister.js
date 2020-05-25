@@ -1,5 +1,9 @@
 import React from 'react';
-import { MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+
+
+
+
 
 class ToRegister extends React.Component {
   state = {
@@ -7,14 +11,16 @@ class ToRegister extends React.Component {
     lname: '',
     email: '',
     password:'',
-    city: '',
+    province: '',
     state: ''
   };
 
   submitHandler = event => {
     event.preventDefault();
     event.target.className += ' was-validated';
-  };
+
+}
+
 
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -22,19 +28,19 @@ class ToRegister extends React.Component {
 
   render() {
     return (
-      <div className="mt-5 ml-5 mr-5 mb-5">
-        <div>
+      <div className="mt-5 ml-5 mr-5 mb-5 rounded " style={{backgroundColor:"#a5d6a7"}} >
+        <MDBContainer className="ml-5 mt-5 ">
           <h2>
             Registrarse
           </h2>
-        </div>
+        </MDBContainer>
         <form
           className='needs-validation'
           onSubmit={this.submitHandler}
           noValidate>
 
 
-          <MDBRow>
+          <MDBRow className="ml-2 mr-2" >
             <MDBCol md='4'>
               <MDBInput
                 icon='user'
@@ -48,8 +54,8 @@ class ToRegister extends React.Component {
                 required
               >
                 <div className='valid-feedback ml-3 pl-3'>Valido!!</div>
-              </MDBInput>
-            </MDBCol>
+                </MDBInput>
+             </MDBCol>
             <MDBCol md='4'>
               <MDBInput
                 icon='address-card'
@@ -84,7 +90,7 @@ class ToRegister extends React.Component {
               </MDBInput>
             </MDBCol>
           </MDBRow>
-          <MDBRow>
+          <MDBRow className="mr-2 ml-2">
           <MDBCol md='4'>
             <MDBInput
               icon='envelope-open'
@@ -108,9 +114,9 @@ class ToRegister extends React.Component {
                 value={this.state.city}
                 onChange={this.changeHandler}
                 type='text'
-                id='materialFormRegisterPasswordEx4'
-                name='city'
-                label='Ciudad'
+                id='materialFormRegisterPasswordEx5'
+                name='province'
+                label='Provincia'
                 outline
                 required>
 
@@ -126,7 +132,7 @@ class ToRegister extends React.Component {
                 value={this.state.state}
                 onChange={this.changeHandler}
                 type='text'
-                id='materialFormRegisterPasswordEx4'
+                id='materialFormRegisterConfirmEx'
                 name='state'
                 label='Localidad'
                 outline
@@ -140,7 +146,7 @@ class ToRegister extends React.Component {
             </MDBCol>
 
           </MDBRow>
-          <MDBCol md='4' className='mb-3'>
+          <MDBCol md='4' className='mb-3 ml-4'>
             <div className='custom-control custom-checkbox pl-3'>
               <input
                 className='custom-control-input'
@@ -158,7 +164,7 @@ class ToRegister extends React.Component {
               </div>
             </div>
           </MDBCol>
-          <MDBBtn color='primary' type='submit' onSubmit={this.submitHandler} href="">
+          <MDBBtn  className="ml-4 mt-2 my-3" color='primary' type='submit' onSubmit={this.submitHandler} >
             Registrarse
           </MDBBtn>
         </form>

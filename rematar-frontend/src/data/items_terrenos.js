@@ -6,25 +6,17 @@ const item1 = {
     'href': '/Lots',
     'items': [
         {
-            src: 'https://mobimg.b-cdn.net/pic/v2/gallery/preview/dorogi-gory-pejzazh-9109.jpg',
-            key: '3'
-        },
-        // {
-        //     src: "https://get.wallhere.com/photo/landscape-forest-mountains-nature-snow-road-morning-mist-highway-dusk-cloud-mountain-weather-dawn-darkness-atmospheric-phenomenon-computer-wallpaper-mountainous-landforms-mountain-range-road-trip-125837.jpg",
-        //     key: '0'
-        // },
-        {
-            src: "https://wallpapercave.com/wp/LRB9LM1.jpg",
+            src: 'https://i.pinimg.com/originals/7a/85/d4/7a85d4d79c7add3a54d32543e0fbe990.jpg',
             key: '1'
         },
         {
-            src: 'https://i.pinimg.com/originals/15/a7/a8/15a7a873c0e04fcfcae5c6be5365818f.jpg',
+            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQLvysN598zctKtcGoNW3YJ4iGr7T5Q3A7GcxNReCevoF6Pt6dw&usqp=CAU',
+            key: '3'
+        },
+        {
+            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQrN_5D9NZrnWDn6Km2KE6OKBDj5LNylh_t3s0r6zsYdzsPtF3J&usqp=CAU',
             key: '2'
-        }
-        // {
-        //     src: 'https://i.pinimg.com/originals/7a/85/d4/7a85d4d79c7add3a54d32543e0fbe990.jpg',
-        //     key: '1'
-        // },
+        },
     ]
 };
 

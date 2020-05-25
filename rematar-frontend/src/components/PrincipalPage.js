@@ -35,8 +35,8 @@ const PrincipalPage = () => {
                 <MDBCarousel activeItem={1} length={3} showControls={true} showIndicators={true} thumbnails className="z-depth-1">
                     <MDBCarouselInner>
                       <MDBCarouselItem itemId="1">
-                        <img className="d-block w-100" src="https://www.agroempresario.com.ar/img/upload/nuevos/nota/b8c0b0064cf4db460497.jpg"
-                        alt="First slide" />
+                        <img className="d-block w-100 " src="https://www.agroempresario.com.ar/img/upload/nuevos/nota/b8c0b0064cf4db460497.jpg"
+                      img="20"  alt="First slide" />
                       </MDBCarouselItem>
                       <MDBCarouselItem itemId="2">
                         <img className="d-block w-100" src="https://d2gue86ezsmq5i.cloudfront.net/eyJidWNrZXQiOiJyZXNlbS1hciIsImtleSI6IjQyNjAvMTgwMTMxOTc4MC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjg0MCwiaGVpZ2h0Ijo2MzAsImZpdCI6ImNvdmVyIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfX19"
