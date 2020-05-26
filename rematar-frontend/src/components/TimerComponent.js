@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, ToastHeader, Toast, ToastBody } from 'reactstrap';
+import { Alert } from 'reactstrap';
 
 export default class Timer extends Component {
     state = {

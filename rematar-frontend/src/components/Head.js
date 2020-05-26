@@ -4,7 +4,6 @@ import {
   Navbar,
   NavbarToggler,
   Nav,
-  NavItem,
   NavLink,
   NavbarBrand,
 } from 'reactstrap';
@@ -39,7 +38,7 @@ const Head = ({login, name, onChange}) => {
             </NavLink>
         )
         NewLotTag = (
-            <NavLink href="/new" className="text-right text-danger">Agregar lote</NavLink>
+            <NavLink href="/new" className="text-right text-danger">Agregar articulo</NavLink>
         )
     }
 

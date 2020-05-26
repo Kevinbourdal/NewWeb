@@ -42,7 +42,7 @@ const HomePage = (props) => {
             onExiting={() => setAnimating(true)}
             onExited={() => setAnimating(false)}
          >
-            <img src={item.src} className="w-header" style={{height: "100%", width: "100%"}} />
+            <img src={item.src} className="w-header" style={{height: "100%", width: "100%"}} alt={"fondo"}/>
          </CarouselItem>
       );
    });
@@ -76,10 +76,12 @@ const HomePage = (props) => {
                         <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
                            <div className="">
                               <Row className="my-5">
-                                 <h3 className="w-100 text-white-100 mt-4">10 Lotes nuevos este mes</h3>
+                                 <h3 className="w-100 text-white-100 text-white" style={{fontSize: "30px"}}>
+                                    4 Articulos nuevos este mes
+                                 </h3>
                               </Row>
                               <Row className="my-5">
-                                 <h1 className="w-100" ><b className="">  Remates Calamuchita  </b></h1>
+                                 <h1 className="w-100" ><b style={{fontSize: "50px"}}>  Subastas en web  </b></h1>
                               </Row>
 
                               <Row className="my-5">
@@ -92,14 +94,14 @@ const HomePage = (props) => {
                                           placeholder="Buscar"
                                           aria-label="Search"
                                        />
-                                       <MDBBtn gradient="aqua" rounded size="sm" type="submit">
+                                       <MDBBtn className="" style={{color: "black", fontSize: "15px"}} gradient="aqua" rounded size="sm" type="submit">
                                           <b>Buscar</b>
                                        </MDBBtn>
                                     </MDBFormInline>
                                  </MDBContainer>
                               </Row>
                               <Row className="my-5 d-none d-sm-block">
-                                 <h2 className="w-100">Encontra las mejores inversion en los remates de terrenos, casas, Campos, etc..</h2>
+                                 <h2 className="w-100">Encontra las mejores inversiones</h2>
                               </Row>
                            </div>
                         </CardImgOverlay>
@@ -117,7 +119,7 @@ const HomePage = (props) => {
             { categories === 'casas' || categories === 'home' ?
                <div className="mt-5 container-fluid"  >
                   <div className="ml-5">
-                     <h2><b>{ itemslist.length }  Lotes  disponibles: </b></h2>
+                     <h2><b>{ itemslist.length } Articulos disponibles: </b></h2>
                   </div>
                   <MDBRow >
                      { categories === 'home' ?

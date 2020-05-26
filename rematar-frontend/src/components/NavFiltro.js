@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter } from 'react-router-dom';
-import {MDBInput, MDBNav, MDBNavItem, MDBNavLink, MDBIcon} from "mdbreact";
+import { MDBNav, MDBNavItem } from "mdbreact";
 
 export default  () => (
     <BrowserRouter>

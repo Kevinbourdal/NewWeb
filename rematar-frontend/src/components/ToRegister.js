@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
-import {Form} from "reactstrap";
+
 
 class ToRegister extends React.Component {
   state = {

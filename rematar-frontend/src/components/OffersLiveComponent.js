@@ -6,7 +6,6 @@ class OffersLive extends Component {
     constructor(pros) {
         super();
         this.state = {
-            seconds: 5,
             items: items["dataoffers"],
         }
         //console.log(this.prop.data);
@@ -16,7 +15,7 @@ class OffersLive extends Component {
 
     componentDidMount() {
         this.myInterval = setInterval(() => {
-            let { seconds, items } = this.state;
+            let { items } = this.state;
             let aux = items[0];
             items[0] = items[2];
             items[0]['amount'] = aux['amount'] + 25000;

@@ -51,7 +51,6 @@ const App = () => {
                         <Redirect to={{pathname: "/home"}}/>
                     </Route>
                     <Route exact path={"/Profile"}>
-                        <Redirect to={{pathname: "/Profile"}}/>
                         <Profile />
                     </Route>
                     <Route exact path="/login">
@@ -63,12 +62,9 @@ const App = () => {
                     <Route exact path="/registrarse">
                         <ToRegister />
                     </Route>
-                    <Route exact path="/remates">
-                      <HomePage items={itemslist[0]} itemslist={itemslist} />
-                    </Route>
                     <Route exact path="/contact">
                         <Contact />
-                        </Route>
+                    </Route>
                     <Route exact path={"/home"}>
                         <HomePage items={itemslist[0]} itemslist={itemslist} />
                     </Route>
@@ -84,7 +80,7 @@ const App = () => {
                     <Route exact path={"/motos"}>
                         <HomePage categories={"terrenos"} items={itemslist[0]} itemslist={itemslist} />
                     </Route>
-                    <Route exact path={"/Lots"}>
+                    <Route exact path={"/detalle"}>
                         <PrincipalPage />
                         <div className="container text-center">
                             <Col>

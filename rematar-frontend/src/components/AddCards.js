@@ -14,7 +14,7 @@ class AddCards extends Component {
                 description: '',
                 url_images: [],
                 type: 'lote',
-                href: "/Lots"
+                href: "/detalle"
            };
            this.handleInputChange = this.handleInputChange.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,9 +46,9 @@ class AddCards extends Component {
                          <div className="card p-4">
                            <CardBody className="text-center">
                                <form onSubmit={this.handleSubmit} className="card-body">
-                                   <Row>
+                                   <Row >
                                        <Col>
-                                           <h3>Nuevo item</h3>
+                                           <h3 className="mt-2 mb-5">Nuevo articulo</h3>
                                        </Col>
                                    </Row>
                                  <div className="form-group">
