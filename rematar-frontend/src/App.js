@@ -72,6 +72,9 @@ const App = () => {
                     <Route exact path={"/home"}>
                         <HomePage items={itemslist[0]} itemslist={itemslist} />
                     </Route>
+                    <Route exact path={"/casas"}>
+                        <HomePage categories={"casas"} items={itemslist[0]} itemslist={itemslist} />
+                    </Route>
                     <Route exact path={"/Lots"}>
                         <PrincipalPage />
                         <div className="container text-center">
