@@ -75,6 +75,15 @@ const App = () => {
                     <Route exact path={"/casas"}>
                         <HomePage categories={"casas"} items={itemslist[0]} itemslist={itemslist} />
                     </Route>
+                    <Route exact path={"/terrenos"}>
+                        <HomePage categories={"terrenos"} items={itemslist[0]} itemslist={itemslist} />
+                    </Route>
+                    <Route exact path={"/autos"}>
+                        <HomePage categories={"autos"} items={itemslist[0]} itemslist={itemslist} />
+                    </Route>
+                    <Route exact path={"/motos"}>
+                        <HomePage categories={"terrenos"} items={itemslist[0]} itemslist={itemslist} />
+                    </Route>
                     <Route exact path={"/Lots"}>
                         <PrincipalPage />
                         <div className="container text-center">
