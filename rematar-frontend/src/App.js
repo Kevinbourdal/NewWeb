@@ -69,13 +69,13 @@ const App = () => {
                         <HomePage items={itemslist[0]} itemslist={itemslist} />
                     </Route>
                     <Route exact path={"/casas"}>
-                        <HomePage categories={"casas"} items={itemslist[0]} itemslist={itemslist} />
+                        <HomePage categories={"casas"} items={itemslist[0]} itemslist={[itemslist[0], itemslist[1], itemslist[2]]} />
                     </Route>
                     <Route exact path={"/terrenos"}>
                         <HomePage categories={"terrenos"} items={itemslist[0]} itemslist={itemslist} />
                     </Route>
                     <Route exact path={"/autos"}>
-                        <HomePage categories={"autos"} items={itemslist[0]} itemslist={itemslist} />
+                        <HomePage categories={"autos"} items={itemslist[0]} itemslist={[itemslist[3]]} />
                     </Route>
                     <Route exact path={"/motos"}>
                         <HomePage categories={"terrenos"} items={itemslist[0]} itemslist={itemslist} />

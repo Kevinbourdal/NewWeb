@@ -77,7 +77,7 @@ const HomePage = (props) => {
                            <div className="">
                               <Row className="my-5">
                                  <h3 className="w-100 text-white-100 text-white" style={{fontSize: "30px"}}>
-                                    4 Articulos nuevos este mes
+                                    <b>{ itemslist.length } Articulos disponibles este mes : </b>
                                  </h3>
                               </Row>
                               <Row className="my-5">
@@ -116,7 +116,7 @@ const HomePage = (props) => {
                   </MDBRow>
                </MDBCol>
             </div>
-            { categories === 'casas' || categories === 'home' ?
+            { categories === 'casas' || categories === 'home' || categories === 'autos' ?
                <div className="mt-5 container-fluid"  >
                   <div className="ml-5">
                      <h2><b>{ itemslist.length } Articulos disponibles: </b></h2>

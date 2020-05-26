@@ -58,5 +58,21 @@ const item3 = {
         }
     ]
 };
+const item4 = {
+    'title': 'fiat uno',
+    'subtitle': 'cordoba - Calamuchita - embalse',
+    'footer': 'finaliza el 05/07/2020',
+    'href': '/detalle',
+    'items': [
+        {
+            src: "https://http2.mlstatic.com/fiat-uno-16-scr-D_NQ_NP_633636-MLA41312867029_042020-F.webp",
+            key: '1'
+        },
+        {
+            src:"https://http2.mlstatic.com/fiat-uno-16-scr-D_NQ_NP_635977-MLA40650075075_022020-F.webp" ,
+            key: '2'
+        }
+    ]
+};
 
-export const itemslist =[item1, item2, item3, item3];
+export const itemslist =[item1, item2, item3, item4];

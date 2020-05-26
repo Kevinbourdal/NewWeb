@@ -7,6 +7,7 @@ import {
   NavLink,
   NavbarBrand,
 } from 'reactstrap';
+import {MDBCol, MDBIcon} from "mdbreact";
 
 
 const Head = ({login, name, onChange}) => {
@@ -46,7 +47,13 @@ const Head = ({login, name, onChange}) => {
         <div  className="Head ">
            <Navbar color="dark" className="text-right" light style={{background:"red"}}>
                { Nametag }
-              <NavbarToggler className="ml-auto" style={{color: "danger"}} onClick={toggle} />
+               <MDBCol className="text-center" href="home">
+                   <a href="home">
+                      <MDBIcon icon="home" size="2x"  style={{color:"#1DA1F2"}}/>
+                   </a>
+               </MDBCol>
+               <NavbarToggler className="ml-auto" style={{color: "danger"}} onClick={toggle} />
+
               <Collapse isOpen={isOpen}  navbar>
                   <Nav className="mr-auto" navbar >
                       <NavLink href="home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
