@@ -10,7 +10,7 @@ export default  () => (
                     <i className="fas fa-tractor" style={{color: "#1DA1F2"}}></i> Terrenos </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem className="col-md-3 mt-2">
-                <a href="casas" style={{color:"white"}} ><i className="fas fa-home" style={{color: "#1DA1F2"}}></i> Casas</a>
+                <a href="casas#filterbar" style={{color:"white"}} ><i className="fas fa-home" style={{color: "#1DA1F2"}}></i> Casas</a>
             </MDBNavItem>
             <MDBNavItem className="col-md-3">
                 <MDBNavLink  className="" style={{color:"white"}} to="#!">

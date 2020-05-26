@@ -107,7 +107,7 @@ const HomePage = (props) => {
                   </div>
                </div>
             </div>
-            <div>
+            <div id="filterbar">
                <MDBCol className="">
                   <MDBRow className="justify-content-center">
                      <NavFiltro/>
@@ -119,11 +119,11 @@ const HomePage = (props) => {
                   <h2><b>{ itemslist.length }  Lotes  disponibles: </b></h2>
                </div>
                <MDBRow >
+
                   { categories === 'casas' ?
-                     <MDBCol className="col-md-3 mt-3 ">
-                     <section className="rounded-lg card "
-                              style={{backgroundColor: '#bdbdbd ', width: "100%", height: '100%'}}>
-                        <FiltrosForHome/>
+                  <MDBCol className="col-md-3 mt-3 "  >
+                     <section className="rounded-lg card elegant-color-dark "  style={{ width:"100%"}} >
+                        <FiltrosForHome />
                      </section>
                   </MDBCol>
                   :
