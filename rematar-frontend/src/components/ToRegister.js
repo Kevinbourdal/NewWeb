@@ -11,7 +11,7 @@ class ToRegister extends React.Component {
     email: '',
     password:'',
     province: '',
-    state: []
+    city: ''
   };
 
   submitHandler = event => {
@@ -162,7 +162,7 @@ class ToRegister extends React.Component {
                         onChange={this.changeHandler}
                         type='text'
                         id='materialFormRegisterConfirmEx'
-                        name='state'
+                        name='city'
                         label='Localidad'
                         outline
                         required
