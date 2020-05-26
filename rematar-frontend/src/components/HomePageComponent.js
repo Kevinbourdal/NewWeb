@@ -98,7 +98,7 @@ const HomePage = (props) => {
                                     </MDBFormInline>
                                  </MDBContainer>
                               </Row>
-                              <Row className="my-5">
+                              <Row className="my-5 d-none d-sm-block">
                                  <h2 className="w-100">Encontra las mejores inversion en los remates de terrenos, casas, Campos, etc..</h2>
                               </Row>
                            </div>

@@ -47,7 +47,7 @@ const Head = ({login, name, onChange}) => {
         <div  className="Head ">
            <Navbar color="dark" className="text-right" light style={{background:"red"}}>
                { Nametag }
-              <NavbarToggler className="md-0 text-right " style={{color: "danger"}} onClick={toggle} />
+              <NavbarToggler className="ml-auto" style={{color: "danger"}} onClick={toggle} />
               <Collapse isOpen={isOpen}  navbar>
                   <Nav className="mr-auto" navbar >
                       <NavLink href="home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
