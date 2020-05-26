@@ -6,7 +6,7 @@ import FiltrosForHome from './FiltrosForHome';
 import NavFiltro from "./NavFiltro";
 
 const HomePage = (props) => {
-      let categories = props.categories;
+      let categories = props.categories || 'home';
       let items = props.items['items'];
       let itemslist = props.itemslist;
       const [activeIndex, setActiveIndex] = useState(0);
@@ -114,20 +114,21 @@ const HomePage = (props) => {
                   </MDBRow>
                </MDBCol>
             </div>
-            { categories === 'casas' ?
+            { categories === 'casas' || categories === 'home' ?
                <div className="mt-5 container-fluid"  >
                   <div className="ml-5">
                      <h2><b>{ itemslist.length }  Lotes  disponibles: </b></h2>
                   </div>
                   <MDBRow >
-
-
-                     <MDBCol className="col-md-3 mt-3 "  >
-                        <section className="rounded-lg card elegant-color-dark "  style={{ width:"100%"}} >
-                           <FiltrosForHome />
-                        </section>
-                     </MDBCol>
-                     <div></div>
+                     { categories === 'home' ?
+                         <div></div>
+                         :
+                         <MDBCol className="col-md-3 mt-3 ">
+                            <section className="rounded-lg card elegant-color-dark " style={{width: "100%"}}>
+                               <FiltrosForHome/>
+                            </section>
+                         </MDBCol>
+                     }
                      <MDBCol className="ml-2 mr-4 ">
                         <CardGallery itemslist={itemslist}/>
                     </MDBCol>
