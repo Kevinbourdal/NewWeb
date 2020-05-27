@@ -20,18 +20,19 @@ CREATE DATABASE subastasenweb;
 CREATE USER 'api_account'@'localhost' IDENTIFIED BY '123456';
 # Set all privileges to user created
 GRANT ALL PRIVILEGES ON databaseName.* TO 'api_account'@'localhost';
-
 FLUSH PRIVILEGES;
-
 QUIT
 
 exit
 
+## start docker again (si apagaste la compu)
+#docker container start mysql-subastas
+
 ### Get mysql docker ip address
 docker inspect mysql-subastas | grep "IPAddress"
 
-# Con esta IP, el puerto: 3306 y el nombre de la base de datos ("MineSecurity2") te podes conectar
-# seteando en src/config/development.py los campos
+# Con esta IP, el puerto: 3306 y el nombre de la base de datos ("subastasenweb") te podes conectar
+# seteando en src/config.py los campos
 
 
 
@@ -40,11 +41,24 @@ docker inspect mysql-subastas | grep "IPAddress"
 
 ##### Con docker
 docker build -t backend-remates .
-docker run -d --name=bankend-remates -p 3000:3000 backend-remates
+docker run -d --name=backend-remates -p 5000:5000 -v $PWD/src:/app/. backend-remates
 
-docker inspect bankend-remates | grep "IPAddress"
+docker inspect backend-remates | grep "IPAddress"
 # Con esta IP, el puerto: 5000 te podes conectar
 # desde el frontend
+
+###### Ejecutar los comandos para actualizar la base de datos definida en models
+### Entrar al docker con consola
+docker exec -it  backend-remates /bin/bash
+
+### borrar la base de datos!! ( Solo para cambios grandes y evitar errores de compatibilidad )
+yes | rm -r migrations/
+python migrate.py db init
+#####---------------
+
+### Para actualizar los cambios pequeños hechos ( nuevas columnas, o tablas )
+python migrate.py db migrate
+python migrate.py db upgrade
 
 ###FIN
 
@@ -96,8 +110,7 @@ myodbc-installer -d -l
 ## script migrate.sh para crear las tablas en
 
 ### Ejcutar con virtualenv activado:
-# rm -r migrations/
-# python migrate.py db init
-# python migrate db migate
-# python migrate.py db upgrade
-#
+rm -r migrations/
+python migrate.py db init
+python migrate db migate
+python migrate.py db upgrade
