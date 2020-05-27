@@ -5,6 +5,7 @@ import urllib
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 DEBUG = False
 WTF_CSRF_ENABLED = True
+PROD = False
 
 DATABASE = {
     'driver': '{MySQL ODBC 8.0 Driver}',
@@ -26,4 +27,3 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_DATABASE_URI = f'mysql://{DATABASE["username"]}:{DATABASE["password"]}@{DATABASE["server"]}:{DATABASE["port"]}/{DATABASE["database"]}'
 
 SQLALCHEMY_POOL_RECYCLE = 3600
-# SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'

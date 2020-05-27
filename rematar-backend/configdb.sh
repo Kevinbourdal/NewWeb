@@ -34,6 +34,28 @@ docker inspect mysql-subastas | grep "IPAddress"
 # seteando en src/config/development.py los campos
 
 
+
+
+# Opcion 1
+
+##### Con docker
+docker build -t backend-remates .
+docker run -d --name=bankend-remates -p 3000:3000 backend-remates
+
+docker inspect bankend-remates | grep "IPAddress"
+# Con esta IP, el puerto: 5000 te podes conectar
+# desde el frontend
+
+###FIN
+
+
+
+
+
+# Opcion 2
+
+##### Instalar en el sistema
+
 ### Librerias requeridas para conectarse a mysql a travez de la API
 
 # install driver and connector
@@ -42,7 +64,6 @@ sudo apt install odbcinst1debian2 libodbc1 unixodbc-dev python3-dev default-libm
 # activar virtualenv si no tiene pip instalado en el sistema
 #. venv/bin/activate
 pip install mysqlclient
-
 
 
 ### Descargar el driver a utilizar por la api para conectarse a MySql
