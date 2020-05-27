@@ -12,6 +12,7 @@ import { Row, Col } from 'reactstrap';
 import ToRegister from './components/ToRegister';
 import AddCards from "./components/AddCards";
 import Profile from "./components/Profile";
+import Faqs from './components/Faqs';
 
 import { itemslist } from './data/items_terrenos';
 
@@ -93,6 +94,9 @@ const App = () => {
                     </Route>
                     <Route exact path="/contact">
                         <Contact />
+                    </Route>
+                     <Route exact path="/faqs">
+                        <Faqs />
                     </Route>
                     <Route exact path="/new">
                         <AddCards />

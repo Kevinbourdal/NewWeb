@@ -58,6 +58,7 @@ const Head = ({login, name, onChange}) => {
                   <Nav className="mr-auto" navbar >
                       <NavLink href="home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
                       <NavLink href="/contact" className=" text-right" style={{color: "white"}} >Contactos</NavLink>
+                      <NavLink href="/faqs" className=" text-right" style={{color: "white"}} >FaQs</NavLink>
                      <br/>
                      { LoginTag }
                      { RegisterTag }
