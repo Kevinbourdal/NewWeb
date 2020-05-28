@@ -87,30 +87,18 @@ pip install mysqlclient
 ### Descargar el driver a utilizar por la api para conectarse a MySql
 # download driver url:
 # https://dev.mysql.com/downloads/connector/odbc/
-# Ubuntu 19:
-# $ wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc-8.0.19-linux-ubuntu19.10-x86-64bit.tar.gz
-# Ubuntu 18 LTS:
-# $ wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc-8.0.19-linux-ubuntu18.04-x86-64bit.tar.gz
-# Windows:
-# $ wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc-8.0.19-winx64.msi
 
-# Ubuntu 18 LTS:
- $ wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc-8.0.19-linux-ubuntu18.04-x86-64bit.tar.gz
+# Ubuntu 20 LTS:
+$ wget https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc_8.0.20-1ubuntu20.04_amd64.deb
+sudo dpkg -i mysql-connector-odbc_8.0.20-1ubuntu20.04_amd64.deb
 
-# Ejecutar los comandos siguientes donde se descargo el driver (ejemplo para Ubuntu 19, puede cambiar el nombre del archivo)
-
-gunzip mysql-connector-odbc-8.0.19-linux-ubuntu19.10-x86-64bit.tar.gz
-tar xvf mysql-connector-odbc-8.0.19-linux-ubuntu19.10-x86-64bit.tar
-cd mysql-connector-odbc-8.0.19-linux-ubuntu19.10-x86-64bit.tar/ || exit
-sudo yes | cp bin/* /usr/local/bin
-sudo yes | cp lib/* /usr/local/lib
-
-# registramos el driver para poder utilizarlo
-sudo myodbc-installer -a -d -n "MySQL ODBC 8.0 Driver" -t "Driver=/usr/local/lib/libmyodbc8w.so"
-sudo myodbc-installer -a -d -n "MySQL ODBC 8.0" -t "Driver=/usr/local/lib/libmyodbc8a.so"
-myodbc-installer -d -l
-
-## una vez completados los pasos con exito y seteado la ip y puerto en la configuracion de la API debera ejecutar el
-## script migrate.sh para crear las tablas en
-
+<<<<<<< HEAD
 ###FIN
+=======
+### Ejcutar con virtualenv activado:
+
+rm -r migrations/
+python migrate.py db init
+python migrate db migate
+python migrate.py db upgrade
+>>>>>>> 127502e23053859cb19aff286cea0cf67f7322be

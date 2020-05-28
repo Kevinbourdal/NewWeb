@@ -4,7 +4,7 @@ version: "2"
 services:
 
    app:
-      build: ./src
+      build: .
       links:
         - db
       ports:

@@ -7,7 +7,9 @@ from models import (
     RoleModel,
     UserModel,
     UserSchema,
-    AccountSchema
+    AccountSchema,
+    ContactModel,
+    ContactSchema
 )
 from utils import response, get_data
 
@@ -72,7 +74,7 @@ class UserView(BaseView, AccountView):
                 user_data = self.user_schema.load({'username': '',
                                                    'firstname': json_data['fname'],
                                                    'lastname': json_data['lname'],
-                                                   'sex': 'M',
+                                                   'sex': json_data['sex'],
                                                    'dni_type': 'DNI',
                                                    'dni': json_data['dni'],
                                                    'civil_status': 'Single',
@@ -91,5 +93,41 @@ class UserView(BaseView, AccountView):
                 error = new_user.save()
                 if not error:
                     return response(200, data={'id': new_user.id})
+
+        return response(400, msg="Error en backend")
+
+
+class ContactView(BaseView):
+    """
+    Class user which allow register, login and logout an user
+    """
+
+    def __init__(self):
+        super(ContactView, self).__init__()
+        self.contact_schema = ContactSchema()
+        self.contacts_schema = ContactSchema(many=True)
+
+    def get(self):
+        response(200)
+
+    def post(self):
+
+        json_data, error = get_data(request)
+        if not error:
+            try:
+
+                contact_data = self.contact_schema.load({
+                                                   'fullname': json_data['name'],
+                                                   'cel_phone': json_data['phone'],
+                                                   'body': json_data['body'],
+                                                   'email': json_data['email']})
+            except marshmallow.exceptions.ValidationError as errors:
+                print('error', errors)
+                return response(400, str(errors))
+
+            new_contact = ContactModel(**contact_data)
+            error = new_contact.save()
+            if not error:
+                return response(200, data={'id': new_contact.id})
 
         return response(400, msg="Error en backend")
