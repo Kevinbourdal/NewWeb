@@ -17,9 +17,9 @@ mysql -u root -p
 # create database
 CREATE DATABASE subastasenweb;
 # create an new user
-CREATE USER 'api_account'@'localhost' IDENTIFIED BY '123456';
+CREATE USER 'api_account'@'localhost' IDENTIFIED BY 'fernetconcoca2020';
 # Set all privileges to user created
-GRANT ALL PRIVILEGES ON databaseName.* TO 'api_account'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'api_account'@'localhost';
 FLUSH PRIVILEGES;
 QUIT
 
@@ -37,28 +37,34 @@ docker inspect mysql-subastas | grep "IPAddress"
 
 
 
-# Opcion 1
+### Conectart database con models.py
+# ========================================================================================
+# ejecutar la primera vez
+rm -r migrations/  # solo si existe una carpera migrations/
+python migrate.py db init
 
-##### Con docker
+### Ejecutar cada vez que modifique models.py (Para actualizar los cambios hechos, ej nuevas columnas, o tablas )
+python migrate.py db migrate
+python migrate.py db upgrade
+
+
+
+
+# Instalar driver para conectarse a mysql desde python
+# ========================================================================================
+
+
+# Opcion 1   ##### Con docker
 docker build -t backend-remates .
-docker run -d --name=backend-remates -p 5000:5000 -v $PWD/src:/app/. backend-remates
+docker run -d --name=backend-remates --network="host" -p 5000:5000 -v $PWD/src:/app/. backend-remates
 
 docker inspect backend-remates | grep "IPAddress"
 # Con esta IP, el puerto: 5000 te podes conectar
 # desde el frontend
 
-###### Ejecutar los comandos para actualizar la base de datos definida en models
+
 ### Entrar al docker con consola
-docker exec -it  backend-remates /bin/bash
-
-### borrar la base de datos!! ( Solo para cambios grandes y evitar errores de compatibilidad )
-yes | rm -r migrations/
-python migrate.py db init
-#####---------------
-
-### Para actualizar los cambios pequeños hechos ( nuevas columnas, o tablas )
-python migrate.py db migrate
-python migrate.py db upgrade
+# docker exec -it  backend-remates /bin/bash
 
 ###FIN
 
@@ -66,9 +72,7 @@ python migrate.py db upgrade
 
 
 
-# Opcion 2
-
-##### Instalar en el sistema
+# Opcion 2 ##### Instalar en el sistema
 
 ### Librerias requeridas para conectarse a mysql a travez de la API
 
@@ -109,8 +113,4 @@ myodbc-installer -d -l
 ## una vez completados los pasos con exito y seteado la ip y puerto en la configuracion de la API debera ejecutar el
 ## script migrate.sh para crear las tablas en
 
-### Ejcutar con virtualenv activado:
-rm -r migrations/
-python migrate.py db init
-python migrate db migate
-python migrate.py db upgrade
+###FIN

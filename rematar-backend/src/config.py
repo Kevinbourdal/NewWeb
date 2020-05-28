@@ -9,10 +9,10 @@ PROD = False
 
 DATABASE = {
     'driver': '{MySQL ODBC 8.0 Driver}',
-    'server': '172.17.0.2',
-    'port': '3306',
+    'server': 'db',
+    'port': '5001',
     'database': 'subastasenweb',
-    'username': 'root',
+    'username': 'api_account',
     'password': 'fernetconcoca2020!',
 }
 

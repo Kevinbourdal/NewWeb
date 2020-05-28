@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, CardBody, CardGroup, Container } from 'reactstrap'
 import InputField from "./InputFieldComponent";
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 
 class AddCards extends Component {
@@ -16,6 +17,7 @@ class AddCards extends Component {
                 type: 'lote',
                 href: "/detalle"
            };
+           this.handleImagesAdd = this.handleImagesAdd.bind(this);
            this.handleInputChange = this.handleInputChange.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
      }
@@ -30,6 +32,16 @@ class AddCards extends Component {
          this.setState({
             [name]: value
          });
+     }
+
+    handleImagesAdd(e) {
+
+        const {value, name} = e.target;
+        console.log(this.state[name]);
+        e.target.value='';
+        this.setState({
+           [name]: [...this.state[name], value]
+        });
      }
 
     validateForm() {
@@ -52,47 +64,42 @@ class AddCards extends Component {
                                        </Col>
                                    </Row>
                                  <div className="form-group">
-                                     <InputField name={"title"} label={"Titulo"} type={"text"} change={(e) => {
-                                         this.handleInputChange(e);
-                                     }}/>
+                                     <InputField name={"title"} label={"Titulo"} type={"text"} change={this.handleInputChange}/>
                                  </div>
                                  <div className="form-group">
                                  </div>
                                  <div className="form-group">
-                                     <InputField name={"subtitle"} label={"Subtitulo"} type={"text"}  change={(e) => {
-                                         this.handleInputChange(e);
-                                     }}/>
+                                     <InputField name={"subtitle"} label={"Subtitulo"} type={"text"}  change={this.handleInputChange}/>
                                  </div>
                                    <div className="form-group">
-                                       <InputField name={"price"} label={"Precio"} type={"number"} change={(e) => {
-                                           this.handleInputChange(e);
-                                       }}/>
+                                       <InputField name={"price"} label={"Precio"} type={"number"} change={this.handleInputChange}/>
                                    </div>
                                    <div className="picture-uploader-controls">
-                                       <InputField name={"url_image"} label={"Imagen url"} type="file"  onChange={(e) => {
-                                           this.handleInputChange(e);
-                                       }}/>
+                                      <InputField name={"url_images"} label={"Imagenes url"} type={"text"} change={this.handleImagesAdd} ft={"Pegar url a imagen"}/>
+                                      <ListGroup variant="flush" className="mb-4">
+                                         {this.state.url_images.length > 0 ?
+                                            this.state.url_images.map((url, index) =>
+                                               <ListGroupItem tag="a" href={url} action><b className="text-dark">Imagen {index}:</b> { url.split('/').pop() }</ListGroupItem>
+                                            )
+                                         :
+                                            <div></div>
+                                         }
+                                      </ListGroup>
+
                                    </div>
                                    <div className="form-group">
-                                       <InputField name={"description"} label={"Descripcion"} type={"textarea"}  change={(e) => {
-                                           this.handleInputChange(e);
-                                       }}/>
+                                       <InputField name={"description"} label={"Descripcion"} type={"textarea"} change={this.handleInputChange}/>
                                    </div>
                                  <div className="form-group">
                                      <label className="">Tipo</label>
-                                       <select name="type"
-                                               value="Campo"
-                                               className="form-control"
-                                               onChange={this.handleInputChange}
-                                         ><option selected className="justify-content-center">
-                                               Campo
-                                           </option>
-                                           <option>
-                                               Casa
-                                           </option>
-                                           <option>
-                                               Lote
-                                           </option>
+                                        <select name="type"
+                                                value="Campo"
+                                                className="form-control"
+                                                onChange={this.handleInputChange}
+                                          >
+                                             <option selected className="justify-content-center">Campo</option>
+                                             <option>Casa</option>
+                                             <option>Lote</option>
                                        </select>
                                  </div>
                                  <button type="submit" className="btn btn-danger" disabled={!this.validateForm()}>
