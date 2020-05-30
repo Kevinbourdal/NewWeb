@@ -1,5 +1,7 @@
 # start from node 12 (last lts version at the moment)
-FROM node:12
+FROM node:12-alpine
+LABEL maintainer "cristiancontrera95@gmail.com"
+
 
 # set working directory
 WORKDIR /app
@@ -9,14 +11,17 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package*.json ./
-RUN npm install
-#RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm install -g serve
+RUN npm ci --only=production
 
 # add app
 COPY . ./
 
+# RUN npm run build
+
 # expose port that npm server use
 EXPOSE 3000
 
-# start app
+# start in produccion mode
+#CMD ["serve", "-s", "build", "-l", "3000"]
 CMD ["npm", "start"]
