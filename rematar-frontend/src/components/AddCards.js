@@ -15,7 +15,7 @@ class AddCards extends Component {
                 description: '',
                 url_images: [],
                 type: 'lote',
-                href: "/detalle"
+                href: "/detail"
            };
            this.handleImagesAdd = this.handleImagesAdd.bind(this);
            this.handleInputChange = this.handleInputChange.bind(this);

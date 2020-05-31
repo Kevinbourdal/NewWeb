@@ -5,10 +5,13 @@ import {MDBContainer, MDBRow, MDBBtn, MDBFormInline,MDBCol} from "mdbreact";
 import FiltrosForHome from './FiltrosForHome';
 import NavFiltro from "./NavFiltro";
 
+import { itemslist } from '../data/items_terrenos';
+
+
+
 const HomePage = (props) => {
-      let categories = props.categories || 'home';
-      let items = props.items['items'];
-      let itemslist = props.itemslist;
+      let categories = 'home';
+      let items = itemslist[0]['items'];
       const [activeIndex, setActiveIndex] = useState(0);
       const [animating, setAnimating] = useState(false);
 
@@ -48,6 +51,7 @@ const HomePage = (props) => {
    });
 
         return (
+
          <div>
             <div className="p-0 m-0" style={{ height: '600px'}}>
                <div className="container-fluid no-padding h-25 p-0 m-0 ">
@@ -81,7 +85,7 @@ const HomePage = (props) => {
                                  </h3>
                               </Row>
                               <Row className="my-5">
-                                 <h1 className="w-100" ><b style={{fontSize: "50px"}}>  Subastas en web  </b></h1>
+                                 <h1 className="w-100" ><b style={{fontSize: "60px"}}> Subastas en web </b></h1>
                               </Row>
 
                               <Row className="my-5">

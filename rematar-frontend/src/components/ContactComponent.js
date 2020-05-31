@@ -78,7 +78,7 @@ class Contact extends Component {
                                             </p>
                                             <Row>
                                                 <Col>
-                                                    <InputField label={'Nombre  *'}
+                                                    <InputField label={'Nombre'}
                                                                 ph ={'Nombre y apellido'}
                                                                 type={"name"}
                                                                 name={"name"}

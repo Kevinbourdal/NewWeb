@@ -126,7 +126,7 @@ class UserModel(ModelBase, db.Model):
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
     account_id = db.Column('account_id', db.ForeignKey('account.id', ondelete='CASCADE'), nullable=False)
     username = db.Column('username', db.String(255), unique=True)
-    firstname = db.Column('first', db.String(255), unique=False)
+    firstname = db.Column('firstname', db.String(255), unique=False)
     lastname = db.Column('lastname', db.String(255), unique=False)
     sex = db.Column('sex', db.String(255), unique=False)
     dni_type = db.Column('dni_type', db.String(25), unique=False)
