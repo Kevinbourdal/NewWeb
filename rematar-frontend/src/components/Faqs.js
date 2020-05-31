@@ -1,6 +1,21 @@
-import React, { useState }from "react";
-import {Card, CardImg, CardText, CardBody,
-  		CardTitle, CardSubtitle,Collapse, Button } from 'reactstrap';
+import React, { useState } from "react";
+import {
+	Card,
+	CardImg,
+	CardBody,
+	Collapse,
+	Button,
+	Col
+} from 'reactstrap';
+
+const faq = ""+
+"Aca encontraria usted una buena respuesta a la primera pregunta,\n" +
+"Aca encontraria usted una buena respuesta a la primera pregunta\n" +
+"Aca encontraria usted una buena respuesta a la primera pregunta\n" +
+"Aca encontraria usted una buena respuesta a la primera pregunta.\n" +
+"o No";
+
+const faq_list = [faq,faq,faq,faq];
 
 const Faqs = () => {
 	const [isOpen1, setIsOpen1] = useState(false);
@@ -9,67 +24,38 @@ const Faqs = () => {
   	const toggle1 = () => setIsOpen1(!isOpen1);
   	const toggle2 = () => setIsOpen2(!isOpen2);
   	const toggle3 = () => setIsOpen3(!isOpen3);
-
+  	const toggle_list = [toggle1, toggle2, toggle3]
+	const isOpen_list = [isOpen1, isOpen2, isOpen3]
 	return (
 	    <div>
 		  <Card>
-	        <CardImg  src="https://www.bairescampus.com.ar/images/preguntas-frecuentes.png" alt="Card image cap" />
-	        	<div class="card-img-overlay">
-	        	<br/>
-	        	<br/>
-	        	<br/>
-	        	<br/>
-    				<h1  class="text-center">Preguntas Frecuentes</h1>
-  					</div>
+	         <CardImg  src="https://www.bairescampus.com.ar/images/preguntas-frecuentes.png" alt="Card image cap" />
+			 <div class="card-img-overlay mt-5">
+				<h1 class="text-center mt-5">Preguntas Frecuentes</h1>
+			 </div>
 	      </Card>
 	      <br/>
-	      <Button className="btn btn-primary btn-lg btn-block" color="primary" onClick={toggle1} style={{ marginBottom: '1rem' }}>Por que deberia confiar en nosotros?</Button>
-	      <Collapse isOpen={isOpen1}>
-	        <Card>
-	          <CardBody>
-	          Aca encontraria usted una buena respuesta a la primera pregunta,
-	          Aca encontraria usted una buena respuesta a la primera pregunta
-	          Aca encontraria usted una buena respuesta a la primera pregunta
-	          Aca encontraria usted una buena respuesta a la primera pregunta.
-	          	<br/>
-	          	<br/>
-	          o No
-	          </CardBody>
-	        </Card>
-	      </Collapse>
-	      <br/>
-	      <Button className="btn btn-primary btn-lg btn-block" color="primary" onClick={toggle2} style={{ marginBottom: '1rem' }}>Como hago para ofertar?</Button>
-	      <Collapse isOpen={isOpen2}>
-	        <Card>
-	          <CardBody>
-	          Aca encontraria usted una buena respuesta a la segunda pregunta,
-	          Aca encontraria usted una buena respuesta a la segunda pregunta
-	          Aca encontraria usted una buena respuesta a la segunda pregunta
-	          Aca encontraria usted una buena respuesta a la segunda pregunta.
-	          	<br/>
-	          	<br/>
-	          o No
-	          </CardBody>
-	        </Card>
-	      </Collapse>
-	      <br/>
-	      <Button className="btn btn-primary btn-lg btn-block" color="primary" onClick={toggle3} style={{ marginBottom: '1rem' }}>Tercera pregunta</Button>
-	      <Collapse isOpen={isOpen3}>
-	        <Card>
-	          <CardBody>
-	          Aca encontraria usted una buena respuesta a la tercera pregunta,
-	          Aca encontraria usted una buena respuesta a la tercera pregunta
-	          Aca encontraria usted una buena respuesta a la tercera pregunta
-	          Aca encontraria usted una buena respuesta a la tercera pregunta.
-	          	<br/>
-	          	<br/>
-	          o No
-	          </CardBody>
-	        </Card>
-	      </Collapse>
+	      <div className="align-items-center-5 justify-content-center text-center">
+			  <Col className="">
+				{faq_list.map((faq, idx) =>
+					<div className="mt-5">
+						<Button className="btn btn-primary btn-lg btn-block" color="primary" onClick={toggle_list[idx]} style={{ marginBottom: '1rem' }}>
+							{idx+1} - Por que deberia confiar en nosotros?
+						</Button>
+						<Collapse isOpen={isOpen_list[idx]}>
+							<Card>
+								<CardBody>
+									{faq}
+								</CardBody>
+							</Card>
+						</Collapse>
+						<br/>
+					</div>
+				)}
+			  </Col>
+		  </div>
 	    </div>
-
-	  );
-
+	);
 }
+
 export default Faqs;
