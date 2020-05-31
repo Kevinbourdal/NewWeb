@@ -152,3 +152,31 @@ class UserModel(ModelBase, db.Model):
 
     def __repr__(self):
         return f'user: {self.firstname} {self.lastname}'
+
+
+class ContactSchema(ma.Schema):
+    id = fields.Integer()
+    body = fields.String()
+    fullname = fields.String()
+    email = fields.String()
+    cel_phone = fields.String()
+
+
+class ContactModel(ModelBase, db.Model):
+    __tablename__ = 'contact'
+
+    id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
+    fullname = db.Column('name', db.String(255), unique=False)
+    email = db.Column('email', db.String(255), unique=False)
+    cel_phone = db.Column('phone', db.String(100), nullable=True)
+    body = db.Column('body', db.String(1000), nullable=True)
+
+    def __init__(self, fullname, cel_phone, body, email):
+        super(ContactModel, self).__init__()
+        self.fullname = fullname
+        self.body = body
+        self.cel_phone = cel_phone
+        self.email = email
+
+    def __repr__(self):
+        return f'contact: {self.fullname} {self.body}'
