@@ -1,67 +1,62 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { AppNavbarBrand } from '@coreui/react';
 import { Redirect } from 'react-router-dom';
 import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
 import InputField from "./InputFieldComponent";
+import AuthService from '../utils/AuthService';
+
 
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.Auth = new AuthService();
         this.state = {
-            login: false,
             email: '',
             password: '',
+            isLoading: false,
             loginError: false,
+            isAuthenticated: this.Auth.loggedIn()
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        //this.Auth = new AuthService();  TODO:  ver AuthService
     }
-    handleChange = async (event) => {
-        const { target } = event;
-        const value = target.value;
-        const { name } = target;
-        await this.setState({
-            [name]: value,
-        });
+
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
     };
 
     handleSubmit = (event) => {
-        this.setState({ login: true })
-        this.props.onChange(event);
-        /* TODO: Ver esto
         event.preventDefault();
         this.setState({ isLoading: true });
 
         try {
             this.Auth.login(this.state.email, this.state.password)
-                .then(() => {
-                    this.props.userHasAuthenticated(true);
-                    this.props.history.push('/');
-                })
-                .catch(() => {
-                    this.setState((prevState) => {
-                        return {
-                            ...prevState,
-                            loginError: true,
-                        };
-                    });
+            .then(() => {
+                this.setState({isAuthenticated: true})
+            })
+            .catch((e) => {
+                this.setState((prevState) => {
+                    return {
+                        ...prevState,
+                        loginError: true,
+                    };
                 });
+            });
         } catch (e) {
             this.setState({ loginError: true });
         }
         this.setState({ isLoading: false });
-    */
     };
 
 	validateForm() {
+	    // function to enable form button
 		return this.state.email.length > 0 && this.state.password.length > 0;
 	}
 
     render() {
-	    console.log(this.props.login)
-        if (this.props.login === 'true') {
-            return <Redirect to={{pathname: '/home'}}/>;
+        if (this.state.isAuthenticated) {
+            return <Redirect to={{ pathname: '/home' }}/>;
         }
         return (
             <div className="app flex-row align-items-center mt-4">
@@ -112,6 +107,15 @@ class Login extends Component {
                                                      />
                                                 </Col>
                                             </Row>
+                                            {this.state.loginError ? (
+                                                <Row>
+                                                    <Col xs="12">
+                                                        <p className="text-danger">
+                                                            Error al hacer login, verificar usuario y contraseña
+                                                        </p>
+                                                    </Col>
+                                                </Row>
+                                            ) : null}
                                             <Row>
                                                 <Col>
                                                     <Button
@@ -132,7 +136,14 @@ class Login extends Component {
             </div>
         );
     }
-
 }
+
+Login.propTypes = {
+    userHasAuthenticated: PropTypes.func,
+    history: PropTypes.object,
+    isAuthenticated: PropTypes.bool,
+    location: PropTypes.object,
+    saveAgentName: PropTypes.func,
+};
 
 export default Login;

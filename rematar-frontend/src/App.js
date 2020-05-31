@@ -1,108 +1,31 @@
-import React from 'react';
-import { useState, useEffect } from "react";
-import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
-import LoginForm from './components/LoginFormComponent';
-import Contact from './components/ContactComponent';
-import Head from './components/Head';
-import FooterPage from './components/Footer';
-import PrincipalPage from './components/PrincipalPage'
-import CardGallery from "./components/CardGalleryComponent";
-import HomePage from "./components/HomePageComponent";
-import { Row, Col } from 'reactstrap';
-import ToRegister from './components/ToRegister';
-import AddCards from "./components/AddCards";
-import Profile from "./components/Profile";
-
-import { itemslist } from './data/items_terrenos';
+import React, { Component } from 'react';
+import { Switch, BrowserRouter } from 'react-router-dom';
+import AuthService from './utils/AuthService';
+import AppliedRoute from './routes/AppliedRoute';
+import BaseApp from "./components/Base/BaseApp";
 
 
-const useStateWithLocalStorage = localStorageKey => {
-    const [value, setValue] = useState(
-        localStorage.getItem(localStorageKey) || 'false'
-    );
-
-    useEffect(() => {
-        localStorage.setItem(localStorageKey, value);
-    }, [value]);
-
-    return [value, setValue];
-};
-
-
-const App = () => {
-    const [login, setLogin] = useStateWithLocalStorage(
-        'login'
-    );
-    const [name, setName] = useStateWithLocalStorage(
-        'name'
-    );
-
-    const onChange = event => {
-        setLogin(login==='false' ? 'true':'false');
-        setName('charly');
-
+class App extends Component {
+    constructor(props) {
+        super(props);
+        const authService = new AuthService();
+        this.state = {
+            isAuthenticated: authService.loggedIn()
+        };
     }
-    return (
-        <div style={{backgroundColor:'#e0e0e0 '}}   >
-            <Head login={login} name={name} onChange={onChange}/>
-              <BrowserRouter>
-                <Switch>
-                    <Route exact path={"/"}>
-                        <Redirect to={{pathname: "/home"}}/>
-                    </Route>
-                    <Route exact path={"/Profile"}>
-                        <Profile />
-                    </Route>
-                    <Route exact path="/login">
-                       <LoginForm login={login} onChange={onChange}/>
-                    </Route>
-                    <Route exact path="/logout">
-                        <Redirect to={{pathname: "/home"}}/>
-                    </Route>
-                    <Route exact path="/registrarse">
-                        <ToRegister />
-                    </Route>
-                    <Route exact path="/contact">
-                        <Contact />
-                    </Route>
-                    <Route exact path={"/home"}>
-                        <HomePage items={itemslist[0]} itemslist={itemslist} />
-                    </Route>
-                    <Route exact path={"/casas"}>
-                        <HomePage categories={"casas"} items={itemslist[0]} itemslist={[itemslist[0], itemslist[1], itemslist[2]]} />
-                    </Route>
-                    <Route exact path={"/terrenos"}>
-                        <HomePage categories={"terrenos"} items={itemslist[0]} itemslist={itemslist} />
-                    </Route>
-                    <Route exact path={"/autos"}>
-                        <HomePage categories={"autos"} items={itemslist[0]} itemslist={[itemslist[3]]} />
-                    </Route>
-                    <Route exact path={"/motos"}>
-                        <HomePage categories={"terrenos"} items={itemslist[0]} itemslist={itemslist} />
-                    </Route>
-                    <Route exact path={"/detalle"}>
-                        <PrincipalPage />
-                        <div className="container text-center">
-                            <Col>
-                                <Row>
-                                    <CardGallery itemslist={itemslist}/>
-                                </Row>
-                            </Col>
-                        </div>
 
-                    </Route>
-                    <Route exact path="/contact">
-                        <Contact />
-                    </Route>
-                    <Route exact path="/new">
-                        <AddCards />
-                    </Route>
-               </Switch>
-           </BrowserRouter>
-           <FooterPage/>
-        </div>
+    render() {
+        return (
+            <div style={{backgroundColor:'#e0e0e0'}}>
+                <BrowserRouter forceRefresh={true} >
+                    <Switch>
+                        <AppliedRoute path="/" name="BaseApp" component={BaseApp} />
+                    </Switch>
+                </BrowserRouter>
+            </div>
 
-    );
+        );
+    }
 }
 
 export default App;

@@ -11,7 +11,13 @@ from models import (
     ContactModel,
     ContactSchema
 )
-from utils import response, get_data
+from utils import (
+    response,
+    get_data,
+    gen_token,
+    decode_token,
+    validate_token
+)
 
 
 class BaseView(Resource):
@@ -65,7 +71,6 @@ class UserView(BaseView, AccountView):
         response(200)
 
     def post(self):
-
         json_data, error = get_data(request)
         if not error:
             try:
@@ -111,7 +116,6 @@ class ContactView(BaseView):
         response(200)
 
     def post(self):
-
         json_data, error = get_data(request)
         if not error:
             try:
@@ -131,3 +135,20 @@ class ContactView(BaseView):
                 return response(200, data={'id': new_contact.id})
 
         return response(400, msg="Error en backend")
+
+
+class LoginView(BaseView):
+    def post(self):
+        json_data, error = get_data(request)
+        if not error:
+            account = AccountModel.query.filter_by(email=json_data['email']).first()
+            if account is not None:
+                if account.password == json_data['password']:
+                    user = UserModel.query.filter_by(account_id=account.id).first()  # deberia existir
+
+                    token = gen_token({'email': account.email,
+                                       'username': user.username})
+
+                    return response(200, data={'token': token, 'username': user.username})
+
+        return response(400, msg='error')

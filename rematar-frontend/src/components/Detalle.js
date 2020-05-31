@@ -8,7 +8,7 @@ import { items } from "../data/Lote1";
 import OffersLive from './OffersLiveComponent';
 
 
-const PrincipalPage = () => {
+const Detalle = () => {
 
   let DescriptionText = (
       items['description'].split('\n').map((item, i) =>
@@ -110,4 +110,4 @@ const PrincipalPage = () => {
   );
 
 }
-export default PrincipalPage;
+export default Detalle;

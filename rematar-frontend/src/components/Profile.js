@@ -44,7 +44,7 @@ const Profile = () => {
                     <th className="ml-5"><b>{index+1}</b></th>
                     <td className="ml-5 "><b>{offer['fname']}</b></td>
                     <td className="ml-5"><b>{offer['lname']}</b></td>
-                    <td className="ml-5"><b><a href="/detalle">{offer['amount']}</a></b></td>
+                    <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
                     <td className="ml-5"><b>{offer['date']}</b></td>
                     <td className="ml-5"><b>{offer['hour']}</b></td>
                     <td className="ml-5"><b>{offer['diff']}</b></td>
@@ -54,7 +54,7 @@ const Profile = () => {
                     <th className="ml-5"><b>{index+1}</b></th>
                     <td className="ml-5"><b>{offer['fname']}</b></td>
                     <td className="ml-5"><b>{offer['lname']}</b></td>
-                    <td className="ml-5"><b><a href="/detalle">{offer['amount']}</a></b></td>
+                    <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
                     <td className="ml-5"><b>{offer['date']}</b></td>
                     <td className="ml-5"><b>{offer['hour']}</b></td>
                     <td className="ml-5"><b>{offer['diff']}</b></td>
