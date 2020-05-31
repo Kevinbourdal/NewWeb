@@ -29,16 +29,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-
-/*  <div className="container">
-                    <div id="map"></div>
-                    <script>
-                        {{SCRIPT}}
-                    </script>
-                </div>
-
-
-<CardGallery itemslist={itemslist}/>
- */

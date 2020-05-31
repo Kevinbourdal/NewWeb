@@ -5,6 +5,7 @@ import HomePage from "../components/HomePageComponent";
 import RegisterForm from '../components/ToRegister';
 import AddCards from "../components/AddCards";
 import Profile from "../components/Profile";
+import Faqs from "../components/Faqs";
 
 const routes = [
     { path: '/login', name: 'Login', component: LoginForm },
@@ -17,6 +18,7 @@ const routes = [
     { path: '/automobile', name: 'Automobile', component: HomePage },
     { path: '/farm', name: 'Farm', component: HomePage },
     { path: '/new', name: 'New', component: AddCards },
+    { path: '/faqs', name: 'Faqs', component: Faqs },
 ];
 
 export default routes;

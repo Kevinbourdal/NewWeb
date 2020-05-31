@@ -64,6 +64,7 @@ class Header extends Component {
                         <Nav className="mr-auto" navbar >
                             <NavLink href="home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
                             <NavLink href="/contact" className=" text-right" style={{color: "white"}} >Contacto</NavLink>
+                            <NavLink href="/faqs" className=" text-right" style={{color: "white"}} >FaQs</NavLink>
                             <br/>
                             { this.state.isAuthenticated ?
                                 <NavLink className="text-right" onClick={this.logout} style={{color: "white"}}>
