@@ -32,8 +32,12 @@ class Login extends Component {
 
         try {
             this.Auth.login(this.state.email, this.state.password)
-            .then(() => {
-                this.setState({isAuthenticated: true})
+            .then((res) => {
+                if (!res['data']['has_user']) {
+                  return this.props.history.push('/mi_perfil');
+                } else {
+                    this.setState({isAuthenticated: true})
+                }
             })
             .catch((e) => {
                 this.setState((prevState) => {
