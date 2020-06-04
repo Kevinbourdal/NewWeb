@@ -1,69 +1,61 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {MDBCard, MDBCardBody, MDBCardImage,MDBRow, MDBCardTitle, MDBCol, MDBListGroupItem, MDBTable } from 'mdbreact';
 import { ofertas } from "../data/ofertasenvivo";
+import AuthService from "../utils/AuthService";
 
 
-const Profile = () => {
+class Profile extends Component {
+
+    constructor (props) {
+        super(props);
+        this.state = {
+            firstname: '',
+            lastname: '',
+            dni_type:'',
+            dni:'',
+            province: '',
+            city: '',
+            sex: '',
+            bdate:'',
+            phone :'',
+            mStatus :'',
+            address : '',
+            email:''
+        };
+        this.Auth = new AuthService();
+        this.username = this.Auth.getUsername();
+        this.submitHandler = this.submitHandler.bind(this);
+    }
 
 
-  let data_table = ofertas.map((offer, index) => {
-      return (
-          <tbody className="text-center ">
-              { index === 0 ?
-                  <tr className="ml-5 bg-light" style={{ color: "#66D34B" }}>
-                      <th className="ml-5">{index+1}</th>
-                      <td className="ml-5 ">{offer['fname']}</td>
-                      <td className="ml-5">{offer['lname']}</td>
-                      <td className="ml-5"><b>{offer['amount']}</b></td>
-                      <td className="ml-5">{offer['date']}</td>
-                      <td className="ml-5">{offer['hour']}</td>
-                      <td className="ml-5">{offer['diff']}</td>
-                      <td className="ml-5">01-06-2020</td>
-                  </tr>
-              :
-                  <tr className="ml-5 bg-light  ">
-                      <th className="ml-5">{index+1}</th>
-                      <td className="ml-5">{offer['fname']}</td>
-                      <td className="ml-5">{offer['lname']}</td>
-                      <td className="ml-5"><b>{offer['amount']}</b></td>
-                      <td className="ml-5">{offer['date']}</td>
-                      <td className="ml-5">{offer['hour']}</td>
-                      <td className="ml-5">{offer['diff']}</td>
-                      <td className="ml-5">06-06-2020</td>
-                  </tr>
-              }
-          </tbody>
-      )
-  });
-
-    let data_table_finished = ofertas.map((offer, index) => {
-        return (
-            <tbody className="text-center text-dark" style={{ backgroundColor: "#7BEC5D" }}>
-            { index % 3 === 0 || index === 4 ?
-                <tr className="ml-5 table-success">
-                    <th className="ml-5"><b>{index+1}</b></th>
-                    <td className="ml-5 "><b>{offer['fname']}</b></td>
-                    <td className="ml-5"><b>{offer['lname']}</b></td>
-                    <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
-                    <td className="ml-5"><b>{offer['date']}</b></td>
-                    <td className="ml-5"><b>{offer['hour']}</b></td>
-                    <td className="ml-5"><b>{offer['diff']}</b></td>
-                </tr>
-                :
-                <tr className="ml-5 table-danger">
-                    <th className="ml-5"><b>{index+1}</b></th>
-                    <td className="ml-5"><b>{offer['fname']}</b></td>
-                    <td className="ml-5"><b>{offer['lname']}</b></td>
-                    <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
-                    <td className="ml-5"><b>{offer['date']}</b></td>
-                    <td className="ml-5"><b>{offer['hour']}</b></td>
-                    <td className="ml-5"><b>{offer['diff']}</b></td>
-                </tr>
+    submitHandler = () => {
+        // recibimos los datos del backend
+        fetch(
+            'http://0.0.0.0:5000/api/mi_perfil?username='+this.username,
+            {
+                headers: {
+                    'Content-Type': 'text/json',
+                },
+                mode: 'cors',
+                method: 'GET',
+                }
+        ).then(data => {return data.json()}
+        ).then(res => {
+            this.setState({...res['data']['user']})
+            // Object.keys(res['data']['user'])
+        }
+        ).catch(e => {
+                this.props.history.push('/mi_perfil');
             }
-            </tbody>
         )
-    });
-  return (
+    };
+
+
+render() {
+    if (this.state.firstname === '') {
+        this.submitHandler()
+    }
+    return (
       <div>
    <MDBRow className="mt-5 ml-1 ">
      <MDBCol style={{ maxWidth: "22rem" }}>
@@ -71,11 +63,15 @@ const Profile = () => {
         <MDBCardImage className="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRDtWTHP7xJi_pW4PIXMutI94wDRz33U75VYV6sCToXjMUyMJF8&usqp=CAU"waves />
         <MDBCardBody>
           <MDBCardTitle >Perfil</MDBCardTitle>
-         <MDBListGroupItem><i  className="text-muted" >Mail : </i> ejemplo@outlook.com</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Nombre : </i> Charly </MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Apellido : </i> Brown </MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Fecha de nacimiento : </i> 18 marzo 1990</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Vive en : </i>  Ciudad de cordoba</MDBListGroupItem>
+         <MDBListGroupItem><i  className="text-muted" >Mail : </i>{this.state.email}</MDBListGroupItem>
+         <MDBListGroupItem><i className="text-muted" >Nombre : </i>{this.state.firstname}</MDBListGroupItem>
+         <MDBListGroupItem><i className="text-muted" >Apellido : </i>{this.state.lastname}</MDBListGroupItem>
+         <MDBListGroupItem><i className="text-muted" >Fecha de nacimiento : </i> {this.state.bdate}</MDBListGroupItem>
+         <MDBListGroupItem><i className="text-muted" >Vive en : </i>{this.state.address}</MDBListGroupItem>
+            <MDBListGroupItem><i className="text-muted" >telefono : </i>{this.state.phone}</MDBListGroupItem>
+            <MDBListGroupItem><i className="text-muted" >Estado civil : </i>{this.state.mStatus}</MDBListGroupItem>
+            <MDBListGroupItem><i className="text-muted" >Provinica : </i>{this.state.province}</MDBListGroupItem>
+            <MDBListGroupItem><i className="text-muted" >Dni : </i>{this.state.dni}</MDBListGroupItem>
         </MDBCardBody>
       </MDBCard>
      </MDBCol>
@@ -97,7 +93,32 @@ const Profile = () => {
                        <th><b>Fin de subasta</b></th>
                    </tr>
                </thead>
-                 { data_table }
+               <tbody className="text-center ">
+               {ofertas.map((offer, index) => {
+                   return index === 0 ?
+                   <tr className="ml-5 bg-light" style={{ color: "#66D34B" }}>
+                       <th className="ml-5">{index+1}</th>
+                       <td className="ml-5 ">{offer['fname']}</td>
+                       <td className="ml-5">{offer['lname']}</td>
+                       <td className="ml-5"><b>{offer['amount']}</b></td>
+                       <td className="ml-5">{offer['date']}</td>
+                       <td className="ml-5">{offer['hour']}</td>
+                       <td className="ml-5">{offer['diff']}</td>
+                       <td className="ml-5">01-06-2020</td>
+                   </tr>
+                   :
+                   <tr className="ml-5 bg-light  ">
+                       <th className="ml-5">{index+1}</th>
+                       <td className="ml-5">{offer['fname']}</td>
+                       <td className="ml-5">{offer['lname']}</td>
+                       <td className="ml-5"><b>{offer['amount']}</b></td>
+                       <td className="ml-5">{offer['date']}</td>
+                       <td className="ml-5">{offer['hour']}</td>
+                       <td className="ml-5">{offer['diff']}</td>
+                       <td className="ml-5">06-06-2020</td>
+                   </tr>
+               })}
+               </tbody>
             </MDBTable>
              </MDBCardBody>
          </MDBCard>
@@ -121,7 +142,31 @@ const Profile = () => {
                            <th><b>Fin de subasta</b></th>
                        </tr>
                        </thead >
-                       { data_table_finished }
+                       <tbody className="text-center text-dark" style={{ backgroundColor: "#7BEC5D" }}>
+                       { ofertas.map((offer, index) => {
+                           return index % 3 === 0 || index === 4 ?
+                               <tr className="ml-5 table-success">
+                                   <th className="ml-5"><b>{index + 1}</b></th>
+                                   <td className="ml-5 "><b>{offer['fname']}</b></td>
+                                   <td className="ml-5"><b>{offer['lname']}</b></td>
+                                   <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
+                                   <td className="ml-5"><b>{offer['date']}</b></td>
+                                   <td className="ml-5"><b>{offer['hour']}</b></td>
+                                   <td className="ml-5"><b>{offer['diff']}</b></td>
+                               </tr>
+                               :
+                               <tr className="ml-5 table-danger">
+                                   <th className="ml-5"><b>{index + 1}</b></th>
+                                   <td className="ml-5"><b>{offer['fname']}</b></td>
+                                   <td className="ml-5"><b>{offer['lname']}</b></td>
+                                   <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
+                                   <td className="ml-5"><b>{offer['date']}</b></td>
+                                   <td className="ml-5"><b>{offer['hour']}</b></td>
+                                   0 <td className="ml-5"><b>{offer['diff']}</b></td>
+                               </tr>
+                       })}
+
+                       </tbody>
                    </MDBTable>
                </MDBCardBody>
            </MDBCard>
@@ -130,7 +175,7 @@ const Profile = () => {
       </div>
 
   )
-
+}
 }
 
 export default Profile;

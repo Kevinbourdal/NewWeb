@@ -17,7 +17,8 @@ docker inspect mysql-subastas | grep "IPAddress"
 
 ## start docker again (si apagaste la compu)
 #docker container start mysql-subastas
-
+#docker exec -it mysql-subastas bash (para entrar a la base de datos)
+#mysql -u root -p (esto pide la contraseña)
 
 ## Instalar driver para conectarse a mysql desde python
 # ===============================================================
