@@ -59,3 +59,20 @@ def validate_token(token_data, data):
             if token_data[key] != data[key]:
                 return response(400, 'Wrong token')
     return None
+
+
+def validate_dates(first_date, last_date):
+    return first_date < last_date
+
+
+def validate_json_payload(json_data, fileds):
+    field = None
+    try:
+        for (field, required) in fileds:
+            if not (json_data[field] or required):
+                json_data[field] = None
+            elif (not json_data[field]) and required:
+                return json_data, response(400, f'Missing value for "{field}" field in payload')
+        return json_data, None
+    except KeyError:
+        return json_data, response(400, f'Missing "{field}" field in payload')

@@ -1,4 +1,4 @@
-from views import UserView, ContactView, LoginView
+from views import UserView, ContactView, LoginView, NewAuctionView
 
 # list with each access point in dict format
 urls = [
@@ -16,5 +16,11 @@ urls = [
         'resource': LoginView,
         'path': '/login',
         'endpoint': 'login',
+    },
+    {
+        'resource': NewAuctionView,
+        'path': '/newauction',
+        'endpoint': 'newauction',
     }
+
 ]
