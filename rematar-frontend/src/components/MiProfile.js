@@ -153,7 +153,7 @@ class MiProfile extends React.Component {
                                                 value={this.state.bdate}
                                                 name='bdate'
                                                 onChange={this.changeHandler}
-                                                type='text'
+                                                type='date'
                                                 id='materialFormRegisterNameEx2'
                                                 label='Fecha de Nacimiento dd/mm/aaaa'
                                                 outline

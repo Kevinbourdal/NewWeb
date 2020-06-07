@@ -16,7 +16,8 @@ from utils import (
     get_data,
     gen_token,
     decode_token,
-    validate_token
+    validate_token,
+    get_contacts
 )
 
 
@@ -127,7 +128,7 @@ class UserView(BaseView):
             new_user = UserModel(**user_data)
             account = AccountModel.query.filter_by(username=json_data['username']).first()
             new_user.account_id = account.id
-            error = new_user.save()
+            error = new_user.save().get_contacts()
             if not error:
                 return response(200, data={'id': new_user.id})
 
@@ -151,11 +152,10 @@ class ContactView(BaseView):
         json_data, error = get_data(request)
         if not error:
             try:
-
                 contact_data = self.contact_schema.load({'fullname': json_data['name'],
-                                                   'cel_phone': json_data['phone'],
-                                                   'body': json_data['body'],
-                                                   'email': json_data['email']})
+                                                         'cel_phone': json_data['phone'],
+                                                         'body': json_data['body'],
+                                                         'email': json_data['email']})
             except marshmallow.exceptions.ValidationError as errors:
                 print('error', errors)
                 return response(400, str(errors))
@@ -183,4 +183,8 @@ class LoginView(BaseView):
                                                'username': account.username,
                                                'has_user': user is not None})  # send false if not has user already
 
-        return response(400, msg='error')
+        return error
+
+#token = request.header['token']
+#username, error = validate_token(token)
+#if not error:

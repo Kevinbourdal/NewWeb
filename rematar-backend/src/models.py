@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 from marshmallow import fields
 from flask_marshmallow import Marshmallow
-
 from utils import response
 
 db = SQLAlchemy()
