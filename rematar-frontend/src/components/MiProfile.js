@@ -19,7 +19,7 @@ class MiProfile extends React.Component {
             bdate:'',
             address:'',
             phone:'',
-            mStatus :''
+            mStatus :'',
         };
         this.Auth = new AuthService();
         this.username = this.Auth.getUsername();
@@ -111,10 +111,9 @@ class MiProfile extends React.Component {
                                                 outline
                                                 required
                                             >
-                                                <div className='valid-feedback ml-3 pl-3'>Valido!!</div>
                                             </MDBInput>
-                                             <MDBRow  className="ml-1 mb-2" style={{height:'60px'}} >
-                                                    <select  className="p-0 mt-4 col-2 custom-select" style={{height:'50%'}}
+                                             <MDBRow className="ml-3 my-1 "  >
+                                                    <select  className="p-0 mt-4 col-2 custom-select"
                                                              onChange={this.changeHandler}
                                                                 value={this.state.dni_type}
                                                                 name="dni_type">
@@ -125,29 +124,34 @@ class MiProfile extends React.Component {
                                                                 DNI
                                                             </option>
                                                             <option>
-                                                                LIBRETA CÍVICA
+                                                               CUIT
                                                             </option>
                                                             <option>
-                                                                LIBRETA DE ENROLAMIENTO
+                                                                CUIL
                                                             </option>
+                                                        <option>
+                                                            LIBRETA CÍVICA
+                                                        </option>
+                                                        <option>
+                                                            LIBRETA DE ENROLAMIENTO
+                                                        </option>
                                                         </select>
-                                                 <MDBCol className=" col-10  ">
+                                                 <MDBCol className="col-10">
                                                         <MDBInput
+                                                            className="mt-0"
                                                             icon='address-card'
                                                             value={this.state.dni}
                                                             onChange={this.changeHandler}
                                                             type='number'
                                                             id='materialFormRegisterPasswordEx4'
                                                             name='dni'
-                                                            label='DNI'
+                                                            label={this.state.dni_type}
                                                             outline
                                                             required
                                                         >
-                                                            <div className='invalid-feedback ml-3 pl-3'>Ingrese una contraseña</div>
-                                                   </MDBInput>
+                                                        </MDBInput>
                                                  </MDBCol>
                                              </MDBRow>
-
                                             <MDBInput
                                                 icon='id-badge'
                                                 value={this.state.bdate}
@@ -155,16 +159,16 @@ class MiProfile extends React.Component {
                                                 onChange={this.changeHandler}
                                                 type='date'
                                                 id='materialFormRegisterNameEx2'
-                                                label='Fecha de Nacimiento dd/mm/aaaa'
+                                                label='Fecha de Nacimiento'
                                                 outline
                                                 required
                                             >
                                                 <div className='valid-feedback ml-3 pl-3 '>Valido!!</div>
                                             </MDBInput>
                                             <MDBRow >
-                                                <MDBIcon icon="male" className=" ml-3 mr-2 p-0 " size="2x" />
-                                                <MDBCol className="col-sm-11 col-md-11 p-0 ml-2 m-0">
-                                                    <select className="custom-select col-12"
+                                            <MDBIcon icon="male" className=" ml-3 mr-2" size="2x" />
+                                                <MDBCol className="col-sm-10 col-md-11 ml-2 p-0 m-0">
+                                                    <select className="custom-select "
                                                             value={this.state.sex}
                                                             onChange={this.changeHandler}
                                                             name='sex'
@@ -187,7 +191,7 @@ class MiProfile extends React.Component {
                                                 required
                                             />
                                             <MDBRow className="mt-4">
-                                                <MDBIcon icon='city'className=" ml-2 mr-2 p-0 " size="1x" />
+                                                <MDBIcon icon='city'className=" ml-2 mr-2  " size="1x" />
                                                 <MDBCol className="col-sm-10 col-md-11 p-0 ml-2 m-0">
                                                     <select className="custom-select col-12"
                                                             value={this.state.province}

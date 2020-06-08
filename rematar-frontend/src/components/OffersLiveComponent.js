@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardGroup, Col, Container, Row, Table } from "reactstrap";
 import { items } from "../data/Lote1";
+import AuthService from "../utils/AuthService";
 
 class OffersLive extends Component {
     constructor(pros) {
-        super();
+        super(pros);
         this.state = {
-            items: items["dataoffers"],
+            items: [],
+            fname: '',
+            lname:'',
+            amount:'',
+            date:'',
+            hour:'',
+            diff:'',
+            username:''
         }
-        //console.log(this.prop.data);
-        //this.data = this.prop.data;
+        this.Auth = new AuthService();
+        this.submitHandler = this.submitHandler.bind(this);
     }
 
-
+/*
     componentDidMount() {
         this.myInterval = setInterval(() => {
             let { items } = this.state;
@@ -26,34 +34,60 @@ class OffersLive extends Component {
             }));
         }, 10000)
     }
+*/
+    submitHandler = () => {
+        // recibimos los datos del backend
 
+        fetch(
+            'http://0.0.0.0:5000/api/offer'+window.location.pathname,
+            {
+                headers: {
+                    'Content-Type': 'text/json',
+                },
+                mode: 'cors',
+                method: 'GET',
+            }
+        ).then(data => {return data.json()}
+        ).then(res => {
+                this.setState({...res['data']['offer']})
+
+            }
+        ).catch(e => {
+            console.log("Fail");
+                //this.props.history.push();
+            }
+        )
+    };
     componentWillUnmount() {
         clearInterval(this.myInterval)
     }
 
     render() {
+        if (this.state.firstname === '') {
+            this.submitHandler()
+        }
         let data_table = this.state.items.map((offer, index) => {
             return (
                 <tbody>
                     { index === 0 ?
                         <tr className="ml-5 bg-success">
                             <th className="ml-5">{index+1}</th>
-                            <td className="ml-5 ">{offer['fname']}</td>
-                            <td className="ml-5">{offer['lname']}</td>
-                            <td className="ml-5"><b>{offer['amount']}</b></td>
-                            <td className="ml-5">{offer['date']}</td>
-                            <td className="ml-5">{offer['hour']}</td>
-                            <td className="ml-5">+{offer['diff']}</td>
+                            <td className="ml-5 ">{offer[this.state.fname]}</td>
+                            <td className="ml-5">{offer[this.state.lname]}</td>
+                            <td className="ml-5"><b>{offer[this.state.amount]}</b></td>
+                            <td className="ml-5">{offer[this.state.date]}</td>
+                            <td className="ml-5">{offer[this.state.hour]}</td>
+                            <td className="ml-5">+{offer[this.state.diff]}</td>
                         </tr>
                     :
                         <tr className="ml-5">
                             <th className="ml-5">{index+1}</th>
-                            <td className="ml-5">{offer['fname']}</td>
-                            <td className="ml-5">{offer['lname']}</td>
-                            <td className="ml-5"><b>{offer['amount']}</b></td>
-                            <td className="ml-5">{offer['date']}</td>
-                            <td className="ml-5">{offer['hour']}</td>
-                            <td className="ml-5">+{offer['diff']}</td>
+                            <td className="ml-5">{offer[this.state.fname]}</td>
+                            <td className="ml-5">{offer[this.state.lname]}</td>
+                            <td className="ml-5"><b>{offer[this.state.amount]}</b></td>
+                            <td className="ml-5">{offer[this.state.date]}</td>
+                            <td className="ml-5">{offer[this.state.hour]}</td>
+                            <td className="ml-5">+{offer[this.state.diff]}</td>
                         </tr>
                     }
                 </tbody>
@@ -73,7 +107,7 @@ class OffersLive extends Component {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <Table hover responsive={true} className="mr-5 table-striped">
+                                        <Table hover responsive={true}  className="mr-5 table-striped">
                                             <thead className="thead-dark text-center">
                                                 <tr className="">
                                                     <th >#</th>

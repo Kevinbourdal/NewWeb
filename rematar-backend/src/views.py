@@ -9,7 +9,9 @@ from models import (
     UserSchema,
     AccountSchema,
     ContactModel,
-    ContactSchema
+    ContactSchema,
+    OfferSchema,
+    OfferModel
 )
 from utils import (
     response,
@@ -184,6 +186,51 @@ class LoginView(BaseView):
                                                'has_user': user is not None})  # send false if not has user already
 
         return error
+
+
+class OfferView(BaseView):
+    """
+    Class Auctions to see the auction table
+    """
+
+    def __init__(self):
+        super(OfferView, self).__init__()
+        self.auction_schema = OfferSchema()
+        self.actions_schema = OfferSchema(many=True)
+
+    def get(self, offer_id):
+        offer = OfferModel.query.filter_by(id=offer_id).first()
+        if offer is not None:
+            offer = OfferModel.query.filter_by().first()
+            user = UserModel.query.filter_by(id=offer.user_id).first()
+            if user is not None:
+                return response(200, data={'offer': {'firstname': user.firstname,
+                                                     'lastname': user.lastname,
+                                                     'amount': offer.amount,
+                                                     'hour': offer.hour,
+                                                     'diff': offer.diff,
+                                                     'date': offer.date}})
+        return response(400)
+
+    def post(self):
+        json_data, error = get_data(request)
+
+        if not error:
+            try:
+                offer_data = self.auction_schema.load({'amount': json_data['amount'],
+                                                       'hour': json_data['hour'],
+                                                       'diff': json_data['diff'],
+                                                       'username': json_data['username'],
+                                                       'date': json_data['date']})
+            except marshmallow.exceptions.ValidationError as errors:
+                print('error', errors)
+                return response(400, str(errors))
+            new_auction = OfferSchema(**offer_data)
+            error = new_auction.save().get_contacts()
+            if not error:
+                return response(200, data={'id': new_auction.id})
+
+        return response(400, msg="Error en backend")
 
 #token = request.header['token']
 #username, error = validate_token(token)
