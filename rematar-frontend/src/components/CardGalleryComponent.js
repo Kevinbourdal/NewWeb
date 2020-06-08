@@ -19,6 +19,7 @@ class CardGallery extends Component {
         this.categories = this.props.categories;
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
+
         this.get_items()
     }
 
@@ -85,9 +86,9 @@ class CardGallery extends Component {
                                                     <div className="mt-0 pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}
-                                                                  footer={'desde '+data['start_date'] + 'hasta '+data['end_date']}
-                                                                  href={data['id']}
-                                                                  items={items}
+                                                                  footer={'desde '+data['start_date'] + ' hasta '+data['end_date']}  //TODO: Dar formato a la fecha
+                                                                  href={'/detail/' + data['id']}
+                                                                  items={items}  //TODO: cargar images desde la api
                                                         />
                                                     </div>
                                                 </div>

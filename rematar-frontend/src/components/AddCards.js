@@ -26,7 +26,7 @@ class AddCards extends Component {
                 province: '',
                 city: '',
                 url_images: [],
-                keyvalue:[],
+                key_value:[],
                 value:[],
                 startDate: new Date()
            };
@@ -67,6 +67,7 @@ class AddCards extends Component {
      }
 
     handleDataAdd(e) {
+         // FUNCTION TO ADD KEY VALUE DATA
         const {value, name} = e.target;
         e.target.value='';
         this.setState({
@@ -190,37 +191,37 @@ class AddCards extends Component {
 
                                    </div>
                                    <div className="picture-uploader-controls">
-                                       {/*<Row>*/}
-                                       {/*    <Col>*/}
-                                       {/*     <InputField name={"keyvalue"} label={"Dato"} type={"textarea"} change={this.handleDataAdd} />*/}
-                                       {/*     </Col>*/}
-                                       {/*     <Col>*/}
-                                       {/*        <InputField name={"keyvalue"} label={"Info"} type={"textarea"} change={this.handleDataAdd} />*/}
-                                       {/*     </Col>*/}
-                                       {/*</Row>*/}
+                                       <Row>
+                                           <Col>
+                                            <InputField name={"key_value"} label={"Dato"} type={"textarea"} change={this.handleDataAdd} />
+                                            </Col>
+                                            <Col>
+                                               <InputField name={"key_value"} label={"Info"} type={"textarea"} change={this.handleDataAdd} />
+                                            </Col>
+                                       </Row>
 
-                                       {/*<ListGroup variant="flush" className="mb-4">*/}
-                                       {/*    {this.state.keyvalue.length > 0 ?*/}
-                                       {/*        Object.keys(this.state.keyvalue).map((key, index) =>*/}
-                                       {/*            <Row>*/}
-                                       {/*                <Col>*/}
-                                       {/*                    <ListGroupItem>*/}
-                                       {/*                        <b className="text-dark">*/}
-                                       {/*                            { key }*/}
-                                       {/*                        </b>*/}
-                                       {/*                    </ListGroupItem>*/}
-                                       {/*                </Col>*/}
-                                       {/*                <Col>*/}
-                                       {/*                    <ListGroupItem >*/}
-                                       {/*                        : { this.state.keyvalue[key] }*/}
-                                       {/*                    </ListGroupItem>*/}
-                                       {/*                </Col>*/}
-                                       {/*            </Row>*/}
-                                       {/*        )*/}
-                                       {/*        :*/}
-                                       {/*        null*/}
-                                       {/*    }*/}
-                                       {/*</ListGroup>*/}
+                                       <ListGroup variant="flush" className="mb-4">
+                                           {this.state.key_value.length > 0 ?
+                                               Object.keys(this.state.key_value).map((key, index) =>
+                                                   <Row>
+                                                       <Col>
+                                                           <ListGroupItem>
+                                                               <b className="text-dark">
+                                                                   { key }
+                                                               </b>
+                                                           </ListGroupItem>
+                                                       </Col>
+                                                       <Col>
+                                                           <ListGroupItem >
+                                                               : { this.state.key_value[key] }
+                                                           </ListGroupItem>
+                                                       </Col>
+                                                   </Row>
+                                               )
+                                               :
+                                               null
+                                           }
+                                       </ListGroup>
 
                                    </div>
                                    <div className="picture-uploader-controls">

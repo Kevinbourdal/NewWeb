@@ -41,7 +41,7 @@ class BaseView(Resource):
     def __init__(self):
         super(BaseView, self).__init__()
 
-    def get(self):
+    def get(self, **kwargs):
         return response(401)
 
     def post(self):
@@ -251,3 +251,33 @@ class NewAuctionView(BaseView):
                             return response(200, data={'id': new_auction.id})
 
         return response(400, str(error))
+
+
+class AuctionDetailView(BaseView):
+
+    def __init__(self):
+        super(AuctionDetailView, self).__init__()
+        self.auction_schema = AuctionSchema(unknown='EXCLUDE')
+        self.item_schema = ItemSchema(unknown='EXCLUDE')
+        self.urlimage_schema = UrlImageSchema(many=True, unknown='EXCLUDE')
+        self.keyvalue_schema = CharacteristicKeyValueSchema(many=True, unknown='EXCLUDE')
+        self.value_schema = CharacteristicValueSchema(many=True, unknown='EXCLUDE')
+        self.category_map = {
+            'Vehiculo': 'automobile',
+            'Inmueble': 'property',
+            'Agricola': 'farm',
+            'Otros': 'other'
+        }
+
+    def get(self, auction_id):
+        auction = AuctionModel.query.filter_by(id=auction_id).first()
+        if auction is not None:
+            item = ItemModel.query.filter_by(auction_id=auction.id).first()
+            if item is not None:
+                auction = self.auction_schema.dump(auction)
+                item = self.item_schema.dump(item)
+                return response(200, data={'auction': auction,
+                                           'item': item})
+        return response(400)
+
+
