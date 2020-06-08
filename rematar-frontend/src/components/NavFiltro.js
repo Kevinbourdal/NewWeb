@@ -4,7 +4,7 @@ import { MDBNav, MDBNavItem } from "mdbreact";
 
 export default  () => (
     <BrowserRouter>
-        <MDBNav  className="md-col-12 justify-center text-center elegant-color-dark" style={{ width:"100%",  "min-height": "55px"}}>
+        <MDBNav  className="md-col-12 justify-center text-center elegant-color-dark" style={{ width:"100%",  "min-height": "60px"}}>
             <MDBNavItem className="col-md-3 mt-3">
                 <a style={{color:"white"}} href="property#filterbar">
                     <i className="fas fa-home" style={{color: "#1DA1F2"}}></i> Inmuebles </a>

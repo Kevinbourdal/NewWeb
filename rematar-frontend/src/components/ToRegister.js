@@ -1,7 +1,8 @@
 import React from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBIcon } from 'mdbreact';
-import { Form } from 'reactstrap';
+import {Col, Form, Row} from 'reactstrap';
+import {waitForDomChange} from "@testing-library/dom";
 
 
 class ToRegister extends React.Component {
@@ -11,11 +12,22 @@ class ToRegister extends React.Component {
               username: '',
               email: '',
               password: '',
+              repeat_pass:''
           };
+      this.validate_pass = this.validate_pass.bind(this);
   }
 
+  validate_pass () {
+      if (this.state.password.length > 0 && this.state.repeat_pass.length > 0) {
+          if (this.state.password !== this.state.repeat_pass) {
+              return true
+          }
+      }
+      return false
+  }
   submitHandler = event => {
       event.target.className += ' was-validated';
+
       event.preventDefault();  //No se que hace por eso lo comente
 
     // enviamos los datos al backend
@@ -41,6 +53,7 @@ class ToRegister extends React.Component {
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
 
   render() {
     return (
@@ -81,7 +94,6 @@ class ToRegister extends React.Component {
                                required
                              >
                                 <div className='invalid-feedback ml-3 pl-3'>Ingrese una contraseña</div>
-                                <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
                              </MDBInput>
                              <MDBInput
                                  icon='unlock'
@@ -93,21 +105,29 @@ class ToRegister extends React.Component {
                                  label='Contraseña'
                                  outline
                                  required
+
                              >
-                                <div className='invalid-feedback ml-3 pl-3'>Ingrese una contraseña</div>
                              </MDBInput>
                               <MDBInput
                                   icon='unlock'
-                                  value={this.state.password}
+                                  value={this.state.repeat_pass}
                                   onChange={this.changeHandler}
+                                  placeholder="Confirm Password"
                                   type='password'
-                                  id='materialFormRegisterPasswordEx4'
-                                  name='password'
+                                  id='materialFormRegisterPasswordEx9'
+                                  name='repeat_pass'
                                   label='Ingrese su Contraseña nuevamente'
                                   outline
-                                  required
                               >
-                                  <div className='invalid-feedback ml-3 pl-3'>Ingrese una contraseña</div>
+                                  {this.validate_pass() ? (
+                                      <Row>
+                                          <Col xs="12">
+                                              <p className="text-danger">
+                                                  Error, verificar contraseña
+                                              </p>
+                                          </Col>
+                                      </Row>
+                                  ) : null}
                               </MDBInput>
                               <MDBInput
                                   icon='envelope-open'
@@ -141,7 +161,7 @@ class ToRegister extends React.Component {
                                 </div>
                              </div>
                              <div className="text-center my-4">
-                                <MDBBtn className="ml-4 " color='danger' type='submit'>
+                                <MDBBtn className="ml-4 " color='danger' type='submit' disabled={this.validate_pass()}>
                                    Registrarse
                                 </MDBBtn>
                              </div>

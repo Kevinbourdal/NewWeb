@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 from marshmallow import fields
 from flask_marshmallow import Marshmallow
-
 from utils import response
 
 db = SQLAlchemy()
@@ -188,3 +187,33 @@ class ContactModel(ModelBase, db.Model):
 
     def __repr__(self):
         return f'contact: {self.fullname} {self.body}'
+
+
+class OfferSchema(ma.Schema):
+    id = fields.Integer()
+    user_id = fields.Integer()
+    amount = fields.Integer()
+    hour = fields.Integer()
+    diff = fields.Integer()
+    date = fields.String()
+
+
+class OfferModel(ModelBase, db.Model):
+    __tablename__ = 'offer'
+
+    id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column('user_id', db.ForeignKey('account.id', ondelete='CASCADE'), nullable=True)
+    amount = db.Column('amount', db.Integer, unique=False)
+    hour = db.Column('hour', db.Integer, unique=False)
+    diff = db.Column('diff', db.Integer, nullable=False)
+    date = db.Column('date', db.String(25), unique=False)
+
+    def __init__(self, amount, hour, diff, date):
+        super(OfferModel, self).__init__()
+        self.amount = amount
+        self.hour = hour
+        self.diff = diff
+        self.date = date
+
+    def __repr__(self):
+        return f'Account {self.id}: {self.hour}'
