@@ -282,10 +282,16 @@ class AuctionDetailView(BaseView):
         if auction is not None:
             item = ItemModel.query.filter_by(auction_id=auction.id).first()
             if item is not None:
+                key_values = CharacteristicKeyValueModel.query.filter_by(item_id=item.id).all()
+                key_values = self.keyvalue_schema.dump(key_values)
+                urls = UrlImageModel.query.filter_by(item_id=item.id).all()
+                urls = self.urlimage_schema.dump(urls)
                 auction = self.auction_schema.dump(auction)
                 item = self.item_schema.dump(item)
                 return response(200, data={'auction': auction,
-                                           'item': item})
+                                           'item': item,
+                                           'key_values': key_values,
+                                           'url_images': urls})
         return response(400)
 
 

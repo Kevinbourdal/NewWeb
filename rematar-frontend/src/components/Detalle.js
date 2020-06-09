@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBCarousel, MDBCarouselInner, MDBCarouselItem } from "mdbreact";
-import {Col, Row} from "reactstrap";
+import {Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Row, Table} from "reactstrap";
 import SimpleMap from './SimpleMap';
 import DataAuction from "./DataLotsComponent";
 import Timer from './TimerComponent';
@@ -27,6 +27,8 @@ class Detail extends Component {
            description: '',
            province: '',
            city: '',
+           key_values: [],
+           url_images: []
       }
       this.get_detail();
   }
@@ -43,7 +45,9 @@ class Detail extends Component {
        ).then(res => {
                this.setState({...res['data']['auction']})
                this.setState({...res['data']['item']})
-               // Object.keys(res['data']['user'])
+               this.setState({['key_values']: res['data']['key_values'].map((kv) => [kv['key'], kv['value']])})
+               this.setState({['url_images']: res['data']['url_images']})
+           console.log(this.state.url_images)
            }
        ).catch(e => {
                console.log(e);
@@ -59,6 +63,17 @@ class Detail extends Component {
                { item }
              </p>
          ));
+
+       let data_table = this.state.key_values.map((dato) => {
+           return (
+
+               <tr className="ml-5">
+                   <th className="ml-5"><b>{ dato[0].toUpperCase() } :</b></th>
+                   <th className="ml-5">{ dato[1] }</th>
+               </tr>
+           )
+       });
+
       return (
          <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 300, maxWidth: "90%" }}>
             <MDBCardBody style={{ paddingTop: 0 }}>
@@ -73,20 +88,26 @@ class Detail extends Component {
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
                         <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail " >
-                           <MDBCarousel activeItem={1} length={3} showControls={true} showIndicators={true} thumbnails className="z-depth-1">
+                           <MDBCarousel activeItem={0} length={this.state.url_images.length} showControls={true} showIndicators={true} thumbnails className="z-depth-1">
                               <MDBCarouselInner>
-                                 <MDBCarouselItem itemId="1">
-                                    <img className="d-block w-100 " src="https://www.agroempresario.com.ar/img/upload/nuevos/nota/b8c0b0064cf4db460497.jpg"
-                                      img="20"  alt="First slide" />
-                                 </MDBCarouselItem>
-                                 <MDBCarouselItem itemId="2">
-                                    <img className="d-block w-100" src="https://d2gue86ezsmq5i.cloudfront.net/eyJidWNrZXQiOiJyZXNlbS1hciIsImtleSI6IjQyNjAvMTgwMTMxOTc4MC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjg0MCwiaGVpZ2h0Ijo2MzAsImZpdCI6ImNvdmVyIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfX19"
-                                     alt="Second slide" />
-                                 </MDBCarouselItem>
-                                 <MDBCarouselItem itemId="3">
-                                     <img className="d-block w-100" src="https://d2gue86ezsmq5i.cloudfront.net/eyJidWNrZXQiOiJyZXNlbS1hciIsImtleSI6IjQyNjAvLTE4MTU0MjE1NDUuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo4NDAsImhlaWdodCI6NjMwLCJmaXQiOiJjb3ZlciIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX19fQ=="
-                                      alt="Third slide" />
-                                 </MDBCarouselItem>
+                                  {this.state.url_images.map((url, index) =>
+
+                                      <MDBCarouselItem itemId={index}>
+                                          <img className="d-block w-100"
+                                               src={url['url']}
+
+                                               alt="First slide" />
+                                      </MDBCarouselItem>
+                                  )}
+
+                                 {/*<MDBCarouselItem itemId="2">*/}
+                                 {/*   <img className="d-block w-100" src="https://d2gue86ezsmq5i.cloudfront.net/eyJidWNrZXQiOiJyZXNlbS1hciIsImtleSI6IjQyNjAvMTgwMTMxOTc4MC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjg0MCwiaGVpZ2h0Ijo2MzAsImZpdCI6ImNvdmVyIiwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfX19"*/}
+                                 {/*    alt="Second slide" />*/}
+                                 {/*</MDBCarouselItem>*/}
+                                 {/*<MDBCarouselItem itemId="3">*/}
+                                 {/*    <img className="d-block w-100" src="https://d2gue86ezsmq5i.cloudfront.net/eyJidWNrZXQiOiJyZXNlbS1hciIsImtleSI6IjQyNjAvLTE4MTU0MjE1NDUuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo4NDAsImhlaWdodCI6NjMwLCJmaXQiOiJjb3ZlciIsIndpdGhvdXRFbmxhcmdlbWVudCI6dHJ1ZX19fQ=="*/}
+                                 {/*     alt="Third slide" />*/}
+                                 {/*</MDBCarouselItem>*/}
                               </MDBCarouselInner>
                            </MDBCarousel>
                            <a href="#!">
@@ -116,11 +137,52 @@ class Detail extends Component {
                 <div>
                   <Row>
                     <Col>
-                      <DataAuction data={items.data}
-                                   title={this.state.title}
-                                   subtitle={this.state.subtitle}
-                                   precio={this.state.base_price}
-                      />
+                      {/*<DataAuction data={this.state.key_values}*/}
+                      {/*             title={this.state.title}*/}
+                      {/*             subtitle={this.state.subtitle}*/}
+                      {/*             precio={this.state.base_price}*/}
+                      {/*             children={this.state}*/}
+                      {/*/>*/}
+                        <div className="app flex-row align-items-center">
+                            <Container className="px-md-0 pl-md-4 pl-lg-4">
+                                <CardGroup>
+                                    <Card className="p-0 shadow">
+                                        <br/>
+                                        <CardBody className="text-center">
+                                            <Row>
+                                                <Col>
+                                                    <h3><b>Precio Actual</b></h3>
+                                                    <h1 className="rounded-pill text-center border border-success bg-success">
+                                                        $ { this.state.base_price }
+                                                    </h1>
+                                                </Col>
+                                            </Row>
+                                            <br/>
+                                            <Row>
+                                                <Col>
+                                                    <h5>Tabla de información</h5>
+                                                    <Table  responsive={true} className="text-left table-striped">
+                                                        <tbody>
+                                                        { data_table }
+                                                        </tbody>
+                                                    </Table>
+                                                </Col>
+                                            </Row>
+                                        </CardBody>
+                                        <CardFooter className="justify-content-center align-content-center text-center">
+                                            <Row>
+                                                <Col>
+                                                    <Button className="btn btn-red btn-lg" onClick={this.Ofertar}>
+                                                        <b><h5>Ofertar con ${ this.state.base_price * 1.05 }</h5></b>
+                                                    </Button>
+                                                </Col>
+                                            </Row>
+                                        </CardFooter>
+                                    </Card>
+                                </CardGroup>
+                            </Container>
+                        </div>
+
                     </Col>
                   </Row>
                 </div>
@@ -140,6 +202,7 @@ class Detail extends Component {
             <hr/>
             <MDBRow className="mt-5">
               <MDBCol>
+
                 <SimpleMap />
               </MDBCol>
             </MDBRow>
