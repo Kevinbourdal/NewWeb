@@ -34,6 +34,7 @@ class AddCards extends Component {
            };
            this.handleDataAdd = this.handleDataAdd.bind(this);
            this.handleDataAdd2 = this.handleDataAdd2.bind(this);
+           this.handleDataAdd3 = this.handleDataAdd3.bind(this);
            this.handleInputChange = this.handleInputChange.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
      }
@@ -76,6 +77,14 @@ class AddCards extends Component {
             value_aux: '',
         });
     }
+
+    handleDataAdd3(e) {
+        const {value, name} = e.target;
+            e.target.value='';
+            this.setState({
+                [name]: [...this.state[name], value]
+            });
+        }
 
     handleDataAdd2(e) {
         const {value, name} = e.target;
@@ -155,7 +164,7 @@ class AddCards extends Component {
                                                onChange={this.handleInputChange}
                                                name='category'
 
-                                       > {['Vehiculo', 'Inmueble', 'Agricola', 'Otro'].map((value)=>
+                                       > {['Seleccione categoria','Vehiculo', 'Inmueble', 'Muebles', 'Otros'].map((value)=>
                                            <option>{value}</option>
                                        )}
                                        </select>
@@ -170,7 +179,7 @@ class AddCards extends Component {
                                        <Label>Provincia</Label>
                                        <select className="custom-select col-12"
                                                value={this.state.province}
-                                               onChange={this.changeHandler}
+                                               onChange={this.handleInputChange}
                                                name='province'
                                        > {provincia.map((value)=>
                                            <option>{value}</option>
@@ -183,7 +192,11 @@ class AddCards extends Component {
                                    </div>
 
                                    <div className="picture-uploader-controls">
-                                      <InputField name={"url_images"} label={"Imagenes url"} type={"text"} change={this.handleDataAdd} ft={"Pegar url a imagen"}/>
+                                      <InputField name={"url_images"}
+                                                  label={"Imagenes url"}
+                                                  type={"text"}
+                                                  change={this.handleDataAdd3}
+                                                  ft={"Pegar url a imagen"}/>
                                       <ListGroup variant="flush" className="mb-4">
                                          {this.state.url_images.length > 0 ?
                                             this.state.url_images.map((url, index) =>
