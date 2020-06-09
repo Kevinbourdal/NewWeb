@@ -42,7 +42,7 @@ class ToRegister extends React.Component {
     ).then(data => {return data.json()}
     ).then(res => {alert("usuario num  " + res.data['id'])}
     ).catch(error => {
-      console.log("Fail");
+        console.log("Fail");
     }
     )
   };

@@ -26,9 +26,11 @@ class AddCards extends Component {
                 province: '',
                 city: '',
                 url_images: [],
-                key_value:[],
-                value:[],
-                startDate: new Date()
+                key_value: [],
+                value: [],
+                startDate: new Date(),
+                key_aux: '',
+                value_aux: '',
            };
            this.handleDataAdd = this.handleDataAdd.bind(this);
            this.handleDataAdd2 = this.handleDataAdd2.bind(this);
@@ -60,18 +62,18 @@ class AddCards extends Component {
 
      handleInputChange(e) {
          const {value, name} = e.target;
-         console.log(value);
          this.setState({
             [name]: value
          });
      }
 
     handleDataAdd(e) {
-         // FUNCTION TO ADD KEY VALUE DATA
-        const {value, name} = e.target;
-        e.target.value='';
+        let k = this.state.key_aux;
+        let v = this.state.value_aux;
         this.setState({
-            [name]: [...this.state[name], value]
+            ['key_value']: [...this.state['key_value'], [k, v]],
+            key_aux: '',
+            value_aux: '',
         });
     }
 
@@ -88,7 +90,11 @@ class AddCards extends Component {
         return this.state.title.length > 0 &&
                this.state.base_price >= 0 &&
                this.state.start_date.length > 0 ;
-}
+    }
+
+    // changeHandler = event => {
+    //     this.setState({ [event.target.name]: event.target.value });
+    // };
 
  render() {
    return (
@@ -166,7 +172,6 @@ class AddCards extends Component {
                                                value={this.state.province}
                                                onChange={this.changeHandler}
                                                name='province'
-
                                        > {provincia.map((value)=>
                                            <option>{value}</option>
                                        )}
@@ -190,30 +195,33 @@ class AddCards extends Component {
                                       </ListGroup>
 
                                    </div>
-                                   <div className="picture-uploader-controls">
+                               <div className="picture-uploader-controls">
                                        <Row>
                                            <Col>
-                                            <InputField name={"key_value"} label={"Dato"} type={"textarea"} change={this.handleDataAdd} />
+                                                <InputField name={"key_aux"} value={this.state.key_aux} label={"Dato"} type={"textarea"} change={this.handleInputChange} />
                                             </Col>
                                             <Col>
-                                               <InputField name={"key_value"} label={"Info"} type={"textarea"} change={this.handleDataAdd} />
+                                               <InputField name={"value_aux"} value={this.state.value_aux} label={"Info"} type={"textarea"} change={this.handleInputChange}/>
                                             </Col>
+                                           <Col className="mt-5 p-0 m-0">
+                                               <button className="btn btn-primary" onClick={this.handleDataAdd} type="button">Agregar</button>
+                                           </Col>
                                        </Row>
-
                                        <ListGroup variant="flush" className="mb-4">
                                            {this.state.key_value.length > 0 ?
-                                               Object.keys(this.state.key_value).map((key, index) =>
+                                               Object.keys(this.state.key_value).map((tupla, index) =>
                                                    <Row>
                                                        <Col>
                                                            <ListGroupItem>
                                                                <b className="text-dark">
-                                                                   { key }
+                                                                   { this.state.key_value[index][0] }
                                                                </b>
                                                            </ListGroupItem>
                                                        </Col>
+                                                       :
                                                        <Col>
                                                            <ListGroupItem >
-                                                               : { this.state.key_value[key] }
+                                                               { this.state.key_value[index][1] }
                                                            </ListGroupItem>
                                                        </Col>
                                                    </Row>
@@ -223,7 +231,7 @@ class AddCards extends Component {
                                            }
                                        </ListGroup>
 
-                                   </div>
+                               </div>
                                    <div className="picture-uploader-controls">
                                        <InputField name={"value"} label={"Caracteristicas"} type={"textarea"} change={this.handleDataAdd2}/>
                                        <ListGroup variant="flush" className="mb-4">

@@ -177,9 +177,9 @@ class NewAuctionView(BaseView):
         self.auction_schema = AuctionSchema(unknown='EXCLUDE')
         self.auction_schemas = AuctionSchema(many=True, unknown='EXCLUDE')
         self.item_schema = ItemSchema(unknown='EXCLUDE')
-        self.urlimage_schema = UrlImageSchema(many=True, unknown='EXCLUDE')
-        self.keyvalue_schema = CharacteristicKeyValueSchema(many=True, unknown='EXCLUDE')
-        self.value_schema = CharacteristicValueSchema(many=True, unknown='EXCLUDE')
+        self.urlimage_schema = UrlImageSchema(unknown='EXCLUDE')
+        self.keyvalue_schema = CharacteristicKeyValueSchema(unknown='EXCLUDE')
+        self.value_schema = CharacteristicValueSchema(unknown='EXCLUDE')
         self.category_map = {
             'Vehiculo': 'automobile',
             'Inmueble': 'property',
@@ -215,12 +215,15 @@ class NewAuctionView(BaseView):
                 auction = self.auction_schema.load(json_data)  # ['auction']
                 item = self.item_schema.load(json_data)  # ['item']
                 urls = []
-                for url in json_data['url_images']:
-                    urls.append(self.urlimage_schema.load(url))  # ['urls']
-                # key_value = self.keyvalue_schema.load(json_data) # ['keyvalues']
+                key_values = []
                 values = []
+                for key, value in json_data['key_value']:
+                    key_values.append(self.keyvalue_schema.load({'key': key, 'value': value}))
                 for value in json_data['value']:
-                    values.append(self.value_schema.load(value))  # ['values']
+                    values.append(self.value_schema.load({'value': value}))
+                for url in json_data['url_images']:
+                    urls.append(self.urlimage_schema.load({'url': url}))
+
             except ValidationError as e:
                 return response(400, str(e))
             except Exception as ex:
@@ -240,9 +243,14 @@ class NewAuctionView(BaseView):
                         if error:
                             break
                     if not error:
-                        # new_key_value = CharacteristicKeyValueModel(**key_value)
+                        for key_value in key_values:
+                            new_value = CharacteristicKeyValueModel(**key_value)
+                            new_value.item_id = new_item.id
+                            error = new_value.save()
+                            if error:
+                                break
                         for value in values:
-                            new_value = CharacteristicKeyValueModel(**value)
+                            new_value = CharacteristicValueModel(**value)
                             new_value.item_id = new_item.id
                             error = new_value.save()
                             if error:
