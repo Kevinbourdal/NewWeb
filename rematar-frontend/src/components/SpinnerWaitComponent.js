@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from 'reactstrap';
 
-const SpineerWait = (props) => {
+const SpinnerWait = (props) => {
     return (
         <div>
             <Spinner type="grow" color="primary" />
@@ -16,4 +16,4 @@ const SpineerWait = (props) => {
     );
 }
 
-export default SpineerWait;
+export default SpinnerWait;

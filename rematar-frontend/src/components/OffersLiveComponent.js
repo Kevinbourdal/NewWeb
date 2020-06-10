@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardGroup, Col, Container, Row, Table } from "reactstrap";
-import { items } from "../data/Lote1";
 import AuthService from "../utils/AuthService";
 
 class OffersLive extends Component {

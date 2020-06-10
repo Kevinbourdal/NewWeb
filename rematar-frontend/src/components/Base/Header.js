@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavLink,
-  NavbarBrand,
-    Col, Row,
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    Nav,
+    NavLink,
+    NavbarBrand,
+    Col,
+    Row,
 } from 'reactstrap';
-
 import AuthService from "../../utils/AuthService";
 import logo from '../../img/logofull.png'
 
