@@ -189,6 +189,154 @@ class ContactModel(ModelBase, db.Model):
         return f'contact: {self.fullname} {self.body}'
 
 
+class AuctionSchema(ma.Schema):
+    id = fields.Integer()
+    title = fields.String(required=True)
+    subtitle = fields.String()
+    category = fields.String(required=True)
+    base_price = fields.Float(required=True)
+    market_price = fields.Float()
+    currency = fields.String()
+    start_date = fields.Date(required=True, format='%Y-%m-%d')
+    start_hour = fields.Time(required=True, format='%H:%M:%s')
+    end_date = fields.Date(required=True, format='%Y-%m-%d')
+    end_hour = fields.Time(required=True, format='%H:%M:%s')
+
+
+class AuctionModel(ModelBase, db.Model):
+    __tablename__ = 'auction'
+
+    id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
+    title = db.Column('title', db.String(50), unique=False)
+    subtitle = db.Column('subtitle', db.String(256), unique=False, nullable=True)
+    category = db.Column('category', db.String(256), unique=False)  # Categorias definidas por nosotros
+    base_price = db.Column('base_price', db.Float(precision=2), unique=False)
+    market_price = db.Column('market_price', db.Float(precision=2), unique=False, nullable=True)
+    currency = db.Column('currency', db.String(15), unique=False, nullable=True)
+    start_date = db.Column('start_date', db.Date, unique=False, nullable=False)
+    start_hour = db.Column('start_hour', db.Time, unique=False, nullable=False)
+    end_date = db.Column('end_date', db.Date, unique=False, nullable=False)
+    end_hour = db.Column('end_hour', db.Time, unique=False, nullable=False)
+
+    def __init__(self, title, subtitle, category,
+                 base_price, market_price, currency, start_date, start_hour, end_date, end_hour):
+        self.title = title
+        self.subtitle = subtitle
+        self.category = category
+        self.base_price = base_price
+        self.market_price = market_price
+        self.currency = currency
+        self.start_date = start_date
+        self.start_hour = start_hour
+        self.end_date = end_date
+        self.end_hour = end_hour
+
+    def __repr__(self):
+        return f'auction: {self.title} ${self.base_price}'
+
+
+class ItemSchema(ma.Schema):
+    id = fields.Integer()
+    auction_id = fields.Integer()
+    item_category = fields.String()
+    description = fields.String(required=True)
+    province = fields.String(required=True)
+    city = fields.String(required=True)
+
+
+class ItemModel(ModelBase, db.Model):
+    __tablename__ = 'item'
+
+    id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
+    auction_id = db.Column('auction_id', db.ForeignKey('auction.id', ondelete='CASCADE'), nullable=False)
+    item_category = db.Column('item_category', db.String(256), unique=False)  # Categorias definidas por usuarios
+    description = db.Column('description', db.String(256), unique=False)
+    province = db.Column('province', db.String(256), unique=False)
+    city = db.Column('city', db.String(256), unique=False)
+
+    def __init__(self, item_category, description, province, city):
+        self.item_category = item_category
+        self.description = description
+        self.province = province
+        self.city = city
+
+    def __repr__(self):
+        return f'item: {self.general_category}'
+
+
+class UrlImageSchema(ma.Schema):
+    id = fields.Integer()
+    item_id = fields.Integer()
+    url = fields.URL(required=True)
+
+
+class UrlImageModel(ModelBase, db.Model):
+    __tablename__ = 'urlimage'
+
+    id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
+    item_id = db.Column('item_id', db.ForeignKey('item.id', ondelete='CASCADE'), nullable=False)
+    url = db.Column('url', db.String(256), unique=False)
+
+    def __init__(self, url):
+        self.url = url
+
+    def __repr__(self):
+        return f'image: <{self.url}>'
+
+
+class CharacteristicKeyValueSchema(ma.Schema):
+    id = fields.Integer()
+    item_id = fields.Integer()
+    key = fields.String(required=True)
+    value = fields.String(required=True)
+
+
+class CharacteristicKeyValueModel(ModelBase, db.Model):
+    """
+    La idea de esta tabla es guardar datos con nombre. ejemplo:
+    Sup Terreno: 300mts2
+    Habitaciones: 4
+    """
+    __tablename__ = 'characteristickeyvalue'
+
+    id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
+    item_id = db.Column('item_id', db.ForeignKey('item.id', ondelete='CASCADE'), nullable=False)
+    key = db.Column('key', db.String(256), nullable=False)
+    value = db.Column('value', db.String(256), nullable=False)
+
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+
+    def __repr__(self):
+        return f'characteristic: {self.key} {self.value}'
+
+
+class CharacteristicValueSchema(ma.Schema):
+    id = fields.Integer()
+    item_id = fields.Integer()
+    value = fields.String(required=True)
+
+
+class CharacteristicValueModel(ModelBase, db.Model):
+    """
+    La idea de esta tabla es guardar datos sin nombre. ejemplo:
+    Tv cable
+    Gas natural
+    """
+    __tablename__ = 'characteristicvalue'
+
+    id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
+    item_id = db.Column('item_id', db.ForeignKey('item.id', ondelete='CASCADE'), nullable=False)
+    value = db.Column('value', db.String(256), nullable=False)
+
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return f'characteristic: {self.value}'
+
+
 class OfferSchema(ma.Schema):
     id = fields.Integer()
     user_id = fields.Integer()
@@ -216,4 +364,4 @@ class OfferModel(ModelBase, db.Model):
         self.date = date
 
     def __repr__(self):
-        return f'Account {self.id}: {self.hour}'
+        return f'Account {self.id}: {self.amount}'

@@ -64,6 +64,31 @@ def decode_token(token):
     return data
 
 
+def validate_token(token_data, data):
+    for key in data.keys():
+        if key in token_data.keys():
+            if token_data[key] != data[key]:
+                return response(400, 'Wrong token')
+    return None
+
+
+def validate_dates(first_date, last_date):
+    return first_date < last_date
+
+
+def validate_json_payload(json_data, fileds):
+    field = None
+    try:
+        for (field, required) in fileds:
+            if not (json_data[field] or required):
+                json_data[field] = None
+            elif (not json_data[field]) and required:
+                return json_data, response(400, f'Missing value for "{field}" field in payload')
+        return json_data, None
+    except KeyError:
+        return json_data, response(400, f'Missing "{field}" field in payload')
+
+
 def validate_token(token):
     token_data = token.decode_token().query.filter_by().first()
     if 'username' in token_data.keys():

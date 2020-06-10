@@ -42,6 +42,7 @@ class ToRegister extends React.Component {
             ...this.state
           })
         }
+    ).then(data => {return data.json()}
     ).then(res => {
         return this.props.history.push('/login');
     }).catch(error => {

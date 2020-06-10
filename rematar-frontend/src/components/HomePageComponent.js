@@ -120,29 +120,7 @@ const HomePage = (props) => {
                   </MDBRow>
                </MDBCol>
             </div>
-            { categories === 'casas' || categories === 'home' || categories === 'autos' ?
-               <div className="mt-5 container-fluid"  >
-                  <div className="ml-5">
-                     <h2><b>{ itemslist.length } Articulos disponibles: </b></h2>
-                  </div>
-                  <MDBRow >
-                     { categories === 'home' ?
-                         <div></div>
-                         :
-                         <MDBCol className="col-md-3 mt-3 ">
-                            <section className="rounded-lg card elegant-color-dark " style={{width: "100%"}}>
-                               <FiltrosForHome/>
-                            </section>
-                         </MDBCol>
-                     }
-                     <MDBCol className="ml-2 mr-4 ">
-                        <CardGallery itemslist={itemslist}/>
-                    </MDBCol>
-                  </MDBRow>
-               </div>
-           :
-                <div><h1 className="my-5 text-center">NO hay items en la categoria</h1></div>
-            }
+            <CardGallery categories={categories}/>
          </div>
         );
 }

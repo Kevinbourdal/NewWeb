@@ -2,7 +2,7 @@ import React from 'react';
 import { Input, Label, FormText, FormGroup, InputGroup} from 'reactstrap'
 import {MDBIcon} from 'mdbreact';
 
-const InputField = ({name, label, type, id, ft, i, change, ph}) => {
+const InputField = ({name, label, type, value, id, ft, i, change, ph}) => {
     let formtext = '';
     if(ft) {
         formtext = (
@@ -34,7 +34,7 @@ const InputField = ({name, label, type, id, ft, i, change, ph}) => {
             <Label for={id || name}>{label}</Label>
             <InputGroup>
                 {icon}
-                <Input type={type} name={name} id={id || name} placeholder={ph} onChange={change}/>
+                <Input  type={type} name={name} id={id || name} value={value} placeholder={ph} onChange={change}/>
             </InputGroup>
             {formtext}
         </FormGroup>

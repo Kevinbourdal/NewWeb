@@ -2,6 +2,8 @@ import marshmallow
 from flask import request
 from flask_restful import Resource
 
+from marshmallow.exceptions import ValidationError
+
 from models import (
     AccountModel,
     RoleModel,
@@ -10,8 +12,18 @@ from models import (
     AccountSchema,
     ContactModel,
     ContactSchema,
+    AuctionModel,
+    AuctionSchema,
+    ItemModel,
+    ItemSchema,
+    UrlImageModel,
+    UrlImageSchema,
+    CharacteristicKeyValueModel,
+    CharacteristicKeyValueSchema,
+    CharacteristicValueModel,
+    CharacteristicValueSchema,
     OfferSchema,
-    OfferModel
+    OfferModel,
 )
 from utils import (
     response,
@@ -19,7 +31,8 @@ from utils import (
     gen_token,
     decode_token,
     validate_token,
-    get_contacts
+    validate_json_payload,
+    get_contacts,
 )
 
 
@@ -31,7 +44,7 @@ class BaseView(Resource):
     def __init__(self):
         super(BaseView, self).__init__()
 
-    def get(self):
+    def get(self, **kwargs):
         return response(401)
 
     def post(self):
@@ -231,6 +244,136 @@ class OfferView(BaseView):
                 return response(200, data={'id': new_auction.id})
 
         return response(400, msg="Error en backend")
+
+
+class NewAuctionView(BaseView):
+    """
+    Class to save/get new auction in data base
+    """
+
+    def __init__(self):
+        super(NewAuctionView, self).__init__()
+        self.auction_schema = AuctionSchema(unknown='EXCLUDE')
+        self.auction_schemas = AuctionSchema(many=True, unknown='EXCLUDE')
+        self.item_schema = ItemSchema(unknown='EXCLUDE')
+        self.urlimage_schema = UrlImageSchema(unknown='EXCLUDE')
+        self.keyvalue_schema = CharacteristicKeyValueSchema(unknown='EXCLUDE')
+        self.value_schema = CharacteristicValueSchema(unknown='EXCLUDE')
+        self.category_map = {
+            'Vehiculo': 'automobile',
+            'Inmueble': 'property',
+            'Agricola': 'farm',
+            'Otros': 'other'
+        }
+
+    def get(self):
+        category = request.args.get('category', 'farm')
+        if category is not None:
+            auctions = AuctionModel.query.all()  #filter_by(category=category)
+            auctions = self.auction_schemas.dump(auctions)
+            return response(200, data={'auctions': auctions})
+        return response(404)
+
+    def post(self):
+        """
+        AuctionModel,
+        ItemModel,
+        UrlImageModel,
+        CharacteristicKeyValueModel,
+        CharacteristicValueModel,
+        """
+        json_data, error = get_data(request)
+        if not error:
+            # se puede validar que los campos requeridos estan vacios
+            # if validate_json_payload(json_data,
+            #                          [(c,True) for c in ['action']])>
+            #     pass
+            try:
+                # Try to catch errors en requests, such as missing fields
+                json_data['category'] = self.category_map[json_data['category']]
+                auction = self.auction_schema.load(json_data)  # ['auction']
+                item = self.item_schema.load(json_data)  # ['item']
+                urls = []
+                key_values = []
+                values = []
+                for key, value in json_data['key_value']:
+                    key_values.append(self.keyvalue_schema.load({'key': key, 'value': value}))
+                for value in json_data['value']:
+                    values.append(self.value_schema.load({'value': value}))
+                for url in json_data['url_images']:
+                    urls.append(self.urlimage_schema.load({'url': url}))
+
+            except ValidationError as e:
+                return response(400, str(e))
+            except Exception as ex:
+                return response(400, str(ex))
+
+            new_auction = AuctionModel(**auction)
+            error = new_auction.save()
+            if not error:
+                new_item = ItemModel(**item)
+                new_item.auction_id = new_auction.id
+                error = new_item.save()
+                if not error:
+                    for url in urls:
+                        new_urls = UrlImageModel(**url)
+                        new_urls.item_id = new_item.id
+                        error = new_urls.save()
+                        if error:
+                            break
+                    if not error:
+                        for key_value in key_values:
+                            new_value = CharacteristicKeyValueModel(**key_value)
+                            new_value.item_id = new_item.id
+                            error = new_value.save()
+                            if error:
+                                break
+                        for value in values:
+                            new_value = CharacteristicValueModel(**value)
+                            new_value.item_id = new_item.id
+                            error = new_value.save()
+                            if error:
+                                break
+                        if not error:
+                            return response(200, data={'id': new_auction.id})
+
+        return response(400, str(error))
+
+
+class AuctionDetailView(BaseView):
+
+    def __init__(self):
+        super(AuctionDetailView, self).__init__()
+        self.auction_schema = AuctionSchema(unknown='EXCLUDE')
+        self.item_schema = ItemSchema(unknown='EXCLUDE')
+        self.urlimage_schema = UrlImageSchema(many=True, unknown='EXCLUDE')
+        self.keyvalue_schema = CharacteristicKeyValueSchema(many=True, unknown='EXCLUDE')
+        self.value_schema = CharacteristicValueSchema(many=True, unknown='EXCLUDE')
+        self.category_map = {
+            'Vehiculo': 'automobile',
+            'Inmueble': 'property',
+            'Agricola': 'farm',
+            'Otros': 'other'
+        }
+
+    def get(self, auction_id):
+        auction = AuctionModel.query.filter_by(id=auction_id).first()
+        if auction is not None:
+            item = ItemModel.query.filter_by(auction_id=auction.id).first()
+            if item is not None:
+                key_values = CharacteristicKeyValueModel.query.filter_by(item_id=item.id).all()
+                key_values = self.keyvalue_schema.dump(key_values)
+                urls = UrlImageModel.query.filter_by(item_id=item.id).all()
+                urls = self.urlimage_schema.dump(urls)
+                auction = self.auction_schema.dump(auction)
+                item = self.item_schema.dump(item)
+                return response(200, data={'auction': auction,
+                                           'item': item,
+                                           'key_values': key_values,
+                                           'url_images': urls})
+        return response(400)
+
+
 
 #token = request.header['token']
 #username, error = validate_token(token)

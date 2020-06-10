@@ -10,22 +10,22 @@ import {
     CardFooter,
     Button } from 'reactstrap';
 
-class DataLots extends Component {
+class DataAuction extends Component {
     constructor(props) {
         super(props);
         this.data = this.props.data;  // Array con pares (nombre: valor). Ej: [('lat/lon', '12.123/60.213'), ('luz', 'si'), ..]
-        this.pretitle = this.props.pretitle;
         this.title = this.props.title;
         this.subtitle = this.props.subtitle;
         this.precio = this.props.precio;
         this.Ofertar = this.Ofertar.bind(this);
+        console.log(props);
     }
 
-    Ofertar = (event) => {
+    Ofertar = (e) => {
         alert('Comprar la version pro.');
     }
     render() {
-        let data_table = this.data.map((dato, index) => {
+        let data_table = this.data.map((dato) => {
             return (
                 <tr className="ml-5">
                     <th className="ml-5">{ dato[0] }</th>
@@ -86,7 +86,7 @@ class DataLots extends Component {
     }
 }
 
-export default DataLots;
+export default DataAuction;
 
 
 /*

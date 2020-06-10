@@ -2,11 +2,15 @@ import React, { Component } from 'react'
 import { Alert } from 'reactstrap';
 
 export default class Timer extends Component {
-    state = {
-        days: 20,
-        hour: 15,
-        minutes: 30,
-        seconds: 0,
+    constructor(props) {
+        super(props);
+        const date = new Date(this.props.date);
+        this.state = {
+            days: date.days,
+            hour: 15,
+            minutes: 30,
+            seconds: 0,
+        }
     }
 
     componentDidMount() {
