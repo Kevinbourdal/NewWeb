@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 from marshmallow import fields
 from flask_marshmallow import Marshmallow
-
 from utils import response
 
 db = SQLAlchemy()
@@ -83,6 +82,7 @@ class RoleModel(ModelBase, db.Model):
 class AccountSchema(ma.Schema):
     id = fields.Integer()
     role_id = fields.Integer()
+    username = fields.String()
     email = fields.String()
     password = fields.String(required=True)
 
@@ -93,13 +93,15 @@ class AccountModel(ModelBase, db.Model):
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
     role_id = db.Column('role_id', db.ForeignKey('role.id', ondelete='CASCADE'), nullable=True)
     email = db.Column('email', db.String(255), unique=True)
+    username = db.Column('username', db.String(255), unique=True)
     password = db.Column('password', db.String(255), nullable=False)
     # last_update = db.Column('last_update', db.DateTime,server_default=db.func.current_timestamp(), nullable=True)
 
-    def __init__(self, password, email):
+    def __init__(self, password, email, username):
         super(AccountModel, self).__init__()
         self.password = password
         self.email = email
+        self.username = username
 
     def __repr__(self):
         return f'Account {self.id}: {self.email}'
@@ -114,10 +116,12 @@ class UserSchema(ma.Schema):
     sex = fields.String()
     dni_type = fields.String()
     dni = fields.String()
-    civil_status = fields.String()
+    bdate = fields.String()
     province = fields.String()
     city = fields.String()
     address = fields.String()
+    phone = fields.Integer()
+    mStatus = fields.String()
 
 
 class UserModel(ModelBase, db.Model):
@@ -125,30 +129,33 @@ class UserModel(ModelBase, db.Model):
 
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
     account_id = db.Column('account_id', db.ForeignKey('account.id', ondelete='CASCADE'), nullable=False)
-    username = db.Column('username', db.String(255), unique=True)
     firstname = db.Column('firstname', db.String(255), unique=False)
     lastname = db.Column('lastname', db.String(255), unique=False)
     sex = db.Column('sex', db.String(255), unique=False)
     dni_type = db.Column('dni_type', db.String(25), unique=False)
     dni = db.Column('dni', db.String(25), unique=True)
-    civil_status = db.Column('civil_status', db.String(25), unique=False)
+    bdate = db.Column('bdate', db.String(25), unique=False)
     province = db.Column('province', db.String(255), unique=False)
     city = db.Column('city', db.String(255), unique=False)
-    address = db.Column('address', db.String(255), unique=False)
+    address = db.Column('address', db.String(255), unique=False, nullable=True)
+    phone = db.Column('phone', db.Integer, unique=False, nullable=True)
+    mStatus = db.Column('mStatus', db.Integer, unique=False, nullable=True)
+
     # last_update = db.Column('last_update', db.DateTime,server_default=db.func.current_timestamp(), nullable=True)
 
-    def __init__(self, username, firstname, lastname, sex, dni_type, dni, civil_status, province, city, address):
+    def __init__(self, firstname, lastname, sex, mStatus, dni_type, phone, dni, bdate, province, city, address):
         super(UserModel, self).__init__()
-        self.username = username
         self.firstname = firstname
         self.lastname = lastname
         self.sex = sex
         self.dni_type = dni_type
         self.dni = dni
-        self.civil_status = civil_status
+        self.bdate = bdate
         self.province = province
         self.city = city
         self.address = address
+        self.phone = phone
+        self.mStatus = mStatus
 
     def __repr__(self):
         return f'user: {self.firstname} {self.lastname}'
@@ -166,7 +173,7 @@ class ContactModel(ModelBase, db.Model):
     __tablename__ = 'contact'
 
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
-    fullname = db.Column('name', db.String(255), unique=False)
+    fullname = db.Column('fullname', db.String(255), unique=False)
     email = db.Column('email', db.String(255), unique=False)
     cel_phone = db.Column('phone', db.String(100), nullable=True)
     body = db.Column('body', db.String(1000), nullable=True)
@@ -328,3 +335,33 @@ class CharacteristicValueModel(ModelBase, db.Model):
 
     def __repr__(self):
         return f'characteristic: {self.value}'
+
+
+class OfferSchema(ma.Schema):
+    id = fields.Integer()
+    user_id = fields.Integer()
+    amount = fields.Integer()
+    hour = fields.Integer()
+    diff = fields.Integer()
+    date = fields.String()
+
+
+class OfferModel(ModelBase, db.Model):
+    __tablename__ = 'offer'
+
+    id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column('user_id', db.ForeignKey('account.id', ondelete='CASCADE'), nullable=True)
+    amount = db.Column('amount', db.Integer, unique=False)
+    hour = db.Column('hour', db.Integer, unique=False)
+    diff = db.Column('diff', db.Integer, nullable=False)
+    date = db.Column('date', db.String(25), unique=False)
+
+    def __init__(self, amount, hour, diff, date):
+        super(OfferModel, self).__init__()
+        self.amount = amount
+        self.hour = hour
+        self.diff = diff
+        self.date = date
+
+    def __repr__(self):
+        return f'Account {self.id}: {self.amount}'

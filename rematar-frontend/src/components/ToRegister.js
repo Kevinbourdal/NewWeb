@@ -1,48 +1,52 @@
 import React from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBIcon } from 'mdbreact';
-import {provincia} from "../data/items_filtro";
+import {Col, Form, Row} from 'reactstrap';
+import {waitForDomChange} from "@testing-library/dom";
+
 
 class ToRegister extends React.Component {
   constructor (props) {
-      super();
+      super(props);
           this.state = {
-              fname: '',
-              lname: '',
-              dni: '',
+              username: '',
               email: '',
               password: '',
-              province: provincia,
-              city: '',
-              sex: ''
+              repeat_pass:''
           };
+      this.validate_pass = this.validate_pass.bind(this);
   }
 
-
-
-
+  validate_pass () {
+      if (this.state.password.length > 0 && this.state.repeat_pass.length > 0) {
+          if (this.state.password !== this.state.repeat_pass) {
+              return true
+          }
+      }
+      return false
+  }
   submitHandler = event => {
-    //event.preventDefault();  No se que hace por eso lo comente
-    event.target.className += ' was-validated';
+      event.target.className += ' was-validated';
 
+      event.preventDefault();  //No se que hace por eso lo comente
 
     // enviamos los datos al backend
     fetch(
         'http://0.0.0.0:5000/api/register',
         {
           headers: {
-            'Content-Type': 'text/json',
+              Accept: 'application/json',
           },
-          mode: 'cors',
           method: 'POST',
           body: JSON.stringify({
             ...this.state
           })
         }
     ).then(data => {return data.json()}
-    ).then(res => {alert("usuario num  " + res.data['id'])}
-    ).catch(error => {
-        console.log("Fail");
+    ).then(res => {
+        return this.props.history.push('/login');
+    }).catch(error => {
+      console.log("Fail" + error);
     }
     )
   };
@@ -50,6 +54,7 @@ class ToRegister extends React.Component {
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
 
   render() {
     return (
@@ -77,61 +82,20 @@ class ToRegister extends React.Component {
                           </h2>
                        </MDBContainer>
                        <MDBContainer className="col-md-11">
-                          <form className='needs-validation' onSubmit={this.submitHandler}>
+                          <Form className='needs-validation' onSubmit={this.submitHandler}>
                              <MDBInput
                                icon='user'
                                value={this.state.fname}
-                               name='fname'
+                               name='username'
                                onChange={this.changeHandler}
                                type='text'
                                id='materialFormRegisterNameEx'
-                               label='Nombre/s'
+                               label='Nombre de usuario'
                                outline
                                required
                              >
-                                <div className='valid-feedback ml-3 pl-3 '>Valido!!</div>
-                             </MDBInput>
-                             <MDBInput
-                                icon='user'
-                                value={this.state.lname}
-                                name='lname'
-                                onChange={this.changeHandler}
-                                type='text'
-                                id='materialFormRegisterEmailEx2'
-                                label='Apellido/s'
-                                outline
-                                required
-                             >
-                                <div className='valid-feedback ml-3 pl-3'>Valido!!</div>
-                             </MDBInput>
-                             <MDBInput
-                                icon='address-card'
-                                value={this.state.dni}
-                                onChange={this.changeHandler}
-                                type='number'
-                                id='materialFormRegisterPasswordEx4'
-                                name='dni'
-                                label='DNI'
-                                outline
-                                required
-                             >
                                 <div className='invalid-feedback ml-3 pl-3'>Ingrese una contraseña</div>
-                                <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
                              </MDBInput>
-                              <MDBRow>
-                                  <MDBIcon icon="male" className=" ml-3 mr-2 p-0 " size="2x" />
-                                  <MDBCol className="col-sm-11 col-md-11 p-0 ml-2 m-0">
-                                      <select className="custom-select col-12"
-                                              value={this.state.sex}
-                                              onChange={this.changeHandler}
-                                              name='sex'
-                                              id='materialFormRegisterEmailEx3'
-                                      ><option>Masculino</option>
-                                          <option>Femenino</option>
-                                      </select>
-                                  </MDBCol>
-                              </MDBRow>
-
                              <MDBInput
                                  icon='unlock'
                                  value={this.state.password}
@@ -142,53 +106,46 @@ class ToRegister extends React.Component {
                                  label='Contraseña'
                                  outline
                                  required
+
                              >
-                                <div className='invalid-feedback ml-3 pl-3'>Ingrese una contraseña</div>
-                                <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
                              </MDBInput>
-                             <MDBInput
-                                icon='envelope-open'
-                                value={this.state.email}
-                                onChange={this.changeHandler}
-                                type='email'
-                                id='materialFormRegisterConfirmEx3'
-                                name='email'
-                                label='Email'
-                                outline
-                                required
-                             >
-                                <small id='emailHelp' className='form-text text-muted'>
-                                Nunca compartiremos su correo electrónico con nadie más.
-                                </small>
-                             </MDBInput>
-                                  <MDBRow>
-                                      <MDBIcon icon='city'className=" ml-2 mr-2 p-0 " size="1x" />
-                                      <MDBCol className="col-sm-10 col-md-11 p-0 ml-2 m-0">
-                                          <select className="custom-select col-12"
-                                                  value={this.state.sex}
-                                                  onChange={this.changeHandler}
-                                                  name='sex'
-                                                  id='materialFormRegisterEmailEx3'
-                                          > {provincia.map((value)=>
-                                              <option>{value}</option>
-                                          )}
-                                          </select>
-                                      </MDBCol>
-                                  </MDBRow>
-                             <MDBInput select className="browser-default custom-select"
-                                icon="building"
-                                value={this.state.city}
-                                onChange={this.changeHandler}
-                                type='text'
-                                id='materialFormRegisterConfirmEx'
-                                name='city'
-                                label='Localidad'
-                                outline
-                                required
-                             >
-                                <div className='invalid-feedback ml-3 pl-3'>Por favor, introduzca una localidad válida.</div>
-                                <div className='valid-feedback ml-3 pl-3'>Valido!!</div>
-                             </MDBInput>
+                              <MDBInput
+                                  icon='unlock'
+                                  value={this.state.repeat_pass}
+                                  onChange={this.changeHandler}
+                                  placeholder="Confirm Password"
+                                  type='password'
+                                  id='materialFormRegisterPasswordEx9'
+                                  name='repeat_pass'
+                                  label='Ingrese su Contraseña nuevamente'
+                                  outline
+                              >
+                                  {this.validate_pass() ? (
+                                      <Row>
+                                          <Col xs="12">
+                                              <p className="text-danger">
+                                                  Error, verificar contraseña
+                                              </p>
+                                          </Col>
+                                      </Row>
+                                  ) : null}
+                              </MDBInput>
+                              <MDBInput
+                                  icon='envelope-open'
+                                  value={this.state.email}
+                                  onChange={this.changeHandler}
+                                  type='email'
+                                  id='materialFormRegisterConfirmEx3'
+                                  name='email'
+                                  label='Email'
+                                  outline
+                                  required
+                              >
+                                  <small id='emailHelp' className='form-text text-muted'>
+                                      Nunca compartiremos su correo electrónico con nadie más.
+                                  </small>
+                              </MDBInput>
+
                              <div className='custom-control custom-checkbox pl-3'>
                                 <input
                                    className='custom-control-input'
@@ -205,11 +162,11 @@ class ToRegister extends React.Component {
                                 </div>
                              </div>
                              <div className="text-center my-4">
-                                <MDBBtn className="ml-4 " color='danger' type='submit'>
+                                <MDBBtn className="ml-4 " color='danger' type='submit' disabled={this.validate_pass()}>
                                    Registrarse
                                 </MDBBtn>
                              </div>
-                          </form>
+                          </Form>
                        </MDBContainer>
                     </div>
                  </MDBCol>

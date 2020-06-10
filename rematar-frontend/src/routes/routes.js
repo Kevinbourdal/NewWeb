@@ -6,6 +6,7 @@ import RegisterForm from '../components/ToRegister';
 import AddCards from "../components/AddCards";
 import Profile from "../components/Profile";
 import Faqs from "../components/Faqs";
+import MiProfile from "../components/MiProfile";
 
 const routes = [
     { path: '/login', name: 'Login', component: LoginForm },
@@ -19,6 +20,7 @@ const routes = [
     { path: '/farm', name: 'Farm', component: HomePage },
     { path: '/new', name: 'New', component: AddCards },
     { path: '/faqs', name: 'Faqs', component: Faqs },
+    {path: '/mi_perfil', name: 'MiProfile', component: MiProfile}
 ];
 
 export default routes;

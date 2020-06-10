@@ -41,7 +41,7 @@ class Header extends Component {
 
                     <Col className="text-left pl-0" href="home">
                         <a href="/home" style={{color: "white"}}>
-                            <img src={logo} alt="Logo" className="mt-0" style={{ blockSize: "70px"}} />
+                            <img src={logo} alt="Logo" className="mt-0" style={{ blockSize: "50px"}} />
                             {/*<b style={{ fontSize: "70px" }}>Subastas en Web</b>*/}
                         </a>
                     </Col>

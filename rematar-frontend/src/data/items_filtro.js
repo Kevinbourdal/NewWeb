@@ -17,7 +17,8 @@ export const filtro = {
           },
 
 };
-export const provincia= ['Selecione la provincia',
+
+export const provincia= [ "Provincia",
      'Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes',
     'Entre Rios', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja',
      'Mendoza', 'Misiones', 'Neuquén', 'Rio Negro', 'Salta', 'San Juan', 'San Luis',
