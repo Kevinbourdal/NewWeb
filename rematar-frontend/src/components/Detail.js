@@ -97,16 +97,18 @@ class Detail extends Component {
                <MDBRow className="m-0 p-0">
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
-                        <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail " >
-                           <MDBCarousel activeItem={0} length={this.state.url_images.length} showControls={true} showIndicators={true} thumbnails className="z-depth-1">
+                        <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
+                           <MDBCarousel activeItem={1} length={this.state.url_images.length} showControls={true} showIndicators={true} thumbnails className="z-depth-1">
                               <MDBCarouselInner>
                                   {this.state.url_images.map((url, index) =>
-                                      <MDBCarouselItem itemId={index}>
+                                      <MDBCarouselItem itemId={index+1}>
                                           <img className="d-block w-100"
                                                src={url['url']}
                                                alt="slide" />
                                       </MDBCarouselItem>
+
                                   )}
+                              {/*    TODO:  Agregar Caption con descripcion de la foto    */}
                               </MDBCarouselInner>
                            </MDBCarousel>
                         </MDBView>
