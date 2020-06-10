@@ -13,9 +13,8 @@ class CardGallery extends Component {
         this.state = {
             isLoading: false,
             loginError: false,
-            items: []
+            items: [],
         };
-        this.itemslist = this.props.itemslist;
         this.categories = this.props.categories;
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
@@ -33,7 +32,10 @@ class CardGallery extends Component {
         ).then(data => {return data.json()}
         ).then(res => {
                 console.log(res);
-                this.setState({items: res['data']['auctions']})
+                this.setState({
+                    items: res['data']['auctions'],
+                })
+                console.log(this.state.items);
                 // Object.keys(res['data']['user'])
             }
         ).catch(e => {
@@ -44,20 +46,6 @@ class CardGallery extends Component {
     }
 
     render() {
-        let items = [
-            {
-                src: 'https://mobimg.b-cdn.net/pic/v2/gallery/preview/dorogi-gory-pejzazh-9109.jpg',
-                key: '1'
-            },
-            {
-                src: 'https://wallpapercave.com/wp/LRB9LM1.jpg',
-                key: '3'
-            },
-            {
-                src: 'https://i.pinimg.com/originals/15/a7/a8/15a7a873c0e04fcfcae5c6be5365818f.jpg',
-                key: '2'
-            },
-        ]
         return (
             <div>
             { this.categories === 'casas' || this.categories === 'home' || this.categories === 'autos' ?
@@ -88,7 +76,7 @@ class CardGallery extends Component {
                                                                   subtitle={data['subtitle']}
                                                                   footer={'desde '+data['start_date'] + ' hasta '+data['end_date']}  //TODO: Dar formato a la fecha
                                                                   href={'/detail/' + data['id']}
-                                                                  items={items}  //TODO: cargar images desde la api
+                                                                  url_image={data['url_image']}  //TODO: cargar images desde la api
                                                         />
                                                     </div>
                                                 </div>

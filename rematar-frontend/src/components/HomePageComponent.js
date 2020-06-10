@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {Row, Carousel, CarouselItem, Card, CarouselIndicators, CarouselControl, CardImgOverlay} from 'reactstrap';
 import CardGallery from "./CardGalleryComponent";
 import {MDBContainer, MDBRow, MDBBtn, MDBFormInline,MDBCol} from "mdbreact";
-import FiltrosForHome from './FiltrosForHome';
 import NavFiltro from "./NavFiltro";
 
 import { itemslist } from '../data/items_terrenos';

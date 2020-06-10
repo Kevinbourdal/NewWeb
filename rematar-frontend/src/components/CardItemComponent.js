@@ -14,6 +14,10 @@ import {
     Button } from 'reactstrap';
 import './CardItemComponent.css';
 
+
+const no_img = 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1811/pavelstasevich181101032/112815935-stock-vector-no-image-available-icon-flat-vector-illustration.jpg?ver=6';
+
+
 class CardItem extends Component {
     constructor(props) {
         super(props);
@@ -21,16 +25,18 @@ class CardItem extends Component {
             isLoading: false,
             loginError: false,
         };
-        this.items = this.props.items;
+        this.url_image = this.props.url_image || no_img;
         this.title = this.props.title;
         this.subtitle = this.props.subtitle;
         this.footer = this.props.footer;
         this.href = this.props.href;
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
+        console.log('a', this.props)
     }
 
     render(){
+
         // TODO: setear fijo el tamaño de la imagen
         return (
             <Container className="m-0 p-0 shadow imagen-fluid">
@@ -38,7 +44,12 @@ class CardItem extends Component {
                     <CardHeader className="m-0 p-0 shadow">
                         <Row  className="position-static">
                             <Col>
-                                <UncontrolledCarousel items={[this.items[0]]} controls={false} indicators={false} autoPlay={false}/>
+                                <UncontrolledCarousel
+                                    items={[{src: this.url_image, key: 0}] || [{src: no_img, key: 0}]}
+                                    controls={false}
+                                    indicators={false}
+                                    autoPlay={false}
+                                />
                             </Col>
                         </Row>
                     </CardHeader>

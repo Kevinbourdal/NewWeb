@@ -1,14 +1,4 @@
-from datetime import datetime
 import jwt
-import smtplib
-
-from string import Template
-
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-MY_ADDRESS = 'kevin.bourdal@outlook.com'
-PASSWORD = 'Kevinmdq95'
 
 
 STATUS = {200: 'Success',
@@ -64,14 +54,6 @@ def decode_token(token):
     return data
 
 
-def validate_token(token_data, data):
-    for key in data.keys():
-        if key in token_data.keys():
-            if token_data[key] != data[key]:
-                return response(400, 'Wrong token')
-    return None
-
-
 def validate_dates(first_date, last_date):
     return first_date < last_date
 
@@ -95,64 +77,3 @@ def validate_token(token):
         return token_data['username'], None
 
     return None, response(400, 'Wrong token')
-
-
-def get_contacts(filename):
-    """
-    Return two lists username, emails containing username and email addresses
-    read from a file specified by filename.
-    """
-
-    username = ['views']
-    emails = []
-    with open(filename, mode='r', encoding='utf-8') as contacts_file:
-        for a_contact in contacts_file:
-            username.append(a_contact.split()[0])
-            emails.append(a_contact.split()[1])
-    return username, emails
-
-
-def read_template(filename):
-    """
-    Returns a Template object comprising the contents of the
-    file specified by filename.
-    """
-
-    with open(filename, 'r', encoding='utf-8') as template_file:
-        template_file_content = template_file.read()
-    return Template(template_file_content)
-
-
-def main(username):
-    username, emails = get_contacts('mycontacts.txt')  # read contacts
-    message_template = read_template('message.txt')
-
-    # set up the SMTP server
-    s = smtplib.SMTP(host='smtp-mail.outlook.com', port=587)
-    s.starttls()
-    s.login(MY_ADDRESS, PASSWORD)
-
-    # For each contact, send the email:
-    for name, email in zip(username, emails):
-        msg = MIMEMultipart()  # create a message
-
-        # add in the actual person name to the message template
-        message = message_template.substitute(PERSON_NAME=username.title())
-
-        # Prints out the message body for our sake
-        print(message)
-
-        # setup the parameters of the message
-        msg['From'] = MY_ADDRESS
-        msg['To'] = email
-        msg['Subject'] = "hola te hablo desde el backend"
-
-        # add in the message body
-        msg.attach(MIMEText(message, 'plain'))
-
-        # send the message via the server set up earlier.
-        s.send_message(msg)
-        del msg
-
-    # Terminate the SMTP session and close the connection
-    s.quit()

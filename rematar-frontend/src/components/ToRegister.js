@@ -1,8 +1,8 @@
 import React from 'react';
 import { AppNavbarBrand } from '@coreui/react';
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import {Col, Form, Row} from 'reactstrap';
-import {waitForDomChange} from "@testing-library/dom";
+import logo from '../img/logofull.png'
 
 
 class ToRegister extends React.Component {
@@ -68,7 +68,7 @@ class ToRegister extends React.Component {
                           <MDBRow>
                              <MDBCol>
                                 <AppNavbarBrand
-                                   full={{ src:"https://lh3.googleusercontent.com/aj3OSKuHEi1a-6gV30XQXko2sTIgWldChFcKZCmDu2EZ_6ejqtNciqO50eXHLBFu1CCR4mUYRAV0_X7BesV-M6-AczlMCiBHWxETOWsXUv4x2s0u7pdC86BeOvH2O0jC4sjxKeawd5OHe3wrlVDatPm2ozSTomqK00ubP8WI9EFb-22-cWqhegLbPl0VdDQ89drTmSHQKvL3KWyIzctX9rQVkUPBTyT3JkpU5CFA13i1HWMqxKwMWqBvxeVsAgMBnaXWbZZS6Q5it2G70PpaRswdNZA2z7Lk4HTx6mytKhvEQt_cnA90CdTJcKYH8h6VrxUfypq8qPVumSukbFw1-PVSZ1JSK-00Dez4yOq_s_xYU-Iao_V4TVO2ZAg3TKKdy6RMbuZo2CtgTxgbdkyT-F3E9TWOC1XYAJ2yQSG_1XrErGFy1M-14Qu7UUzaXto4jz42akURKe5juvdLFNliNVEmOulKg1hwiVV03FEJZHX535N3uxPElJm4lAFA41mTYQ4IwhoPWtR-mtQL4p7lVAmt2OunS-bV2t48nP36Y4B_Wojxxtitfu_GdM1RCclZirxvIBuCaNb4k_NYs1K5ZoMtDtBXPf__mnWOFuxjgeRJpa1FjdNo4mFlxYGd7obzlKewvLt2j4H48uexV1qKBs1RM9dcFzC1C6NjDKHnehvbss_W-wQgIls=w1366-h428-no?authuser=0",
+                                   full={{ src: logo,
                                       width: 400,
                                       alt: 'Remates Calamuchita Logo' }}
                                 />
