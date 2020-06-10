@@ -1,6 +1,6 @@
 import LoginForm from '../components/LoginFormComponent';
 import Contact from '../components/ContactComponent';
-import Detalle from '../components/Detalle'
+import Detail from '../components/Detail'
 import HomePage from "../components/HomePageComponent";
 import RegisterForm from '../components/ToRegister';
 import AddCards from "../components/AddCards";
@@ -13,14 +13,14 @@ const routes = [
     { path: '/home', name: 'Home', component: HomePage },
     { path: '/register', exact: true, name: 'Register', component: RegisterForm },
     { path: '/contact', exact: true, name: 'Contact', component: Contact },
-    { path: '/detail', name: 'Detail', component: Detalle },
+    { path: '/detail', name: 'Detail', component: Detail },
     { path: '/profile', name: 'Profile', component: Profile },
     { path: '/property', name: 'Property', component: HomePage },
     { path: '/automobile', name: 'Automobile', component: HomePage },
     { path: '/farm', name: 'Farm', component: HomePage },
     { path: '/new', name: 'New', component: AddCards },
     { path: '/faqs', name: 'Faqs', component: Faqs },
-    {path: '/mi_perfil', name: 'MiProfile', component: MiProfile}
+    { path: '/mi_perfil', name: 'MiProfile', component: MiProfile}
 ];
 
 export default routes;

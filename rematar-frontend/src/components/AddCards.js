@@ -72,7 +72,7 @@ class AddCards extends Component {
         let k = this.state.key_aux;
         let v = this.state.value_aux;
         this.setState({
-            ['key_value']: [...this.state['key_value'], [k, v]],
+            'key_value': [...this.state['key_value'], [k, v]],
             key_aux: '',
             value_aux: '',
         });
