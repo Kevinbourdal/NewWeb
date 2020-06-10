@@ -32,7 +32,6 @@ from utils import (
     decode_token,
     validate_token,
     validate_json_payload,
-    get_contacts,
 )
 
 
@@ -143,7 +142,7 @@ class UserView(BaseView):
             new_user = UserModel(**user_data)
             account = AccountModel.query.filter_by(username=json_data['username']).first()
             new_user.account_id = account.id
-            error = new_user.save().get_contacts()
+            error = new_user.save()
             if not error:
                 return response(200, data={'id': new_user.id})
 
@@ -203,6 +202,7 @@ class LoginView(BaseView):
 
 class OfferView(BaseView):
     """
+
     Class Auctions to see the auction table
     """
 
@@ -271,6 +271,12 @@ class NewAuctionView(BaseView):
         if category is not None:
             auctions = AuctionModel.query.all()  #filter_by(category=category)
             auctions = self.auction_schemas.dump(auctions)
+
+            for auction in auctions:
+                item = ItemModel.query.filter_by(auction_id=auction['id']).first()
+                url = UrlImageModel.query.filter_by(item_id=item.id).first()
+                auction['url_image'] = url.url if url is not None else None
+
             return response(200, data={'auctions': auctions})
         return response(404)
 
