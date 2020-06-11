@@ -63,22 +63,20 @@ class CardGallery extends Component {
                                 </section>
                             </MDBCol>
                         }
-                        <MDBCol className="ml-2 mr-4 ">
-                            <Container >
+                        <MDBCol className="ml-2 mr-4 " >
+                            <Container  >
 
-                                <div className="row">
-                                    <div className="row mt-2">
+                                <div className="row" >
+                                    <div className="row mt-2" >
                                         <CardDeck>
                                             {this.state.items.map((data, index) =>
-                                                <div className="col-md-4 mr-0 ml-0 pr- pl-3">
-                                                    <div className="mt-0 pt-3 pb-3 mr-0 ml-0">
+                                                <div style={{minHeight:'100vh'}} className=" col-md-4 mr-0 ml-0 pl-3 ">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}
                                                                   footer={'desde '+data['start_date'] + ' hasta '+data['end_date']}  //TODO: Dar formato a la fecha
                                                                   href={'/detail/' + data['id']}
                                                                   url_image={data['url_image']}  //TODO: cargar images desde la api
                                                         />
-                                                    </div>
                                                 </div>
                                             )}
                                         </CardDeck>

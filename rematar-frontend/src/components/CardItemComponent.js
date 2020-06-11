@@ -39,10 +39,10 @@ class CardItem extends Component {
 
         // TODO: setear fijo el tamaño de la imagen
         return (
-            <Container className="m-0 p-0 shadow imagen-fluid">
-                <Card className="btn m-0 p-0">
-                    <CardHeader className="m-0 p-0 shadow">
-                        <Row  className="position-static">
+            <Container  className="m-0 p-0 shadow imagen-fluid ">
+                <Card className="btn m-0 p-0 ">
+                    <CardHeader className="m-0 p-0 shadow ">
+                        <Row className="position-static">
                             <Col>
                                 <UncontrolledCarousel
                                     items={[{src: this.url_image, key: 0}] || [{src: no_img, key: 0}]}
