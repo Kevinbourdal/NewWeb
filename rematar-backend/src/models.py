@@ -339,28 +339,29 @@ class CharacteristicValueModel(ModelBase, db.Model):
 
 class OfferSchema(ma.Schema):
     id = fields.Integer()
-    user_id = fields.Integer()
-    amount = fields.Integer()
-    hour = fields.Integer()
-    diff = fields.Integer()
-    date = fields.String()
+    auction_id = fields.Integer(required=True)
+    account_id = fields.Integer(required=True)
+    amount = fields.Integer(required=True)
+    hour = fields.Time(required=True, format='%H:%M:%s')
+    date = fields.Date(required=True, format='%Y-%m-%d')
 
 
 class OfferModel(ModelBase, db.Model):
     __tablename__ = 'offer'
 
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column('user_id', db.ForeignKey('account.id', ondelete='CASCADE'), nullable=True)
+    auction_id = db.Column('auction_id', db.ForeignKey('auction.id', ondelete='CASCADE'))
+    account_id = db.Column('account_id', db.ForeignKey('account.id', ondelete='CASCADE'))
     amount = db.Column('amount', db.Integer, unique=False)
-    hour = db.Column('hour', db.Integer, unique=False)
-    diff = db.Column('diff', db.Integer, nullable=False)
-    date = db.Column('date', db.String(25), unique=False)
+    hour = db.Column('hour', db.Time, unique=False, nullable=False)
+    date = db.Column('date', db.Date, unique=False)
 
-    def __init__(self, amount, hour, diff, date):
+    def __init__(self, auction_id, account_id, amount, hour, date):
         super(OfferModel, self).__init__()
+        self.auction_id = auction_id
+        self.account_id = account_id
         self.amount = amount
         self.hour = hour
-        self.diff = diff
         self.date = date
 
     def __repr__(self):

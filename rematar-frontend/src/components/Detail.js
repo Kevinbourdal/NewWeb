@@ -15,6 +15,7 @@ import SimpleMap from './SimpleMap';
 // import DataAuction from "./DataLotsComponent";
 import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
+import AuthService from "../utils/AuthService";
 
 
 class Detail extends Component {
@@ -38,8 +39,11 @@ class Detail extends Component {
            city: '',
            key_values: [],
            url_images: []
-      }
-      this.get_detail();
+       }
+       this.Auth = new AuthService();
+       this.username = this.Auth.getUsername();
+       this.get_detail();
+       this.make_offer = this.make_offer.bind(this);
   }
 
    get_detail() {
@@ -65,6 +69,35 @@ class Detail extends Component {
            }
        )
    }
+
+    make_offer(e) {
+        // alert('Comprar la version pro.');
+        let date = new Date();
+        fetch(
+            'http://0.0.0.0:5000/api/offer'+window.location.pathname,
+            {
+                headers: {
+                    Accept: 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                    'username': this.username,
+                    'amount': this.state.base_price * 1.05,
+                    'hour': date.getHours()+':'+date.getMinutes(),  //+':'+date.getSeconds()
+                    'date': date.getFullYear()+'-'+date.getMonth()+'-'+date.getDay(),
+                })
+            }
+        ).then(data => {return data.json()}
+        ).then(res => {
+                alert('Great offer salame!')
+                this.get_detail();
+            }
+        ).catch(e => {
+                console.log(e);
+                alert('No se pudo guardar la subastas');
+            }
+        )
+    }
 
    render() {
       let DescriptionText = (
@@ -172,7 +205,7 @@ class Detail extends Component {
                                                     <CardFooter className="justify-content-center align-content-center text-center">
                                                         <Row>
                                                             <Col>
-                                                                <Button className="btn btn-red btn-lg" onClick={this.Ofertar}>
+                                                                <Button className="btn btn-red btn-lg" onClick={this.make_offer}>
                                                                     <b><h5>Ofertar con ${ this.state.base_price * 1.05 }</h5></b>
                                                                 </Button>
                                                             </Col>

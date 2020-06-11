@@ -1,5 +1,4 @@
 import os
-import urllib
 
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
@@ -24,3 +23,10 @@ SQLALCHEMY_DATABASE_URI = f'mysql://{DB["username"]}:{DB["password"]}@{DB["serve
 SQLALCHEMY_POOL_RECYCLE = 3600
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious')
+
+CATEGORIES_MAP = {
+    'Vehiculo': 'automobile',
+    'Inmueble': 'property',
+    'Agricola': 'farm',
+    'Otros': 'other'
+}
