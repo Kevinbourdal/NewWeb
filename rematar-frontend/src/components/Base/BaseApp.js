@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Switch } from 'react-router-dom';
 import { AppFooter, AppSidebar } from '@coreui/react';
-import { Container, Spinner } from 'reactstrap';
+import { Container } from 'reactstrap';
 import SpinnerWait from "../SpinnerWaitComponent";
 import Header from "./Header";
 import Footer from "./Footer";

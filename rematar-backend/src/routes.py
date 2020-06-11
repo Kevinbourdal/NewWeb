@@ -35,7 +35,7 @@ urls = [
     },
     {
         'resource': OfferView,
-        'path': '/offer/<int:offer_id>',
+        'path': '/offer/detail/<int:auction_id>',
         'endpoint': 'offer',
     }
 

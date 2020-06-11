@@ -33,6 +33,7 @@ from utils import (
     validate_token,
     validate_json_payload,
 )
+from config import CATEGORIES_MAP
 
 
 class BaseView(Resource):
@@ -46,13 +47,13 @@ class BaseView(Resource):
     def get(self, **kwargs):
         return response(401)
 
-    def post(self):
+    def post(self, **kwargs):
         return response(401)
 
-    def put(self):
+    def put(self, **kwargs):
         return response(401)
 
-    def delete(self):
+    def delete(self, **kwargs):
         return response(401)
 
 
@@ -202,46 +203,48 @@ class LoginView(BaseView):
 
 class OfferView(BaseView):
     """
-
-    Class Auctions to see the auction table
+    Class Offers to get and save offers
     """
 
     def __init__(self):
         super(OfferView, self).__init__()
-        self.auction_schema = OfferSchema()
-        self.actions_schema = OfferSchema(many=True)
+        self.offer_schema = OfferSchema()
+        self.offers_schema = OfferSchema(many=True)
 
-    def get(self, offer_id):
-        offer = OfferModel.query.filter_by(id=offer_id).first()
-        if offer is not None:
-            offer = OfferModel.query.filter_by().first()
-            user = UserModel.query.filter_by(id=offer.user_id).first()
-            if user is not None:
-                return response(200, data={'offer': {'firstname': user.firstname,
-                                                     'lastname': user.lastname,
-                                                     'amount': offer.amount,
-                                                     'hour': offer.hour,
-                                                     'diff': offer.diff,
-                                                     'date': offer.date}})
+    def get(self, auction_id):
+        auction = AuctionModel.query.filter_by(id=auction_id).first()
+        offers = OfferModel.query.filter_by(auction_id=auction.id).order_by(OfferModel.hour.desc()).limit(6)
+        if offers is not None:
+            offers = self.offers_schema.dump(offers)
+            for offer in offers:
+                account = AccountModel.query.filter_by(id=offer['account_id']).first()
+                user = UserModel.query.filter_by(account_id=offer['account_id']).first()
+
+                offer['fname'] = user.firstname if user is not None else 'xxx'
+                offer['lname'] = user.lastname if user is not None else 'xxx'
+                offer['diff'] = 0.05  # TODO: esto esta al pedo
+
+            return response(200, data={'offers': offers})
         return response(400)
 
-    def post(self):
+    def post(self, auction_id):
         json_data, error = get_data(request)
 
         if not error:
             try:
-                offer_data = self.auction_schema.load({'amount': json_data['amount'],
-                                                       'hour': json_data['hour'],
-                                                       'diff': json_data['diff'],
-                                                       'username': json_data['username'],
-                                                       'date': json_data['date']})
+                account = AccountModel.query.filter_by(username=json_data['username']).first()
+
+                offer_data = self.offer_schema.load({'auction_id': auction_id,
+                                                     'account_id': account.id,
+                                                     'amount': json_data['amount'],
+                                                     'hour': json_data['hour'],
+                                                     'date': json_data['date']})
             except marshmallow.exceptions.ValidationError as errors:
-                print('error', errors)
                 return response(400, str(errors))
-            new_auction = OfferSchema(**offer_data)
-            error = new_auction.save().get_contacts()
+            new_offer = OfferModel(**offer_data)
+            error = new_offer.save()
             if not error:
-                return response(200, data={'id': new_auction.id})
+                return response(200, data={'id': new_offer.id})
 
         return response(400, msg="Error en backend")
 
@@ -275,19 +278,12 @@ class NewAuctionView(BaseView):
             for auction in auctions:
                 item = ItemModel.query.filter_by(auction_id=auction['id']).first()
                 url = UrlImageModel.query.filter_by(item_id=item.id).first()
-                auction['url_image'] = url.url if url is not None else None
+                auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
 
             return response(200, data={'auctions': auctions})
         return response(404)
 
     def post(self):
-        """
-        AuctionModel,
-        ItemModel,
-        UrlImageModel,
-        CharacteristicKeyValueModel,
-        CharacteristicValueModel,
-        """
         json_data, error = get_data(request)
         if not error:
             # se puede validar que los campos requeridos estan vacios
@@ -355,12 +351,6 @@ class AuctionDetailView(BaseView):
         self.urlimage_schema = UrlImageSchema(many=True, unknown='EXCLUDE')
         self.keyvalue_schema = CharacteristicKeyValueSchema(many=True, unknown='EXCLUDE')
         self.value_schema = CharacteristicValueSchema(many=True, unknown='EXCLUDE')
-        self.category_map = {
-            'Vehiculo': 'automobile',
-            'Inmueble': 'property',
-            'Agricola': 'farm',
-            'Otros': 'other'
-        }
 
     def get(self, auction_id):
         auction = AuctionModel.query.filter_by(id=auction_id).first()
@@ -378,7 +368,6 @@ class AuctionDetailView(BaseView):
                                            'key_values': key_values,
                                            'url_images': urls})
         return response(400)
-
 
 
 #token = request.header['token']
