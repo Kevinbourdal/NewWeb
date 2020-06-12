@@ -120,7 +120,7 @@ class UserSchema(ma.Schema):
     province = fields.String()
     city = fields.String()
     address = fields.String()
-    phone = fields.Integer()
+    phone = fields.String()
     mStatus = fields.String()
 
 
@@ -138,8 +138,8 @@ class UserModel(ModelBase, db.Model):
     province = db.Column('province', db.String(255), unique=False)
     city = db.Column('city', db.String(255), unique=False)
     address = db.Column('address', db.String(255), unique=False, nullable=True)
-    phone = db.Column('phone', db.Integer, unique=False, nullable=True)
-    mStatus = db.Column('mStatus', db.Integer, unique=False, nullable=True)
+    phone = db.Column('phone', db.String(25), unique=False, nullable=True)
+    mStatus = db.Column('mStatus', db.String(225), unique=False, nullable=True)
 
     # last_update = db.Column('last_update', db.DateTime,server_default=db.func.current_timestamp(), nullable=True)
 
