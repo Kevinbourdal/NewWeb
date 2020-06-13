@@ -271,11 +271,11 @@ class NewAuctionView(BaseView):
 
     def get(self):
         try:
-            auctions = AuctionModel.query.all()
+            auctions = AuctionModel.query
             category = request.args.get('category', 'all')
             if category not in ['home', 'all']:
                 auctions = auctions.filter_by(category=category)
-            auctions = self.auction_schemas.dump(auctions)
+            auctions = self.auction_schemas.dump(auctions.all())
 
             for auction in auctions:
                 item = ItemModel.query.filter_by(auction_id=auction['id']).first()
