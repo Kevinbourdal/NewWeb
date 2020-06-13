@@ -15,7 +15,7 @@ import {
 import './CardItemComponent.css';
 
 
-const no_img = 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1811/pavelstasevich181101032/112815935-stock-vector-no-image-available-icon-flat-vector-illustration.jpg?ver=6';
+const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
 
 
 class CardItem extends Component {
@@ -62,18 +62,25 @@ class CardItem extends Component {
                         </CardSubtitle>
                         <br/>
                     </CardBody>
-                    <CardFooter className="text-muted">
-                        <div>
+                    <CardFooter className="text-muted mb-0 pb-0">
+                        <div className="text-center">
                             <Col>
                                 <a href={this.href || '#'}>
-                                    <Button className="btn-lg" color={"danger"}>Detalles</Button>
+                                    <Button className="btn-md"
+                                            color={"danger"}
+                                            style={{fontSize: "14px"}}
+                                    >
+                                        Detalles
+                                    </Button>
                                 </a>
                             </Col>
-                            <Col>
-                                <CardText>
-                                    <small className="text-muted">{ this.footer || '' }</small>
-                                </CardText>
-                            </Col>
+
+                            <CardText className="text-center">
+                                <small className=""
+                                       hidden={this.footer === ''}
+                                       style={{fontSize: "11px"}}
+                                >{ this.footer.toLowerCase() }</small>
+                            </CardText>
                         </div>
                     </CardFooter>
                 </Card>

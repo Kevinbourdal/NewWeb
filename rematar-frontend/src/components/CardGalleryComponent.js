@@ -24,7 +24,7 @@ class CardGallery extends Component {
 
     get_items () {
         fetch(
-            'http://0.0.0.0:5000/api/newauction',
+            'http://0.0.0.0:5000/api/newauction?category='+window.location.pathname.replace('/', ''),
             {
                 mode: 'cors',
                 method: 'GET',
@@ -63,14 +63,14 @@ class CardGallery extends Component {
                                 </section>
                             </MDBCol>
                         }
-                        <MDBCol className="ml-2 mr-4 ">
-                            <Container >
+                        <MDBCol className="mx-md-5 px-md-5">
+                            <Container className="">
 
                                 <div className="row">
                                     <div className="row mt-2">
-                                        <CardDeck>
+                                        <CardDeck className="mx-md-4 px-md-4 ">
                                             {this.state.items.map((data, index) =>
-                                                <div className="col-md-4 mr-0 ml-0 pr- pl-3">
+                                                <div className="col-md-4 col-sm-6 mr-0 ml-0 pr-3 pl-3">
                                                     <div className="mt-0 pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}

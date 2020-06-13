@@ -56,12 +56,16 @@ class Detail extends Component {
            }
        ).then(data => {return data.json()}
        ).then(res => {
-               this.setState({
-                   ...res['data']['auction'],
-                   ...res['data']['item'],
-                   'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
-                   'url_images': res['data']['url_images']
-               })
+           const start_date = new Date(res['data']['auction']['start_date'].split('-'))
+           const end_date = new Date(res['data']['auction']['end_date'].split('-'))
+           res['data']['auction']['start_date'] = start_date
+           res['data']['auction']['end_date'] = end_date
+           this.setState({
+               ...res['data']['auction'],
+               ...res['data']['item'],
+               'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
+               'url_images': res['data']['url_images']
+           })
            }
        ).catch(e => {
                console.log(e);
@@ -126,7 +130,12 @@ class Detail extends Component {
                <h5 className="dark-grey-text mx-auto mb-5 w-75 text-center">
                   { this.state.title }
                </h5>
-               <Timer />
+                { this.state.start_date < Date.now() ?
+                    <Timer start={ this.state.start_date } end={ this.state.end_date }/>
+                    :
+                    <hr />
+                }
+
                <MDBRow className="m-0 p-0">
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
@@ -155,7 +164,7 @@ class Detail extends Component {
 
                             <p className="font-weight-bold dark-grey-text">
                                 <MDBIcon far icon="clock" className="pr-2" />
-                                Subasta desde {this.state.start_date} hasta {this.state.end_date}
+                                Subasta desde {this.state.start_date.toLocaleString()} hasta {this.state.end_date.toLocaleString()}
                             </p>
                         </div>
                         <h6 className="font-weight-bold dark-grey-text mb-3 p-0">
@@ -205,9 +214,11 @@ class Detail extends Component {
                                                     <CardFooter className="justify-content-center align-content-center text-center">
                                                         <Row>
                                                             <Col>
-                                                                <Button className="btn btn-red btn-lg" onClick={this.make_offer}>
+                                                                <Button className="btn btn-red btn-lg" onClick={this.make_offer} disabled={!this.Auth.loggedIn()}>
                                                                     <b><h5>Ofertar con ${ this.state.base_price * 1.05 }</h5></b>
                                                                 </Button>
+                                                                <p className="text-muted"
+                                                                   hidden={this.Auth.loggedIn()}>*Debes logearte</p>
                                                             </Col>
                                                         </Row>
                                                     </CardFooter>

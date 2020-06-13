@@ -270,9 +270,9 @@ class NewAuctionView(BaseView):
         }
 
     def get(self):
-        category = request.args.get('category', 'farm')
+        category = request.args.get('category', 'all')
         if category is not None:
-            auctions = AuctionModel.query.all()  #filter_by(category=category)
+            auctions = AuctionModel.query.filter_by(category=category).all()
             auctions = self.auction_schemas.dump(auctions)
 
             for auction in auctions:

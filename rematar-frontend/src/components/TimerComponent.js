@@ -4,12 +4,15 @@ import { Alert } from 'reactstrap';
 export default class Timer extends Component {
     constructor(props) {
         super(props);
-        const date = new Date(this.props.date);
+        console.log(this.props);
+        // let parse_start = this.props.start.split('-')
+        // let parse_end = this.props.end.split('-')
         this.state = {
-            days: date.days,
-            hour: 15,
-            minutes: 30,
-            seconds: 0,
+            started: this.props.start > Date.now(),
+            days: this.props.start.days,
+            hour: this.props.start.hours,
+            minutes: this.props.start.minutes,
+            seconds: this.props.start.seconds,
         }
     }
 
@@ -25,6 +28,9 @@ export default class Timer extends Component {
             if (seconds === 0) {
                 if (minutes === 0) {
                     clearInterval(this.myInterval)
+                    this.setState(
+                        {'started': !this.state.started}
+                    )
                 } else {
                     this.setState(({ minutes }) => ({
                         minutes: minutes - 1,
@@ -43,7 +49,7 @@ export default class Timer extends Component {
         const { days, hour, minutes, seconds } = this.state
         return (
 
-                <Alert color="success" className="text-center" >
+                <Alert color={this.state.started ? "success" : "danger"} className="text-center" >
                     Tiempo restante:
                     { minutes === 0 && seconds === 0
                         ? <h1>Finalizado!</h1>

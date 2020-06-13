@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
 import InputField from "./InputFieldComponent";
 import AuthService from '../utils/AuthService';
+import logo from '../img/logofull.png'
 
 
 class Login extends Component {
@@ -74,7 +75,7 @@ class Login extends Component {
                                             <Row>
                                                 <Col>
                                                     <AppNavbarBrand
-                                                    full={{ src:"https://cdn.shopify.com/s/files/1/2245/4189/files/todoenremate-logo_x250.png?v=1548202790",
+                                                    full={{ src: logo,
                                                             width: 200,
                                                             alt: 'Remates Calamuchita Logo' }}
                                                     />

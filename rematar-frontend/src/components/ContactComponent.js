@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import InputField from './InputFieldComponent'
 import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
+import logo from '../img/logofull.png'
+
 
 class Contact extends Component {
     constructor(props) {
@@ -68,7 +70,7 @@ class Contact extends Component {
                                         <Form onSubmit={this.submitHandler}>
                                                 <Col className="mt-0 pt-0 p-0 ">
                                                     <AppNavbarBrand
-                                                    full={{ src:"https://lh3.googleusercontent.com/toDsY_zxukkG2P6itxxUeywaIeVlsErQXIXo3RXpRP9N5UxVqTtOYmpKfRChQbBnYpMwh_wbjSOvNAw8Doa15QxttYBZO5xJp0oxxZUP5_P0EXGWYBhDdbUBTH932FktGV0G7GcZsHrtWGY0vVRYVhDBwqkaQKZTOSgaWaUSKhv01RBEJCGELruHfwi1lagpk0zfp8-M0hmhsvXVcPylcUSsxxzMn_0bYUoYfZu8l5G6QnepTX9cF8f8owvcS4Ir-FLcKlaozcGUbl1KSy7RUaF7pV0LkBLg6Jh7Exs_uVVIXTtTvM8yj-FaEiZjGJXBEwhSxdthHyRpfqltEWeHK_ro5cCRG8enZHJm1CHEyZq4SbVwgTPN1oRgwBjgiccGyiqVctPIusi4PMHbMEHDXadH6HkelJH1fKJvdRqHq_K7cEqHRmoRhAzPCm3JekMbbVQwWV9P8ihi4ixdRjbRUEdmexioGTq-Cw1nHugMDezGYSzyQCLGgmFFenJZn3PPjt28YNSaORaYKxfq3djc6ycuDHwwmyrcsRa9ZFrxiAAFtiCin6bJfrQKlzMHdNg7pJE-aHYRsrqD0D2Y20TF1sePnZOMJgae8qJOiv7Zn8kvpZDRd9cOB2MNcPU1etruokojn5VIjmotQyV_6BGKhaDPLJm81oGOCFZzGJWXQowv_79qQmqmVoE=w612-h637-no?authuser=0",
+                                                    full={{ src: logo,
                                                             width: 300,
                                                             alt: 'Remates Calamuchita Logo' }}
                                                     />
