@@ -4,15 +4,15 @@ import { Alert } from 'reactstrap';
 export default class Timer extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
+        const d = new Date();
         // let parse_start = this.props.start.split('-')
         // let parse_end = this.props.end.split('-')
         this.state = {
-            started: this.props.start > Date.now(),
-            days: this.props.start.days,
-            hour: this.props.start.hours,
-            minutes: this.props.start.minutes,
-            seconds: this.props.start.seconds,
+            started: true, // this.props.start > Date.now(),
+            days: 8, //d.days,
+            hour: 10, //d.hours,
+            minutes: 45, //d.minutes,
+            seconds: 30, //d.seconds,
         }
     }
 
@@ -46,7 +46,8 @@ export default class Timer extends Component {
     }
 
     render() {
-        const { days, hour, minutes, seconds } = this.state
+        const { days, hour, minutes, seconds } = this.state;
+        console.log(days)
         return (
 
                 <Alert color={this.state.started ? "success" : "danger"} className="text-center" >
