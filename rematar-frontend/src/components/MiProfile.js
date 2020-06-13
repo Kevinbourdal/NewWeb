@@ -57,7 +57,7 @@ class MiProfile extends React.Component {
     };
 
     render() {
-        const dni_types = ['DNI', 'CUIT', 'CUIL', 'LIBRETA CÍVICA', 'LIBRETA DE ENROLAMIENTO']
+        const dni_types = ['SELECT','DNI', 'CUIT', 'CUIL', 'LIBRETA CÍVICA', 'LIBRETA DE ENROLAMIENTO']
         return (
             <div className="app flex-row align-items-center mt-5 mb-5">
                 <MDBContainer>
