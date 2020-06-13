@@ -270,9 +270,11 @@ class NewAuctionView(BaseView):
         }
 
     def get(self):
-        category = request.args.get('category', 'all')
-        if category is not None:
-            auctions = AuctionModel.query.filter_by(category=category).all()
+        try:
+            auctions = AuctionModel.query.all()
+            category = request.args.get('category', 'all')
+            if category not in ['home', 'all']:
+                auctions = auctions.filter_by(category=category)
             auctions = self.auction_schemas.dump(auctions)
 
             for auction in auctions:
@@ -281,7 +283,8 @@ class NewAuctionView(BaseView):
                 auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
 
             return response(200, data={'auctions': auctions})
-        return response(404)
+        except Exception as ex:
+            return response(404)
 
     def post(self):
         json_data, error = get_data(request)
