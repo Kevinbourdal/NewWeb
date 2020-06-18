@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardGroup, Col, Container, Row, Table } from "reactstrap";
 import AuthService from "../utils/AuthService";
 import {MDBCol} from "mdbreact";
+import config from "../config";
 
 class OffersLive extends Component {
     constructor(pros) {
@@ -18,7 +19,7 @@ class OffersLive extends Component {
         // recibimos los datos del backend
 
         fetch(
-            'http://0.0.0.0:5000/api/offer'+window.location.pathname,
+            config["api"]+'/api/offer'+window.location.pathname,
             {
                 mode: 'cors',
                 method: 'GET',

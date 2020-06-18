@@ -3,6 +3,7 @@ import { AppNavbarBrand } from '@coreui/react';
 import InputField from './InputFieldComponent'
 import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
 import logo from '../img/logofull.png'
+import config from "../config";
 
 
 class Contact extends Component {
@@ -26,7 +27,7 @@ class Contact extends Component {
 
        //Enviamos los datos al backend
         fetch(
-            'http://0.0.0.0:5000/api/contact',
+            config["api"]+'/api/contact',
            {
                headers: {
                'Content-Type': 'text/json',

@@ -4,6 +4,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBIcon } from 'mdbreac
 import {provincia} from "../data/items_filtro";
 import AuthService from "../utils/AuthService";
 import logo from '../img/logofull.png'
+import config from "../config";
 
 
 class MiProfile extends React.Component {
@@ -32,7 +33,7 @@ class MiProfile extends React.Component {
         event.target.className += ' was-validated';
         // enviamos los datos al backend
         fetch(
-            'http://0.0.0.0:5000/api/mi_perfil',
+            config["api"]+'/api/mi_perfil',
             {
                 headers: {
                     'Content-Type': 'text/json',

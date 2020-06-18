@@ -3,6 +3,7 @@ import { AppNavbarBrand } from '@coreui/react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import {Col, Form, Row} from 'reactstrap';
 import logo from '../img/logofull.png'
+import config from "../config";
 
 
 class ToRegister extends React.Component {
@@ -32,7 +33,7 @@ class ToRegister extends React.Component {
 
     // enviamos los datos al backend
     fetch(
-        'http://0.0.0.0:5000/api/register',
+        config["api"]+'/api/register',
         {
           headers: {
               Accept: 'application/json',

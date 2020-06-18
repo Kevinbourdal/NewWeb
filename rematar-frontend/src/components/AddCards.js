@@ -5,6 +5,7 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 
 import {provincia} from "../data/items_filtro";
 import Label from "reactstrap/es/Label";
+import config from "../config";
 
 
 class AddCards extends Component {
@@ -42,7 +43,7 @@ class AddCards extends Component {
      handleSubmit(e) {
          e.preventDefault();
          fetch(
-             'http://0.0.0.0:5000/api/newauction',
+             config["api"]+'/api/newauction',
              {
                  headers: {
                      'Content-Type': 'text/json',

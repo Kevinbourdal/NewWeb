@@ -16,6 +16,7 @@ import SimpleMap from './SimpleMap';
 import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
 import AuthService from "../utils/AuthService";
+import config from "../config";
 
 
 class Detail extends Component {
@@ -49,7 +50,7 @@ class Detail extends Component {
    get_detail() {
        // let url = ;
        fetch(
-           'http://0.0.0.0:5000/api'+window.location.pathname,
+           config["api"]+'/api'+window.location.pathname,
            {
                mode: 'cors',
                method: 'GET',
@@ -78,7 +79,7 @@ class Detail extends Component {
         // alert('Comprar la version pro.');
         let date = new Date();
         fetch(
-            'http://0.0.0.0:5000/api/offer'+window.location.pathname,
+            config["api"]+'/api/offer'+window.location.pathname,
             {
                 headers: {
                     Accept: 'application/json',

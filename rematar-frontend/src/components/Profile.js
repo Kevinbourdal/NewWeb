@@ -12,6 +12,7 @@ import {
 } from 'mdbreact';
 import { ofertas } from "../data/ofertasenvivo";
 import AuthService from "../utils/AuthService";
+import config from "../config";
 
 
 class Profile extends Component {
@@ -41,7 +42,7 @@ class Profile extends Component {
     submitHandler = () => {
         // recibimos los datos del backend
         fetch(
-            'http://0.0.0.0:5000/api/mi_perfil?username='+this.username,
+            config["api"]+'/api/mi_perfil?username='+this.username,
             {
                 headers: {
                     'Content-Type': 'text/json',

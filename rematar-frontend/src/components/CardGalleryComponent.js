@@ -4,6 +4,7 @@ import CardItem from "./CardItemComponent";
 import Container from "reactstrap/es/Container";
 import {MDBCol, MDBRow} from "mdbreact";
 import FiltrosForHome from "./FiltrosForHome";
+import config from "../config";
 
 
 class CardGallery extends Component {
@@ -24,7 +25,7 @@ class CardGallery extends Component {
 
     get_items () {
         fetch(
-            'http://0.0.0.0:5000/api/newauction?category='+window.location.pathname.replace('/', ''),
+            config["api"]+'/api/newauction?category='+window.location.pathname.replace('/', ''),
             {
                 mode: 'cors',
                 method: 'GET',
