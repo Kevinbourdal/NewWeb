@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CardDeck } from 'reactstrap';
 import CardItem from "./CardItemComponent";
 import Container from "reactstrap/es/Container";
-import {MDBCol, MDBRow} from "mdbreact";
+import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
 import FiltrosForHome from "./FiltrosForHome";
 import config from "../config";
 
@@ -50,28 +50,26 @@ class CardGallery extends Component {
         return (
             <div>
             { this.categories === 'casas' || this.categories === 'home' || this.categories === 'autos' ?
-                <div className="mt-4 container-fluid"  >
+                <div className="mt-3 container-fluid"  >
 
                     <MDBRow >
                         { this.categories === 'autos' ?
-
                             <div/>
                             :
-                            <MDBCol className="col-md-3  ">
-                                <section className="rounded-lg card info-color-dark " style={{width: "70%"}}>
+                            <MDBRow className="col-sm-3  mt-3 col-md-2">
+                                <MDBRow className="rounded-lg  info-color-dark ">
                                     <FiltrosForHome/>
-                                </section>
-                            </MDBCol>
+                                </MDBRow>
+                            </MDBRow>
                         }
-                        <MDBCol className="mx-md-5 px-md-5">
-                            <Container className="">
-
+                        <MDBCol className="mx-md-5 px-md-4">
+                            <Container className="col-12">
                                 <div className="">
                                     <div className=" mt-0 ">
-                                        <CardDeck className="mx-md-4 px-md-4 ">
+                                        <CardDeck className="mx-md-1 col-12 px-md-1 ">
                                             {this.state.items.map((data, index) =>
-                                                <div className=" col-8 col-md-6 pr-3 pl-3">
-                                                    <div className="mt-0 pt-3 pb-3 mr-0 ml-0">
+                                            <div className="col-4  pr-2 pl-2" style={{maxWidth:'576px'}}>
+                                                    <div className="pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}
                                                                   footer={'desde '+data['start_date'] + ' hasta '+data['end_date']}  //TODO: Dar formato a la fecha

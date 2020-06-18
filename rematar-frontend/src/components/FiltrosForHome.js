@@ -18,10 +18,10 @@ class FiltrosForHome extends Component{
 
             return (
                 <div className="mb-5">
-                  <h4 className="ml-3 ">{key}</h4>
+                  <h4 className="ml-1 ">{key}</h4>
                     <hr className="accent-4 ml-1 mt-1  mr-5 grey lighten-5" style={{ width: "150px" }} />
                       {Object.values(this.state.filtro[key]).map((value) =>
-                          <div className="mt-2 ml-5"  >
+                          <div className="mt-2 ml-3"  >
                             <h6>
                               <a href="#" style={{color:"white"}} >
                                  {value}
@@ -41,22 +41,23 @@ class FiltrosForHome extends Component{
                    <hr className="accent-2 ml-1 mb-0 mr-5 grey lighten-5" style={{ width: "150px" }} />
                 </div>
                 <MDBRow >
-                     <MDBCol className="mr-2 ml-2 ">
+                    <MDBCol>
+                     <MDBRow className="mr-4 ml-2 m-0 p-0 my-0 mt-1 ">
                         <MDBInput className="rounded-pill"
-                            style={{height:"5vh"}}
                             background={"white"}
                             name="precio"
                             label='$ Desde'
                             type='number'/>
-                      </MDBCol>
-                      <MDBCol className="mr-4  ">
+                      </MDBRow>
+                      <MDBRow className="mr-4 ml-2 m-0 p-0  ">
                           <MDBInput className="rounded-pill"
-                               style={{height:"5vh"}}
+
                                background={"white"}
                                name="precio"
                                label='$ Hasta'
                                type='number'/>
-                      </MDBCol>
+                      </MDBRow>
+                    </MDBCol>
                 </MDBRow>
                 <div className="text-center mr-4 ">
                     <MDBBtn color="grey darken-3" style={{color:'white'}} className="my-4">Filtrar</MDBBtn>

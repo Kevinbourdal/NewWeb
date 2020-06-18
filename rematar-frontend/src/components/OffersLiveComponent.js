@@ -70,15 +70,14 @@ class OffersLive extends Component {
                 <Container className="px-md-0 pl-md-4 pl-lg-4">
                     <CardGroup>
                         <Card className="p-0 shadow">
-                            <br/>
                             <CardBody className="text-center">
                                 <Row>
                                     <Col>
-                                        <h3 style={{color:'#424242'}}><b>Ofertas</b></h3>
-                                        <hr className="d-inline-block mt-1 info-color-dark" style={{ width: "150px" }} />
+                                        <h3  style={{fontSize:'60px',color:'#424242'}}><b>Ofertas</b></h3>
+                                        <hr className="d-inline-block mt-0 info-color-dark" style={{ width: "200px" }} />
                                     </Col>
                                 </Row>
-                                <Row>
+                                <Row className="border-default">
                                     <Col>
                                         <Table hover responsive={true}  className="mr-5 table-striped">
                                             <thead className="thead-dark text-center">

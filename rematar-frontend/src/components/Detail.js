@@ -141,10 +141,11 @@ class Detail extends Component {
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
                         <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
-                           <MDBCarousel activeItem={1} length={this.state.url_images.length} showControls={true} showIndicators={true} thumbnails className="z-depth-1">
-                              <MDBCarouselInner>
+                           <MDBCarousel activeItem={1} length={this.state.url_images.length}
+                                        showControls={true}  showIndicators={true} thumbnails className="z-depth-1 ">
+                              <MDBCarouselInner >
                                   {this.state.url_images.map((url, index) =>
-                                      <MDBCarouselItem itemId={index+1}>
+                                      <MDBCarouselItem  itemId={index+1} className=''>
                                           <img className="d-block w-100"
                                                src={url['url']}
                                                alt="slide" />
@@ -156,16 +157,16 @@ class Detail extends Component {
                            </MDBCarousel>
                         </MDBView>
                         <div className="d-flex justify-content-between">
-                            <a href="#!" className="deep-orange-text">
+                            <a className="deep-orange-text">
                                 <h5 className="font-weight-bold">
                                     <MDBIcon icon="book-open" className="pr-2" />
                                     Descripcion
                                 </h5>
                             </a>
 
-                            <p className="font-weight-bold dark-grey-text">
+                            <p className="font-weight-bold text-right dark-grey-text">
                                 <MDBIcon far icon="clock" className="pr-2" />
-                                Subasta desde {this.state.start_date.toLocaleString()} hasta {this.state.end_date.toLocaleString()}
+                                Subasta desde {this.state.start_date.toLocaleString()} <br/> hasta {this.state.end_date.toLocaleString()}
                             </p>
                         </div>
                         <h6 className="font-weight-bold dark-grey-text mb-3 p-0">
@@ -243,11 +244,11 @@ class Detail extends Component {
                    </MDBCol>
                </MDBRow>
 
-               <MDBRow className="mt-5">
-                  <MDBCol>
-                    <SimpleMap />
-                  </MDBCol>
-               </MDBRow>
+               {/*<MDBRow className="mt-5">*/}
+               {/*   <MDBCol>*/}
+               {/*     <SimpleMap />*/}
+               {/*   </MDBCol>*/}
+               {/*</MDBRow>*/}
 
             </MDBCardBody>
          </MDBCard>

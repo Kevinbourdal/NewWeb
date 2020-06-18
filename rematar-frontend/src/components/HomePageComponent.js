@@ -53,14 +53,14 @@ const HomePage = (props) => {
         return (
 
          <div>
-            <div className="p-0 m-0" style={{ height: '600px'}}>
+            <div className="p-0 m-0" style={{ height: '400px'}}>
                <div className="container-fluid no-padding h-25 p-0 m-0 ">
 
-                  <div  style={{ height: '70vh' }} className="p-0 m-0">
+                  <div  style={{ height: '70vh' }} className="">
                      <style>
                         {`.custom-tag {
                               max-width: 100%;
-                              height: 600px;
+                              height: 400px;
                               background: black;
                         }`}
                      </style>
@@ -78,37 +78,38 @@ const HomePage = (props) => {
                         </Carousel>
 
                         <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
-                           <Container className="mt-5">
-                                 <MDBContainer  className=" mr-5">
-                                    <MDBFormInline className="md-form ml-5">
+                           <Container className="mt-4">
+                              <Row className="d-sm-block">
+                                 <h2 className="w-100">Encontra las mejores inversiones</h2>
+                              </Row>
+                                 <MDBContainer  className=" my-5">
+                                    <MDBFormInline className="md-form mt-5 ml-5">
                                        <input
-                                          className="form-control mr-sm-1 text-white"
+                                          className="form-control mt-5 mr-sm-1 text-white"
                                           style={{width:"80%"}}
                                           type="text"
                                           placeholder="Buscar"
                                           aria-label="Search"
                                        />
-                                       <MDBBtn className="info-color-dark" style={{color: "#424242", fontSize: "15px"}}  rounded size="sm" type="submit">
+                                       <MDBBtn className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "15px"}}  rounded size="sm" type="submit">
                                           <b>Buscar</b>
                                        </MDBBtn>
                                     </MDBFormInline>
                                  </MDBContainer>
-                              <Row className="my-5 d-none d-sm-block">
-                                 <h2 className="w-100">Encontra las mejores inversiones</h2>
-                              </Row>
+
                            </Container>
                         </CardImgOverlay>
                      </Card>
                   </div>
                </div>
             </div>
-            <div id="filterbar">
-               <MDBCol className="">
-                  <MDBRow className="justify-content-center">
-                     {/*<NavFiltro/>*/}
-                  </MDBRow>
-               </MDBCol>
-            </div>
+            {/*<div id="filterbar">*/}
+            {/*   <MDBCol className="">*/}
+            {/*      <MDBRow className="justify-content-center">*/}
+            {/*         /!*<NavFiltro/>*!/*/}
+            {/*      </MDBRow>*/}
+            {/*   </MDBCol>*/}
+            {/*</div>*/}
             <CardGallery categories={categories}/>
          </div>
         );

@@ -39,9 +39,9 @@ class CardItem extends Component {
 
         // TODO: setear fijo el tamaño de la imagen
         return (
-            <Container  className="m-0 p-0 shadow imagen-fluid ">
+            <Container  className=" imagen-fluid ">
                 <Card className="btn  m-0 p-0 ">
-                    <CardHeader className="m-0 p-0 shadow " style={{height:"150px"}}>
+                    <CardHeader className="m-0 p-0 " >
                         <Row className="position-static">
                             <Col>
                                 <UncontrolledCarousel
@@ -57,12 +57,11 @@ class CardItem extends Component {
                         <CardTitle>
                             <a href={this.href || '#'} className="text-dark" type=""><h4><b>{ this.title || '' }</b></h4></a>
                         </CardTitle>
-                        <CardSubtitle>
+                        <CardSubtitle className="my-0" >
                             <b>{ this.subtitle || '' }</b>
                         </CardSubtitle>
-                        <br/>
                     </CardBody>
-                    <CardFooter  className=" mb-0 pb-0" >
+                    <CardFooter  className=" mb-0  pb-0" >
                         <div className="text-center">
                             <Col>
                                 <a href={this.href || '#'}>
