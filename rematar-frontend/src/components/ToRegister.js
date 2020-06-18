@@ -33,7 +33,7 @@ class ToRegister extends React.Component {
 
     // enviamos los datos al backend
     fetch(
-        config["api"]+'/api/register',
+        config["api"]['BACKEND_ENDPOINT']+'/api/register',
         {
           headers: {
               Accept: 'application/json',

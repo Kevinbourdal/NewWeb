@@ -50,7 +50,7 @@ class Detail extends Component {
    get_detail() {
        // let url = ;
        fetch(
-           config["api"]+'/api'+window.location.pathname,
+           config["api"]['BACKEND_ENDPOINT']+'/api'+window.location.pathname,
            {
                mode: 'cors',
                method: 'GET',

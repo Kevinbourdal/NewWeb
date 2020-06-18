@@ -27,7 +27,7 @@ class Contact extends Component {
 
        //Enviamos los datos al backend
         fetch(
-            config["api"]+'/api/contact',
+            config["api"]['BACKEND_ENDPOINT']+'/api/contact',
            {
                headers: {
                'Content-Type': 'text/json',

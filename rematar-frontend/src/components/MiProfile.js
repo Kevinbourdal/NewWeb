@@ -33,7 +33,7 @@ class MiProfile extends React.Component {
         event.target.className += ' was-validated';
         // enviamos los datos al backend
         fetch(
-            config["api"]+'/api/mi_perfil',
+            config["api"]['BACKEND_ENDPOINT']+'/api/mi_perfil',
             {
                 headers: {
                     'Content-Type': 'text/json',

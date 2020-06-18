@@ -43,7 +43,7 @@ class AddCards extends Component {
      handleSubmit(e) {
          e.preventDefault();
          fetch(
-             config["api"]+'/api/newauction',
+             config["api"]['BACKEND_ENDPOINT'] +'/api/newauction',
              {
                  headers: {
                      'Content-Type': 'text/json',

@@ -25,7 +25,7 @@ class CardGallery extends Component {
 
     get_items () {
         fetch(
-            config["api"]+'/api/newauction?category='+window.location.pathname.replace('/', ''),
+            config["api"]['BACKEND_ENDPOINT']+'/api/newauction?category='+window.location.pathname.replace('/', ''),
             {
                 mode: 'cors',
                 method: 'GET',

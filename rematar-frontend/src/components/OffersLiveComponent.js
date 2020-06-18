@@ -19,7 +19,7 @@ class OffersLive extends Component {
         // recibimos los datos del backend
 
         fetch(
-            config["api"]+'/api/offer'+window.location.pathname,
+            config["api"]['BACKEND_ENDPOINT']+'/api/offer'+window.location.pathname,
             {
                 mode: 'cors',
                 method: 'GET',

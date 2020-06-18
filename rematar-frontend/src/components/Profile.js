@@ -42,7 +42,7 @@ class Profile extends Component {
     submitHandler = () => {
         // recibimos los datos del backend
         fetch(
-            config["api"]+'/api/mi_perfil?username='+this.username,
+            config["api"]['BACKEND_ENDPOINT']+'/api/mi_perfil?username='+this.username,
             {
                 headers: {
                     'Content-Type': 'text/json',
