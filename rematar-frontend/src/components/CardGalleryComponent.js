@@ -49,16 +49,15 @@ class CardGallery extends Component {
         return (
             <div>
             { this.categories === 'casas' || this.categories === 'home' || this.categories === 'autos' ?
-                <div className="mt-5 container-fluid"  >
-                    <div className="ml-5">
-                        <h2><b>{ this.state.items.length } Articulos disponibles: </b></h2>
-                    </div>
+                <div className="mt-4 container-fluid"  >
+
                     <MDBRow >
-                        { this.categories === 'home' ?
+                        { this.categories === 'autos' ?
+
                             <div/>
                             :
-                            <MDBCol className="col-md-3 mt-3 ">
-                                <section className="rounded-lg card elegant-color-dark " style={{width: "100%"}}>
+                            <MDBCol className="col-md-3  ">
+                                <section className="rounded-lg card info-color-dark " style={{width: "70%"}}>
                                     <FiltrosForHome/>
                                 </section>
                             </MDBCol>
@@ -66,11 +65,11 @@ class CardGallery extends Component {
                         <MDBCol className="mx-md-5 px-md-5">
                             <Container className="">
 
-                                <div className="row">
-                                    <div className="row mt-2">
+                                <div className="">
+                                    <div className=" mt-0 ">
                                         <CardDeck className="mx-md-4 px-md-4 ">
                                             {this.state.items.map((data, index) =>
-                                                <div className="col-md-4 col-sm-6 mr-0 ml-0 pr-3 pl-3">
+                                                <div className=" col-8 col-md-6 pr-3 pl-3">
                                                     <div className="mt-0 pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}

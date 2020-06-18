@@ -1,20 +1,28 @@
 export const filtro = {
-  'Ubicacion':{
-            'item1': 'cordoba',
-            'item2': 'embalse',
-            'item3': 'villa general belgrano',
-            'item4': 'santa rosa',
-            'item5': 'amboy',
-            'item6': 'villa del dique',
-            'item7': 'villa rumipal'
-          },
-  'Articulos':{
-            'item1': 'Autos',
-            'item2': 'Motos',
-            'item3': 'Terrenos',
-            'item4': 'Casas'
+  'Inmuebles':{
+          'itmes1':'Casas',
+          'itmes2':'Departamentos',
+          'itmes3':'Campos',
+          'itmes4':'Lotes',
+          'itmes5':'Otros',
+
 
           },
+  'Vehiculos':{
+            'item1': 'Autos',
+            'item2': 'Pickup',
+            'item3': 'Motos',
+            'item4': 'Otros'
+          },
+  'Maquinaria':{
+
+    },
+    'Subastas':{
+        'item1': 'Activas',
+        'item2': 'Proximas a Subastar',
+
+    },
+
 
 };
 

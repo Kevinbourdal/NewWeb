@@ -10,7 +10,7 @@ const Footer = () => {
         <MDBRow>
           <MDBCol className="lg-2">
             <h4 className="text-uppercase mb-2 mt-3 font-weight-bold">Subastas en web</h4>
-            <hr className="accent-1 mb-3 mt-2 d-inline-block mx-auto danger-color" style={{ width: "150px" }}  />
+            <hr className="accent-1 mb-3 mt-2 d-inline-block mx-auto info-color-dark" style={{ width: "150px" }}  />
             <p>
             Todos los derechos reservados
             </p>
@@ -19,7 +19,7 @@ const Footer = () => {
           <h5 className="text-uppercase mb-2 mt-3 font-weight-bold">
             <strong>Contact</strong>
           </h5>
-           <hr className="accent-2 mb-2 mt-0 d-inline-block mx-auto danger-color" style={{ width: "70px" }} />
+           <hr className="accent-2 mb-2 mt-0 d-inline-block mx-auto info-color-dark" style={{ width: "70px" }} />
            <div className="mr-4 ">
              <ul className="list-unstyled list-inline">
                <li className="list-inline-item">
@@ -60,8 +60,8 @@ const Footer = () => {
         </MDBCol>
         </MDBRow>
       </MDBContainer>
-        <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
+        <div className="footer-copyright info-color-dark text-center py-3">
+        <MDBContainer fluid style={{color:'black'}}>
           &copy; {new Date().getFullYear()} Copyright <a href="/home" style={{color:"black"}} > Subastas en web </a>
         </MDBContainer>
       </div>

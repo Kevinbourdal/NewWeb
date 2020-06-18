@@ -137,7 +137,7 @@ class Contact extends Component {
                                                 <Col>
                                                     <Button
 
-                                                        color="primary btn-danger"
+                                                        color="info"
                                                         disabled={!this.validateForm()}
                                                     >
                                                         Enviar

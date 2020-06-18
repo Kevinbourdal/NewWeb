@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardGroup, Col, Container, Row, Table } from "reactstrap";
 import AuthService from "../utils/AuthService";
+import {MDBCol} from "mdbreact";
 
 class OffersLive extends Component {
     constructor(pros) {
@@ -40,7 +41,7 @@ class OffersLive extends Component {
             return (
                 <tbody>
                     { index === 0 ?
-                        <tr className="ml-5 bg-success">
+                        <tr className="ml-5 info-color-dark">
                             <th className="ml-5">{index+1}</th>
                             <td className="ml-5 ">{offer['fname']}</td>
                             <td className="ml-5">{offer['lname']}</td>
@@ -72,7 +73,8 @@ class OffersLive extends Component {
                             <CardBody className="text-center">
                                 <Row>
                                     <Col>
-                                        <h3><b>Ofertas</b></h3>
+                                        <h3 style={{color:'#424242'}}><b>Ofertas</b></h3>
+                                        <hr className="d-inline-block mt-1 info-color-dark" style={{ width: "150px" }} />
                                     </Col>
                                 </Row>
                                 <Row>

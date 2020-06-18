@@ -5,6 +5,7 @@ import {MDBContainer, MDBRow, MDBBtn, MDBFormInline,MDBCol} from "mdbreact";
 import NavFiltro from "./NavFiltro";
 
 import { itemslist } from '../data/items_terrenos';
+import Container from "reactstrap/es/Container";
 
 
 
@@ -77,17 +78,7 @@ const HomePage = (props) => {
                         </Carousel>
 
                         <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
-                           <div className="">
-                              <Row className="my-5">
-                                 <h3 className="w-100 text-white-100 text-white" style={{fontSize: "30px"}}>
-                                    <b>{ itemslist.length } Articulos disponibles este mes : </b>
-                                 </h3>
-                              </Row>
-                              <Row className="my-5">
-                                 <h1 className="w-100" ><b style={{fontSize: "60px"}}> Subastas en web </b></h1>
-                              </Row>
-
-                              <Row className="my-5">
+                           <Container className="mt-5">
                                  <MDBContainer  className=" mr-5">
                                     <MDBFormInline className="md-form ml-5">
                                        <input
@@ -97,16 +88,15 @@ const HomePage = (props) => {
                                           placeholder="Buscar"
                                           aria-label="Search"
                                        />
-                                       <MDBBtn className="" style={{color: "black", fontSize: "15px"}} gradient="aqua" rounded size="sm" type="submit">
+                                       <MDBBtn className="info-color-dark" style={{color: "#424242", fontSize: "15px"}}  rounded size="sm" type="submit">
                                           <b>Buscar</b>
                                        </MDBBtn>
                                     </MDBFormInline>
                                  </MDBContainer>
-                              </Row>
                               <Row className="my-5 d-none d-sm-block">
                                  <h2 className="w-100">Encontra las mejores inversiones</h2>
                               </Row>
-                           </div>
+                           </Container>
                         </CardImgOverlay>
                      </Card>
                   </div>
@@ -115,7 +105,7 @@ const HomePage = (props) => {
             <div id="filterbar">
                <MDBCol className="">
                   <MDBRow className="justify-content-center">
-                     <NavFiltro/>
+                     {/*<NavFiltro/>*/}
                   </MDBRow>
                </MDBCol>
             </div>

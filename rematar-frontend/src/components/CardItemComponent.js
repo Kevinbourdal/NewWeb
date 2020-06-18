@@ -40,8 +40,8 @@ class CardItem extends Component {
         // TODO: setear fijo el tamaño de la imagen
         return (
             <Container  className="m-0 p-0 shadow imagen-fluid ">
-                <Card className="btn m-0 p-0 ">
-                    <CardHeader className="m-0 p-0 shadow ">
+                <Card className="btn  m-0 p-0 ">
+                    <CardHeader className="m-0 p-0 shadow " style={{height:"150px"}}>
                         <Row className="position-static">
                             <Col>
                                 <UncontrolledCarousel
@@ -62,13 +62,13 @@ class CardItem extends Component {
                         </CardSubtitle>
                         <br/>
                     </CardBody>
-                    <CardFooter className="text-muted mb-0 pb-0">
+                    <CardFooter  className=" mb-0 pb-0" >
                         <div className="text-center">
                             <Col>
                                 <a href={this.href || '#'}>
                                     <Button className="btn-md"
-                                            color={"danger"}
-                                            style={{fontSize: "14px"}}
+                                            color={'info'}
+                                            style={{fontSize: "14px", color:'#424242'}}
                                     >
                                         Detalles
                                     </Button>

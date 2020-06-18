@@ -60,7 +60,7 @@ const Faqs = () => {
 			{/* </div>*/}
 	      {/*</Card>*/}
 			<h1 className="text-left ml-4 mt-5">Preguntas Frecuentes</h1>
-	      <hr className="d-inline-block danger-color" style={{ width: "100%" }}/>
+	      <hr className="d-inline-block info-color-dark" style={{ width: "100%" }}/>
 	      <div className=" justify-content-center text-center ">
 			  <Col className="text-left" >
 				{faq_list.map((faqs, idx) =>

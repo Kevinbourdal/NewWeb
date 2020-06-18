@@ -122,12 +122,12 @@ class Detail extends Component {
        });
 
       return (
-         <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 300, maxWidth: "90%" }}>
-            <MDBCardBody style={{ paddingTop: 0 }}>
-               <h2 className="h1-responsive font-weight-bold my-5 text-center">
+         <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 60, maxWidth: "90%" , }}>
+            <MDBCardBody style={{ height:'70%',paddingTop: 0 }}>
+               <h2 className="h1-responsive mt-2 font-weight-bold my-1 text-center">
                   { this.state.title }
                </h2>
-               <h5 className="dark-grey-text mx-auto mb-5 w-75 text-center">
+               <h5 className="dark-grey-text mx-auto text-center">
                   { this.state.title }
                </h5>
                 { this.state.start_date < Date.now() ?
@@ -136,7 +136,7 @@ class Detail extends Component {
                     <hr />
                 }
 
-               <MDBRow className="m-0 p-0">
+               <MDBRow className="p-0">
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
                         <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
@@ -194,7 +194,7 @@ class Detail extends Component {
                                                         <Row>
                                                             <Col>
                                                                 <h3><b>Precio Actual</b></h3>
-                                                                <h1 className="rounded-pill text-center border border-success bg-success">
+                                                                <h1 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
                                                                     $ { this.state.base_price }
                                                                 </h1>
                                                             </Col>
@@ -203,7 +203,7 @@ class Detail extends Component {
                                                         <Row>
                                                             <Col>
                                                                 <h5>Tabla de información</h5>
-                                                                <Table  responsive={true} className="text-left table-striped">
+                                                                <Table  responsive={true}  striped={'black'} className="text-left " >
                                                                     <tbody>
                                                                     { data_table }
                                                                     </tbody>
@@ -214,7 +214,7 @@ class Detail extends Component {
                                                     <CardFooter className="justify-content-center align-content-center text-center">
                                                         <Row>
                                                             <Col>
-                                                                <Button className="btn btn-red btn-lg" onClick={this.make_offer} disabled={!this.Auth.loggedIn()}>
+                                                                <Button className="btn btn-lg" color={'info'} style={{color:'#424242'}} onClick={this.make_offer} disabled={!this.Auth.loggedIn()}>
                                                                     <b><h5>Ofertar con ${ this.state.base_price * 1.05 }</h5></b>
                                                                 </Button>
                                                                 <p className="text-muted"

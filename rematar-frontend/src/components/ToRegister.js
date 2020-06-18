@@ -162,7 +162,7 @@ class ToRegister extends React.Component {
                                 </div>
                              </div>
                              <div className="text-center my-4">
-                                <MDBBtn className="ml-4 " color='danger' type='submit' disabled={this.validate_pass()}>
+                                <MDBBtn className="ml-4 " color='info' type='submit' disabled={this.validate_pass()}>
                                    Registrarse
                                 </MDBBtn>
                              </div>

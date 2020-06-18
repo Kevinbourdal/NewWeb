@@ -18,12 +18,12 @@ class FiltrosForHome extends Component{
 
             return (
                 <div className="mb-5">
-                  <h4 className="ml-4 ">{key}</h4>
-                    <hr className="accent-4 ml-1 mb-0 mr-5 danger-color" style={{ width: "150px" }} />
+                  <h4 className="ml-3 ">{key}</h4>
+                    <hr className="accent-4 ml-1 mt-1  mr-5 grey lighten-5" style={{ width: "150px" }} />
                       {Object.values(this.state.filtro[key]).map((value) =>
                           <div className="mt-2 ml-5"  >
                             <h6>
-                              <a href="#" style={{color:"#bdbdbd"}} >
+                              <a href="#" style={{color:"white"}} >
                                  {value}
                               </a>
                             </h6>
@@ -38,7 +38,7 @@ class FiltrosForHome extends Component{
                 {lugares}
                 <div className="">
                    <h4 className="ml-4 ">{"Pecios"}</h4>
-                   <hr className="accent-4 ml-1 mb-0 mr-5 danger-color" style={{ width: "150px" }} />
+                   <hr className="accent-2 ml-1 mb-0 mr-5 grey lighten-5" style={{ width: "150px" }} />
                 </div>
                 <MDBRow >
                      <MDBCol className="mr-2 ml-2 ">
@@ -59,7 +59,7 @@ class FiltrosForHome extends Component{
                       </MDBCol>
                 </MDBRow>
                 <div className="text-center mr-4 ">
-                    <MDBBtn color="primary" className="my-4">Filtrar</MDBBtn>
+                    <MDBBtn color="grey darken-3" style={{color:'white'}} className="my-4">Filtrar</MDBBtn>
                 </div>
             </div>
         );
