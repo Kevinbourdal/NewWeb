@@ -59,6 +59,7 @@ class Detail extends Component {
        ).then(res => {
            const start_date = new Date(res['data']['auction']['start_date'].split('-'))
            const end_date = new Date(res['data']['auction']['end_date'].split('-'))
+           console.log(res['data']['auction']['end_date'])
            res['data']['auction']['start_date'] = start_date
            res['data']['auction']['end_date'] = end_date
            this.setState({
@@ -67,6 +68,7 @@ class Detail extends Component {
                'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
                'url_images': res['data']['url_images']
            })
+           console.log(this.state)
            }
        ).catch(e => {
                console.log(e);
@@ -141,12 +143,16 @@ class Detail extends Component {
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
                         <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
-                           <MDBCarousel activeItem={1} length={this.state.url_images.length}
-                                        showControls={true}  showIndicators={true} thumbnails className="z-depth-1 ">
+                           <MDBCarousel activeItem={1} length={this.state.url_images.length} style={{}}
+                                        showControls={true}  showIndicators={true} thumbnails={true}
+                                        className="z-depth-1 ">
                               <MDBCarouselInner >
                                   {this.state.url_images.map((url, index) =>
-                                      <MDBCarouselItem  itemId={index+1} className=''>
-                                          <img className="d-block w-100"
+                                      <MDBCarouselItem  itemId={index+1} >
+                                          <img
+                                              height={400}
+                                              width={800}
+                                              className="d-block w-100"
                                                src={url['url']}
                                                alt="slide" />
                                       </MDBCarouselItem>
@@ -166,7 +172,10 @@ class Detail extends Component {
 
                             <p className="font-weight-bold text-right dark-grey-text">
                                 <MDBIcon far icon="clock" className="pr-2" />
-                                Subasta desde {this.state.start_date.toLocaleString()} <br/> hasta {this.state.end_date.toLocaleString()}
+                                Subasta desde {this.state.start_date.toLocaleString().split(' ')[0]} {this.state.start_hour}
+
+                                <br/>
+                                hasta {this.state.end_date.toLocaleString().split(' ')[0]} {this.state.end_hour}
                             </p>
                         </div>
                         <h6 className="font-weight-bold dark-grey-text mb-3 p-0">
