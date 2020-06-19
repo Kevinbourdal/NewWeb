@@ -17,15 +17,19 @@ class CardGallery extends Component {
             items: [],
         };
         this.categories = this.props.categories;
+        this.apply_filters = this.apply_filters.bind(this);
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
 
         this.get_items()
     }
 
-    get_items () {
+    get_items (filters) {
+        filters = typeof filters !== 'undefined' ?  '?filters='+filters : '';
+        console.log(filters)
+
         fetch(
-            config["api"]['BACKEND_ENDPOINT']+'/api/newauction?category='+window.location.pathname.replace('/', ''),
+            config["api"]['BACKEND_ENDPOINT']+'/api/newauction'+filters,
             {
                 mode: 'cors',
                 method: 'GET',
@@ -46,27 +50,36 @@ class CardGallery extends Component {
         )
     }
 
+    apply_filters (filters) {
+        console.log(filters)
+        let result = '';
+        for (var i = 0; i < filters.length; i++) {
+            result += filters[i] + '.'
+        }
+        if (result !== '')
+            this.get_items(result.slice(0, -1))
+    }
+
     render() {
         return (
             <div>
             { this.categories === 'casas' || this.categories === 'home' || this.categories === 'autos' ?
-                <div className="mt-3 container-fluid"  >
-
+                <div className="mt-3 container-fluid">
                     <MDBRow >
                         { this.categories === 'autos' ?
                             <div/>
                             :
-                            <MDBRow className="col-sm-3  mt-3 col-md-2">
-                                <MDBRow className="rounded-lg  info-color-dark ">
-                                    <FiltrosForHome/>
+                            <MDBRow className="col-sm-3 mt-3 col-md-2">
+                                <MDBRow className="rounded-lg  info-color-dark">
+                                    <FiltrosForHome submit={this.apply_filters}/>
                                 </MDBRow>
                             </MDBRow>
                         }
                         <MDBCol className="mx-md-5 px-md-4">
                             <Container className="col-12">
                                 <div className="">
-                                    <div className=" mt-0 ">
-                                        <CardDeck className="mx-md-1 col-12 px-md-1 ">
+                                    <div className=" mt-0">
+                                        <CardDeck className="mx-md-1 col-12 px-md-1">
                                             {this.state.items.map((data, index) =>
                                             <div className="col-4  pr-2 pl-2" style={{maxWidth:'576px'}}>
                                                     <div className="pt-3 pb-3 mr-0 ml-0">

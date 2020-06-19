@@ -1,29 +1,64 @@
 import React, { Component } from 'react';
-import {filtro} from '../data/items_filtro';
 import {MDBInput, MDBCol, MDBRow, MDBBtn} from "mdbreact";
+import config from "../config";
 
 
 class FiltrosForHome extends Component{
     constructor(pros) {
         super(pros);
         this.state = {
-            filtro: filtro,
-            precio: '',
+            filters: [],
+            price_from: '',
+            price_until: '',
         }
+        this.filters_selected = [];
+        this.submit = this.props.submit;
+        this.get_filters = this.get_filters.bind(this);
+        this.add_filter = this.add_filter.bind(this);
+        this.submit_filters =  this.submit_filters.bind(this);
+        this.get_filters()
+    }
+
+    get_filters () {
+        fetch(
+            config["api"]['BACKEND_ENDPOINT']+'/api/filters',
+            {
+                mode: 'cors',
+                method: 'GET',
+            }
+        ).then(data => {return data.json()}
+        ).then(res => {
+                this.setState({
+                    'filters': res['data']['filters']
+                });
+            }
+        ).catch(e => {
+                console.log('error al obtener filtros');
+            }
+        )
+    }
+
+    add_filter (e) {
+        this.filters_selected = this.filters_selected.concat([e.target.name]);
+    }
+
+    submit_filters () {
+        console.log(this.filters_selected);
+        this.submit(this.filters_selected);
     }
 
 
     render() {
-        let lugares = Object.keys(this.state.filtro).map((key) => {
+        let lugares = Object.keys(this.state.filters).map((key) => {
 
             return (
                 <div className="mb-5">
                   <h4 className="ml-1 ">{key}</h4>
                     <hr className="accent-4 ml-1 mt-1  mr-5 grey lighten-5" style={{ width: "150px" }} />
-                      {Object.values(this.state.filtro[key]).map((value) =>
+                      {Object.values(this.state.filters[key]).map((value) =>
                           <div className="mt-2 ml-3"  >
                             <h6>
-                              <a href="#" style={{color:"white"}} >
+                              <a style={{color:"white"}} name={value} onClick={e => this.add_filter(e)}>
                                  {value}
                               </a>
                             </h6>
@@ -45,7 +80,7 @@ class FiltrosForHome extends Component{
                      <MDBRow className="mr-4 ml-2 m-0 p-0 my-0 mt-1 ">
                         <MDBInput className="rounded-pill"
                             background={"white"}
-                            name="precio"
+                            name="price_from"
                             label='$ Desde'
                             type='number'/>
                       </MDBRow>
@@ -53,18 +88,21 @@ class FiltrosForHome extends Component{
                           <MDBInput className="rounded-pill"
 
                                background={"white"}
-                               name="precio"
+                               name="price_until"
                                label='$ Hasta'
                                type='number'/>
                       </MDBRow>
                     </MDBCol>
                 </MDBRow>
                 <div className="text-center mr-4 ">
-                    <MDBBtn color="grey darken-3" style={{color:'white'}} className="my-4">Filtrar</MDBBtn>
+                    <MDBBtn color="grey darken-3" style={{color:'white'}} className="my-4" type='submit' onClick={this.submit_filters}>
+                        Filtrar
+                    </MDBBtn>
                 </div>
             </div>
         );
     }
  }
- 
+
+
 export default FiltrosForHome ;

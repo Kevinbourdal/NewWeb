@@ -33,7 +33,7 @@ from utils import (
     validate_token,
     validate_json_payload,
 )
-from config import CATEGORIES_MAP
+from config import CATEGORIES_MAP, CATEGORIES_MAP_REV
 
 
 class BaseView(Resource):
@@ -270,19 +270,27 @@ class NewAuctionView(BaseView):
         }
 
     def get(self):
+        result = []
         try:
-            auctions = AuctionModel.query
-            category = request.args.get('category', 'all')
-            if category not in ['home', 'all']:
-                auctions = auctions.filter_by(category=category)
+            auctions = AuctionModel.query  # .filter_by(finished=False)
+            categories = request.args.get('filters', [])
             auctions = self.auction_schemas.dump(auctions.all())
 
             for auction in auctions:
-                item = ItemModel.query.filter_by(auction_id=auction['id']).first()
-                url = UrlImageModel.query.filter_by(item_id=item.id).first()
-                auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
+                item = ItemModel.query.filter_by(auction_id=auction['id'])
+                if categories:
+                    for category in categories.split('.'):
+                        item = item.filter_by(item_category=category)
+                        if item is not None:
+                            break
 
-            return response(200, data={'auctions': auctions})
+                if item.first() is None:
+                    continue
+                url = UrlImageModel.query.filter_by(item_id=item.first().id).first()
+                auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
+                result.append(auction)
+
+            return response(200, data={'auctions': result})
         except Exception as ex:
             return response(404)
 
@@ -371,6 +379,25 @@ class AuctionDetailView(BaseView):
                                            'key_values': key_values,
                                            'url_images': urls})
         return response(400)
+
+
+class FiltersView(BaseView):
+
+    def __init__(self):
+        super(FiltersView, self).__init__()
+        self.auction_schema = AuctionSchema(unknown='EXCLUDE')
+
+    def get(self):
+        filters = {}
+        auctions = AuctionModel.query  # .filter_by(finished=False)
+        categories = auctions.with_entities(AuctionModel.category).distinct().all()
+        for (category,) in categories:
+            idxs = [a.id for a in auctions.filter_by(category=category).all()]
+            filters[CATEGORIES_MAP_REV[category]] = ItemModel.query\
+                                                             .filter(ItemModel.auction_id.in_(idxs))\
+                                                             .with_entities(ItemModel.item_category).distinct().all()
+
+        return response(200, data={'filters': filters})
 
 
 #token = request.header['token']

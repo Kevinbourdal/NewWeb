@@ -134,7 +134,10 @@ class Detail extends Component {
                 { this.state.start_date < Date.now() ?
                     <Timer start={ this.state.start_date } end={ this.state.end_date }/>
                     :
-                    <hr />
+                    <div>
+                        <h3>Esta subasta aun no ha comenzado</h3>
+                        <hr />
+                    </div>
                 }
 
                <MDBRow className="p-0">

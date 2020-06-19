@@ -217,6 +217,7 @@ class AuctionModel(ModelBase, db.Model):
     start_hour = db.Column('start_hour', db.Time, unique=False, nullable=False)
     end_date = db.Column('end_date', db.Date, unique=False, nullable=False)
     end_hour = db.Column('end_hour', db.Time, unique=False, nullable=False)
+    # finished = db.Column('finished', db.SmallInteger, default=0)
 
     def __init__(self, title, subtitle, category,
                  base_price, market_price, currency, start_date, start_hour, end_date, end_hour):
