@@ -30,3 +30,10 @@ CATEGORIES_MAP = {
     'Agricola': 'farm',
     'Otros': 'other'
 }
+
+CATEGORIES_MAP_REV = {
+    'automobile': 'Vehiculo',
+    'property': 'Inmueble',
+    'farm': 'Agricola',
+    'other': 'Otros'
+}

@@ -1,4 +1,13 @@
-from views import UserView, ContactView, LoginView, NewAuctionView, AuctionDetailView, AccountView, OfferView
+from views import (
+    UserView,
+    ContactView,
+    LoginView,
+    NewAuctionView,
+    AuctionDetailView,
+    AccountView,
+    OfferView,
+    FiltersView,
+)
 
 
 # list with each access point in dict format
@@ -37,6 +46,11 @@ urls = [
         'resource': OfferView,
         'path': '/offer/detail/<int:auction_id>',
         'endpoint': 'offer',
+    },
+    {
+        'resource': FiltersView,
+        'path': '/filters',
+        'endpoint': 'filters',
     }
 
 ]
