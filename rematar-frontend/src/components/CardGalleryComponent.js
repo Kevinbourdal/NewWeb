@@ -58,6 +58,8 @@ class CardGallery extends Component {
         }
         if (result !== '')
             this.get_items(result.slice(0, -1))
+        else
+            this.get_items()
     }
 
     render() {

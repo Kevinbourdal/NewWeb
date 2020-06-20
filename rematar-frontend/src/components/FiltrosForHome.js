@@ -10,6 +10,7 @@ class FiltrosForHome extends Component{
             filters: [],
             price_from: '',
             price_until: '',
+            filters_selected: []
         }
         this.filters_selected = [];
         this.submit = this.props.submit;
@@ -17,6 +18,7 @@ class FiltrosForHome extends Component{
         this.add_filter = this.add_filter.bind(this);
         this.submit_filters =  this.submit_filters.bind(this);
         this.get_filters()
+
     }
 
     get_filters () {
@@ -38,27 +40,37 @@ class FiltrosForHome extends Component{
         )
     }
 
-    add_filter (e) {
-        this.filters_selected = this.filters_selected.concat([e.target.name]);
+    add_filter (e, index) {
+        let new_value = this.state.filters_selected
+        new_value[index] = !new_value[index]
+        this.setState(
+            {filters_selected: new_value}
+        )
+        if (new_value[index])
+            this.filters_selected = this.filters_selected.concat([e.target.name]);
+        else
+            this.filters_selected.pop(e.target.name);
     }
 
     submit_filters () {
-        console.log(this.filters_selected);
         this.submit(this.filters_selected);
     }
 
 
     render() {
         let lugares = Object.keys(this.state.filters).map((key) => {
-
+            // this.state.filters_selected
             return (
                 <div className="mb-5">
                   <h4 className="ml-1 ">{key}</h4>
                     <hr className="accent-4 ml-1 mt-1  mr-5 grey lighten-5" style={{ width: "150px" }} />
-                      {Object.values(this.state.filters[key]).map((value) =>
+                      {Object.values(this.state.filters[key]).map((value, index) =>
                           <div className="mt-2 ml-3"  >
                             <h6>
-                              <a style={{color:"white"}} name={value} onClick={e => this.add_filter(e)}>
+                              <a id={index}
+                                 style={{color: this.state.filters_selected[index] ? 'black' : 'white'}}
+                                 name={value}
+                                 onClick={e => this.add_filter(e, index)}>
                                  {value}
                               </a>
                             </h6>
