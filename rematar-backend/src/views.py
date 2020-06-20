@@ -1,3 +1,5 @@
+import random
+
 import marshmallow
 from flask import request
 from flask_restful import Resource
@@ -29,6 +31,7 @@ from utils import (
     response,
     get_data,
     gen_token,
+    validate_dates,
     decode_token,
     validate_token,
     validate_json_payload,
@@ -270,7 +273,10 @@ class NewAuctionView(BaseView):
         }
 
     def get(self):
-        result = []
+        result = {
+            'started': [],
+            'future': []
+        }
         try:
             auctions = AuctionModel.query  # .filter_by(finished=False)
             categories = request.args.get('filters', [])
@@ -288,7 +294,13 @@ class NewAuctionView(BaseView):
                     continue
                 url = UrlImageModel.query.filter_by(item_id=item.first().id).first()
                 auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
-                result.append(auction)
+                if validate_dates(auction['start_date']):
+                    result['future'].append(auction)
+                else:
+                    result['started'].append(auction)
+
+            random.shuffle(result['started'])
+            random.shuffle(result['future'])
 
             return response(200, data={'auctions': result})
         except Exception as ex:
