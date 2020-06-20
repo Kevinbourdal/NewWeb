@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {Row, Carousel, CarouselItem, Card, CarouselIndicators, CarouselControl, CardImgOverlay} from 'reactstrap';
 import CardGallery from "./CardGalleryComponent";
-import {MDBContainer, MDBRow, MDBBtn, MDBFormInline,MDBCol} from "mdbreact";
+import {MDBContainer, MDBBtn, MDBFormInline,} from "mdbreact";
 import NavFiltro from "./NavFiltro";
-
 import { itemslist } from '../data/items_terrenos';
 import Container from "reactstrap/es/Container";
 import config from "../config";
+import InputField from "./InputFieldComponent";
 
 
 
@@ -33,6 +33,7 @@ import config from "../config";
          }
      )
    };
+
 
 const HomePage = (props) => {
       let categories = 'home';
@@ -113,14 +114,14 @@ const HomePage = (props) => {
                                        <input
                                           className="form-control mt-5 mr-sm-1 text-white"
                                           style={{width:"80%"}}
-                                          type="text"
-
+                                          type={"search"}
+                                          name={"search"}
                                           placeholder="Buscar"
                                           aria-label="Search"
                                        />
                                        <MDBBtn onClick={submitHandler}
                                                className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "15px"}}
-                                               rounded size="sm" type="submit"
+                                               rounded size="sm"
                                        >
                                           <b>Buscar</b>
                                        </MDBBtn>
