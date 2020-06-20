@@ -14,7 +14,8 @@ class CardGallery extends Component {
         this.state = {
             isLoading: false,
             loginError: false,
-            items: [],
+            items_started: [],
+            items_future: [],
         };
         this.categories = this.props.categories;
         this.apply_filters = this.apply_filters.bind(this);
@@ -38,7 +39,8 @@ class CardGallery extends Component {
         ).then(res => {
                 console.log(res);
                 this.setState({
-                    items: res['data']['auctions'],
+                    items_started: res['data']['auctions']['started'],
+                    items_future:  res['data']['auctions']['future'],
                 })
                 console.log(this.state.items);
                 // Object.keys(res['data']['user'])
@@ -58,10 +60,14 @@ class CardGallery extends Component {
         }
         if (result !== '')
             this.get_items(result.slice(0, -1))
+        else
+            this.get_items()
     }
 
     render() {
+        console.log(this.state)
         return (
+
             <div>
             { this.categories === 'casas' || this.categories === 'home' || this.categories === 'autos' ?
                 <div className="mt-3 container-fluid">
@@ -77,11 +83,31 @@ class CardGallery extends Component {
                         }
                         <MDBCol className="mx-md-5 px-md-4">
                             <Container className="col-12">
-                                <div className="">
-                                    <div className=" mt-0">
+                                <div className=" mt-0">
+                                    <div hidden={this.state.items_started.length === 0}>
+                                        <h3>Subastas Activas</h3>
+                                        <hr />
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
-                                            {this.state.items.map((data, index) =>
-                                            <div className="col-4  pr-2 pl-2" style={{maxWidth:'576px'}}>
+                                        {this.state.items_started.map((data, index) =>
+                                            <div className="col-4  pr-2 pl-2" style={{maxWidth: '576px'}}>
+                                                <div className="pt-3 pb-3 mr-0 ml-0">
+                                                    <CardItem title={data['title']}
+                                                              subtitle={data['subtitle']}
+                                                              footer={'desde ' + data['start_date'] + ' hasta ' + data['end_date']}  //TODO: Dar formato a la fecha
+                                                              href={'/detail/' + data['id']}
+                                                              url_image={data['url_image']}  //TODO: cargar images desde la api
+                                                    />
+                                                </div>
+                                            </div>
+                                            )}
+                                        </CardDeck>
+                                    </div>
+                                    <div hidden={this.state.items_future.length === 0}>
+                                        <h3>Subastas Futuras</h3>
+                                        <hr/>
+                                        <CardDeck className="mx-md-1 col-12 px-md-1">
+                                            {this.state.items_future.map((data, index) =>
+                                                <div className="col-4  pr-2 pl-2" style={{maxWidth:'576px'}}>
                                                     <div className="pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}
