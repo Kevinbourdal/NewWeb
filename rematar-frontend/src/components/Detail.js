@@ -28,6 +28,7 @@ class Detail extends Component {
            subtitle: '',
            base_price: 0,
            market_price: 0,
+           curr_price: 0,
            currency: '',
            start_date: '',
            start_hour: '',
@@ -45,6 +46,7 @@ class Detail extends Component {
        this.username = this.Auth.getUsername();
        this.get_detail();
        this.make_offer = this.make_offer.bind(this);
+       this.update_price = this.update_price.bind(this);
   }
 
    get_detail() {
@@ -65,7 +67,8 @@ class Detail extends Component {
                ...res['data']['auction'],
                ...res['data']['item'],
                'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
-               'url_images': res['data']['url_images']
+               'url_images': res['data']['url_images'],
+               'curr_price': res['data']['auction']['base_price']
            })
            }
        ).catch(e => {
@@ -79,7 +82,7 @@ class Detail extends Component {
         // alert('Comprar la version pro.');
         let date = new Date();
         fetch(
-            config["api"]+'/api/offer'+window.location.pathname,
+            config["api"]['BACKEND_ENDPOINT']+'/api/offer'+window.location.pathname,
             {
                 headers: {
                     Accept: 'application/json',
@@ -87,21 +90,28 @@ class Detail extends Component {
                 method: 'POST',
                 body: JSON.stringify({
                     'username': this.username,
-                    'amount': this.state.base_price * 1.05,
+                    'amount': (this.state.curr_price).toFixed(2),
                     'hour': date.getHours()+':'+date.getMinutes(),  //+':'+date.getSeconds()
                     'date': date.getFullYear()+'-'+date.getMonth()+'-'+date.getDay(),
                 })
             }
         ).then(data => {return data.json()}
         ).then(res => {
-                alert('Great offer salame!')
-                this.get_detail();
+                // this.get_detail();
+                window.location.reload();
+                return false;
             }
         ).catch(e => {
                 console.log(e);
                 alert('No se pudo guardar la subastas');
             }
         )
+    }
+
+    update_price (price) {
+       this.setState({
+           curr_price: price * config.PRICE_INCREASE
+       })
     }
 
    render() {
@@ -112,10 +122,10 @@ class Detail extends Component {
              </p>
          ));
 
-       let data_table = this.state.key_values.map((dato) => {
+       let data_table = this.state.key_values.map((dato, index) => {
            return (
 
-               <tr className="ml-5">
+               <tr className="ml-5" key={index}>
                    <th className="ml-5"><b>{ dato[0].toUpperCase() } :</b></th>
                    <th className="ml-5">{ dato[1] }</th>
                </tr>
@@ -200,8 +210,22 @@ class Detail extends Component {
                                                             <Col>
                                                                 <h3><b>Precio Actual</b></h3>
                                                                 <h1 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
-                                                                    $ { this.state.base_price }
+                                                                    $ { this.state.curr_price / config.PRICE_INCREASE }
                                                                 </h1>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row>
+                                                            <Col>
+                                                                <h6><b>Precio Base</b></h6>
+                                                                <h4 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
+                                                                    $ { this.state.base_price }
+                                                                </h4>
+                                                            </Col>
+                                                            <Col>
+                                                                <h6><b>Precio Mercado</b></h6>
+                                                                <h4 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
+                                                                    $ { this.state.market_price }
+                                                                </h4>
                                                             </Col>
                                                         </Row>
                                                         <br/>
@@ -219,8 +243,19 @@ class Detail extends Component {
                                                     <CardFooter className="justify-content-center align-content-center text-center">
                                                         <Row>
                                                             <Col>
-                                                                <Button className="btn btn-lg" color={'info'} style={{color:'#424242'}} onClick={this.make_offer} disabled={!this.Auth.loggedIn()}>
-                                                                    <b><h5>Ofertar con ${ this.state.base_price * 1.05 }</h5></b>
+                                                                <Button className="btn btn-lg"
+                                                                        color={'info'}
+                                                                        style={{color:'#424242'}}
+                                                                        onClick={this.make_offer}
+                                                                        disabled={!this.Auth.loggedIn()}>
+                                                                    <b><h5>
+                                                                        Ofertar con ${
+                                                                            // this.state.curr_price > this.state.base_price ?
+                                                                            (this.state.curr_price).toFixed(2)
+                                                                            // :
+                                                                            // (this.state.base_price).toFixed(2)
+                                                                        }
+                                                                    </h5></b>
                                                                 </Button>
                                                                 <p className="text-muted"
                                                                    hidden={this.Auth.loggedIn()}>*Debes logearte</p>
@@ -243,7 +278,7 @@ class Detail extends Component {
 
                <MDBRow className="mt-5">
                    <MDBCol>
-                      <OffersLive />
+                      <OffersLive update_price={this.update_price}/>
                    </MDBCol>
                </MDBRow>
 

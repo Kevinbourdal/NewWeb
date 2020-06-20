@@ -236,7 +236,8 @@ class OfferView(BaseView):
         if not error:
             try:
                 account = AccountModel.query.filter_by(username=json_data['username']).first()
-
+                if account is None:
+                    return response(400, msg='Bad user')
                 offer_data = self.offer_schema.load({'auction_id': auction_id,
                                                      'account_id': account.id,
                                                      'amount': json_data['amount'],

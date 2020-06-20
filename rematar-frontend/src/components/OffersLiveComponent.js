@@ -10,6 +10,7 @@ class OffersLive extends Component {
         this.state = {
             offers: [],
         }
+        this.update_price = this.props.update_price;
         this.Auth = new AuthService();
         this.get_table_data = this.get_table_data.bind(this);
         this.get_table_data();
@@ -27,11 +28,11 @@ class OffersLive extends Component {
         ).then(data => {return data.json()}
         ).then(res => {
                 this.setState({...res['data']})
-
+                if (res['data']['offers'].length > 0)
+                    this.update_price(res['data']['offers'][0]['amount'])
             }
         ).catch(e => {
             console.log("Fail:", e);
-            alert("Can't load table");
             }
         )
     };

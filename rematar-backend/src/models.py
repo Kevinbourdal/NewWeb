@@ -342,7 +342,7 @@ class OfferSchema(ma.Schema):
     id = fields.Integer()
     auction_id = fields.Integer(required=True)
     account_id = fields.Integer(required=True)
-    amount = fields.Integer(required=True)
+    amount = fields.Float(required=True)
     hour = fields.Time(required=True, format='%H:%M:%s')
     date = fields.Date(required=True, format='%Y-%m-%d')
 
@@ -353,7 +353,7 @@ class OfferModel(ModelBase, db.Model):
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
     auction_id = db.Column('auction_id', db.ForeignKey('auction.id', ondelete='CASCADE'))
     account_id = db.Column('account_id', db.ForeignKey('account.id', ondelete='CASCADE'))
-    amount = db.Column('amount', db.Integer, unique=False)
+    amount = db.Column('amount', db.Float(precision=2), unique=False)
     hour = db.Column('hour', db.Time, unique=False, nullable=False)
     date = db.Column('date', db.Date, unique=False)
 
