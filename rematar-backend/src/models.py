@@ -262,7 +262,7 @@ class ItemModel(ModelBase, db.Model):
         self.city = city
 
     def __repr__(self):
-        return f'item: {self.general_category}'
+        return f'item: {self.item_category}'
 
 
 class UrlImageSchema(ma.Schema):
