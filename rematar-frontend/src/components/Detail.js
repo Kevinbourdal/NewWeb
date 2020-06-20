@@ -17,6 +17,9 @@ import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
 import AuthService from "../utils/AuthService";
 import config from "../config";
+import fixC from "../fixC.css";
+import logo from '../img/logosubastas.png'
+
 
 
 class Detail extends Component {
@@ -146,10 +149,10 @@ class Detail extends Component {
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
                         <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
-                           <MDBCarousel activeItem={1} length={this.state.url_images.length} style={{}}
+                           <MDBCarousel activeItem={1} length={this.state.url_images.length}
                                         showControls={true}  showIndicators={true} thumbnails={true}
-                                        className="z-depth-1 ">
-                              <MDBCarouselInner >
+                                        className="z-depth-1 w-100">
+                               <MDBCarouselInner >
                                   {this.state.url_images.map((url, index) =>
                                       <MDBCarouselItem  itemId={index+1} >
                                           <img
@@ -228,8 +231,12 @@ class Detail extends Component {
                                                     <CardFooter className="justify-content-center align-content-center text-center">
                                                         <Row>
                                                             <Col>
+
                                                                 <Button className="btn btn-lg" color={'info'} style={{color:'#424242'}} onClick={this.make_offer} disabled={!this.Auth.loggedIn()}>
-                                                                    <b><h5>Ofertar con ${ this.state.base_price * 1.05 }</h5></b>
+                                                                  <Row>
+                                                                      <img src ={logo} style={{width:"60px",height:"44px"}}></img>
+                                                                      <b><h5 className='mt-2 mr-4'>Ofertar con ${ this.state.base_price * 1.05 }</h5></b>
+                                                                  </Row>
                                                                 </Button>
                                                                 <p className="text-muted"
                                                                    hidden={this.Auth.loggedIn()}>*Debes logearte</p>

@@ -4,6 +4,8 @@ import InputField from './InputFieldComponent'
 import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
 import logo from '../img/logofull.png'
 import config from "../config";
+import logos from "../img/logosubastas.png";
+import {MDBBtn} from "mdbreact";
 
 
 class Contact extends Component {
@@ -136,12 +138,11 @@ class Contact extends Component {
                                             </Row>
                                             <Row>
                                                 <Col>
-                                                    <Button
-
-                                                        color="info"
-                                                        disabled={!this.validateForm()}
-                                                    >
-                                                        Enviar
+                                                    <Button color="info" disabled={!this.validateForm()}>
+                                                        <Row>
+                                                            <img src ={logos} style={{width:"53px",height:"38px"}}></img>
+                                                            <b><h5 className='mt-2 mr-4'>Enviar</h5></b>
+                                                        </Row>
                                                     </Button>
                                                 </Col>
                                             </Row>

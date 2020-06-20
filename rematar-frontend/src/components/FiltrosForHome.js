@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {MDBInput, MDBCol, MDBRow, MDBBtn} from "mdbreact";
 import config from "../config";
+import {renderIntoDocument} from "react-dom/test-utils";
 
 
 class FiltrosForHome extends Component{
@@ -8,6 +9,7 @@ class FiltrosForHome extends Component{
         super(pros);
         this.state = {
             filters: [],
+            printed:[],
             price_from: '',
             price_until: '',
         }
@@ -43,20 +45,24 @@ class FiltrosForHome extends Component{
     }
 
     submit_filters () {
-        console.log(this.filters_selected);
+
         this.submit(this.filters_selected);
+    }
+    onItemClick = (index) =>{
+        this.setState({printed :index})
     }
 
 
     render() {
+        const {printed } = this.state;
         let lugares = Object.keys(this.state.filters).map((key) => {
 
             return (
                 <div className="mb-5">
                   <h4 className="ml-1 ">{key}</h4>
                     <hr className="accent-4 ml-1 mt-1  mr-5 grey lighten-5" style={{ width: "150px" }} />
-                      {Object.values(this.state.filters[key]).map((value) =>
-                          <div className="mt-2 ml-3"  >
+                      {Object.values(this.state.filters[key]).map((value,index) =>
+                          <div className="mt-2 ml-3">
                             <h6>
                               <a style={{color:"white"}} name={value} onClick={e => this.add_filter(e)}>
                                  {value}
@@ -86,7 +92,6 @@ class FiltrosForHome extends Component{
                       </MDBRow>
                       <MDBRow className="mr-4 ml-2 m-0 p-0  ">
                           <MDBInput className="rounded-pill"
-
                                background={"white"}
                                name="price_until"
                                label='$ Hasta'

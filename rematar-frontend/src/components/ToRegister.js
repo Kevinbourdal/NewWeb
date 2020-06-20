@@ -2,7 +2,8 @@ import React from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import {Col, Form, Row} from 'reactstrap';
-import logo from '../img/logofull.png'
+import logo from '../img/logofull.png';
+import logos from '../img/logosubastas.png';
 import config from "../config";
 
 
@@ -164,7 +165,10 @@ class ToRegister extends React.Component {
                              </div>
                              <div className="text-center my-4">
                                 <MDBBtn className="ml-4 " color='info' type='submit' disabled={this.validate_pass()}>
-                                   Registrarse
+                                    <Row>
+                                        <img src ={logos} style={{width:"50px",height:"37px"}}></img>
+                                        <b><h5 className='mt-2 mr-4'>Registrarse</h5></b>
+                                    </Row>
                                 </MDBBtn>
                              </div>
                           </Form>

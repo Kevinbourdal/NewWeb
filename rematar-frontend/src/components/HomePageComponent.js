@@ -6,8 +6,33 @@ import NavFiltro from "./NavFiltro";
 
 import { itemslist } from '../data/items_terrenos';
 import Container from "reactstrap/es/Container";
+import config from "../config";
 
 
+
+
+   let search = '';
+   console.log(search)
+
+  let submitHandler = () => {
+      // recibimos los datos del backend
+     fetch(
+         config["api"]['BACKEND_ENDPOINT']+'/api/filters',
+         {
+            mode: 'cors',
+            method: 'GET',
+         }
+     ).then(data => {return data.json()}
+     ).then(res => {
+            this.setState({
+               'filters': res['data']['filters']
+            });
+         }
+     ).catch(e => {
+            console.log('error al obtener filtros');
+         }
+     )
+   };
 
 const HomePage = (props) => {
       let categories = 'home';
@@ -35,6 +60,7 @@ const HomePage = (props) => {
       if (animating) return;
       setActiveIndex(newIndex);
    }
+
 
    const slides = items.map((item) => {
       return (
@@ -88,10 +114,14 @@ const HomePage = (props) => {
                                           className="form-control mt-5 mr-sm-1 text-white"
                                           style={{width:"80%"}}
                                           type="text"
+
                                           placeholder="Buscar"
                                           aria-label="Search"
                                        />
-                                       <MDBBtn className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "15px"}}  rounded size="sm" type="submit">
+                                       <MDBBtn onClick={submitHandler}
+                                               className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "15px"}}
+                                               rounded size="sm" type="submit"
+                                       >
                                           <b>Buscar</b>
                                        </MDBBtn>
                                     </MDBFormInline>
