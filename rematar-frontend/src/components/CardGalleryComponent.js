@@ -32,7 +32,7 @@ class CardGallery extends Component {
 
         let get_args = filters + price_from + price_until
         fetch(
-            config["api"]['BACKEND_ENDPOINT']+'/api/newauction'+get_args,
+            config["api"]['BACKEND_ENDPOINT']+'/api/auction'+get_args,
             {
                 mode: 'cors',
                 method: 'GET',

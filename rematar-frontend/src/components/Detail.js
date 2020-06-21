@@ -162,7 +162,7 @@ class Detail extends Component {
                                 <h3>Esta subasta aun no ha comenzado</h3>
                             </MDBCol>
                             <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
-                                <a href='/new' style={{color: 'black'}}><i className="far fa-edit" /></a>
+                                <a href={'/new'+window.location.pathname.replace('detail/', '')} style={{color: 'black'}}><i className="far fa-edit" /></a>
                             </MDBCol>
                         </MDBRow>
                         <hr />

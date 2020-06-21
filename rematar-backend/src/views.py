@@ -120,7 +120,7 @@ class UserView(BaseView):
                                                     'province': user.province,
                                                     'city': user.city,
                                                     'address': user.address,
-                                                    'phone': user.phone,
+                                                    'phone': str(user.phone),
                                                     'mStatus': user.mStatus,
                                                     'email': account.email}})
         return response(400)
@@ -129,8 +129,8 @@ class UserView(BaseView):
         json_data, error = get_data(request)
         if not error:
             try:
-                user_data = self.user_schema.load({'firstname': json_data['fname'],
-                                                   'lastname': json_data['lname'],
+                user_data = self.user_schema.load({'firstname': json_data['firstname'],
+                                                   'lastname': json_data['lastname'],
                                                    'sex': json_data['sex'],
                                                    'dni_type': json_data['dni_type'],
                                                    'dni': json_data['dni'],
@@ -138,8 +138,8 @@ class UserView(BaseView):
                                                    'province': json_data['province'],
                                                    'city': json_data['city'],
                                                    'address': json_data['address'],
-                                                   'phone': json_data['phone'],
-                                                   'mStatus': json_data['mStatus']})
+                                                   'phone': str(json_data['phone']),
+                                                   'mStatus': str(json_data['mStatus'])})
             except marshmallow.exceptions.ValidationError as errors:
                 print('error', errors)
                 return response(400, str(errors))
@@ -149,6 +149,45 @@ class UserView(BaseView):
             error = new_user.save()
             if not error:
                 return response(200, data={'id': new_user.id})
+
+        return response(400, msg="Error en backend")
+
+    def put(self):
+        json_data, error = get_data(request)
+        if not error:
+            try:
+                account = AccountModel.query.filter_by(username=json_data['username']).first()
+                user = UserModel.query.filter_by(account_id=account.id).first()
+                user_data = self.user_schema.load({'firstname': json_data['firstname'],
+                                                   'lastname': json_data['lastname'],
+                                                   'sex': json_data['sex'],
+                                                   'dni_type': json_data['dni_type'],
+                                                   'dni': json_data['dni'],
+                                                   'bdate': json_data['bdate'],
+                                                   'province': json_data['province'],
+                                                   'city': json_data['city'],
+                                                   'address': json_data['address'],
+                                                   'phone': str(json_data['phone']),
+                                                   'mStatus': str(json_data['mStatus'])})
+            except marshmallow.exceptions.ValidationError as errors:
+                print('error', errors)
+                return response(400, str(errors))
+
+            user.firstname = user_data['firstname']
+            user.lastname = user_data['lastname']
+            user.sex = user_data['sex']
+            user.dni_type = user_data['dni_type']
+            user.dni = user_data['dni']
+            user.bdate = user_data['bdate']
+            user.province = user_data['province']
+            user.city = user_data['city']
+            user.address = user_data['address']
+            user.phone = user_data['phone']
+            user.mStatus = user_data['mStatus']
+
+            error = user.save()
+            if not error:
+                return response(200, data={'id': user.id})
 
         return response(400, msg="Error en backend")
 
@@ -255,25 +294,15 @@ class OfferView(BaseView):
         return response(400, msg="Error en backend")
 
 
-class NewAuctionView(BaseView):
-    """
-    Class to save/get new auction in data base
-    """
-
+class AuctionView(BaseView):
     def __init__(self):
-        super(NewAuctionView, self).__init__()
+        super(AuctionView, self).__init__()
         self.auction_schema = AuctionSchema(unknown='EXCLUDE')
         self.auction_schemas = AuctionSchema(many=True, unknown='EXCLUDE')
         self.item_schema = ItemSchema(unknown='EXCLUDE')
         self.urlimage_schema = UrlImageSchema(unknown='EXCLUDE')
         self.keyvalue_schema = CharacteristicKeyValueSchema(unknown='EXCLUDE')
         self.value_schema = CharacteristicValueSchema(unknown='EXCLUDE')
-        self.category_map = {
-            'Vehiculo': 'automobile',
-            'Inmueble': 'property',
-            'Agricola': 'farm',
-            'Otros': 'other'
-        }
 
     def get(self):
         result = {
@@ -299,7 +328,8 @@ class NewAuctionView(BaseView):
                 if item is None:
                     continue
                 url = UrlImageModel.query.filter_by(item_id=item.id).first()
-                auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
+                auction[
+                    'url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
                 if validate_dates(auction['start_date']):
                     result['started'].append(auction)
                 else:
@@ -312,6 +342,56 @@ class NewAuctionView(BaseView):
         except Exception as ex:
             return response(404)
 
+
+class NewAuctionView(BaseView):
+    """
+    Class to save/get new auction in data base
+    """
+
+    def __init__(self):
+        super(NewAuctionView, self).__init__()
+        self.auction_schema = AuctionSchema(unknown='EXCLUDE')
+        self.auction_schemas = AuctionSchema(many=True, unknown='EXCLUDE')
+        self.item_schema = ItemSchema(unknown='EXCLUDE')
+        self.urlimage_schema = UrlImageSchema(unknown='EXCLUDE')
+        self.keyvalue_schema = CharacteristicKeyValueSchema(unknown='EXCLUDE')
+        self.value_schema = CharacteristicValueSchema(unknown='EXCLUDE')
+
+    def get(self):
+        auction_id = request.args.get('auction_id', None)
+        if auction_id is not None:
+            auction = AuctionModel.query.filter_by(id=auction_id).first()
+            if auction is not None:
+                item = ItemModel.query.filter_by(auction_id=auction.id).first()
+                if item is not None:
+                    key_values = CharacteristicKeyValueModel.query.filter_by(item_id=item.id).all()
+                    # key_values = self.keyvalue_schema.dump(key_values)
+                    values = CharacteristicValueModel.query.filter_by(item_id=item.id).all()
+                    # values = self.value_schema.dump(values)
+                    urls = UrlImageModel.query.filter_by(item_id=item.id).all()
+                    # urls = self.urlimage_schema.dump(urls)
+                    # auction = self.auction_schema.dump(auction)
+                    # item = self.item_schema.dump(item)
+                    return response(200, data={'title': auction.title,
+                                               'subtitle': auction.subtitle,
+                                               'base_price': auction.base_price,
+                                               'market_price': auction.market_price,
+                                               'currency': auction.currency,
+                                               'start_date': str(auction.start_date),
+                                               'start_hour': str(auction.start_hour),
+                                               'end_date': str(auction.end_date),
+                                               'end_hour': str(auction.end_hour),
+                                               'category': CATEGORIES_MAP_REV[auction.category],
+                                               'item_category': item.item_category,
+                                               'description': item.description,
+                                               'province': item.province,
+                                               'city': item.city,
+                                               'url_images': [url.url for url in urls],
+                                               'key_value': [(key_value.key, key_value.value) for key_value in key_values],
+                                               'value': [value.value for value in values]
+                                               })
+        return response(400)
+
     def post(self):
         json_data, error = get_data(request)
         if not error:
@@ -321,7 +401,7 @@ class NewAuctionView(BaseView):
             #     pass
             try:
                 # Try to catch errors en requests, such as missing fields
-                json_data['category'] = self.category_map[json_data['category']]
+                json_data['category'] = CATEGORIES_MAP[json_data['category']]
                 auction = self.auction_schema.load(json_data)  # ['auction']
                 item = self.item_schema.load(json_data)  # ['item']
                 urls = []
@@ -370,6 +450,68 @@ class NewAuctionView(BaseView):
 
         return response(400, str(error))
 
+    def put(self):
+        json_data, error = get_data(request)
+        auction_id = json_data.get('auction_id', None)
+        if auction_id is not None:
+            auction = AuctionModel.query.filter_by(id=auction_id).first()
+            if auction is not None:
+                item = ItemModel.query.filter_by(auction_id=auction.id).first()
+                if item is not None:
+                    CharacteristicKeyValueModel.query.filter_by(item_id=item.id).delete()
+                    CharacteristicValueModel.query.filter_by(item_id=item.id).delete()
+                    UrlImageModel.query.filter_by(item_id=item.id).delete()
+                    try:
+                        json_data['category'] = CATEGORIES_MAP[json_data['category']]
+                        auction_data = self.auction_schema.load(json_data)  # ['auction']
+                        item_data = self.item_schema.load(json_data)  # ['item']
+                        urls_data = []
+                        key_values_data = []
+                        values_data = []
+                        for key, value in json_data['key_value']:
+                            key_values_data.append(self.keyvalue_schema.load({'key': key, 'value': value}))
+                        for value in json_data['value']:
+                            values_data.append(self.value_schema.load({'value': value}))
+                        for url in json_data['url_images']:
+                            urls_data.append(self.urlimage_schema.load({'url': url}))
+
+                    except ValidationError as e:
+                        return response(400, str(e))
+                    except Exception as ex:
+                        return response(400, str(ex))
+
+                    for key, value in auction_data.items():
+                        setattr(auction, key, value)
+                    error = auction.save()
+
+                    if not error:
+                        for key, value in item_data.items():
+                            setattr(item, key, value)
+                        error = item.save()
+
+                        if not error:
+                            for url in urls_data:
+                                new_urls = UrlImageModel(**url)
+                                new_urls.item_id = item.id
+                                error = new_urls.save()
+                                if error:
+                                    break
+                            if not error:
+                                for key_value in key_values_data:
+                                    new_value = CharacteristicKeyValueModel(**key_value)
+                                    new_value.item_id = item.id
+                                    error = new_value.save()
+                                    if error:
+                                        break
+                                for value in values_data:
+                                    new_value = CharacteristicValueModel(**value)
+                                    new_value.item_id = item.id
+                                    error = new_value.save()
+                                    if error:
+                                        break
+                                if not error:
+                                    return response(200, data={'id': auction.id})
+        return response(400)
 
 class AuctionDetailView(BaseView):
 

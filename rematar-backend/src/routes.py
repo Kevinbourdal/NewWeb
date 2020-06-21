@@ -2,6 +2,7 @@ from views import (
     UserView,
     ContactView,
     LoginView,
+    AuctionView,
     NewAuctionView,
     AuctionDetailView,
     AccountView,
@@ -36,6 +37,11 @@ urls = [
         'resource': NewAuctionView,
         'path': '/newauction',
         'endpoint': 'newauction',
+    },
+    {
+        'resource': AuctionView,
+        'path': '/auction',
+        'endpoint': 'auction',
     },
     {
         'resource': AuctionDetailView,

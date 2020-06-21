@@ -5,28 +5,50 @@ import {provincia} from "../data/items_filtro";
 import AuthService from "../utils/AuthService";
 import logo from '../img/logofull.png'
 import config from "../config";
+import {wait} from "@testing-library/dom";
 
 
 class MiProfile extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            fname: '',
-            lname: '',
-            dni_type:'',
-            dni:'',
+            firstname: '',
+            lastname: '',
+            dni_type: '',
+            dni: '',
             province: '',
             city: '',
             sex: '',
-            bdate:'',
-            address:'',
-            phone:'',
-            mStatus :'',
+            bdate: '',
+            address: '',
+            phone: '',
+            mStatus: '',
+            dni_types: ['DNI', 'CUIT', 'CUIL', 'LIBRETA CÍVICA', 'LIBRETA DE ENROLAMIENTO'],
+            new_user: false,
         };
         this.Auth = new AuthService();
         this.username = this.Auth.getUsername();
+        this.get_user_data = this.get_user_data.bind(this);
+        this.get_user_data()
     }
 
+    get_user_data () {
+        fetch(
+            config["api"]['BACKEND_ENDPOINT']+'/api/mi_perfil?username='+this.username,
+            {
+                mode: 'cors',
+                method: 'GET',
+            }
+        ).then(data => {return data.json()}
+        ).then(res => {
+                this.setState({...res['data']['user']})
+            }
+        ).catch(e => {
+                console.log("No user:", e);
+                this.setState({new_user: true})
+            }
+        )
+    }
 
     submitHandler = event => {
         //event.preventDefault();  No se que hace por eso lo comente
@@ -36,21 +58,20 @@ class MiProfile extends React.Component {
             config["api"]['BACKEND_ENDPOINT']+'/api/mi_perfil',
             {
                 headers: {
-                    'Content-Type': 'text/json',
+                    Accept: 'application/json',
                 },
-                mode: 'cors',
-                method: 'POST',
+                method: this.state.new_user ? 'POST' : 'PUT',
                 body: JSON.stringify({
                     ...this.state,
                     username: this.username
                 })
             }
-        ).then(data => {return data.json()}
-        ).then(res => {alert("usuario num  " + res.data['id'])}
+        ).then(data => {alert("Informacion guardada")}
         ).catch(error => {
-                console.log("Fail");
-            }
-        )
+            console.log("Fail", error);
+            alert('error')
+        });
+        onwaiting(event)
     };
 
     changeHandler = event => {
@@ -58,7 +79,6 @@ class MiProfile extends React.Component {
     };
 
     render() {
-        const dni_types = ['SELECT','DNI', 'CUIT', 'CUIL', 'LIBRETA CÍVICA', 'LIBRETA DE ENROLAMIENTO']
         return (
             <div className="app flex-row align-items-center mt-5 mb-5">
                 <MDBContainer>
@@ -87,8 +107,8 @@ class MiProfile extends React.Component {
                                         <form className='needs-validation' onSubmit={this.submitHandler}>
                                             <MDBInput
                                                 icon='user'
-                                                value={this.state.fname}
-                                                name='fname'
+                                                value={this.state.firstname}
+                                                name='firstname'
                                                 onChange={this.changeHandler}
                                                 type='text'
                                                 id='materialFormRegisterNameEx'
@@ -100,8 +120,8 @@ class MiProfile extends React.Component {
                                             </MDBInput>
                                             <MDBInput
                                                 icon='user'
-                                                value={this.state.lname}
-                                                name='lname'
+                                                value={this.state.lastname}
+                                                name='lastname'
                                                 onChange={this.changeHandler}
                                                 type='text'
                                                 id='materialFormRegisterEmailEx2'
@@ -110,27 +130,27 @@ class MiProfile extends React.Component {
                                                 required
                                             >
                                             </MDBInput>
-                                             <MDBRow className="ml-3 my-1 "  >
-                                                    <select  className="p-0 mt-4 col-2 custom-select"
-                                                             onChange={this.changeHandler}
-                                                             value={this.state.dni_type}
-                                                             name="dni_type">
-                                                        {dni_types.map((value) =>
-                                                        <option>
-                                                            {value}
-                                                        </option>
-                                                        )}
-                                                    </select>
+                                             <MDBRow className="ml-3 my-1">
+                                                 <select className="p-0 mt-4 col-2 custom-select"
+                                                         onChange={this.changeHandler}
+                                                         value={this.state.dni_type}
+                                                         name="dni_type">
+                                                     {this.state.dni_types.map((value) =>
+                                                         <option selected={value === this.state.dni_type} >
+                                                             {value}
+                                                         </option>
+                                                     )}
+                                                 </select>
                                                  <MDBCol className="col-10">
                                                        <MDBInput
                                                             className="mt-0"
                                                             icon='address-card'
                                                             value={this.state.dni}
                                                             onChange={this.changeHandler}
-                                                            type='number'
+                                                            type='text'
                                                             id='materialFormRegisterPasswordEx4'
                                                             name='dni'
-                                                            label={this.state.dni_type}
+                                                            label='DNI'
                                                             outline
                                                             required
                                                        >
@@ -217,7 +237,7 @@ class MiProfile extends React.Component {
                                                     value={this.state.phone}
                                                     name='phone'
                                                     onChange={this.changeHandler}
-                                                    type='number'
+                                                    type='text'
                                                     id='materialFormRegisterEmailEx8'
                                                     label='teléfono'
                                                     outline

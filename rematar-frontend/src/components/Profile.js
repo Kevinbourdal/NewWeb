@@ -76,15 +76,15 @@ render() {
                 <MDBRow>
                     <MDBCol><MDBCardTitle >Perfil</MDBCardTitle></MDBCol>
                     <MDBCol className='text-right'>
-                        <a href='/mi_perfil'style={{color: 'black'}}><i className="far fa-edit" /></a>
+                        <a href='/mi_perfil' style={{color: 'black'}}><i className="far fa-edit" /></a>
                     </MDBCol>
                 </MDBRow>
                 <MDBListGroupItem><i className="text-muted" /><b>{this.state.firstname}</b></MDBListGroupItem>
                 <MDBListGroupItem><i className="text-muted" /><b>{this.state.lastname}</b></MDBListGroupItem>
                 <MDBListGroupItem><i className="text-muted" /><b>{this.state.email}</b></MDBListGroupItem>
-                <MDBListGroupItem><i className="text-muted" >Direccion:</i>{this.state.address}</MDBListGroupItem>
-                <MDBListGroupItem><i className="text-muted" >Provinica:</i>{this.state.province}</MDBListGroupItem>
-                <MDBListGroupItem><i className="text-muted" >Telefono:</i>{this.state.phone}</MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Direccion: </i>{this.state.address}</MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Provinica: </i>{this.state.province}</MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Telefono: </i>{this.state.phone}</MDBListGroupItem>
             </MDBCardBody>
           </MDBCard>
      </MDBCol>
