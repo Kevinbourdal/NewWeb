@@ -92,10 +92,10 @@ render() {
              <h5>Ofertas activas</h5>
              <hr />
            <MDBTable hover responsive={true} className="table-striped">
-               <thead  className="thead-dark text-center">
+               <thead className="thead-dark text-center">
                    <tr className="">
-                       <th ><b>#</b></th>
-                       <th ><b>Oferta</b></th>
+                       <th><b>#</b></th>
+                       <th><b>Oferta</b></th>
                        <th><b>Puesto</b></th>
                        <th><b>Terreno</b></th>
                        <th><b>Preio actual</b></th>
@@ -133,53 +133,52 @@ render() {
             </MDBTable>
              </MDBCardBody>
          </MDBCard>
-     </MDBCol>
-          <div className="col-9" >
-               <MDBCard>
-                   <MDBCardBody className="" style={{ width: '100%' }} >
-                       <h5>Ofertas finalizadas</h5>
-                       <hr />
-                       <MDBTable hover responsive={true}  className="table-striped table-dark">
-                           <thead  className="thead-dark text-center">
-                             <tr className="">
-                               <th ><b>#</b></th>
-                               <th ><b>Oferta</b></th>
-                               <th><b>Puesto</b></th>
-                               <th><b>Terreno</b></th>
-                               <th><b>Precio final</b></th>
-                               <th><b>Hora</b></th>
-                               <th><b>Fin de subasta</b></th>
+       <hr />
+       <MDBCard>
+           <MDBCardBody className="" style={{ width: '100%' }} >
+               <h5>Ofertas finalizadas</h5>
+               <hr />
+               <MDBTable hover responsive={true}  className="table-striped table-dark">
+                   <thead  className="thead-dark text-center">
+                   <tr className="">
+                       <th ><b>#</b></th>
+                       <th ><b>Oferta</b></th>
+                       <th><b>Puesto</b></th>
+                       <th><b>Terreno</b></th>
+                       <th><b>Precio final</b></th>
+                       <th><b>Hora</b></th>
+                       <th><b>Fin de subasta</b></th>
+                   </tr>
+                   </thead >
+                   <tbody className="text-center text-dark" style={{ backgroundColor: "#7BEC5D" }}>
+                   { ofertas.map((offer, index) => {
+                       return index % 3 === 0 || index === 4 ?
+                           <tr className="ml-5 table-success">
+                               <th className="ml-5"><b>{index + 1}</b></th>
+                               <td className="ml-5 "><b>{offer['fname']}</b></td>
+                               <td className="ml-5"><b>{offer['lname']}</b></td>
+                               <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
+                               <td className="ml-5"><b>{offer['date']}</b></td>
+                               <td className="ml-5"><b>{offer['hour']}</b></td>
+                               <td className="ml-5"><b>{offer['diff']}</b></td>
                            </tr>
-                           </thead >
-                           <tbody className="text-center text-dark" style={{ backgroundColor: "#7BEC5D" }}>
-                           { ofertas.map((offer, index) => {
-                               return index % 3 === 0 || index === 4 ?
-                                   <tr className="ml-5 table-success">
-                                       <th className="ml-5"><b>{index + 1}</b></th>
-                                       <td className="ml-5 "><b>{offer['fname']}</b></td>
-                                       <td className="ml-5"><b>{offer['lname']}</b></td>
-                                       <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
-                                       <td className="ml-5"><b>{offer['date']}</b></td>
-                                       <td className="ml-5"><b>{offer['hour']}</b></td>
-                                       <td className="ml-5"><b>{offer['diff']}</b></td>
-                                   </tr>
-                                   :
-                                   <tr className="ml-5 table-danger">
-                                       <th className="ml-5"><b>{index + 1}</b></th>
-                                       <td className="ml-5"><b>{offer['fname']}</b></td>
-                                       <td className="ml-5"><b>{offer['lname']}</b></td>
-                                       <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
-                                       <td className="ml-5"><b>{offer['date']}</b></td>
-                                       <td className="ml-5"><b>{offer['hour']}</b></td>
-                                       0 <td className="ml-5"><b>{offer['diff']}</b></td>
-                                   </tr>
-                           })}
+                           :
+                           <tr className="ml-5 table-danger">
+                               <th className="ml-5"><b>{index + 1}</b></th>
+                               <td className="ml-5"><b>{offer['fname']}</b></td>
+                               <td className="ml-5"><b>{offer['lname']}</b></td>
+                               <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
+                               <td className="ml-5"><b>{offer['date']}</b></td>
+                               <td className="ml-5"><b>{offer['hour']}</b></td>
+                               <td className="ml-5"><b>{offer['diff']}</b></td>
+                           </tr>
+                   })}
 
-                           </tbody>
-                       </MDBTable>
-                   </MDBCardBody>
-               </MDBCard>
-          </div>
+                   </tbody>
+               </MDBTable>
+           </MDBCardBody>
+       </MDBCard>
+     </MDBCol>
 
    </MDBRow>
 </div>
