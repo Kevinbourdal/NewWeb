@@ -6,6 +6,8 @@ import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 're
 import InputField from "./InputFieldComponent";
 import AuthService from '../utils/AuthService';
 import logo from '../img/logofull.png'
+import logos from "../img/logosubastas.png";
+import {MDBBtn} from "mdbreact";
 
 
 class Login extends Component {
@@ -123,11 +125,11 @@ class Login extends Component {
                                             ) : null}
                                             <Row>
                                                 <Col>
-                                                    <Button
-                                                            color="info"
-                                                            disabled={!this.validateForm()}
-                                                    >
-                                                        Entrar
+                                                    <Button color="info" disabled={!this.validateForm()}>
+                                                        <Row>
+                                                            <img src ={logos} style={{width:"50px",height:"37px"}}></img>
+                                                            <b><h5 className='mt-2 mr-4'>Entrar</h5></b>
+                                                        </Row>
                                                     </Button>
                                                 </Col>
                                             </Row>

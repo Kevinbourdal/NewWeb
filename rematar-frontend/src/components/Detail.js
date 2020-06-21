@@ -17,6 +17,9 @@ import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
 import AuthService from "../utils/AuthService";
 import config from "../config";
+import fixC from "../fixC.css";
+import logo from '../img/logosubastas.png'
+
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
 
@@ -63,6 +66,7 @@ class Detail extends Component {
        ).then(res => {
            const start_date = new Date(res['data']['auction']['start_date'].split('-'))
            const end_date = new Date(res['data']['auction']['end_date'].split('-'))
+           console.log(res['data']['auction']['end_date'])
            res['data']['auction']['start_date'] = start_date
            res['data']['auction']['end_date'] = end_date
            this.setState({
@@ -72,6 +76,7 @@ class Detail extends Component {
                'url_images': res['data']['url_images'],
                'curr_price': res['data']['auction']['base_price']
            })
+           console.log(this.state)
            }
        ).catch(e => {
                console.log(e);
@@ -162,11 +167,15 @@ class Detail extends Component {
                      <div className="m-0 p-0">
                         <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
                            <MDBCarousel activeItem={1} length={this.state.url_images.length}
-                                        showControls={true}  showIndicators={true} thumbnails className="z-depth-1 ">
-                              <MDBCarouselInner >
+                                        showControls={true}  showIndicators={true} thumbnails={true}
+                                        className="z-depth-1 w-100">
+                               <MDBCarouselInner >
                                   {this.state.url_images.map((url, index) =>
-                                      <MDBCarouselItem  itemId={index+1} className=''>
-                                          <img className="d-block w-100"
+                                      <MDBCarouselItem  itemId={index+1} >
+                                          <img
+                                              height={400}
+                                              width={800}
+                                              className="d-block w-100"
                                                src={url['url']}
                                                alt="slide" />
                                       </MDBCarouselItem>
@@ -186,7 +195,10 @@ class Detail extends Component {
 
                             <p className="font-weight-bold text-right dark-grey-text">
                                 <MDBIcon far icon="clock" className="pr-2" />
-                                Subasta desde {this.state.start_date.toLocaleString()} <br/> hasta {this.state.end_date.toLocaleString()}
+                                Subasta desde {this.state.start_date.toLocaleString().split(' ')[0]} {this.state.start_hour}
+
+                                <br/>
+                                hasta {this.state.end_date.toLocaleString().split(' ')[0]} {this.state.end_hour}
                             </p>
                         </div>
                         <h6 className="font-weight-bold dark-grey-text mb-3 p-0">
@@ -255,7 +267,9 @@ class Detail extends Component {
                                                                         style={{color:'#424242'}}
                                                                         onClick={this.make_offer}
                                                                         disabled={!this.Auth.loggedIn()}>
-                                                                    <b><h5>
+                                                                    <Row>
+                                                                    <img src ={logo} style={{width:"60px",height:"44px"}}></img>
+                                                                    <b><h5 className='mt-2'>
                                                                         Ofertar con ${
                                                                             // this.state.curr_price > this.state.base_price ?
                                                                             (this.state.curr_price).toFixed(2)
@@ -263,6 +277,7 @@ class Detail extends Component {
                                                                             // (this.state.base_price).toFixed(2)
                                                                         }
                                                                     </h5></b>
+                                                                     </Row>
                                                                 </Button>
                                                                 <p className="text-muted"
                                                                    hidden={this.Auth.loggedIn()}>*Debes logearte</p>

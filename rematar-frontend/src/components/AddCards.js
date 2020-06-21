@@ -6,6 +6,7 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import {provincia} from "../data/items_filtro";
 import Label from "reactstrap/es/Label";
 import config from "../config";
+import {Button} from "bootstrap/js/src";
 
 
 class AddCards extends Component {
@@ -38,6 +39,7 @@ class AddCards extends Component {
            this.handleDataAdd3 = this.handleDataAdd3.bind(this);
            this.handleInputChange = this.handleInputChange.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
+           this.deletArgs = this.deletArgs.bind(this);
      }
 
      handleSubmit(e) {
@@ -80,10 +82,11 @@ class AddCards extends Component {
     }
 
     handleDataAdd3(e) {
-        const {value, name} = e.target;
-            e.target.value='';
+        let i = this.state.url_aux;
             this.setState({
-                [name]: [...this.state[name], value]
+                'url_images': [...this.state['url_images'], i],
+                url_aux:'',
+
             });
         }
 
@@ -101,6 +104,32 @@ class AddCards extends Component {
                this.state.base_price >= 0 &&
                this.state.start_date.length > 0 ;
     }
+
+    deletArgs(index){
+        var new_list = this.state.url_images
+        new_list.pop(index)
+        this.setState({
+            url_images: new_list,
+        })
+    }
+
+    deletArgs2(index) {
+        var new_index = this.state.key_value
+        new_index.pop(index)
+        this.setState({
+            key_value: new_index
+        })
+    }
+
+    deletArgs3(index) {
+        var new_index = this.state.value
+        new_index.pop(index)
+        this.setState({
+            value: new_index
+        })
+    }
+
+
 
     // changeHandler = event => {
     //     this.setState({ [event.target.name]: event.target.value });
@@ -193,21 +222,37 @@ class AddCards extends Component {
                                    </div>
 
                                    <div className="picture-uploader-controls">
-                                      <InputField name={"url_images"}
+                                       <Row >
+                                           <Col className="col-8">
+                                      <InputField
+                                                  change={this.handleInputChange}
+                                                  name={"url_aux"}
                                                   label={"Imagenes url"}
                                                   type={"text"}
-                                                  change={this.handleDataAdd3}
+                                                  value={this.state.url_aux}
                                                   ft={"Pegar url a imagen"}/>
+                                           </Col>
+                                           <Col className="mt-4 ml-5 ">
+                                               <button className="btn btn-primary" onClick={this.handleDataAdd3} type="button">Agregar</button>
+                                           </Col>
+                                       </Row>
+
                                       <ListGroup variant="flush" className="mb-4">
                                          {this.state.url_images.length > 0 ?
                                             this.state.url_images.map((url, index) =>
-                                               <ListGroupItem tag="a" href={url} action><b className="text-dark">Imagen {index}:</b> { url.split('/').pop() }</ListGroupItem>
+                                                <Row>
+                                               <ListGroupItem tag="a" href={url} action><b className="text-dark">
+                                                   Imagen {index}:</b> {url}
+                                               </ListGroupItem>
+                                             <tr>
+                                             <a onClick={(e) => this.deletArgs(index)} className="btn btn-danger btn-delete">Borrar</a>
+                                             </tr>
+                                                </Row>
                                             )
                                          :
                                             null
                                          }
                                       </ListGroup>
-
                                    </div>
                                <div className="picture-uploader-controls">
                                        <Row>
@@ -225,6 +270,9 @@ class AddCards extends Component {
                                            {this.state.key_value.length > 0 ?
                                                Object.keys(this.state.key_value).map((tupla, index) =>
                                                    <Row>
+                                                       <tr>
+                                                           <a onClick={(e) => this.deletArgs2(index)} className="btn btn-danger btn-delete">Borrar</a>
+                                                       </tr>
                                                        <Col>
                                                            <ListGroupItem>
                                                                <b className="text-dark">
@@ -251,9 +299,15 @@ class AddCards extends Component {
                                        <ListGroup variant="flush" className="mb-4">
                                            {this.state.value.length > 0 ?
                                                this.state.value.map((value, index) =>
-                                                   <ListGroupItem action>
-                                                       {index}: { value }
-                                                   </ListGroupItem>
+                                                   <Row>
+                                                       <ListGroupItem action>
+                                                           {index}: { value }
+                                                       </ListGroupItem>
+                                                       <tr>
+                                                           <a onClick={(e) => this.deletArgs3(index)} className="btn btn-danger btn-delete">Borrar</a>
+                                                       </tr>
+
+                                                   </Row>
                                                )
                                                :
                                                null

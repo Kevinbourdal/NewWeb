@@ -13,7 +13,9 @@ import {
     CardFooter,
     Button } from 'reactstrap';
 import './CardItemComponent.css';
-import {MDBCarousel, MDBCarouselInner, MDBCarouselItem} from "mdbreact";
+import logos from "../img/logosubastas.png";
+import {MDBCarousel, MDBCarouselInner, MDBCarouselItem,MDBBtn} from "mdbreact";
+
 
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
@@ -85,8 +87,10 @@ class CardItem extends Component {
                                     <Button className="btn-md"
                                             color={'info'}
                                             style={{fontSize: "14px", color:'#424242'}}
-                                    >
-                                        Detalles
+                                    ><Row>
+                                            <img src ={logos} style={{width:"40px",height:"29px"}}></img>
+                                            <b><h5 className='mt-1 mr-3'>Detalles</h5></b>
+                                        </Row>
                                     </Button>
                                 </a>
                             </Col>

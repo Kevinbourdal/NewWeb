@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {MDBInput, MDBCol, MDBRow, MDBBtn} from "mdbreact";
 import config from "../config";
+import {renderIntoDocument} from "react-dom/test-utils";
 
 
 class FiltrosForHome extends Component{
@@ -50,7 +51,7 @@ class FiltrosForHome extends Component{
         if (new_value[index])
             this.filters_selected = this.filters_selected.concat([e.target.name]);
         else
-            this.filters_selected.pop(e.target.name);
+            this.filters_selected.pop([e.target.name]);
     }
 
     submit_filters () {
