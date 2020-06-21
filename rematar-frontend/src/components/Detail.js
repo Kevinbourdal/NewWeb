@@ -18,6 +18,8 @@ import OffersLive from './OffersLiveComponent';
 import AuthService from "../utils/AuthService";
 import config from "../config";
 
+const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
+
 
 class Detail extends Component {
    constructor(props) {
@@ -92,7 +94,7 @@ class Detail extends Component {
                     'username': this.username,
                     'amount': (this.state.curr_price).toFixed(2),
                     'hour': date.getHours()+':'+date.getMinutes(),  //+':'+date.getSeconds()
-                    'date': date.getFullYear()+'-'+date.getMonth()+'-'+date.getDay(),
+                    'date': date.toLocaleDateString(),  //getFullYear()+'-'+date.getMonth()+'-'+date.getDay(),
                 })
             }
         ).then(data => {return data.json()}
@@ -115,12 +117,12 @@ class Detail extends Component {
     }
 
    render() {
-      let DescriptionText = (
-         this.state.description.split('\n').map((item, i) =>
+       let DescriptionText = (
+          this.state.description.split('\n').map((item, i) =>
              <p className="dark-grey-text mb-lg-0 mb-md-5 mb-4" key={i}>
-               { item }
+                { item }
              </p>
-         ));
+          ));
 
        let data_table = this.state.key_values.map((dato, index) => {
            return (
@@ -131,6 +133,11 @@ class Detail extends Component {
                </tr>
            )
        });
+
+       if (this.state.url_images.length === 0)
+           this.setState({
+               url_images: [{'url': no_img}]
+           });
 
       return (
          <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 60, maxWidth: "90%" , }}>
@@ -210,7 +217,7 @@ class Detail extends Component {
                                                             <Col>
                                                                 <h3><b>Precio Actual</b></h3>
                                                                 <h1 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
-                                                                    $ { this.state.curr_price / config.PRICE_INCREASE }
+                                                                    $ { (this.state.curr_price / config.PRICE_INCREASE).toFixed(2) }
                                                                 </h1>
                                                             </Col>
                                                         </Row>
