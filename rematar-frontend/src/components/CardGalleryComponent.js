@@ -25,12 +25,14 @@ class CardGallery extends Component {
         this.get_items()
     }
 
-    get_items (filters) {
+    get_items (filters, price_from, price_until) {
         filters = typeof filters !== 'undefined' ?  '?filters='+filters : '';
-        console.log(filters)
+        price_from = typeof price_from !== 'undefined' ?  '&price_from='+price_from : '';
+        price_until = typeof price_until !== 'undefined' ?  '&price_until='+price_until : '';
 
+        let get_args = filters + price_from + price_until
         fetch(
-            config["api"]['BACKEND_ENDPOINT']+'/api/newauction'+filters,
+            config["api"]['BACKEND_ENDPOINT']+'/api/newauction'+get_args,
             {
                 mode: 'cors',
                 method: 'GET',
@@ -52,14 +54,17 @@ class CardGallery extends Component {
         )
     }
 
-    apply_filters (filters) {
+    apply_filters (filters, price_from, price_until) {
         console.log(filters)
         let result = '';
         for (var i = 0; i < filters.length; i++) {
             result += filters[i] + '.'
         }
         if (result !== '')
-            this.get_items(result.slice(0, -1))
+            if (price_from > 0 && price_until > 0)
+                this.get_items(result.slice(0, -1), price_from, price_until)
+            else
+                this.get_items(result.slice(0, -1))
         else
             this.get_items()
     }
@@ -75,8 +80,8 @@ class CardGallery extends Component {
                         { this.categories === 'autos' ?
                             <div/>
                             :
-                            <MDBRow className="col-sm-3 mt-3 col-md-2" style={{height:'90px'}}>
-                                <MDBRow className="rounded-lg info-color-dark">
+                            <MDBRow className="col-sm-3 mt-3 col-md-2" >
+                                <MDBRow className="rounded-lg info-color-dark" >
                                     <FiltrosForHome submit={this.apply_filters}/>
                                 </MDBRow>
                             </MDBRow>
@@ -88,17 +93,17 @@ class CardGallery extends Component {
                                         <h3>Subastas Activas</h3>
                                         <hr />
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
-                                        {this.state.items_started.map((data, index) =>
-                                            <div className="col-4  pr-2 pl-2" style={{maxWidth: '576px'}}>
-                                                <div className="pt-3 pb-3 mr-0 ml-0">
-                                                    <CardItem title={data['title']}
-                                                              subtitle={data['subtitle']}
-                                                              footer={'desde ' + data['start_date'] + ' hasta ' + data['end_date']}  //TODO: Dar formato a la fecha
-                                                              href={'/detail/' + data['id']}
-                                                              url_image={data['url_image']}  //TODO: cargar images desde la api
-                                                    />
+                                            {this.state.items_started.map((data, index) =>
+                                                <div className="col-4  pr-2 pl-2" style={{maxWidth: '576px'}}>
+                                                    <div className="pt-3 pb-3 mr-0 ml-0">
+                                                        <CardItem title={data['title']}
+                                                                  subtitle={data['subtitle']}
+                                                                  footer={'desde ' + data['start_date'] + ' hasta ' + data['end_date']}  //TODO: Dar formato a la fecha
+                                                                  href={'/detail/' + data['id']}
+                                                                  url_image={data['url_image']}  //TODO: cargar images desde la api
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
                                             )}
                                         </CardDeck>
                                     </div>

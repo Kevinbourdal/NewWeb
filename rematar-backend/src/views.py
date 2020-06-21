@@ -236,7 +236,8 @@ class OfferView(BaseView):
         if not error:
             try:
                 account = AccountModel.query.filter_by(username=json_data['username']).first()
-
+                if account is None:
+                    return response(400, msg='Bad user')
                 offer_data = self.offer_schema.load({'auction_id': auction_id,
                                                      'account_id': account.id,
                                                      'amount': json_data['amount'],
@@ -280,19 +281,22 @@ class NewAuctionView(BaseView):
         try:
             auctions = AuctionModel.query  # .filter_by(finished=False)
             categories = request.args.get('filters', [])
+            price_from = request.args.get('price_from', None)
+            price_until = request.args.get('price_until', None)
+            if price_from is not None:
+                auctions = auctions.filter(AuctionModel.base_price >= price_from)
+            if price_until is not None:
+                auctions = auctions.filter(AuctionModel.base_price <= price_until)
             auctions = self.auction_schemas.dump(auctions.all())
 
             for auction in auctions:
-                item = ItemModel.query.filter_by(auction_id=auction['id'])
-                if categories:
-                    for category in categories.split('.'):
-                        item = item.filter_by(item_category=category)
-                        if item is not None:
-                            break
-
-                if item.first() is None:
+                item = ItemModel.query.filter_by(auction_id=auction['id']).first()
+                if categories and item is not None:
+                    if item.item_category not in categories.split('.'):
+                        item = None
+                if item is None:
                     continue
-                url = UrlImageModel.query.filter_by(item_id=item.first().id).first()
+                url = UrlImageModel.query.filter_by(item_id=item.id).first()
                 auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
                 if validate_dates(auction['start_date']):
                     result['future'].append(auction)

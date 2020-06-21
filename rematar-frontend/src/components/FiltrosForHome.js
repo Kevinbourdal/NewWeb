@@ -9,9 +9,8 @@ class FiltrosForHome extends Component{
         super(pros);
         this.state = {
             filters: [],
-            printed:[],
-            price_from: '',
-            price_until: '',
+            price_from: 0,
+            price_until: 0,
             filters_selected: []
         }
         this.filters_selected = [];
@@ -19,6 +18,7 @@ class FiltrosForHome extends Component{
         this.get_filters = this.get_filters.bind(this);
         this.add_filter = this.add_filter.bind(this);
         this.submit_filters =  this.submit_filters.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
         this.get_filters()
 
     }
@@ -55,7 +55,11 @@ class FiltrosForHome extends Component{
     }
 
     submit_filters () {
-        this.submit(this.filters_selected);
+        this.submit(this.filters_selected, this.state.price_from, this.state.price_until);
+    }
+
+    changeHandler (e) {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
 
@@ -91,20 +95,26 @@ class FiltrosForHome extends Component{
                 </div>
                 <MDBRow >
                     <MDBCol>
-                     <MDBRow className="mr-4 ml-2 m-0 p-0 my-0 mt-1 ">
-                        <MDBInput className="rounded-pill"
-                            background={"white"}
-                            name="price_from"
-                            label='$ Desde'
-                            type='number'/>
-                      </MDBRow>
-                      <MDBRow className="mr-4 ml-2 m-0 p-0  ">
-                          <MDBInput className="rounded-pill"
-                               background={"white"}
-                               name="price_until"
-                               label='$ Hasta'
-                               type='number'/>
-                      </MDBRow>
+                        <MDBRow className="mr-4 ml-2 m-0 p-0 my-0 mt-1 ">
+                            <MDBInput className="rounded-pill"
+                                      // value={this.state.price_from}
+                                      background={"white"}
+                                      name="price_from"
+                                      label='$ Desde'
+                                      type='number'
+                                      onChange={this.changeHandler}
+                            />
+                        </MDBRow>
+                        <MDBRow className="mr-4 ml-2 m-0 p-0  ">
+                            <MDBInput className="rounded-pill"
+                                      // value={this.state.price_until}
+                                      background={"white"}
+                                      name="price_until"
+                                      label='$ Hasta'
+                                      type='number'
+                                      onChange={this.changeHandler}
+                            />
+                        </MDBRow>
                     </MDBCol>
                 </MDBRow>
                 <div className="text-center mr-4 ">
