@@ -69,7 +69,7 @@ class MiProfile extends React.Component {
         ).then(data => {alert("Informacion guardada")}
         ).catch(error => {
             console.log("Fail", error);
-            alert('error')
+            // alert('error')
         });
         onwaiting(event)
     };
