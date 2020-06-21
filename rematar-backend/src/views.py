@@ -191,6 +191,7 @@ class LoginView(BaseView):
         json_data, error = get_data(request)
         if not error:
             account = AccountModel.query.filter_by(email=json_data['email']).first()
+            role = RoleModel.query.filter_by(id=account.role_id).first()
             if account is not None:
                 if account.password == json_data['password']:
                     user = UserModel.query.filter_by(account_id=account.id).first()  # deberia existir
@@ -199,7 +200,8 @@ class LoginView(BaseView):
 
                     return response(200, data={'token': token,
                                                'username': account.username,
-                                               'has_user': user is not None})  # send false if not has user already
+                                               'has_user': user is not None,
+                                               'role': role.role_name if role is not None else 'admin'})  # send false if not has user already
 
         return error
 

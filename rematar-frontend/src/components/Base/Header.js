@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import AuthService from "../../utils/AuthService";
 import logo from '../../img/logofull.png'
+import {MDBCol} from "mdbreact";
 
 
 class Header extends Component {
@@ -62,13 +63,13 @@ class Header extends Component {
 
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="mr-auto" navbar >
-                            <NavLink href="home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
+                            <NavLink href="/home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
                             <NavLink href="/contact" className=" text-right" style={{color: "white"}} >Contacto</NavLink>
                             <NavLink href="/faqs" className=" text-right" style={{color: "white"}} >FaQs</NavLink>
                             <br/>
                             { this.state.isAuthenticated ?
                                 <NavLink className="text-right" onClick={this.logout} style={{color: "white"}}>
-                                    <i className="fas fa-times-circle"></i><b> Logout </b>
+                                    <i className="fas fa-times-circle"/><b> Logout </b>
                                 </NavLink>
                                 :
                                 <div>
@@ -76,6 +77,11 @@ class Header extends Component {
                                     <NavLink href="/register" className="text-right" style={{color: "white"}} >Registrarse</NavLink>
                                 </div>
                             }
+                            <hr className='hr-bold' color='white'/>
+                            <NavLink href="/new" className="text-right" style={{color: "white"}} hidden={this.Auth.getRole() !== 'admin'}>
+                                <i className="fas fa-plus-circle"/> <b color='danger'>Nueva subasta</b>
+                            </NavLink>
+
 
                         </Nav>
                     </Collapse>

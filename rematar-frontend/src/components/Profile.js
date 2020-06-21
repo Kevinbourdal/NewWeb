@@ -75,7 +75,9 @@ render() {
              <MDBCardBody className="col-12">
                 <MDBRow>
                     <MDBCol><MDBCardTitle >Perfil</MDBCardTitle></MDBCol>
-                    <MDBCol className='text-right'><a href='/mi_perfil'><i className="far fa-edit" /></a></MDBCol>
+                    <MDBCol className='text-right'>
+                        <a href='/mi_perfil'style={{color: 'black'}}><i className="far fa-edit" /></a>
+                    </MDBCol>
                 </MDBRow>
                 <MDBListGroupItem><i className="text-muted" /><b>{this.state.firstname}</b></MDBListGroupItem>
                 <MDBListGroupItem><i className="text-muted" /><b>{this.state.lastname}</b></MDBListGroupItem>
