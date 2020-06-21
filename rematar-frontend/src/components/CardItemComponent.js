@@ -72,7 +72,7 @@ class CardItem extends Component {
                     </CardHeader>
                     <CardBody >
                         <CardTitle>
-                            <a href={this.href || '#'} className="text-dark" type=""><h4><b>{ this.title || '' }</b></h4></a>
+                            <a href={this.href || '#'} className="text-dark" type=""><h4 className='h4-responsive'><b>{ this.title || '' }</b></h4></a>
                         </CardTitle>
                         <CardSubtitle className="my-0" >
                             <b>{ this.subtitle || '' }</b>
