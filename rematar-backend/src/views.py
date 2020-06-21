@@ -216,7 +216,7 @@ class OfferView(BaseView):
 
     def get(self, auction_id):
         auction = AuctionModel.query.filter_by(id=auction_id).first()
-        offers = OfferModel.query.filter_by(auction_id=auction.id).order_by(OfferModel.hour.desc()).limit(6)
+        offers = OfferModel.query.filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).limit(6)
         if offers is not None:
             offers = self.offers_schema.dump(offers)
             for offer in offers:
@@ -299,9 +299,9 @@ class NewAuctionView(BaseView):
                 url = UrlImageModel.query.filter_by(item_id=item.id).first()
                 auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
                 if validate_dates(auction['start_date']):
-                    result['future'].append(auction)
-                else:
                     result['started'].append(auction)
+                else:
+                    result['future'].append(auction)
 
             random.shuffle(result['started'])
             random.shuffle(result['future'])

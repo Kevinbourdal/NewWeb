@@ -344,7 +344,7 @@ class OfferSchema(ma.Schema):
     account_id = fields.Integer(required=True)
     amount = fields.Float(required=True)
     hour = fields.Time(required=True, format='%H:%M:%s')
-    date = fields.Date(required=True, format='%Y-%m-%d')
+    date = fields.Date(required=True, format='%m/%d/%Y')
 
 
 class OfferModel(ModelBase, db.Model):
