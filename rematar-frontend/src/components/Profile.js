@@ -69,22 +69,22 @@ render() {
     return (
 <div>
    <MDBRow className="mt-4 col-12 " style={{height:'400%'}}>
-     <MDBCol style={{ maxWidth: "20rem"}} className="form-control-plaintext">
-      <MDBCard>
-        <MDBCardImage className="img-fluid" src="https://www.rasoyasociados.com/se/wp-content/uploads/2018/01/sin-imagen-2.png" />
-        <MDBCardBody className="col-12">
-          <MDBCardTitle >Perfil</MDBCardTitle>
-         <MDBListGroupItem><i  className="text-muted" >Mail : </i><br/>{this.state.email}</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Nombre : </i>{this.state.firstname}</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Apellido : </i>{this.state.lastname}</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Fecha de nacimiento : </i> <br/>{this.state.bdate}</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Vive en : </i>{this.state.address}</MDBListGroupItem>
-            <MDBListGroupItem><i className="text-muted" >telefono : </i>{this.state.phone}</MDBListGroupItem>
-            <MDBListGroupItem><i className="text-muted" >Estado civil : </i>{this.state.mStatus}</MDBListGroupItem>
-            <MDBListGroupItem><i className="text-muted" >Provinica : </i>{this.state.province}</MDBListGroupItem>
-            <MDBListGroupItem><i className="text-muted" >Dni : </i>{this.state.dni}</MDBListGroupItem>
-        </MDBCardBody>
-      </MDBCard>
+      <MDBCol style={{ maxWidth: "20rem"}} className="form-control-plaintext">
+          <MDBCard>
+             <MDBCardImage className="img-fluid" src="https://www.rasoyasociados.com/se/wp-content/uploads/2018/01/sin-imagen-2.png" />
+             <MDBCardBody className="col-12">
+                <MDBRow>
+                    <MDBCol><MDBCardTitle >Perfil</MDBCardTitle></MDBCol>
+                    <MDBCol className='text-right'><a href='/mi_perfil'><i className="far fa-edit" /></a></MDBCol>
+                </MDBRow>
+                <MDBListGroupItem><i className="text-muted" /><b>{this.state.firstname}</b></MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" /><b>{this.state.lastname}</b></MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" /><b>{this.state.email}</b></MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Direccion:</i>{this.state.address}</MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Provinica:</i>{this.state.province}</MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Telefono:</i>{this.state.phone}</MDBListGroupItem>
+            </MDBCardBody>
+          </MDBCard>
      </MDBCol>
    <MDBCol className=" mt-2 col-9 " >
        <MDBCard >
