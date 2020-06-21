@@ -13,6 +13,7 @@ import {
     CardFooter,
     Button } from 'reactstrap';
 import './CardItemComponent.css';
+import {MDBCarousel, MDBCarouselInner, MDBCarouselItem} from "mdbreact";
 
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
@@ -39,19 +40,35 @@ class CardItem extends Component {
 
         // TODO: setear fijo el tamaño de la imagen
         return (
-            <Container  className=" imagen-fluid ">
-                <Card className="btn  m-0 p-0 ">
-                    <CardHeader className="m-0 p-0 " >
-                        <Row className="position-static">
-                            <Col>
-                                <UncontrolledCarousel
-                                    items={[{src: this.url_image, key: 0}] || [{src: no_img, key: 0}]}
-                                    controls={false}
-                                    indicators={false}
-                                    autoPlay={false}
-                                />
-                            </Col>
-                        </Row>
+            <Container  className="imagen-fluid">
+                <Card className="btn m-0 p-0">
+                    <CardHeader className="m-0 p-0" style={{ height: '250px'}}>
+                        {/*<Row className="position-static" style={{width: '350px', height: '350px'}}>*/}
+                        {/*    <Col>*/}
+                                <MDBCarousel activeItem={1} length={0} showControls={false} showIndicators={false} thumbnails className="z-depth-1">
+                                    <MDBCarouselInner >
+                                            <MDBCarouselItem itemId={1} className='' style={{height: '250px'}}>
+                                                <div    style={{height: '250px'}}>
+                                                    <img className="w-100 my-1"
+                                                         src={this.url_image || no_img}
+                                                         alt="slide"
+
+                                                    />
+                                                </div>
+
+                                            </MDBCarouselItem>
+                                        {/*    TODO:  Agregar Caption con descripcion de la foto    */}
+                                    </MDBCarouselInner>
+                                </MDBCarousel>
+                                {/*<UncontrolledCarousel*/}
+                                {/*    items={[{src: this.url_image, key: 0}] || [{src: no_img, key: 0}]}*/}
+                                {/*    controls={false}*/}
+                                {/*    indicators={false}*/}
+                                {/*    autoPlay={false}*/}
+                                {/*    style={{width: '350px', height: '350px'}}*/}
+                                {/*/>*/}
+                        {/*    </Col>*/}
+                        {/*</Row>*/}
                     </CardHeader>
                     <CardBody >
                         <CardTitle>
