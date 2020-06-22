@@ -78,6 +78,7 @@ class FiltrosForHome extends Component{
                                  name={value}
                                  onClick={e => this.add_filter(e, index)}>
                                  {value}
+                                 {/*TODO: agregar eso  */}
                               </a>
                             </h6>
                           </div>

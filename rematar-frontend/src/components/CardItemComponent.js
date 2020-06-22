@@ -38,6 +38,17 @@ class CardItem extends Component {
         console.log('a', this.props)
     }
 
+    componentWillReceiveProps(nextProps, nextContent) {
+        console.log(nextProps.auctions)
+        if ( this.props.title !== nextProps.title ) {
+            this.url_image = nextProps.url_image || no_img;
+            this.title = nextProps.title;
+            this.subtitle = nextProps.subtitle;
+            this.footer = nextProps.footer;
+            this.href = nextProps.href;
+        }
+    }
+
     render(){
 
         // TODO: setear fijo el tamaño de la imagen

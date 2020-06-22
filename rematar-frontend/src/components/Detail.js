@@ -151,7 +151,7 @@ class Detail extends Component {
                   { this.state.title }
                </h2>
                <h5 className="dark-grey-text mx-auto text-center">
-                  { this.state.title }
+                  { this.state.subtitle }
                </h5>
                 { this.state.start_date > Date.now() ?
                     <Timer start={ this.state.start_date } end={ this.state.end_date }/>

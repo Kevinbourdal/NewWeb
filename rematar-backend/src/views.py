@@ -328,8 +328,7 @@ class AuctionView(BaseView):
                 if item is None:
                     continue
                 url = UrlImageModel.query.filter_by(item_id=item.id).first()
-                auction[
-                    'url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
+                auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
                 if validate_dates(auction['start_date']):
                     result['started'].append(auction)
                 else:
@@ -513,6 +512,7 @@ class NewAuctionView(BaseView):
                                     return response(200, data={'id': auction.id})
         return response(400)
 
+
 class AuctionDetailView(BaseView):
 
     def __init__(self):
@@ -560,6 +560,75 @@ class FiltersView(BaseView):
         return response(200, data={'filters': filters})
 
 
-#token = request.header['token']
-#username, error = validate_token(token)
-#if not error:
+class SearchView(BaseView):
+
+    def __init__(self):
+        super(SearchView, self).__init__()
+        self.auction_schema = AuctionSchema(unknown='EXCLUDE')
+        self.item_schema = ItemSchema(unknown='EXCLUDE')
+        self.urlimage_schema = UrlImageSchema(many=True, unknown='EXCLUDE')
+        self.keyvalue_schema = CharacteristicKeyValueSchema(many=True, unknown='EXCLUDE')
+        self.value_schema = CharacteristicValueSchema(many=True, unknown='EXCLUDE')
+
+    def get(self):
+        query = request.args.get('query', None)
+        if query is not None:
+            auctions = AuctionModel.query.filter(AuctionModel.title.like(f'{query}%')).union(
+                AuctionModel.query.filter(AuctionModel.subtitle.like(f'{query}%'))
+            ).union(
+                AuctionModel.query.filter(AuctionModel.category.like(f'{query}%'))
+            ).distinct()
+
+            items = ItemModel.query.filter(ItemModel.item_category.like(f'{query}%')).union(
+                ItemModel.query.filter(ItemModel.province.like(f'{query}%'))
+            ).union(
+                ItemModel.query.filter(ItemModel.city.like(f'{query}%'))
+            ).union(
+                ItemModel.query.filter(ItemModel.description.like(f'{query}%'))
+            ).distinct()
+            # subq, User.id == subq.c.user_id
+
+            auctions = auctions.union(
+                AuctionModel.query.filter(AuctionModel.id.in_([item.auction_id for item in items]))
+            ).distinct().all()  # .filter_by(finished=False)
+
+            result = {
+                'started': [],
+                'future': []
+            }
+            try:
+                # categories = request.args.get('filters', [])
+                # price_from = request.args.get('price_from', None)
+                # price_until = request.args.get('price_until', None)
+                # if price_from is not None:
+                #     auctions = auctions.filter(AuctionModel.base_price >= price_from)
+                # if price_until is not None:
+                #     auctions = auctions.filter(AuctionModel.base_price <= price_until)
+                # auctions = self.auction_schemas.dump(auctions.all())
+
+                for auction in auctions:
+                    # if categories and item is not None:
+                    #     if item.item_category not in categories.split('.'):
+                    #         item = None
+                    item = ItemModel.query.filter_by(auction_id=auction.id).first()
+                    if item is None:
+                        continue
+                    url = UrlImageModel.query.filter_by(item_id=item.id).first()
+                    url_image = url.url if url is not None else None  # En el front esta una imagen por defecto
+                    if validate_dates(str(auction.start_date)):
+                        aux = self.auction_schema.dump(auction)
+                        aux.update({'url_image': url_image})
+                        result['started'].append(aux)
+                    else:
+                        aux = self.auction_schema.dump(auction)
+                        aux.update({'url_image': url_image})
+                        result['future'].append(aux)
+
+                # random.shuffle(result['started'])
+                # random.shuffle(result['future'])
+
+                return response(200, data={'auctions': result})
+            except Exception as ex:
+                return response(404)
+
+        return response(400)
