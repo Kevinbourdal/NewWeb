@@ -25,6 +25,7 @@ export default class AuthService {
         .then((res) => {
             this.setToken(res['data']['token']);
             this.setUsername(res.data.username);
+            this.setRole(res['data']['role'])
             return Promise.resolve(res);
         })
         .catch((res) => {
@@ -55,12 +56,20 @@ export default class AuthService {
         localStorage.setItem('__username', username);
     }
 
+    setRole(role) {
+        localStorage.setItem('__user_role', role);
+    }
+
     getToken() {
         return localStorage.getItem('__user_token');
     }
 
     getUsername() {
         return localStorage.getItem('__username');
+    }
+
+    getRole() {
+        return localStorage.getItem('__user_role');
     }
 
     logout() {

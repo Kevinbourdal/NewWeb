@@ -2,11 +2,13 @@ from views import (
     UserView,
     ContactView,
     LoginView,
+    AuctionView,
     NewAuctionView,
     AuctionDetailView,
     AccountView,
     OfferView,
     FiltersView,
+    SearchView,
 )
 
 
@@ -38,6 +40,11 @@ urls = [
         'endpoint': 'newauction',
     },
     {
+        'resource': AuctionView,
+        'path': '/auction',
+        'endpoint': 'auction',
+    },
+    {
         'resource': AuctionDetailView,
         'path': '/detail/<int:auction_id>',
         'endpoint': 'auction_detail',
@@ -51,6 +58,11 @@ urls = [
         'resource': FiltersView,
         'path': '/filters',
         'endpoint': 'filters',
+    },
+    {
+        'resource': SearchView,
+        'path': '/search',
+        'endpoint': 'search',
     }
 
 ]

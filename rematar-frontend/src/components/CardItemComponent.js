@@ -38,6 +38,17 @@ class CardItem extends Component {
         console.log('a', this.props)
     }
 
+    componentWillReceiveProps(nextProps, nextContent) {
+        console.log(nextProps.auctions)
+        if ( this.props.title !== nextProps.title ) {
+            this.url_image = nextProps.url_image || no_img;
+            this.title = nextProps.title;
+            this.subtitle = nextProps.subtitle;
+            this.footer = nextProps.footer;
+            this.href = nextProps.href;
+        }
+    }
+
     render(){
 
         // TODO: setear fijo el tamaño de la imagen
@@ -80,16 +91,17 @@ class CardItem extends Component {
                             <b>{ this.subtitle || '' }</b>
                         </CardSubtitle>
                     </CardBody>
-                    <CardFooter  className=" mb-0  pb-0" >
+                    <CardFooter className="mb-0 pb-0" >
                         <div className="text-center">
                             <Col>
                                 <a href={this.href || '#'}>
                                     <Button className="btn-md"
                                             color={'info'}
-                                            style={{fontSize: "14px", color:'#424242'}}
-                                    ><Row>
-                                            <img src ={logos}  style={{width:"40px",height:"29px"}}></img>
-                                            <b><h5 className='mt-1 mr-3'>Detalles</h5></b>
+                                            style={{color:'#424242'}}
+                                    >
+                                        <Row>
+                                            {/*<img src ={logos} style={{width:"40px",height:"29px"}}></img>*/}
+                                            <b><h4 className='mt-1 h4-responsive'>Detalles</h4></b>
                                         </Row>
                                     </Button>
                                 </a>

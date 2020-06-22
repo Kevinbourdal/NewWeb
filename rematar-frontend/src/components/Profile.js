@@ -69,22 +69,24 @@ render() {
     return (
 <div>
    <MDBRow className="mt-4 col-12 " style={{height:'400%'}}>
-     <MDBCol style={{ maxWidth: "20rem"}} className="form-control-plaintext">
-      <MDBCard>
-        <MDBCardImage className="img-fluid" src="https://www.rasoyasociados.com/se/wp-content/uploads/2018/01/sin-imagen-2.png" />
-        <MDBCardBody className="col-12">
-          <MDBCardTitle >Perfil</MDBCardTitle>
-         <MDBListGroupItem><i  className="text-muted" >Mail : </i><br/>{this.state.email}</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Nombre : </i>{this.state.firstname}</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Apellido : </i>{this.state.lastname}</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Fecha de nacimiento : </i> <br/>{this.state.bdate}</MDBListGroupItem>
-         <MDBListGroupItem><i className="text-muted" >Vive en : </i>{this.state.address}</MDBListGroupItem>
-            <MDBListGroupItem><i className="text-muted" >telefono : </i>{this.state.phone}</MDBListGroupItem>
-            <MDBListGroupItem><i className="text-muted" >Estado civil : </i>{this.state.mStatus}</MDBListGroupItem>
-            <MDBListGroupItem><i className="text-muted" >Provinica : </i>{this.state.province}</MDBListGroupItem>
-            <MDBListGroupItem><i className="text-muted" >Dni : </i>{this.state.dni}</MDBListGroupItem>
-        </MDBCardBody>
-      </MDBCard>
+      <MDBCol style={{ maxWidth: "20rem"}} className="form-control-plaintext">
+          <MDBCard>
+             <MDBCardImage className="img-fluid" src="https://www.rasoyasociados.com/se/wp-content/uploads/2018/01/sin-imagen-2.png" />
+             <MDBCardBody className="col-12">
+                <MDBRow>
+                    <MDBCol><MDBCardTitle >Perfil</MDBCardTitle></MDBCol>
+                    <MDBCol className='text-right'>
+                        <a href='/mi_perfil' style={{color: 'black'}}><i className="far fa-edit" /></a>
+                    </MDBCol>
+                </MDBRow>
+                <MDBListGroupItem><i className="text-muted" /><b>{this.state.firstname}</b></MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" /><b>{this.state.lastname}</b></MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" /><b>{this.state.email}</b></MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Direccion: </i>{this.state.address}</MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Provinica: </i>{this.state.province}</MDBListGroupItem>
+                <MDBListGroupItem><i className="text-muted" >Telefono: </i>{this.state.phone}</MDBListGroupItem>
+            </MDBCardBody>
+          </MDBCard>
      </MDBCol>
    <MDBCol className=" mt-2 col-9 " >
        <MDBCard >
@@ -92,10 +94,10 @@ render() {
              <h5>Ofertas activas</h5>
              <hr />
            <MDBTable hover responsive={true} className="table-striped">
-               <thead  className="thead-dark text-center">
+               <thead className="thead-dark text-center">
                    <tr className="">
-                       <th ><b>#</b></th>
-                       <th ><b>Oferta</b></th>
+                       <th><b>#</b></th>
+                       <th><b>Oferta</b></th>
                        <th><b>Puesto</b></th>
                        <th><b>Terreno</b></th>
                        <th><b>Preio actual</b></th>
@@ -133,53 +135,52 @@ render() {
             </MDBTable>
              </MDBCardBody>
          </MDBCard>
-     </MDBCol>
-          <div className="col-9" >
-               <MDBCard>
-                   <MDBCardBody className="" style={{ width: '100%' }} >
-                       <h5>Ofertas finalizadas</h5>
-                       <hr />
-                       <MDBTable hover responsive={true}  className="table-striped table-dark">
-                           <thead  className="thead-dark text-center">
-                             <tr className="">
-                               <th ><b>#</b></th>
-                               <th ><b>Oferta</b></th>
-                               <th><b>Puesto</b></th>
-                               <th><b>Terreno</b></th>
-                               <th><b>Precio final</b></th>
-                               <th><b>Hora</b></th>
-                               <th><b>Fin de subasta</b></th>
+       <hr />
+       <MDBCard>
+           <MDBCardBody className="" style={{ width: '100%' }} >
+               <h5>Ofertas finalizadas</h5>
+               <hr />
+               <MDBTable hover responsive={true}  className="table-striped table-dark">
+                   <thead  className="thead-dark text-center">
+                   <tr className="">
+                       <th ><b>#</b></th>
+                       <th ><b>Oferta</b></th>
+                       <th><b>Puesto</b></th>
+                       <th><b>Terreno</b></th>
+                       <th><b>Precio final</b></th>
+                       <th><b>Hora</b></th>
+                       <th><b>Fin de subasta</b></th>
+                   </tr>
+                   </thead >
+                   <tbody className="text-center text-dark" style={{ backgroundColor: "#7BEC5D" }}>
+                   { ofertas.map((offer, index) => {
+                       return index % 3 === 0 || index === 4 ?
+                           <tr className="ml-5 table-success">
+                               <th className="ml-5"><b>{index + 1}</b></th>
+                               <td className="ml-5 "><b>{offer['fname']}</b></td>
+                               <td className="ml-5"><b>{offer['lname']}</b></td>
+                               <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
+                               <td className="ml-5"><b>{offer['date']}</b></td>
+                               <td className="ml-5"><b>{offer['hour']}</b></td>
+                               <td className="ml-5"><b>{offer['diff']}</b></td>
                            </tr>
-                           </thead >
-                           <tbody className="text-center text-dark" style={{ backgroundColor: "#7BEC5D" }}>
-                           { ofertas.map((offer, index) => {
-                               return index % 3 === 0 || index === 4 ?
-                                   <tr className="ml-5 table-success">
-                                       <th className="ml-5"><b>{index + 1}</b></th>
-                                       <td className="ml-5 "><b>{offer['fname']}</b></td>
-                                       <td className="ml-5"><b>{offer['lname']}</b></td>
-                                       <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
-                                       <td className="ml-5"><b>{offer['date']}</b></td>
-                                       <td className="ml-5"><b>{offer['hour']}</b></td>
-                                       <td className="ml-5"><b>{offer['diff']}</b></td>
-                                   </tr>
-                                   :
-                                   <tr className="ml-5 table-danger">
-                                       <th className="ml-5"><b>{index + 1}</b></th>
-                                       <td className="ml-5"><b>{offer['fname']}</b></td>
-                                       <td className="ml-5"><b>{offer['lname']}</b></td>
-                                       <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
-                                       <td className="ml-5"><b>{offer['date']}</b></td>
-                                       <td className="ml-5"><b>{offer['hour']}</b></td>
-                                       0 <td className="ml-5"><b>{offer['diff']}</b></td>
-                                   </tr>
-                           })}
+                           :
+                           <tr className="ml-5 table-danger">
+                               <th className="ml-5"><b>{index + 1}</b></th>
+                               <td className="ml-5"><b>{offer['fname']}</b></td>
+                               <td className="ml-5"><b>{offer['lname']}</b></td>
+                               <td className="ml-5"><b><a href="/detail">{offer['amount']}</a></b></td>
+                               <td className="ml-5"><b>{offer['date']}</b></td>
+                               <td className="ml-5"><b>{offer['hour']}</b></td>
+                               <td className="ml-5"><b>{offer['diff']}</b></td>
+                           </tr>
+                   })}
 
-                           </tbody>
-                       </MDBTable>
-                   </MDBCardBody>
-               </MDBCard>
-          </div>
+                   </tbody>
+               </MDBTable>
+           </MDBCardBody>
+       </MDBCard>
+     </MDBCol>
 
    </MDBRow>
 </div>

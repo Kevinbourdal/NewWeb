@@ -33,6 +33,7 @@ class AddCards extends Component {
                 startDate: new Date(),
                 key_aux: '',
                 value_aux: '',
+                new_auction: false,
            };
            this.handleDataAdd = this.handleDataAdd.bind(this);
            this.handleDataAdd2 = this.handleDataAdd2.bind(this);
@@ -40,6 +41,26 @@ class AddCards extends Component {
            this.handleInputChange = this.handleInputChange.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
            this.deletArgs = this.deletArgs.bind(this);
+           this.get_auction_data = this.get_auction_data.bind(this);
+           this.get_auction_data();
+     }
+
+     get_auction_data () {
+         fetch(
+             config["api"]['BACKEND_ENDPOINT']+'/api/newauction?auction_id='+window.location.pathname.replace('/new/', ''),
+             {
+                 mode: 'cors',
+                 method: 'GET',
+             }
+         ).then(data => {return data.json()}
+         ).then(res => {
+                 this.setState({...res['data']})
+             }
+         ).catch(e => {
+                 console.log("error:", e);
+                 this.setState({new_user: true})
+             }
+         )
      }
 
      handleSubmit(e) {
@@ -51,8 +72,9 @@ class AddCards extends Component {
                      'Content-Type': 'text/json',
                  },
                  mode: 'cors',
-                 method: 'POST',
+                 method: this.state.new_user ? 'POST' : 'PUT',
                  body: JSON.stringify({
+                     auction_id: window.location.pathname.replace('/new/', ''),
                      ...this.state
                  })
              }
@@ -149,41 +171,41 @@ class AddCards extends Component {
                                        <Col><h3 className="mt-2 mb-5">Nuevo articulo</h3></Col>
                                    </Row>
                                  <div className="form-group">
-                                     <InputField name={"title"} label={"Titulo"} type={"text"} change={this.handleInputChange}/>
+                                     <InputField name={"title"} label={"Titulo"} type={"text"} value={this.state.title} change={this.handleInputChange}/>
                                  </div>
                                  <div className="form-group">
-                                     <InputField name={"subtitle"} label={"Subtitulo"} type={"text"}  change={this.handleInputChange}/>
+                                     <InputField name={"subtitle"} label={"Subtitulo"} type={"text"} value={this.state.subtitle} change={this.handleInputChange}/>
                                  </div>
                                    <div className="form-group">
                                        <InputField label={"Moneda"} type={"text"} value={"Peso Argentino"} change={this.handleInputChange}/>
                                    </div>
                                    <div className="form-group">
-                                       <InputField name={"base_price"} label={"Precio base"} type={"number"} change={this.handleInputChange}/>
+                                       <InputField name={"base_price"} label={"Precio base"} type={"number"} value={this.state.base_price} change={this.handleInputChange}/>
                                    </div>
                                    <div className="form-group">
-                                       <InputField name={"market_price"} label={"Precio de mercado"} type={"number"} change={this.handleInputChange}/>
+                                       <InputField name={"market_price"} label={"Precio de mercado"} type={"number"} value={this.state.market_price} change={this.handleInputChange}/>
                                    </div>
                                    <Row>
                                        <Col>
                                            <div className="form-group">
-                                               <InputField name={"start_date"} label={"Fecha de inicio"} type={"date"} change={this.handleInputChange}/>
+                                               <InputField name={"start_date"} label={"Fecha de inicio"} type={"date"} value={this.state.start_date} change={this.handleInputChange}/>
                                            </div>
                                        </Col>
                                        <Col>
                                            <div className="form-group">
-                                               <InputField name={"start_hour"} label={"Hora de inicio"} type={"time"} change={this.handleInputChange}/>
+                                               <InputField name={"start_hour"} label={"Hora de inicio"} type={"time"} value={this.state.start_hour} change={this.handleInputChange}/>
                                            </div>
                                        </Col>
                                    </Row>
                                    <Row>
                                        <Col>
                                            <div className="form-group">
-                                               <InputField name={"end_date"} label={"Fecha de finalizacion"} type={"date"} change={this.handleInputChange}/>
+                                               <InputField name={"end_date"} label={"Fecha de finalizacion"} type={"date"} value={this.state.end_date} change={this.handleInputChange}/>
                                            </div>
                                        </Col>
                                        <Col>
                                            <div className="form-group">
-                                               <InputField name={"end_hour"} label={"Hora de finalizacion"} type={"time"} change={this.handleInputChange}/>
+                                               <InputField name={"end_hour"} label={"Hora de finalizacion"} type={"time"} value={this.state.end_hour} change={this.handleInputChange}/>
                                            </div>
                                        </Col>
                                    </Row>
@@ -199,10 +221,10 @@ class AddCards extends Component {
                                        </select>
                                    </div>
                                    <div className="form-group">
-                                       <InputField name={"item_category"} label={"Categoria especifica"} type={"text"} change={this.handleInputChange}/>
+                                       <InputField name={"item_category"} label={"Categoria especifica"} type={"text"} value={this.state.item_category} change={this.handleInputChange}/>
                                    </div>
                                    <div className="form-group">
-                                       <InputField name={"description"} label={"Descripcion"} type={"textarea"} change={this.handleInputChange}/>
+                                       <InputField name={"description"} label={"Descripcion"} type={"textarea"} value={this.state.description} change={this.handleInputChange}/>
                                    </div>
                                    <div className="form-group">
                                        <Label>Provincia</Label>
@@ -217,7 +239,7 @@ class AddCards extends Component {
                                    </div>
 
                                    <div className="form-group">
-                                       <InputField name={"city"} label={"Ciudad"} type={"text"} change={this.handleInputChange}/>
+                                       <InputField name={"city"} label={"Ciudad"} type={"text"} value={this.state.city} change={this.handleInputChange}/>
                                    </div>
 
                                    <div className="picture-uploader-controls">
@@ -294,7 +316,7 @@ class AddCards extends Component {
 
                                </div>
                                    <div className="picture-uploader-controls">
-                                       <InputField name={"value"} label={"Caracteristicas"} type={"textarea"} change={this.handleDataAdd2}/>
+                                       <InputField name={"value"} label={"Caracteristicas"} type={"textarea"} value={this.state.value} change={this.handleDataAdd2}/>
                                        <ListGroup variant="flush" className="mb-4">
                                            {this.state.value.length > 0 ?
                                                this.state.value.map((value, index) =>

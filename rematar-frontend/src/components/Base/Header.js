@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import AuthService from "../../utils/AuthService";
 import logo from '../../img/logofull.png'
+import {MDBCol} from "mdbreact";
 
 
 class Header extends Component {
@@ -37,11 +38,11 @@ class Header extends Component {
     render() {
         return (
             <div className="Head">
-                <Navbar color="dark" className="text-right" light style={{background:"red"}}>
+                <Navbar color='dark' className="text-right" light style={{background:"black"}}>
 
-                    <Col className="text-left pl-0" href="home">
-                        <a href="/home" style={{color: "white"}}>
-                            <img src={logo} alt="Logo" className="mt-0" style={{ blockSize: "50px"}} />
+                    <Col className="text-left p-0" href="home">
+                        <a href="/home" className='m-0 p-0' style={{color: "white"}}>
+                            <img src={logo} alt="Logo" className="m-0 p-0" style={{ blockSize: "50px"}} />
                             {/*<b style={{ fontSize: "70px" }}>Subastas en Web</b>*/}
                         </a>
                     </Col>
@@ -58,17 +59,17 @@ class Header extends Component {
                         null
                     }
                     <bc/>
-                    <NavbarToggler className="ml-auto" style={{color: "danger"}} onClick={this.toggle} />
+                    <NavbarToggler color='white' className="ml-auto navbar-toggler-right" style={{background: "info"}} onClick={this.toggle} />
 
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="mr-auto" navbar >
-                            <NavLink href="home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
+                            <NavLink href="/home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
                             <NavLink href="/contact" className=" text-right" style={{color: "white"}} >Contacto</NavLink>
                             <NavLink href="/faqs" className=" text-right" style={{color: "white"}} >FaQs</NavLink>
                             <br/>
                             { this.state.isAuthenticated ?
                                 <NavLink className="text-right" onClick={this.logout} style={{color: "white"}}>
-                                    <i className="fas fa-times-circle"></i><b> Logout </b>
+                                    <i className="fas fa-times-circle"/><b> Logout </b>
                                 </NavLink>
                                 :
                                 <div>
@@ -76,6 +77,11 @@ class Header extends Component {
                                     <NavLink href="/register" className="text-right" style={{color: "white"}} >Registrarse</NavLink>
                                 </div>
                             }
+                            <hr className='hr-bold' color='white'/>
+                            <NavLink href="/new" className="text-right" style={{color: "white"}} hidden={this.Auth.getRole() !== 'admin'}>
+                                <i className="fas fa-plus-circle"/> <b color='danger'>Nueva subasta</b>
+                            </NavLink>
+
 
                         </Nav>
                     </Collapse>

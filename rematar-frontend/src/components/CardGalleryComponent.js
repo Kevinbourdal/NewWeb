@@ -22,7 +22,39 @@ class CardGallery extends Component {
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
 
-        this.get_items()
+        this.get_items();
+    }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log(nextProps)
+    //     console.log(this.state.items_started)
+    //     return this.state.items_started.length !== nextProps.auctions.started.length
+    // }
+
+    // componentDidUpdate(prevProps) {
+    //     console.log(prevProps.auctions)
+    //     alert()
+    //     if ( Object.keys(prevProps.auctions).length !== 0 )
+    //         if ( prevProps.auctions.started.length !== 0 )
+    //             if ( this.props.items_started.length !== prevProps.auctions.started.length )
+    //                 this.setState({
+    //                     items_started: prevProps.auctions['started'],
+    //                     items_future: prevProps.auctions['future']
+    //                 });
+    // }
+    componentDidUpdate() {
+        console.log("Updated!");
+    }
+    componentWillReceiveProps(nextProps, nextContent) {
+        console.log(nextProps.auctions)
+        if ( Object.keys(this.props.auctions).length !== 0  &&  this.props.auctions.started.length !== 0) {
+            console.log('entro',  Object.keys(this.props.auctions).length, this.props.auctions.started.length)
+            console.log(nextProps.auctions['started'])
+            this.setState({
+                items_started: nextProps.auctions['started'],
+                items_future: nextProps.auctions['future']
+            });
+        }
     }
 
     get_items (filters, price_from, price_until) {
@@ -32,19 +64,18 @@ class CardGallery extends Component {
 
         let get_args = filters + price_from + price_until
         fetch(
-            config["api"]['BACKEND_ENDPOINT']+'/api/newauction'+get_args,
+            config["api"]['BACKEND_ENDPOINT']+'/api/auction'+get_args,
             {
                 mode: 'cors',
                 method: 'GET',
             }
         ).then(data => {return data.json()}
         ).then(res => {
-                console.log(res);
+                console.log(res['data']['auctions']);
                 this.setState({
                     items_started: res['data']['auctions']['started'],
                     items_future:  res['data']['auctions']['future'],
                 })
-                console.log(this.state.items);
                 // Object.keys(res['data']['user'])
             }
         ).catch(e => {
@@ -70,7 +101,6 @@ class CardGallery extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
 
             <div>
