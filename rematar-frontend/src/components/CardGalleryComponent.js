@@ -80,7 +80,7 @@ class CardGallery extends Component {
                         { this.categories === 'autos' ?
                             <div/>
                             :
-                            <MDBRow className="col-sm-3 mt-3 col-md-2" >
+                            <MDBRow style={{maxWidth: '576px'}} className="ml-2 col-sm-3  mt-3 col-md-2" >
                                 <MDBRow className="rounded-lg info-color-dark" >
                                     <FiltrosForHome submit={this.apply_filters}/>
                                 </MDBRow>

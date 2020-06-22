@@ -11,8 +11,8 @@ import InputField from "./InputFieldComponent";
 
 
 
-   let search = '';
-   console.log(search)
+
+
 
   let submitHandler = () => {
       // recibimos los datos del backend

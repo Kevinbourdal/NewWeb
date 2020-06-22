@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import {MDBInput, MDBCol, MDBRow, MDBBtn} from "mdbreact";
+import {MDBInput, MDBCol, MDBRow, MDBBtn,MDBIcon} from "mdbreact";
 import config from "../config";
 import {renderIntoDocument} from "react-dom/test-utils";
+import Row from "reactstrap/es/Row";
+import {object} from "prop-types";
 
 
 class FiltrosForHome extends Component{
@@ -11,7 +13,11 @@ class FiltrosForHome extends Component{
             filters: [],
             price_from: 0,
             price_until: 0,
-            filters_selected: []
+            filters_selected: [],
+            icons:{'Vehiculo':'car',
+                    'Inmueble':'home',
+                    'Muebles':'couch',
+                    'Otros':'circle'}
         }
         this.filters_selected = [];
         this.submit = this.props.submit;
@@ -67,14 +73,17 @@ class FiltrosForHome extends Component{
         let lugares = Object.keys(this.state.filters).map((key) => {
             // this.state.filters_selected
             return (
-                <div className="mb-5">
+                <div className="mb-5 ml-2">
+                <Row>
+                    <MDBIcon className='mt-1' icon={this.state.icons[key]} />
                   <h4 className="ml-1 ">{key}</h4>
                     <hr className="accent-4 ml-1 mt-1  mr-5 grey lighten-5" style={{ width: "150px" }} />
-                      {Object.values(this.state.filters[key]).map((value, index) =>
+                    </Row>
+                    {Object.values(this.state.filters[key]).map((value, index) =>
                           <div className="mt-2 ml-3"  >
                             <h6>
                               <a id={index}
-                                 style={{color: this.state.filters_selected[index] ? 'black' : 'white'}}
+                                 style={{color: this.state.filters_selected[index] ? 'grey' : 'white'}}
                                  name={value}
                                  onClick={e => this.add_filter(e, index)}>
                                  {value}
@@ -89,9 +98,9 @@ class FiltrosForHome extends Component{
         return(
             <div style={{color:'white'}} className="mt-3 ml-3" >
                 {lugares}
-                <div className="">
-                   <h4 className="ml-4 ">{"Pecios"}</h4>
-                   <hr className="accent-2 ml-1 mb-0 mr-5 grey lighten-5" style={{ width: "150px" }} />
+                <div >
+                   <h4 className="ml-1 ">{"Pecios"}</h4>
+                   <hr className="accent-2  mb-0 ml-1 grey lighten-5" style={{ width: "150px" }} />
                 </div>
                 <MDBRow >
                     <MDBCol>

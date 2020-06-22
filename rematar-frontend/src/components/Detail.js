@@ -251,8 +251,8 @@ class Detail extends Component {
                                                         <Row>
                                                             <Col>
                                                                 <h5>Tabla de información</h5>
-                                                                <Table  responsive={true}  striped={'black'} className="text-left " >
-                                                                    <tbody>
+                                                                <Table  responsive={true} striped={true} className="text-left table-bordered table-info" >
+                                                                    <tbody >
                                                                     { data_table }
                                                                     </tbody>
                                                                 </Table>

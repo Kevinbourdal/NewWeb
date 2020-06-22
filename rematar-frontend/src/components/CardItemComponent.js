@@ -44,7 +44,7 @@ class CardItem extends Component {
         return (
             <Container  className="imagen-fluid">
                 <Card className="btn m-0 p-0">
-                    <CardHeader className="m-0 p-0" style={{ height: '250px'}}>
+                    <CardHeader className="m-0 p-0" style={{maxWidth: '576px',height: '250px'}}>
                         {/*<Row className="position-static" style={{width: '350px', height: '350px'}}>*/}
                         {/*    <Col>*/}
                                 <MDBCarousel activeItem={1} length={0} showControls={false} showIndicators={false} thumbnails className="z-depth-1">
@@ -88,7 +88,7 @@ class CardItem extends Component {
                                             color={'info'}
                                             style={{fontSize: "14px", color:'#424242'}}
                                     ><Row>
-                                            <img src ={logos} style={{width:"40px",height:"29px"}}></img>
+                                            <img src ={logos}  style={{width:"40px",height:"29px"}}></img>
                                             <b><h5 className='mt-1 mr-3'>Detalles</h5></b>
                                         </Row>
                                     </Button>

@@ -193,7 +193,6 @@ class AddCards extends Component {
                                                value={ this.state.category }
                                                onChange={this.handleInputChange}
                                                name='category'
-
                                        > {['Seleccione categoria','Vehiculo', 'Inmueble', 'Muebles', 'Otros'].map((value)=>
                                            <option>{value}</option>
                                        )}
