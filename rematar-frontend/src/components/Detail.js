@@ -47,6 +47,7 @@ class Detail extends Component {
            city: '',
            key_values: [],
            url_images: [],
+           values: [],
            modal: false
        };
 
@@ -78,8 +79,10 @@ class Detail extends Component {
                ...res['data']['item'],
                'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
                'url_images': res['data']['url_images'],
+               'values': res['data']['values'].map((value) => value['value']),
                'curr_price': res['data']['auction']['base_price']
            })
+           console.log(res['data'])
            console.log(this.state)
            }
        ).catch(e => {
@@ -331,7 +334,18 @@ class Detail extends Component {
                       </div>
                   </MDBCol>
                </MDBRow>
-
+               <MDBRow className='my-5'>
+                   <MDBCol>
+                       <div>
+                           <h5 className='my-4'>Caracteristicas</h5>
+                           <Row className='ml-3'>
+                           {this.state.values.map((value, index) =>
+                                <p className='col-4 mt-2 text-left'><i className="fas fa-check-square mr-2"/>{value}</p>
+                           )}
+                           </Row>
+                       </div>
+                   </MDBCol>
+               </MDBRow>
                <hr/>
 
                <MDBRow className="mt-5">

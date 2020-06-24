@@ -371,6 +371,7 @@ class NewAuctionView(BaseView):
                     # urls = self.urlimage_schema.dump(urls)
                     # auction = self.auction_schema.dump(auction)
                     # item = self.item_schema.dump(item)
+                    print('acaa')
                     return response(200, data={'title': auction.title,
                                                'subtitle': auction.subtitle,
                                                'base_price': auction.base_price,
@@ -387,7 +388,7 @@ class NewAuctionView(BaseView):
                                                'city': item.city,
                                                'url_images': [url.url for url in urls],
                                                'key_value': [(key_value.key, key_value.value) for key_value in key_values],
-                                               'value': [value.value for value in values]
+                                               'values': [value.value for value in values]
                                                })
         return response(400)
 
@@ -414,8 +415,10 @@ class NewAuctionView(BaseView):
                     urls.append(self.urlimage_schema.load({'url': url}))
 
             except ValidationError as e:
+                print(e)
                 return response(400, str(e))
             except Exception as ex:
+                print(ex)
                 return response(400, str(ex))
 
             new_auction = AuctionModel(**auction)
@@ -532,12 +535,16 @@ class AuctionDetailView(BaseView):
                 key_values = self.keyvalue_schema.dump(key_values)
                 urls = UrlImageModel.query.filter_by(item_id=item.id).all()
                 urls = self.urlimage_schema.dump(urls)
+                values = CharacteristicKeyValueModel.query.filter_by(item_id=item.id).all()
+                values = self.value_schema.dump(values)
                 auction = self.auction_schema.dump(auction)
+
                 item = self.item_schema.dump(item)
                 return response(200, data={'auction': auction,
                                            'item': item,
                                            'key_values': key_values,
-                                           'url_images': urls})
+                                           'url_images': urls,
+                                           'values': values})
         return response(400)
 
 

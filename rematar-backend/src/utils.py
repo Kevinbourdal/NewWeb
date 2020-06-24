@@ -20,6 +20,7 @@ JWT_NOISE = b'salt'
 
 
 def response(status_code, msg='', data=None):
+    print(data)
     res = {'code': status_code, 'status_code': STATUS[status_code]}
     if msg:
         res.update({'error': msg})
