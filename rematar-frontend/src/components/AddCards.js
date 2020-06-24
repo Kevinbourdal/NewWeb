@@ -6,11 +6,13 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import {provincia} from "../data/items_filtro";
 import Label from "reactstrap/es/Label";
 import config from "../config";
+import ModalPage from "./Moddal";
 import {Button} from "bootstrap/js/src";
+import {MDBCol, MDBRow} from "mdbreact";
 
 
 class AddCards extends Component {
-     constructor () {
+     constructor (component) {
            super(Component);
            this.state = {
                 title: '',
@@ -33,8 +35,10 @@ class AddCards extends Component {
                 startDate: new Date(),
                 key_aux: '',
                 value_aux: '',
-                new_auction: false,
+                new_auction: true,
+                modal: false
            };
+
            this.handleDataAdd = this.handleDataAdd.bind(this);
            this.handleDataAdd2 = this.handleDataAdd2.bind(this);
            this.handleDataAdd3 = this.handleDataAdd3.bind(this);
@@ -43,22 +47,25 @@ class AddCards extends Component {
            this.deletArgs = this.deletArgs.bind(this);
            this.get_auction_data = this.get_auction_data.bind(this);
            this.get_auction_data();
+           this.toggle = this.toggle.bind(this);
      }
 
      get_auction_data () {
+         let auction_id = window.location.pathname.replace('/new/', '')
+         if (auction_id === '/new')
+             return
          fetch(
-             config["api"]['BACKEND_ENDPOINT']+'/api/newauction?auction_id='+window.location.pathname.replace('/new/', ''),
+             config["api"]['BACKEND_ENDPOINT']+'/api/newauction?auction_id=',
              {
                  mode: 'cors',
                  method: 'GET',
              }
          ).then(data => {return data.json()}
          ).then(res => {
-                 this.setState({...res['data']})
+                 this.setState({...res['data'],new_auction: false})
              }
          ).catch(e => {
                  console.log("error:", e);
-                 this.setState({new_user: true})
              }
          )
      }
@@ -72,19 +79,21 @@ class AddCards extends Component {
                      'Content-Type': 'text/json',
                  },
                  mode: 'cors',
-                 method: this.state.new_user ? 'POST' : 'PUT',
-                 body: JSON.stringify({
+                 method: this.state.new_auction ? 'POST' : 'PUT',
+
+                 body: JSON.stringify(this.state.new_auction ? {...this.state} : {
                      auction_id: window.location.pathname.replace('/new/', ''),
                      ...this.state
                  })
              }
          ).then(data => {return data.json()}
-         ).then(res => {alert("Articulo num " + res.data['id'] + "guardado!")}
+         ).then(res => {this.toggle()}
          ).catch(error => {
                  console.log("Fail");
              }
          )
       }
+
 
      handleInputChange(e) {
          const {value, name} = e.target;
@@ -113,7 +122,9 @@ class AddCards extends Component {
         }
 
     handleDataAdd2(e) {
+
         const {value, name} = e.target;
+        alert(value)
         if ( value.search('\n') !== -1){
             e.target.value='';
             this.setState({
@@ -151,15 +162,19 @@ class AddCards extends Component {
         })
     }
 
-
-
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
     // changeHandler = event => {
     //     this.setState({ [event.target.name]: event.target.value });
     // };
 
  render() {
    return (
-       <div className="app flex-row align-items-center mt-4">
+       <div  className="app flex-row align-items-center mt-4">
+           <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Subasta Guardada'}/>
            <Container>
                <Row className="justify-content-center">
                    <Col md="8">
@@ -261,14 +276,16 @@ class AddCards extends Component {
                                       <ListGroup variant="flush" className="mb-4">
                                          {this.state.url_images.length > 0 ?
                                             this.state.url_images.map((url, index) =>
-                                                <Row>
-                                               <ListGroupItem tag="a" href={url} action><b className="text-dark">
-                                                   Imagen {index}:</b> {url}
-                                               </ListGroupItem>
-                                             <tr>
-                                             <a onClick={(e) => this.deletArgs(index)} className="btn btn-danger btn-delete">Borrar</a>
-                                             </tr>
-                                                </Row>
+                                                   <MDBRow>
+                                                       <MDBCol>
+                                                          <b className="text-dark">Imagen {index}:</b>
+                                                           <a href={url}>{url.split('/').pop()}</a>
+                                                       </MDBCol>
+                                                       <MDBCol className='text-right'>
+                                                           <a onClick={(e) => this.deletArgs(index)} >
+                                                              <i className="fa fa-times-circle" /></a>
+                                                       </MDBCol>
+                                                   </MDBRow>
                                             )
                                          :
                                             null
@@ -324,9 +341,6 @@ class AddCards extends Component {
                                                        <ListGroupItem action>
                                                            {index}: { value }
                                                        </ListGroupItem>
-                                                       <tr>
-                                                           <a onClick={(e) => this.deletArgs3(index)} className="btn btn-danger btn-delete">Borrar</a>
-                                                       </tr>
 
                                                    </Row>
                                                )
@@ -336,7 +350,7 @@ class AddCards extends Component {
                                        </ListGroup>
 
                                    </div>
-                                 <button type="submit" className="btn btn-danger" disabled={!this.validateForm()}>
+                                 <button type="submit" className="btn btn-info"  disabled={!this.validateForm()}>
                                     Agregar
                                  </button>
                                </form>

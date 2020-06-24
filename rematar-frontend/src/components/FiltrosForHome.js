@@ -76,7 +76,7 @@ class FiltrosForHome extends Component{
                 <div className="mb-5 ml-2">
                 <Row>
                     <MDBIcon className='mt-1' icon={this.state.icons[key]} />
-                  <h4 className="ml-1 ">{key}</h4>
+                    <h4 className="ml-1 ">{key}</h4>
                     <hr className="accent-4 ml-1 mt-1  mr-5 grey lighten-5" style={{ width: "150px" }} />
                     </Row>
                     {Object.values(this.state.filters[key]).map((value, index) =>

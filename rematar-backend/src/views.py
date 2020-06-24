@@ -220,7 +220,7 @@ class ContactView(BaseView):
             new_contact = ContactModel(**contact_data)
             error = new_contact.save()
             if not error:
-                return response(200, data={'id': new_contact.id})
+                return response(200, data={'id': 'asfd'})
 
         return response(400, msg="Error en backend")
 

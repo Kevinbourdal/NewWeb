@@ -54,6 +54,7 @@ class MiProfile extends React.Component {
         //event.preventDefault();  No se que hace por eso lo comente
         event.target.className += ' was-validated';
         // enviamos los datos al backend
+        event.preventDefault()
         fetch(
             config["api"]['BACKEND_ENDPOINT']+'/api/mi_perfil',
             {

@@ -6,6 +6,7 @@ import logo from '../img/logofull.png'
 import config from "../config";
 import logos from "../img/logosubastas.png";
 import {MDBBtn} from "mdbreact";
+import ModalPage from "./Moddal";
 
 
 class Contact extends Component {
@@ -18,32 +19,37 @@ class Contact extends Component {
 			phone: '',
 			body: '',
 			loginError: false,
+            modal: false
 		};
 		this.handleChange = this.handleChange.bind(this);
+        this.toggle = this.toggle.bind(this);
 		//this.Auth = new AuthService();
-
 	}
-    submitHandler = event => {
+    submitHandler = e => {
         //event.preventDefault();  No se que hace por eso lo comente
-        event.target.className += ' was-validated';
-
+        e.target.className += ' was-validated';
+        e.preventDefault();  // No se que have pero va como piña
        //Enviamos los datos al backend
         fetch(
             config["api"]['BACKEND_ENDPOINT']+'/api/contact',
            {
                headers: {
-               'Content-Type': 'text/json',
-                },
-                mode: 'cors',
+                   "Content-Type": "text/plain",
+               },
                 method: 'POST',
                 body: JSON.stringify({
                     ...this.state
                 })
            }
-        ).then(data => {return data.json()}
-        ).then(res => {alert("usuario num  " + res.data['id'])}
+        ).then(() => {
+            console.log('data')
+            alert('')
+            // return data.json()
+        }
+        ).then(res => {this.toggle()}
         ).catch(error => {
-                console.log("Fail");
+                console.log("Fail",error);
+            alert('as')
             }
         )
     }
@@ -57,20 +63,29 @@ class Contact extends Component {
 		});
 	};
 
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
     validateForm() {
-		return this.state.email.length > 0 && this.state.name.length > 0 && this.state.body.length > 0;
+		return this.state.email.length > 0 &&
+               this.state.name.length > 0 &&
+               this.state.body.length > 0;
 	}
 
 	render() {
 	    return(
 	         <div className="app flex-row align-items-center mt-4">
+              <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Su consulta se ha enviado correctamente'}/>
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="8">
                             <CardGroup >
                                 <Card className="p-4">
                                     <CardBody className="text-center">
-                                        <Form onSubmit={this.submitHandler}>
+                                        <form onSubmit={this.submitHandler}>
                                                 <Col className="mt-0 pt-0 p-0 ">
                                                     <AppNavbarBrand
                                                     full={{ src: logo,
@@ -138,7 +153,7 @@ class Contact extends Component {
                                             </Row>
                                             <Row>
                                                 <Col>
-                                                    <Button color="info" disabled={!this.validateForm()}>
+                                                    <Button type={'submit'} color="info" disabled={!this.validateForm()}>
                                                         <Row>
                                                             <img src ={logos} style={{width:"53px",height:"38px"}}></img>
                                                             <b><h5 className='mt-2 mr-4'>Enviar</h5></b>
@@ -146,7 +161,7 @@ class Contact extends Component {
                                                     </Button>
                                                 </Col>
                                             </Row>
-                                        </Form>
+                                        </form>
                                     </CardBody>
                                 </Card>
                             </CardGroup>

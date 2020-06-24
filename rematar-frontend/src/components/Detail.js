@@ -19,6 +19,7 @@ import AuthService from "../utils/AuthService";
 import config from "../config";
 import fixC from "../fixC.css";
 import logo from '../img/logosubastas.png'
+import ModalPage from "./Moddal";
 
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
@@ -45,13 +46,16 @@ class Detail extends Component {
            province: '',
            city: '',
            key_values: [],
-           url_images: []
-       }
+           url_images: [],
+           modal: false
+       };
+
        this.Auth = new AuthService();
        this.username = this.Auth.getUsername();
        this.get_detail();
        this.make_offer = this.make_offer.bind(this);
        this.update_price = this.update_price.bind(this);
+       this.toggle = this.toggle.bind(this);
   }
 
    get_detail() {
@@ -85,9 +89,11 @@ class Detail extends Component {
        )
    }
 
+
     make_offer(e) {
         // alert('Comprar la version pro.');
         let date = new Date();
+        e.preventDefault()
         fetch(
             config["api"]['BACKEND_ENDPOINT']+'/api/offer'+window.location.pathname,
             {
@@ -103,6 +109,7 @@ class Detail extends Component {
                 })
             }
         ).then(data => {return data.json()}
+        ).then(res => {this.toggle()}
         ).then(res => {
                 // this.get_detail();
                 window.location.reload();
@@ -121,7 +128,14 @@ class Detail extends Component {
        })
     }
 
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
    render() {
+
        let DescriptionText = (
           this.state.description.split('\n').map((item, i) =>
              <p className="dark-grey-text mb-lg-0 mb-md-5 mb-4" key={i}>
@@ -146,6 +160,7 @@ class Detail extends Component {
 
       return (
          <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 60, maxWidth: "90%" , }}>
+
             <MDBCardBody style={{ height:'70%',paddingTop: 0 }}>
                <h2 className="h1-responsive mt-2 font-weight-bold my-1 text-center">
                   { this.state.title }
@@ -153,7 +168,7 @@ class Detail extends Component {
                <h5 className="dark-grey-text mx-auto text-center">
                   { this.state.subtitle }
                </h5>
-                { this.state.start_date > Date.now() ?
+                { this.state.start_date < Date.now() ?
                     <Timer start={ this.state.start_date } end={ this.state.end_date }/>
                     :
                     <div>
@@ -172,6 +187,7 @@ class Detail extends Component {
                <MDBRow className="p-0">
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
+                         <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Subasta Guardada'}/>
                         <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
                            <MDBCarousel activeItem={1} length={this.state.url_images.length}
                                         showControls={true}  showIndicators={true} thumbnails={true}
@@ -181,7 +197,7 @@ class Detail extends Component {
                                       <MDBCarouselItem  itemId={index+1} >
                                           <img
                                               height={400}
-                                              width={800}
+                                              width={700}
                                               className="d-block w-100"
                                                src={url['url']}
                                                alt="slide" />
@@ -273,7 +289,7 @@ class Detail extends Component {
                                                                         color={'info'}
                                                                         style={{color:'#424242'}}
                                                                         onClick={this.make_offer}
-                                                                        disabled={!this.Auth.loggedIn()}>
+                                                                        disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now())}>
                                                                     <Row>
                                                                     <img src ={logo} style={{width:"60px",height:"44px"}}></img>
                                                                     <b><h5 className='mt-2'>
@@ -287,7 +303,12 @@ class Detail extends Component {
                                                                      </Row>
                                                                 </Button>
                                                                 <p className="text-muted"
-                                                                   hidden={this.Auth.loggedIn()}>*Debes logearte</p>
+                                                                   hidden={this.Auth.loggedIn()}>*Debes logearte
+                                                                </p>
+                                                                <p className="text-muted"
+                                                                   hidden={this.state.start_date < Date.now()}>
+                                                                    *La subaste aun no ha comenzado
+                                                                </p>
                                                             </Col>
                                                         </Row>
                                                     </CardFooter>

@@ -21,8 +21,12 @@ class HomePage extends Component {
             animating: false,
             activeIndex: 0,
             non_results: false
-
         }
+        this.submitHandler = this.submitHandler.bind(this);
+        this.handlechange = this.handlechange.bind(this);
+        this.next = this.next.bind(this);
+        this.previous = this.previous.bind(this);
+        this.goToIndex = this.goToIndex.bind(this);
     }
 
     submitHandler (e) {
