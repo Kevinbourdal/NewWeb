@@ -150,7 +150,7 @@ class UserView(BaseView):
             error = new_user.save()
             if not error:
                 return response(200, data={'id': new_user.id})
-
+        print(error)
         return response(400, msg="Error en backend")
 
     def put(self):
