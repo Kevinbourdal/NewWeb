@@ -230,20 +230,23 @@ class LoginView(BaseView):
     def post(self):
         json_data, error = get_data(request)
         if not error:
-            account = AccountModel.query.filter_by(email=json_data['email']).first()
-            role = RoleModel.query.filter_by(id=account.role_id).first()
-            if account is not None:
-                if account.password == json_data['password']:
-                    user = UserModel.query.filter_by(account_id=account.id).first()  # deberia existir
-                    token = gen_token({'email': account.email,
-                                       'username': account.username})
+            try:
+                account = AccountModel.query.filter_by(email=json_data['email']).first()
+                role = RoleModel.query.filter_by(id=account.role_id).first()
+                if account is not None:
+                    if account.password == json_data['password']:
+                        user = UserModel.query.filter_by(account_id=account.id).first()  # deberia existir
+                        token = gen_token({'email': account.email,
+                                           'username': account.username})
 
-                    return response(200, data={'token': token,
-                                               'username': account.username,
-                                               'has_user': user is not None,
-                                               'role': role.role_name if role is not None else 'commonuser'})  # send false if not has user already
-
-        return error
+                        return response(200, data={'token': token,
+                                                   'username': account.username,
+                                                   'has_user': user is not None,
+                                                   'role': role.role_name if role is not None else 'commonuser'})  # send false if not has user already
+            except Exception as ex:
+                print(ex)
+                response(400, ex)
+        return response(400, error)
 
 
 class OfferView(BaseView):
