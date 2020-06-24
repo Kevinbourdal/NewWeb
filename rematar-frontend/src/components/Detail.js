@@ -45,6 +45,7 @@ class Detail extends Component {
            description: '',
            province: '',
            city: '',
+           address: '',
            key_values: [],
            url_images: [],
            values: [],
@@ -176,6 +177,12 @@ class Detail extends Component {
                <h5 className="dark-grey-text mx-auto text-center">
                   { this.state.subtitle }
                </h5>
+                <MDBRow>
+                    <i className="fas fa-map-marked-alt ml-3 mr-2"/>
+                    <p><h6>
+                        {this.state.province + ', ' +this.state.city + ', ' +this.state.address }
+                    </h6></p>
+                </MDBRow>
                 { this.state.start_date < Date.now() ?
                     <Timer start={ this.state.start_date } end={ this.state.end_date }/>
                     :
