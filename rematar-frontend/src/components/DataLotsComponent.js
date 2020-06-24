@@ -18,7 +18,6 @@ class DataAuction extends Component {
         this.subtitle = this.props.subtitle;
         this.precio = this.props.precio;
         this.Ofertar = this.Ofertar.bind(this);
-        console.log(props);
     }
 
     Ofertar = (e) => {

@@ -23,17 +23,3 @@ SQLALCHEMY_DATABASE_URI = f'mysql://{DB["username"]}:{DB["password"]}@{DB["serve
 SQLALCHEMY_POOL_RECYCLE = 3600
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious')
-
-CATEGORIES_MAP = {
-    'Vehiculo': 'automobile',
-    'Inmueble': 'property',
-    'Agricola': 'farm',
-    'Otros': 'other'
-}
-
-CATEGORIES_MAP_REV = {
-    'automobile': 'Vehiculo',
-    'property': 'Inmueble',
-    'farm': 'Agricola',
-    'other': 'Otros'
-}

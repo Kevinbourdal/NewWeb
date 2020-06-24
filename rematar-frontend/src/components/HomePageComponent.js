@@ -1,15 +1,12 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {Row, Carousel, CarouselItem, Card, CarouselIndicators, CarouselControl, CardImgOverlay} from 'reactstrap';
 import CardGallery from "./CardGalleryComponent";
 import {MDBContainer, MDBBtn, MDBFormInline,} from "mdbreact";
-import NavFiltro from "./NavFiltro";
 import { itemslist } from '../data/items_terrenos';
 import Container from "reactstrap/es/Container";
 import config from "../config";
-import InputField from "./InputFieldComponent";
 
 
-const categories = 'home';
 const items = itemslist[0]['items'];
 
 class HomePage extends Component {
@@ -22,6 +19,8 @@ class HomePage extends Component {
             activeIndex: 0,
             non_results: false
         }
+        this.category = window.location.pathname.replace('/home', '').replace('/', '')
+
         this.submitHandler = this.submitHandler.bind(this);
         this.handlechange = this.handlechange.bind(this);
         this.next = this.next.bind(this);
@@ -31,6 +30,8 @@ class HomePage extends Component {
 
     submitHandler (e) {
         // recibimos los datos del backend
+        if (this.state.query.length === 0)
+            return
         fetch(
             config["api"]['BACKEND_ENDPOINT']+'/api/search?query='+this.state.query,
             {
@@ -39,12 +40,12 @@ class HomePage extends Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
-                console.log(res['data']['auctions']);
-                this.setState({auctions: res['data']['auctions']});
-                console.log(this.state);
-                // alert(res['data']['auctions']['started'].length.toString()+ ' subastas');
+                this.setState({
+                    auctions: res['data']['auctions'],
+                    query: ''
+                });
                 this.next ()
-            if (res['data']['auctions']['started'].length === 0)
+            if (res['data']['auctions']['started'].length === 0 && res['data']['auctions']['future'].length === 0)
                 this.setState({non_results: true});
             else
                 this.setState({non_results: false});
@@ -161,11 +162,14 @@ class HomePage extends Component {
                 {/*   </MDBCol>*/}
                 {/*</div>*/}
                 {this.state.non_results ?
-                <div className='my-5 text-center'>
-                    <h3>Sin Resultados</h3>
-                </div>
+                    <div className='my-5 text-center'>
+                        <h3>Sin Resultados</h3>
+                    </div>
                     :
-                <CardGallery categories={categories} auctions={this.state.auctions}/>
+                    <div>
+                        <h1 className="text-center mt-3 w-100" hidden={this.category===''}>{ this.category }s</h1>
+                        <CardGallery auctions={this.state.auctions}/>
+                    </div>
                 }
 
             </div>

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import {
 	Card,
-	CardImg,
 	CardBody,
 	Collapse,
 	Button,
 	Col
 } from 'reactstrap';
-import Container from "reactstrap/es/Container";
+
 
 const faq_list = [
 	{

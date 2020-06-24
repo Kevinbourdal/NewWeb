@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import {Row, Col, CardBody, CardGroup, Container } from 'reactstrap'
 import InputField from "./InputFieldComponent";
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup } from 'reactstrap';
 
 import {provincia} from "../data/items_filtro";
 import Label from "reactstrap/es/Label";
 import config from "../config";
 import ModalPage from "./Moddal";
-import {Button} from "bootstrap/js/src";
 import {MDBCol, MDBRow} from "mdbreact";
 
 
 class AddCards extends Component {
-     constructor (component) {
-           super(Component);
+     constructor (props) {
+           super(props);
            this.state = {
                 title: '',
                 subtitle: '',
@@ -29,16 +28,17 @@ class AddCards extends Component {
                 description: '',
                 province: '',
                 city: '',
+                address: '',
                 url_images: [],
                 key_value: [],
-                value: [],
-               value2_aux: '',
+                values: [],
+                value2_aux: '',
                 startDate: new Date(),
                 key_aux: '',
                 value_aux: '',
                 new_auction: true,
                 modal: false,
-               modal_ok: true
+                modal_ok: true
            };
 
            this.handleDataAdd = this.handleDataAdd.bind(this);
@@ -133,10 +133,10 @@ class AddCards extends Component {
     handleDataAdd4(e) {
         let i = this.state.value2_aux;
         this.setState({
-            'value': [...this.state['value'], i],
+            'values': [...this.state['values'], i],
             'value2_aux': ''
         });
-        console.log(this.state)
+
     }
 
     handleDataAdd2(e) {
@@ -245,7 +245,7 @@ class AddCards extends Component {
                                                value={ this.state.category }
                                                onChange={this.handleInputChange}
                                                name='category'
-                                       > {['Seleccione categoria','Vehiculo', 'Inmueble', 'Muebles', 'Otros'].map((value)=>
+                                       > {['Vehiculo', 'Inmueble', 'Mueble', 'Otro'].map((value)=>
                                            <option>{value}</option>
                                        )}
                                        </select>
@@ -270,6 +270,10 @@ class AddCards extends Component {
 
                                    <div className="form-group">
                                        <InputField name={"city"} label={"Ciudad"} type={"text"} value={this.state.city} change={this.handleInputChange}/>
+                                   </div>
+
+                                   <div className="form-group">
+                                       <InputField name={"address"} label={"Direccion"} type={"text"} value={this.state.address} change={this.handleInputChange}/>
                                    </div>
 
                                    <div className="picture-uploader-controls">
@@ -366,14 +370,14 @@ class AddCards extends Component {
                                    </Row>
 
                                    <ListGroup variant="flush" className="mb-4">
-                                       {this.state.value.length > 0 ?
-                                           this.state.value.map((value, index) =>
+                                       {this.state.values.length > 0 ?
+                                           this.state.values.map((value, index) =>
                                                <MDBRow className='mt-2'>
                                                    <MDBCol>
                                                        {value}
                                                    </MDBCol>
                                                    <MDBCol className='text-left'>
-                                                       <a onClick={(e) => this.deletArgs(index, 'value')} >
+                                                       <a onClick={(e) => this.deletArgs(index, 'values')} >
                                                            <i style={{color: "#D44638"}}  className="fa fa-times-circle" /></a>
                                                    </MDBCol>
                                                </MDBRow>

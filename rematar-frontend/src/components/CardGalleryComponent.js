@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CardDeck } from 'reactstrap';
 import CardItem from "./CardItemComponent";
 import Container from "reactstrap/es/Container";
-import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
+import {MDBCol, MDBRow} from "mdbreact";
 import FiltrosForHome from "./FiltrosForHome";
 import config from "../config";
 
@@ -10,18 +10,20 @@ import config from "../config";
 class CardGallery extends Component {
     constructor(props) {
         super(props);
-        this.get_items = this.get_items.bind(this);
         this.state = {
             isLoading: false,
             loginError: false,
             items_started: [],
             items_future: [],
         };
-        this.categories = this.props.categories;
+        this.category = '';
+        let category = window.location.pathname.replace('/home', '').replace('/', '')
+        if (category !== '')
+            this.category = 'category='+category;
         this.apply_filters = this.apply_filters.bind(this);
+        this.get_items = this.get_items.bind(this);
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
-
         this.get_items();
     }
 
@@ -42,27 +44,28 @@ class CardGallery extends Component {
     //                     items_future: prevProps.auctions['future']
     //                 });
     // }
-    componentDidUpdate() {
-        console.log("Updated!");
-    }
+
     componentWillReceiveProps(nextProps, nextContent) {
-        console.log(nextProps.auctions)
-        if ( Object.keys(this.props.auctions).length !== 0  &&  this.props.auctions.started.length !== 0) {
-            console.log('entro',  Object.keys(this.props.auctions).length, this.props.auctions.started.length)
-            console.log(nextProps.auctions['started'])
-            this.setState({
-                items_started: nextProps.auctions['started'],
-                items_future: nextProps.auctions['future']
-            });
+        if ( Object.keys(this.props.auctions).length !== 0 ){
+            if (this.props.auctions.started.length !== 0 || this.props.auctions.future.length !== 0)
+                this.setState({
+                    items_started: nextProps.auctions['started'],
+                    items_future: nextProps.auctions['future']
+                });
         }
     }
 
     get_items (filters, price_from, price_until) {
-        filters = typeof filters !== 'undefined' ?  '?filters='+filters : '';
+        filters = typeof filters !== 'undefined' ?  '&filters='+filters : '';
         price_from = typeof price_from !== 'undefined' ?  '&price_from='+price_from : '';
         price_until = typeof price_until !== 'undefined' ?  '&price_until='+price_until : '';
 
-        let get_args = filters + price_from + price_until
+        let get_args = '';
+        if (filters !== '' || price_from !== '' || price_until !== '' || this.category !== '') {
+            get_args = this.category !== '' ? '?'+this.category : '?'
+            get_args += filters + price_from + price_until
+        }
+
         fetch(
             config["api"]['BACKEND_ENDPOINT']+'/api/auction'+get_args,
             {
@@ -71,12 +74,10 @@ class CardGallery extends Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
-                console.log(res['data']['auctions']);
                 this.setState({
                     items_started: res['data']['auctions']['started'],
                     items_future:  res['data']['auctions']['future'],
                 })
-                // Object.keys(res['data']['user'])
             }
         ).catch(e => {
                 console.log(e);
@@ -86,7 +87,6 @@ class CardGallery extends Component {
     }
 
     apply_filters (filters, price_from, price_until) {
-        console.log(filters)
         let result = '';
         for (var i = 0; i < filters.length; i++) {
             result += filters[i] + '.'
@@ -104,20 +104,20 @@ class CardGallery extends Component {
         return (
 
             <div>
-            { this.categories === 'casas' || this.categories === 'home' || this.categories === 'autos' ?
+            { this.state.items_started.length > 0 || this.state.items_future.length > 0 ?
                 <div className="mt-3 container-fluid">
                     <MDBRow >
                         {/*<MDBRow  className="ml-2 col-sm-3 mt-3 col-md-2" >*/}
-                        <MDBCol style={{maxWidth: '576px'}} className='ml-2 col-sm-2 mr-sm-2 mt-3 col-md-2'>
+                        <MDBCol style={{maxWidth: '576px'}} className='ml-4 col-sm-2 mr-sm-2 mt-3 col-md-2'>
                             <MDBRow className="rounded-lg info-color-dark" >
-                                <FiltrosForHome submit={this.apply_filters}/>
+                                <FiltrosForHome category={this.category.replace('category=', '')} submit={this.apply_filters}/>
                             </MDBRow>
                         </MDBCol>
                         {/*</MDBRow>*/}
                         <MDBCol className="mx-md-5 px-md-4">
                             <Container className="col-12">
                                 <div className=" mt-0">
-                                    <div hidden={this.state.items_started.length === 0}>
+                                    <div className='mt-3' hidden={this.state.items_started.length === 0}>
                                         <h3>Subastas Activas</h3>
                                         <hr />
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
@@ -135,7 +135,7 @@ class CardGallery extends Component {
                                             )}
                                         </CardDeck>
                                     </div>
-                                    <div hidden={this.state.items_future.length === 0}>
+                                    <div className='my-5' hidden={this.state.items_future.length === 0}>
                                         <h3>Subastas Futuras</h3>
                                         <hr/>
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
@@ -159,7 +159,7 @@ class CardGallery extends Component {
                     </MDBRow>
                 </div>
                 :
-                <div><h1 className="my-5 text-center">NO hay items en la categoria</h1></div>
+                <div><h1 className="my-5 text-center">No hay items en la categoria</h1></div>
             }
             </div>
         );

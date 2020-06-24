@@ -16,7 +16,6 @@ class Footer extends Component {
     this.setState({
       modal2: !this.state.modal2
     });
-      console.log(this.state)
   }
 
   render() {

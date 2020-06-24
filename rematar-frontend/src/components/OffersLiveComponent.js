@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardGroup, Col, Container, Row, Table } from "reactstrap";
 import AuthService from "../utils/AuthService";
-import {MDBCol} from "mdbreact";
 import config from "../config";
 
 class OffersLive extends Component {
@@ -81,8 +80,6 @@ class OffersLive extends Component {
                 <td className="ml-5">{'-'}</td>
             </tr>
             </tbody>)
-
-        console.log(data_table)
 
         return (
             <div className="app flex-row align-items-center">

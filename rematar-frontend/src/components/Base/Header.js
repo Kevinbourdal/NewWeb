@@ -11,7 +11,6 @@ import {
 } from 'reactstrap';
 import AuthService from "../../utils/AuthService";
 import logo from '../../img/logofull.png'
-import {MDBCol} from "mdbreact";
 
 
 class Header extends Component {

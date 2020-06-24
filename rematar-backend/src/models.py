@@ -73,7 +73,7 @@ class RoleModel(ModelBase, db.Model):
             self.role_name = role_name
         elif role_name == 'commonuser':
             self.role_name = role_name
-        self.permission_id = self.PERMISION[self.role_name]
+        # self.permission_id = self.PERMISION[self.role_name]
 
     def __repr__(self):
         return f'{self.role_name} role'
@@ -81,9 +81,9 @@ class RoleModel(ModelBase, db.Model):
 
 class AccountSchema(ma.Schema):
     id = fields.Integer()
-    role_id = fields.Integer()
-    username = fields.String()
-    email = fields.String()
+    role_id = fields.Integer(required=True)
+    username = fields.String(required=True)
+    email = fields.String(required=True)
     password = fields.String(required=True)
 
 
@@ -91,14 +91,15 @@ class AccountModel(ModelBase, db.Model):
     __tablename__ = 'account'
 
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
-    role_id = db.Column('role_id', db.ForeignKey('role.id', ondelete='CASCADE'), nullable=True)
+    role_id = db.Column('role_id', db.ForeignKey('role.id', ondelete='CASCADE'))
     email = db.Column('email', db.String(255), unique=True)
     username = db.Column('username', db.String(255), unique=True)
     password = db.Column('password', db.String(255), nullable=False)
     # last_update = db.Column('last_update', db.DateTime,server_default=db.func.current_timestamp(), nullable=True)
 
-    def __init__(self, password, email, username):
+    def __init__(self, role_id, password, email, username):
         super(AccountModel, self).__init__()
+        self.role_id = role_id
         self.password = password
         self.email = email
         self.username = username
@@ -243,6 +244,7 @@ class ItemSchema(ma.Schema):
     description = fields.String(required=True)
     province = fields.String(required=True)
     city = fields.String(required=True)
+    address = fields.String()
 
 
 class ItemModel(ModelBase, db.Model):
@@ -254,12 +256,14 @@ class ItemModel(ModelBase, db.Model):
     description = db.Column('description', db.String(256), unique=False)
     province = db.Column('province', db.String(256), unique=False)
     city = db.Column('city', db.String(256), unique=False)
+    address = db.Column('address', db.String(256), unique=False)
 
-    def __init__(self, item_category, description, province, city):
+    def __init__(self, item_category, description, province, city, address):
         self.item_category = item_category
         self.description = description
         self.province = province
         self.city = city
+        self.address = address
 
     def __repr__(self):
         return f'item: {self.item_category}'
@@ -344,15 +348,15 @@ class OfferSchema(ma.Schema):
     account_id = fields.Integer(required=True)
     amount = fields.Float(required=True)
     hour = fields.Time(required=True, format='%H:%M:%s')
-    date = fields.Date(required=True, format='%d/%m/%Y')
+    date = fields.Date(required=True, format='%m/%d/%Y')
 
 
 class OfferModel(ModelBase, db.Model):
     __tablename__ = 'offer'
 
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
-    auction_id = db.Column('auction_id', db.ForeignKey('auction.id', ondelete='CASCADE'))
-    account_id = db.Column('account_id', db.ForeignKey('account.id', ondelete='CASCADE'))
+    auction_id = db.Column('auction_id', db.ForeignKey('auction.id', ondelete='CASCADE'), nullable=False)
+    account_id = db.Column('account_id', db.ForeignKey('account.id', ondelete='CASCADE'), nullable=False)
     amount = db.Column('amount', db.Float(precision=2), unique=False)
     hour = db.Column('hour', db.Time, unique=False, nullable=False)
     date = db.Column('date', db.Date, unique=False)

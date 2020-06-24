@@ -11,13 +11,10 @@ import {
     MDBCarouselItem
 } from "mdbreact";
 import {Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Row, Table} from "reactstrap";
-import SimpleMap from './SimpleMap';
-// import DataAuction from "./DataLotsComponent";
 import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
 import AuthService from "../utils/AuthService";
 import config from "../config";
-import fixC from "../fixC.css";
 import logo from '../img/logosubastas.png'
 import ModalPage from "./Moddal";
 
@@ -72,7 +69,6 @@ class Detail extends Component {
        ).then(res => {
            const start_date = new Date(res['data']['auction']['start_date'].split('-'))
            const end_date = new Date(res['data']['auction']['end_date'].split('-'))
-           console.log(res['data']['auction']['end_date'])
            res['data']['auction']['start_date'] = start_date
            res['data']['auction']['end_date'] = end_date
            this.setState({
@@ -83,12 +79,10 @@ class Detail extends Component {
                'values': res['data']['values'].map((value) => value['value']),
                'curr_price': res['data']['auction']['base_price']
            })
-           console.log(res['data'])
-           console.log(this.state)
            }
        ).catch(e => {
                console.log(e);
-               alert('No se pudo guardar la subastas');
+               this.props.history.push('/home');
            }
        )
    }
@@ -184,7 +178,7 @@ class Detail extends Component {
                     </h6></p>
                 </MDBRow>
                 { this.state.start_date < Date.now() ?
-                    <Timer start={ this.state.start_date } end={ this.state.end_date }/>
+                    <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
                     :
                     <div>
                         <MDBRow>
@@ -192,7 +186,8 @@ class Detail extends Component {
                                 <h3>Esta subasta aun no ha comenzado</h3>
                             </MDBCol>
                             <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
-                                <a href={'/new'+window.location.pathname.replace('detail/', '')} style={{color: 'black'}}><i className="far fa-edit" /></a>
+                                <a href={'/new'+window.location.pathname.replace('detail/', '')} style={{color: 'black'}}>
+                                    <i className="far fa-edit" /></a>
                             </MDBCol>
                         </MDBRow>
                         <hr />
@@ -217,7 +212,6 @@ class Detail extends Component {
                                                src={url['url']}
                                                alt="slide" />
                                       </MDBCarouselItem>
-
                                   )}
                               {/*    TODO:  Agregar Caption con descripcion de la foto    */}
                               </MDBCarouselInner>
@@ -307,7 +301,8 @@ class Detail extends Component {
                                                                         color={'info'}
                                                                         style={{color:'#424242'}}
                                                                         onClick={this.make_offer}
-                                                                        disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now())}>
+                                                                        disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now())}
+                                                                        hidden={!this.Auth.loggedIn()}>
                                                                     <Row>
                                                                     <img src ={logo} style={{width:"60px",height:"44px"}}></img>
                                                                     <b><h5 className='mt-2'>

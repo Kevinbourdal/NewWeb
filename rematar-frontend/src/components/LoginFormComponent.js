@@ -7,7 +7,6 @@ import InputField from "./InputFieldComponent";
 import AuthService from '../utils/AuthService';
 import logo from '../img/logofull.png'
 import logos from "../img/logosubastas.png";
-import {MDBBtn} from "mdbreact";
 
 
 class Login extends Component {

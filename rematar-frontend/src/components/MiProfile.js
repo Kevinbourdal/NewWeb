@@ -5,7 +5,6 @@ import {provincia} from "../data/items_filtro";
 import AuthService from "../utils/AuthService";
 import logo from '../img/logofull.png'
 import config from "../config";
-import {wait} from "@testing-library/dom";
 import ModalPage from "./Moddal";
 
 
@@ -15,7 +14,7 @@ class MiProfile extends React.Component {
         this.state = {
             firstname: '',
             lastname: '',
-            dni_type: '',
+            dni_type: 'DNI',
             dni: '',
             province: '',
             city: '',
@@ -77,10 +76,13 @@ class MiProfile extends React.Component {
         });
     };
 
-    toggle = () => {
+    toggle = (e) => {
         this.setState({
             modal: !this.state.modal
         });
+        if (typeof e !== 'undefined')
+            if (e.target.name === 'boton modal')
+                this.props.history.push('/profile');
     }
 
     changeHandler = event => {

@@ -8,7 +8,6 @@ import {
     MDBCol,
     MDBListGroupItem,
     MDBTable,
-    MDBContainer
 } from 'mdbreact';
 import { ofertas } from "../data/ofertasenvivo";
 import AuthService from "../utils/AuthService";

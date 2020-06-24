@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { AppNavbarBrand } from '@coreui/react';
 import InputField from './InputFieldComponent'
-import { Button, Form, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
+import { Button, Row, Col, Card, CardBody, CardGroup, Container } from 'reactstrap'
 import logo from '../img/logofull.png'
 import config from "../config";
 import logos from "../img/logosubastas.png";
-import {MDBBtn} from "mdbreact";
 import ModalPage from "./Moddal";
 
 

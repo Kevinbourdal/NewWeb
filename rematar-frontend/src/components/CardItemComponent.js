@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-    UncontrolledCarousel,
-    Container,
     Row,
     Col,
     Card,
@@ -13,8 +11,7 @@ import {
     CardFooter,
     Button } from 'reactstrap';
 import './CardItemComponent.css';
-import logos from "../img/logosubastas.png";
-import {MDBCarousel, MDBCarouselInner,MDBIcon, MDBCarouselItem,MDBBtn} from "mdbreact";
+import {MDBCarousel, MDBCarouselInner, MDBIcon, MDBCarouselItem} from "mdbreact";
 
 
 
@@ -35,11 +32,9 @@ class CardItem extends Component {
         this.href = this.props.href;
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
-        console.log('a', this.props)
     }
 
     componentWillReceiveProps(nextProps, nextContent) {
-        console.log(nextProps.auctions)
         if ( this.props.title !== nextProps.title ) {
             this.url_image = nextProps.url_image || no_img;
             this.title = nextProps.title;

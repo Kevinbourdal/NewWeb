@@ -4,21 +4,45 @@ import { Alert } from 'reactstrap';
 export default class Timer extends Component {
     constructor(props) {
         super(props);
-        const d = new Date();
         // let parse_start = this.props.start.split('-')
         // let parse_end = this.props.end.split('-')
         this.state = {
             started: true, // this.props.start > Date.now(),
-            days: 8, //d.days,
-            hour: 10, //d.hours,
-            minutes: 45, //d.minutes,
-            seconds: 30, //d.seconds,
+            days: 0,
+            hour: 0, //d.hours,
+            minutes: 0, //d.minutes,
+            seconds: 0, //d.seconds,
         }
+        this.set_hour = this.set_hour.bind(this);
+        // this.set_hour();
+    }
+
+    set_hour(nextProps) {
+        if (typeof nextProps.end_date !== 'undefined' )
+            if ( nextProps.end_date !== '' ) {
+                let diffDate = Math.abs(nextProps.end_date - new Date(Date.now()))
+                let days = Math.ceil(diffDate / (1000 * 60 * 60 * 24));
+                let hour = nextProps.end_hour.split(':').map((h) => parseInt(h, 10));
+
+                this.setState(
+                    {
+                        days: days,
+                        hour: hour[0],
+                        minutes: hour[1],
+                        seconds: hour[2],
+                    }
+                )
+            }
+    }
+
+    componentWillReceiveProps(nextProps, nextContent) {
+        this.set_hour(nextProps);
+        // alert()
     }
 
     componentDidMount() {
         this.myInterval = setInterval(() => {
-            const { seconds, minutes } = this.state
+            const { seconds, minutes, hour, days } = this.state
 
             if (seconds > 0) {
                 this.setState(({ seconds }) => ({
@@ -27,15 +51,32 @@ export default class Timer extends Component {
             }
             if (seconds === 0) {
                 if (minutes === 0) {
-                    clearInterval(this.myInterval)
-                    this.setState(
-                        {'started': !this.state.started}
-                    )
+                    if (hour === 0) {
+                        if (days === 0) {
+                            clearInterval(this.myInterval)
+                            this.setState(
+                                {'started': !this.state.started}
+                            )
+                        } else {
+                            this.setState({
+                                days: days - 1,
+                                hour: 23,
+                                minutes: 59,
+                                seconds: 59
+                            })
+                        }
+                    } else {
+                        this.setState({
+                            hour: 23,
+                            minutes: 59,
+                            seconds: 59
+                        })
+                    }
                 } else {
-                    this.setState(({ minutes }) => ({
+                    this.setState({
                         minutes: minutes - 1,
                         seconds: 59
-                    }))
+                    })
                 }
             }
         }, 1000)
@@ -47,19 +88,16 @@ export default class Timer extends Component {
 
     render() {
         const { days, hour, minutes, seconds } = this.state;
-        console.log(days)
+        if (this.props.end_hour !== '')
+            console.log(typeof this.props.end_hour)
         return (
-
-                <Alert color={this.state.started ? "success" : "danger"} className="text-center" >
-                    Tiempo restante:
-                    { minutes === 0 && seconds === 0
-                        ? <h1>Finalizado!</h1>
-                        : <h4 className="text-black-50">{days} dias - {hour}:{minutes < 10? `0${minutes}`:minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
-                    }
-                </Alert>
-
-
-
+            <Alert color={this.state.started ? "info" : "danger"} className="text-center" >
+                Tiempo restante:
+                { days === 0 && hour === 0 && minutes === 0 && seconds === 0
+                    ? <h1>Finalizado!</h1>
+                    : <h4 className="text-black-50">{days} dias - {hour}:{minutes < 10? `0${minutes}`:minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
+                }
+            </Alert>
         )
     }
 }

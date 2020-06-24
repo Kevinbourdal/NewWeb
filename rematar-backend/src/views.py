@@ -36,7 +36,6 @@ from utils import (
     validate_token,
     validate_json_payload,
 )
-from config import CATEGORIES_MAP, CATEGORIES_MAP_REV
 
 
 class BaseView(Resource):
@@ -81,7 +80,9 @@ class AccountView (BaseView):
             try:
                 account_data = self.account_schema.load({'email': json_data['email'],
                                                          'username': json_data['username'],
-                                                         'password': json_data['password']})
+                                                         'password': json_data['password'],
+                                                         'role_id': 3,  # common user
+                                                         })
             except marshmallow.exceptions.ValidationError as errors:
                 print('error', errors)
                 return response(400, str(errors))
@@ -240,7 +241,7 @@ class LoginView(BaseView):
                     return response(200, data={'token': token,
                                                'username': account.username,
                                                'has_user': user is not None,
-                                               'role': role.role_name if role is not None else 'admin'})  # send false if not has user already
+                                               'role': role.role_name if role is not None else 'commonuser'})  # send false if not has user already
 
         return error
 
@@ -310,10 +311,14 @@ class AuctionView(BaseView):
             'future': []
         }
         try:
-            auctions = AuctionModel.query  # .filter_by(finished=False)
+            category = request.args.get('category', None)
             categories = request.args.get('filters', [])
             price_from = request.args.get('price_from', None)
             price_until = request.args.get('price_until', None)
+
+            auctions = AuctionModel.query  # .filter_by(finished=False)
+            if category is not None:
+                auctions = auctions.filter_by(category=category)
             if price_from is not None:
                 auctions = auctions.filter(AuctionModel.base_price >= price_from)
             if price_until is not None:
@@ -381,11 +386,12 @@ class NewAuctionView(BaseView):
                                                'start_hour': str(auction.start_hour),
                                                'end_date': str(auction.end_date),
                                                'end_hour': str(auction.end_hour),
-                                               'category': CATEGORIES_MAP_REV[auction.category],
+                                               'category': auction.category,
                                                'item_category': item.item_category,
                                                'description': item.description,
                                                'province': item.province,
                                                'city': item.city,
+                                               'address': item.address,
                                                'url_images': [url.url for url in urls],
                                                'key_value': [(key_value.key, key_value.value) for key_value in key_values],
                                                'values': [value.value for value in values]
@@ -401,7 +407,7 @@ class NewAuctionView(BaseView):
             #     pass
             try:
                 # Try to catch errors en requests, such as missing fields
-                json_data['category'] = CATEGORIES_MAP[json_data['category']]
+                json_data['category'] = json_data['category']
                 auction = self.auction_schema.load(json_data)  # ['auction']
                 item = self.item_schema.load(json_data)  # ['item']
                 urls = []
@@ -409,7 +415,7 @@ class NewAuctionView(BaseView):
                 values = []
                 for key, value in json_data['key_value']:
                     key_values.append(self.keyvalue_schema.load({'key': key, 'value': value}))
-                for value in json_data['value']:
+                for value in json_data['values']:
                     values.append(self.value_schema.load({'value': value}))
                 for url in json_data['url_images']:
                     urls.append(self.urlimage_schema.load({'url': url}))
@@ -464,7 +470,7 @@ class NewAuctionView(BaseView):
                     CharacteristicValueModel.query.filter_by(item_id=item.id).delete()
                     UrlImageModel.query.filter_by(item_id=item.id).delete()
                     try:
-                        json_data['category'] = CATEGORIES_MAP[json_data['category']]
+                        json_data['category'] = json_data['category']
                         auction_data = self.auction_schema.load(json_data)  # ['auction']
                         item_data = self.item_schema.load(json_data)  # ['item']
                         urls_data = []
@@ -472,7 +478,7 @@ class NewAuctionView(BaseView):
                         values_data = []
                         for key, value in json_data['key_value']:
                             key_values_data.append(self.keyvalue_schema.load({'key': key, 'value': value}))
-                        for value in json_data['value']:
+                        for value in json_data['values']:
                             values_data.append(self.value_schema.load({'value': value}))
                         for url in json_data['url_images']:
                             urls_data.append(self.urlimage_schema.load({'url': url}))
@@ -535,7 +541,7 @@ class AuctionDetailView(BaseView):
                 key_values = self.keyvalue_schema.dump(key_values)
                 urls = UrlImageModel.query.filter_by(item_id=item.id).all()
                 urls = self.urlimage_schema.dump(urls)
-                values = CharacteristicKeyValueModel.query.filter_by(item_id=item.id).all()
+                values = CharacteristicValueModel.query.filter_by(item_id=item.id).all()
                 values = self.value_schema.dump(values)
                 auction = self.auction_schema.dump(auction)
 
@@ -560,9 +566,9 @@ class FiltersView(BaseView):
         categories = auctions.with_entities(AuctionModel.category).distinct().all()
         for (category,) in categories:
             idxs = [a.id for a in auctions.filter_by(category=category).all()]
-            filters[CATEGORIES_MAP_REV[category]] = ItemModel.query\
-                                                             .filter(ItemModel.auction_id.in_(idxs))\
-                                                             .with_entities(ItemModel.item_category).distinct().all()
+            filters[category] = ItemModel.query\
+                                         .filter(ItemModel.auction_id.in_(idxs))\
+                                         .with_entities(ItemModel.item_category).distinct().all()
 
         return response(200, data={'filters': filters})
 
@@ -580,18 +586,24 @@ class SearchView(BaseView):
     def get(self):
         query = request.args.get('query', None)
         if query is not None:
-            auctions = AuctionModel.query.filter(AuctionModel.title.like(f'{query}%')).union(
-                AuctionModel.query.filter(AuctionModel.subtitle.like(f'{query}%'))
+            auctions = AuctionModel.query.filter(AuctionModel.title.contains(f'{query}')).union(
+                AuctionModel.query.filter(AuctionModel.subtitle.contains(f'{query}'))
             ).union(
-                AuctionModel.query.filter(AuctionModel.category.like(f'{query}%'))
+                AuctionModel.query.filter(AuctionModel.category.contains(f'{query}'))
             ).distinct()
 
-            items = ItemModel.query.filter(ItemModel.item_category.like(f'{query}%')).union(
-                ItemModel.query.filter(ItemModel.province.like(f'{query}%'))
+            items = ItemModel.query.filter(ItemModel.item_category.contains(f'{query}')).union(
+                ItemModel.query.filter(ItemModel.province.contains(f'{query}'))
             ).union(
-                ItemModel.query.filter(ItemModel.city.like(f'{query}%'))
+                ItemModel.query.filter(ItemModel.city.contains(f'{query}'))
             ).union(
-                ItemModel.query.filter(ItemModel.description.like(f'{query}%'))
+                ItemModel.query.filter(ItemModel.description.contains(f'{query}'))
+            ).union(
+                ItemModel.query.filter(ItemModel.province.contains(f'{query}'))
+            ).union(
+                ItemModel.query.filter(ItemModel.city.contains(f'{query}'))
+            ).union(
+                ItemModel.query.filter(ItemModel.address.contains(f'{query}'))
             ).distinct()
             # subq, User.id == subq.c.user_id
 

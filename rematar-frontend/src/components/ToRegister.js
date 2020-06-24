@@ -47,7 +47,6 @@ class ToRegister extends React.Component {
         this.setState({
             modal2: !this.state.modal2
         });
-        console.log(this.state)
     }
   submitHandler = event => {
 
