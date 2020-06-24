@@ -16,7 +16,7 @@ then
   fi
 
   echo "Image ready, starting container.."
-  docker run -it -p 80:3000 $DOCKER_PROD_NAME --name=frontend
+  docker run --name=frontend -it -p 80:3000 $DOCKER_PROD_NAME
   exit 0;
 fi
 
@@ -28,6 +28,6 @@ then
 fi
 
 echo "Image ready, starting container.."
-docker run -it -p 80:3000 $DOCKER_NAME --name=frontend
+docker run --name=frontend -it -p 80:3000 $DOCKER_NAME
 
 
