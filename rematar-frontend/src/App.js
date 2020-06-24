@@ -16,7 +16,7 @@ class App extends Component {
 
     render() {
         return (
-            <div style={{backgroundColor:'#bdbdbd'}}>
+            <div style={{backgroundColor:'#F7F5F5'}}>
                 <BrowserRouter forceRefresh={true} >
                     <Switch>
                         <AppliedRoute path="/" name="BaseApp" component={BaseApp} />
