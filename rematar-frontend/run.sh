@@ -9,7 +9,7 @@ then
   echo "Start server on production mode"
 
   exist_docker=$(docker images | grep DOCKER_PROD_NAME | wc -l)
-  if [ $(( $is_docker )) == 0 ];
+  if [ $(( $exist_docker )) == 0 ];
   then
     echo "Docker image not found. Building from file.."
     docker build -t $DOCKER_PROD_NAME -f Dockerfile_prod .
@@ -21,7 +21,7 @@ then
 fi
 
 exist_docker=$(docker images | grep $DOCKER_NAME | wc -l)
-if [ $(( $is_docker )) == 0 ];
+if [ $(( $exist_docker )) == 0 ];
 then
   echo "Docker image not found. Building from file.."
   docker build -t $DOCKER_NAME .

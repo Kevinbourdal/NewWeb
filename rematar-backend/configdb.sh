@@ -15,6 +15,16 @@ docker inspect mysql-subastas | grep "IPAddress"
 # seteando en src/config.py los campos
 
 
+############
+#insert into role (id, role_name) values (1, 'admin');
+#insert into role (id, role_name) values (2, 'fullview');
+#insert into role (id, role_name) values (3, 'commonuser');
+#
+#insert into account (id, role_id, username, email, password) values (1, 1, 'admin', 'admin@subastasenweb.com', 'subastas2020');
+#insert into account (id, role_id, username, email, password) values (2, 3, 'usuario', 'usuario@subastasenweb.com', 'subastas2020');
+############
+
+
 ## start docker again (si apagaste la compu)
 #docker container start mysql-subastas
 #docker exec -it mysql-subastas bash (para entrar a la base de datos)
