@@ -41,8 +41,8 @@ class Header extends Component {
                 <Navbar color='dark' className="text-right" light style={{background:"black"}}>
 
                     <Col className="text-left p-0" href="home">
-                        <a href="/home" className='m-0 p-0' style={{color: "white"}}>
-                            <img src={logo} alt="Logo" className="m-0 p-0" style={{ blockSize: "50px"}} />
+                        <a href="/home" className='ml-2 p-0' style={{color: "white"}}>
+                            <img src={logo} alt="Logo" className="m-0 p-0" style={{ blockSize: "40px"}} />
                             {/*<b style={{ fontSize: "70px" }}>Subastas en Web</b>*/}
                         </a>
                     </Col>

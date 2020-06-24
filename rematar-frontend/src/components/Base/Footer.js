@@ -31,7 +31,7 @@ class Footer extends Component {
               Todos los derechos reservados
               </p>
               <TermsAndConditions toggle={this.toggle} modal={this.state.modal2} />
-                  <a onClick={this.toggle}>
+                  <a style={{textDecorationLine : 'underline'}} onClick={this.toggle}>
                     Terminos y condiciones
                   </a>
             </MDBCol>

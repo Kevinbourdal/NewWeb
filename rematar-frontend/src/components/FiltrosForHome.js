@@ -75,10 +75,16 @@ class FiltrosForHome extends Component{
             return (
                 <div className="mb-5 ml-2">
                 <Row>
-                    <MDBIcon className='mt-1' icon={this.state.icons[key]} />
-                    <h4 className="ml-1 ">{key}</h4>
-                    <hr className="accent-4 ml-1 mt-1  mr-5 grey lighten-5" style={{ width: "150px" }} />
-                    </Row>
+                    <MDBCol>
+                        <Row>
+                            <MDBIcon className='mt-1' icon={this.state.icons[key]} />
+                            <h4 className="ml-1 ">{key}</h4>
+                        </Row>
+                        <Row>
+                            <hr className="accent-4 ml-1 mt-1 mr-5 grey lighten-5" style={{ width: "150px", maxWidth: "576px" }} />
+                        </Row>
+                    </MDBCol>
+                </Row>
                     {Object.values(this.state.filters[key]).map((value, index) =>
                           <div className="mt-2 ml-3"  >
                             <h6>
@@ -100,9 +106,12 @@ class FiltrosForHome extends Component{
             <div style={{color:'white'}} className="mt-3 ml-3" >
                 {lugares}
                 <div >
-                   <h4 className="ml-1 ">{"Pecios"}</h4>
-                   <hr className="accent-2  mb-0 ml-1 grey lighten-5" style={{ width: "150px" }} />
-                </div>
+                    <Row>
+                    <MDBIcon className='mt-1 ml-2' icon='dollar-sign' />
+                   <h4 className="ml-2 ">{"Pecios"}</h4>
+                    </Row>
+                        <hr className="accent-4 ml-0 mt-1 mr-5 grey lighten-5" style={{ width: "150px" }} />
+                    </div>
                 <MDBRow >
                     <MDBCol>
                         <MDBRow className="mr-4 ml-2 m-0 p-0 my-0 mt-1 ">

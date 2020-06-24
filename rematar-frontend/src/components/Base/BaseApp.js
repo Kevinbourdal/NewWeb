@@ -37,12 +37,11 @@ class BaseApp extends Component {
 
     render() {
         // // Descomentar para impermitir que se pueda navegar sin estar logueado
-        // if (!this.Auth.loggedIn()) {
-        //     if (this.props.location.pathname !== '/login' && this.props.location.pathname !== '/register') {
-        //         if (this.props.location.pathname !== '/home')
-        //             this.internalLogout('/login');
-        //     }
-        // }
+        if (!this.Auth.loggedIn()) {
+            if (this.props.location.pathname === '/mi_perfil' || this.props.location.pathname === '/profile') {
+                this.internalLogout('/login');
+            }
+        }
         return (
             <div className="app">
                 <div className="app-header">

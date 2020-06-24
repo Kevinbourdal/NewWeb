@@ -66,6 +66,24 @@ class OffersLive extends Component {
                 </tbody>
             )
         });
+        // let data_table = null
+
+        if (this.state.offers.length === 0)
+            data_table = (<tbody>
+            <div className={this.state.offers} hidden={true}/>
+            <tr className="ml-5">
+                <th className="ml-5">{'-'}</th>
+                <td className="ml-5">{'-'}</td>
+                <td className="ml-5">{'-'}</td>
+                <td className="ml-5"><b>{'-'}</b></td>
+                <td className="ml-5">{'-'}</td>
+                <td className="ml-5">{'-'}</td>
+                <td className="ml-5">{'-'}</td>
+            </tr>
+            </tbody>)
+
+        console.log(data_table)
+
         return (
             <div className="app flex-row align-items-center">
                 <Container className="px-md-0 pl-md-4 pl-lg-4">

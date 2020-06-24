@@ -98,7 +98,7 @@ class Detail extends Component {
             config["api"]['BACKEND_ENDPOINT']+'/api/offer'+window.location.pathname,
             {
                 headers: {
-                    Accept: 'application/json',
+                    "Content-Type": "text/plain",
                 },
                 method: 'POST',
                 body: JSON.stringify({
@@ -109,11 +109,13 @@ class Detail extends Component {
                 })
             }
         ).then(data => {return data.json()}
-        ).then(res => {this.toggle()}
+        ).then(res => {
+
+            this.toggle()}
         ).then(res => {
                 // this.get_detail();
-                window.location.reload();
-                return false;
+                // window.location.reload();
+                // return false;
             }
         ).catch(e => {
                 console.log(e);
@@ -128,10 +130,13 @@ class Detail extends Component {
        })
     }
 
-    toggle = () => {
+    toggle = (e) => {
         this.setState({
             modal: !this.state.modal
         });
+        if (typeof e !== 'undefined')
+            if (e.target.name === 'boton modal')
+                window.location.reload();
     }
 
    render() {
@@ -187,7 +192,7 @@ class Detail extends Component {
                <MDBRow className="p-0">
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
-                         <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Subasta Guardada'}/>
+                      <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'}/>
                         <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
                            <MDBCarousel activeItem={1} length={this.state.url_images.length}
                                         showControls={true}  showIndicators={true} thumbnails={true}
@@ -252,7 +257,10 @@ class Detail extends Component {
                                                             <Col>
                                                                 <h3><b>Precio Actual</b></h3>
                                                                 <h1 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
-                                                                    $ { (this.state.curr_price / config.PRICE_INCREASE).toFixed(2) }
+                                                                    $ { this.state.curr_price === this.state.base_price ?
+                                                                    this.state.curr_price
+                                                                        :
+                                                                    (this.state.curr_price / config.PRICE_INCREASE).toFixed(2) }
                                                                 </h1>
                                                             </Col>
                                                         </Row>

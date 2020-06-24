@@ -107,15 +107,13 @@ class CardGallery extends Component {
             { this.categories === 'casas' || this.categories === 'home' || this.categories === 'autos' ?
                 <div className="mt-3 container-fluid">
                     <MDBRow >
-                        { this.categories === 'autos' ?
-                            <div/>
-                            :
-                            <MDBRow style={{maxWidth: '576px'}} className="ml-2 col-sm-3  mt-3 col-md-2" >
-                                <MDBRow className="rounded-lg info-color-dark" >
-                                    <FiltrosForHome submit={this.apply_filters}/>
-                                </MDBRow>
+                        {/*<MDBRow  className="ml-2 col-sm-3 mt-3 col-md-2" >*/}
+                        <MDBCol style={{maxWidth: '576px'}} className='ml-2 col-sm-2 mr-sm-2 mt-3 col-md-2'>
+                            <MDBRow className="rounded-lg info-color-dark" >
+                                <FiltrosForHome submit={this.apply_filters}/>
                             </MDBRow>
-                        }
+                        </MDBCol>
+                        {/*</MDBRow>*/}
                         <MDBCol className="mx-md-5 px-md-4">
                             <Container className="col-12">
                                 <div className=" mt-0">
@@ -124,11 +122,11 @@ class CardGallery extends Component {
                                         <hr />
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
                                             {this.state.items_started.map((data, index) =>
-                                                <div className="col-4  pr-2 pl-2" style={{maxWidth: '576px'}}>
-                                                    <div className="pt-3 pb-3 mr-0 ml-0">
+                                                <div className="col-4 pr-0 pl-0" style={{maxWidth: '576px'}}>
+                                                    <div className="p-2 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}
-                                                                  footer={'desde ' + data['start_date'] + ' hasta ' + data['end_date']}  //TODO: Dar formato a la fecha
+                                                                  footer={' hasta ' + data['end_date']}  //TODO: Dar formato a la fecha
                                                                   href={'/detail/' + data['id']}
                                                                   url_image={data['url_image']}  //TODO: cargar images desde la api
                                                         />
@@ -146,7 +144,7 @@ class CardGallery extends Component {
                                                     <div className="pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}
-                                                                  footer={'desde '+data['start_date'] + ' hasta '+data['end_date']}  //TODO: Dar formato a la fecha
+                                                                  footer={'desde '+data['start_date']}  //TODO: Dar formato a la fecha
                                                                   href={'/detail/' + data['id']}
                                                                   url_image={data['url_image']}  //TODO: cargar images desde la api
                                                         />

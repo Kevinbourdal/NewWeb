@@ -17,7 +17,9 @@ class ToRegister extends React.Component {
               password: '',
               repeat_pass:'',
               modal2: false,
-              modal: false
+              modal: false,
+              modal_ok: true,
+              modal_msg: ''
           };
       this.validate_pass = this.validate_pass.bind(this);
       this.toggle = this.toggle.bind(this)
@@ -32,12 +34,14 @@ class ToRegister extends React.Component {
       }
       return false
   }
-     toggle = () => {
+     toggle = (e) => {
         this.setState({
             modal: !this.state.modal,
         });
-        console.log(this.state)
-    }
+         if (typeof e !== 'undefined')
+             if (e.target.name === 'boton modal'  && this.state.modal_ok)
+                 return this.props.history.push('/login');
+  }
 
     toggle2 = () => {
         this.setState({
@@ -61,13 +65,15 @@ class ToRegister extends React.Component {
             ...this.state
           })
         }
-    ).then(data => {return data.json()}
-    ).then(res => {
-        this.toggle()
-        return this.props.history.push('/login');
+    ).then(data => {
+        if (data.status !== 200)
+            this.setState({
+                modal_ok: !this.state.modal_ok
+            })
+        return data.json()
+    }
+    ).then(res => {this.toggle()
     }).catch(error => {
-        alert('')
-        this.toggle()
       console.log("Fail" + error);
     }
     )
@@ -81,7 +87,13 @@ class ToRegister extends React.Component {
   render() {
     return (
       <div className="app flex-row align-items-center mt-5 mb-5">
-       <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Su registro ha sido exitoso'}/>
+       <ModalPage
+           toggle={this.toggle}
+           modal={this.state.modal}
+           body={this.state.modal_ok ?
+               'Su registro ha sido exitoso'
+               :
+               'No se pudo registrar. Intente con otro email o username'+this.state.modal_msg}/>
          <MDBContainer>
              <div>
                  <MDBRow className="justify-content-center">
@@ -179,7 +191,7 @@ class ToRegister extends React.Component {
                                 />
                                 <label className='custom-control-label' htmlFor='invalidCheck'>
                                     <TermsAndConditions toggle={this.toggle2} modal={this.state.modal2} />
-                                    <a onClick={this.toggle2}>
+                                    <a style={{textDecorationLine : 'underline'}} onClick={this.toggle2}>
                                         Terminos y condiciones
                                     </a>
                                 </label>

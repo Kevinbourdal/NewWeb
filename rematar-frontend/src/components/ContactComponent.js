@@ -43,13 +43,11 @@ class Contact extends Component {
            }
         ).then(() => {
             console.log('data')
-            alert('')
             // return data.json()
         }
         ).then(res => {this.toggle()}
-        ).catch(error => {
-                console.log("Fail",error);
-            alert('as')
+        ).catch(error => {console.log("Fail",error);
+
             }
         )
     }

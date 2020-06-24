@@ -14,7 +14,7 @@ import {
     Button } from 'reactstrap';
 import './CardItemComponent.css';
 import logos from "../img/logosubastas.png";
-import {MDBCarousel, MDBCarouselInner, MDBCarouselItem,MDBBtn} from "mdbreact";
+import {MDBCarousel, MDBCarouselInner,MDBIcon, MDBCarouselItem,MDBBtn} from "mdbreact";
 
 
 
@@ -53,8 +53,7 @@ class CardItem extends Component {
 
         // TODO: setear fijo el tamaño de la imagen
         return (
-            <Container  className="imagen-fluid">
-                <Card className="btn m-0 p-0">
+                <Card className="imagen-fluid btn m-0 p-0">
                     <CardHeader className="m-0 p-0" style={{maxWidth: '576px',height: '230px'}}>
                         {/*<Row className="position-static" style={{width: '350px', height: '350px'}}>*/}
                         {/*    <Col>*/}
@@ -86,14 +85,14 @@ class CardItem extends Component {
                         {/*</Row>*/}
                     </CardHeader>
                     <CardBody >
-                        <CardTitle>
-                            <a href={this.href || '#'} className="text-dark" type=""><h4 className='h4-responsive'><b>{ this.title || '' }</b></h4></a>
+                        <CardTitle >
+                            <a href={this.href || '#'} className="text-dark" type=""><h5 className='h4-responsive'><b>{ this.title || '' }</b></h5></a>
                         </CardTitle>
                         <CardSubtitle className="my-0" >
                             <b>{ this.subtitle || '' }</b>
                         </CardSubtitle>
                     </CardBody>
-                    <CardFooter className="mb-0 pb-0" >
+                    <CardFooter className="mb-0 pb-0 bg-white" >
                         <div className="text-center">
                             <Col>
                                 <a href={this.href || '#'}>
@@ -103,14 +102,15 @@ class CardItem extends Component {
                                     >
                                         <Row>
                                             {/*<img src ={logos} style={{width:"40px",height:"29px"}}></img>*/}
-                                            <b><h4 className='mt-1 h4-responsive'>Detalles</h4></b>
+                                            <b><h5 className='my-0 h5-responsive'>Detalles</h5></b>
                                         </Row>
                                     </Button>
                                 </a>
                             </Col>
 
                             <CardText className="text-center">
-                                <small className=""
+                                <MDBIcon far icon="calendar-alt" />
+                                <small className="ml-2"
                                        hidden={this.footer === ''}
                                        style={{fontSize: "11px"}}
                                 >{ this.footer.toLowerCase() }</small>
@@ -118,7 +118,6 @@ class CardItem extends Component {
                         </div>
                     </CardFooter>
                 </Card>
-            </Container>
         );
     }
 }

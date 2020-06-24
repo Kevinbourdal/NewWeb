@@ -32,16 +32,19 @@ class AddCards extends Component {
                 url_images: [],
                 key_value: [],
                 value: [],
+               value2_aux: '',
                 startDate: new Date(),
                 key_aux: '',
                 value_aux: '',
                 new_auction: true,
-                modal: false
+                modal: false,
+               modal_ok: true
            };
 
            this.handleDataAdd = this.handleDataAdd.bind(this);
            this.handleDataAdd2 = this.handleDataAdd2.bind(this);
            this.handleDataAdd3 = this.handleDataAdd3.bind(this);
+           this.handleDataAdd4 = this.handleDataAdd4.bind(this);
            this.handleInputChange = this.handleInputChange.bind(this);
            this.handleSubmit = this.handleSubmit.bind(this);
            this.deletArgs = this.deletArgs.bind(this);
@@ -55,7 +58,7 @@ class AddCards extends Component {
          if (auction_id === '/new')
              return
          fetch(
-             config["api"]['BACKEND_ENDPOINT']+'/api/newauction?auction_id=',
+             config["api"]['BACKEND_ENDPOINT']+'/api/newauction?auction_id='+auction_id,
              {
                  mode: 'cors',
                  method: 'GET',
@@ -86,7 +89,13 @@ class AddCards extends Component {
                      ...this.state
                  })
              }
-         ).then(data => {return data.json()}
+         ).then(data => {
+            if (data.status !== 200)
+                 this.setState({
+                     modal_ok: !this.state.modal_ok
+                })
+            return data.json()
+     }
          ).then(res => {this.toggle()}
          ).catch(error => {
                  console.log("Fail");
@@ -121,10 +130,18 @@ class AddCards extends Component {
             });
         }
 
+    handleDataAdd4(e) {
+        let i = this.state.value2_aux;
+        this.setState({
+            'value': [...this.state['value'], i],
+            'value2_aux': ''
+        });
+        console.log(this.state)
+    }
+
     handleDataAdd2(e) {
 
         const {value, name} = e.target;
-        alert(value)
         if ( value.search('\n') !== -1){
             e.target.value='';
             this.setState({
@@ -138,11 +155,11 @@ class AddCards extends Component {
                this.state.start_date.length > 0 ;
     }
 
-    deletArgs(index){
-        var new_list = this.state.url_images
+    deletArgs(index, name){
+        var new_list = this.state[name]
         new_list.pop(index)
         this.setState({
-            url_images: new_list,
+            name: new_list,
         })
     }
 
@@ -154,18 +171,14 @@ class AddCards extends Component {
         })
     }
 
-    deletArgs3(index) {
-        var new_index = this.state.value
-        new_index.pop(index)
-        this.setState({
-            value: new_index
-        })
-    }
 
-    toggle = () => {
+    toggle = (e) => {
         this.setState({
             modal: !this.state.modal
         });
+        if (typeof e !== 'undefined')
+            if (e.target.name === 'boton modal' && this.state.modal_ok)
+                window.location.reload();
     }
     // changeHandler = event => {
     //     this.setState({ [event.target.name]: event.target.value });
@@ -174,7 +187,9 @@ class AddCards extends Component {
  render() {
    return (
        <div  className="app flex-row align-items-center mt-4">
-           <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Subasta Guardada'}/>
+           <ModalPage toggle={this.toggle}
+                      modal={this.state.modal}
+                      body={this.state.modal_ok ? 'Subasta Guardada' : 'Error al guardar subasta '}/>
            <Container>
                <Row className="justify-content-center">
                    <Col md="8">
@@ -260,7 +275,7 @@ class AddCards extends Component {
                                    <div className="picture-uploader-controls">
                                        <Row >
                                            <Col className="col-8">
-                                      <InputField
+                                               <InputField
                                                   change={this.handleInputChange}
                                                   name={"url_aux"}
                                                   label={"Imagenes url"}
@@ -268,7 +283,7 @@ class AddCards extends Component {
                                                   value={this.state.url_aux}
                                                   ft={"Pegar url a imagen"}/>
                                            </Col>
-                                           <Col className="mt-4 ml-5 ">
+                                           <Col className="mt-4 p-0 ml-5 ">
                                                <button className="btn btn-primary" onClick={this.handleDataAdd3} type="button">Agregar</button>
                                            </Col>
                                        </Row>
@@ -276,14 +291,14 @@ class AddCards extends Component {
                                       <ListGroup variant="flush" className="mb-4">
                                          {this.state.url_images.length > 0 ?
                                             this.state.url_images.map((url, index) =>
-                                                   <MDBRow>
+                                                   <MDBRow className='mt-2'>
                                                        <MDBCol>
-                                                          <b className="text-dark">Imagen {index}:</b>
-                                                           <a href={url}>{url.split('/').pop()}</a>
+                                                          <b className=" text-dark">Imagen {index}:</b>
+                                                           <a className={''} href={url}>{'  ' + url.split('/').pop()}</a>
                                                        </MDBCol>
-                                                       <MDBCol className='text-right'>
-                                                           <a onClick={(e) => this.deletArgs(index)} >
-                                                              <i className="fa fa-times-circle" /></a>
+                                                       <MDBCol className='text-left'>
+                                                           <a onClick={(e) => this.deletArgs(index, 'url_images')} >
+                                                              <i style={{color: "#D44638"}} className="fa fa-times-circle" /></a>
                                                        </MDBCol>
                                                    </MDBRow>
                                             )
@@ -294,36 +309,34 @@ class AddCards extends Component {
                                    </div>
                                <div className="picture-uploader-controls">
                                        <Row>
-                                           <Col>
-                                                <InputField name={"key_aux"} value={this.state.key_aux} label={"Dato"} type={"textarea"} change={this.handleInputChange} />
+                                           <Col className='mr-0 pr-1'>
+                                                <InputField name={"key_aux"} value={this.state.key_aux} label={"Dato"} type={"text"} change={this.handleInputChange} />
                                             </Col>
-                                            <Col>
-                                               <InputField name={"value_aux"} value={this.state.value_aux} label={"Info"} type={"textarea"} change={this.handleInputChange}/>
+                                            <Col className='ml-0 pl-1'>
+                                               <InputField name={"value_aux"} value={this.state.value_aux} label={"Info"} type={"text"} change={this.handleInputChange}/>
                                             </Col>
-                                           <Col className="mt-5 p-0 m-0">
-                                               <button className="btn btn-primary" onClick={this.handleDataAdd} type="button">Agregar</button>
+                                           <Col className="mt-5 p-0 ml-5 ">
+                                               <button className="btn btn-primary mr-0" onClick={this.handleDataAdd} type="button">Agregar</button>
                                            </Col>
                                        </Row>
                                        <ListGroup variant="flush" className="mb-4">
                                            {this.state.key_value.length > 0 ?
                                                Object.keys(this.state.key_value).map((tupla, index) =>
-                                                   <Row>
-                                                       <tr>
-                                                           <a onClick={(e) => this.deletArgs2(index)} className="btn btn-danger btn-delete">Borrar</a>
-                                                       </tr>
+                                                   <Row className='mt-2'>
                                                        <Col>
-                                                           <ListGroupItem>
-                                                               <b className="text-dark">
-                                                                   { this.state.key_value[index][0] }
-                                                               </b>
-                                                           </ListGroupItem>
+                                                           Dato:<b className="text-dark">
+                                                               {'  ' + this.state.key_value[index][0] }
+                                                           </b>
                                                        </Col>
-                                                       :
-                                                       <Col>
-                                                           <ListGroupItem >
-                                                               { this.state.key_value[index][1] }
-                                                           </ListGroupItem>
+                                                       <Col >
+                                                           Info:<b className="text-dark">
+                                                               {'  ' + this.state.key_value[index][1] }
+                                                           </b>
                                                        </Col>
+                                                       <MDBCol className='text-left'>
+                                                           <a onClick={(e) => this.deletArgs2(index, 'key_value')} >
+                                                               <i style={{color: "#D44638"}} className="fa fa-times-circle" /></a>
+                                                       </MDBCol>
                                                    </Row>
                                                )
                                                :
@@ -332,25 +345,46 @@ class AddCards extends Component {
                                        </ListGroup>
 
                                </div>
-                                   <div className="picture-uploader-controls">
-                                       <InputField name={"value"} label={"Caracteristicas"} type={"textarea"} value={this.state.value} change={this.handleDataAdd2}/>
-                                       <ListGroup variant="flush" className="mb-4">
-                                           {this.state.value.length > 0 ?
-                                               this.state.value.map((value, index) =>
-                                                   <Row>
-                                                       <ListGroupItem action>
-                                                           {index}: { value }
-                                                       </ListGroupItem>
+                               <div className="picture-uploader-controls">
+                                   <Row >
+                                       <Col className="col-8">
+                                           <InputField
+                                               change={this.handleInputChange}
+                                               name={"value2_aux"}
+                                               label={"Caracteristicas"}
+                                               type={"text"}
+                                               value={this.state.value2_aux}
+                                               ft={"Agregar caracteristicas induviduales con el boton"}/>
+                                       </Col>
+                                       <Col className="mt-4 p-0 ml-5 ">
+                                           <button className="btn btn-primary"
+                                                   onClick={this.handleDataAdd4}
+                                                   type="button">
+                                               Agregar
+                                           </button>
+                                       </Col>
+                                   </Row>
 
-                                                   </Row>
-                                               )
-                                               :
-                                               null
-                                           }
-                                       </ListGroup>
+                                   <ListGroup variant="flush" className="mb-4">
+                                       {this.state.value.length > 0 ?
+                                           this.state.value.map((value, index) =>
+                                               <MDBRow className='mt-2'>
+                                                   <MDBCol>
+                                                       {value}
+                                                   </MDBCol>
+                                                   <MDBCol className='text-left'>
+                                                       <a onClick={(e) => this.deletArgs(index, 'value')} >
+                                                           <i style={{color: "#D44638"}}  className="fa fa-times-circle" /></a>
+                                                   </MDBCol>
+                                               </MDBRow>
+                                           )
+                                           :
+                                           null
+                                       }
+                                   </ListGroup>
+                               </div>
 
-                                   </div>
-                                 <button type="submit" className="btn btn-info"  disabled={!this.validateForm()}>
+                                <button type="submit" className="btn btn-info"  disabled={!this.validateForm()}>
                                     Agregar
                                  </button>
                                </form>

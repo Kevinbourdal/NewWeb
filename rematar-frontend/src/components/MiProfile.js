@@ -6,6 +6,7 @@ import AuthService from "../utils/AuthService";
 import logo from '../img/logofull.png'
 import config from "../config";
 import {wait} from "@testing-library/dom";
+import ModalPage from "./Moddal";
 
 
 class MiProfile extends React.Component {
@@ -25,11 +26,13 @@ class MiProfile extends React.Component {
             mStatus: '',
             dni_types: ['DNI', 'CUIT', 'CUIL', 'LIBRETA CÍVICA', 'LIBRETA DE ENROLAMIENTO'],
             new_user: false,
+            modal: false
         };
         this.Auth = new AuthService();
         this.username = this.Auth.getUsername();
         this.get_user_data = this.get_user_data.bind(this);
-        this.get_user_data()
+        this.get_user_data();
+        this.toggle = this.toggle.bind(this);
     }
 
     get_user_data () {
@@ -67,13 +70,18 @@ class MiProfile extends React.Component {
                     username: this.username
                 })
             }
-        ).then(data => {alert("Informacion guardada")}
+        ).then(data => {this.toggle()}
         ).catch(error => {
             console.log("Fail", error);
             // alert('error')
         });
-        onwaiting(event)
     };
+
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
 
     changeHandler = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -82,6 +90,7 @@ class MiProfile extends React.Component {
     render() {
         return (
             <div className="app flex-row align-items-center mt-5 mb-5">
+                <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Perfil actualizado'}/>
                 <MDBContainer>
                     <div>
                         <MDBRow className="justify-content-center">
