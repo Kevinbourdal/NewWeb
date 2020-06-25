@@ -331,7 +331,7 @@ class AuctionView(BaseView):
             for auction in auctions:
                 item = ItemModel.query.filter_by(auction_id=auction['id']).first()
                 if categories and item is not None:
-                    if item.item_category not in categories.split('.'):
+                    if item.item_category.lower() not in categories.lower() .split('.'):
                         item = None
                 if item is None:
                     continue
@@ -410,7 +410,7 @@ class NewAuctionView(BaseView):
             #     pass
             try:
                 # Try to catch errors en requests, such as missing fields
-                json_data['category'] = json_data['category']
+                json_data['item_category'] = json_data['item_category'].lower()
                 auction = self.auction_schema.load(json_data)  # ['auction']
                 item = self.item_schema.load(json_data)  # ['item']
                 urls = []
@@ -473,7 +473,7 @@ class NewAuctionView(BaseView):
                     CharacteristicValueModel.query.filter_by(item_id=item.id).delete()
                     UrlImageModel.query.filter_by(item_id=item.id).delete()
                     try:
-                        json_data['category'] = json_data['category']
+                        json_data['item_category'] = json_data['item_category'].lower()
                         auction_data = self.auction_schema.load(json_data)  # ['auction']
                         item_data = self.item_schema.load(json_data)  # ['item']
                         urls_data = []
@@ -568,10 +568,23 @@ class FiltersView(BaseView):
         auctions = AuctionModel.query  # .filter_by(finished=False)
         categories = auctions.with_entities(AuctionModel.category).distinct().all()
         for (category,) in categories:
+            filters[category] = []
             idxs = [a.id for a in auctions.filter_by(category=category).all()]
-            filters[category] = ItemModel.query\
-                                         .filter(ItemModel.auction_id.in_(idxs))\
-                                         .with_entities(ItemModel.item_category).distinct().all()
+            items = ItemModel.query.filter(ItemModel.auction_id.in_(idxs)).with_entities(ItemModel.item_category)
+            for item_category in items.distinct().all():
+                filters[category].append((item_category[0].title(),
+                                          items.filter_by(item_category=item_category).count()))
+
+        provinces = ItemModel.query.with_entities(ItemModel.province)
+        cities = ItemModel.query.with_entities(ItemModel.city)
+
+        filters['Provincias'] = []
+        for province in provinces.distinct().all():
+            filters['Provincias'].append((province, provinces.filter_by(province=province).count()))
+
+        filters['Localidades'] = []
+        for city in cities.distinct().all():
+            filters['Localidades'].append((city, cities.filter_by(city=city).count()))
 
         return response(200, data={'filters': filters})
 

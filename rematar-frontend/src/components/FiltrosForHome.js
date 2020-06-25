@@ -15,7 +15,9 @@ class FiltrosForHome extends Component{
             icons:{'Vehiculo':'car',
                     'Inmueble':'home',
                     'Muebles':'couch',
-                    'Otros':'circle'}
+                    'Otros':'circle',
+                    'Provincias': 'location-arrow',
+                    'Localidades': 'map-marker-alt'}
         }
         this.filters_selected = [];
         this.submit = this.props.submit;
@@ -47,11 +49,11 @@ class FiltrosForHome extends Component{
     }
 
     add_filter (e) {
-        if (e.target.className.search('white') !== -1) {
-            e.target.className = e.target.className.replace('white', 'dark');
+        if (e.target.className.search('dark') !== -1) {
+            e.target.className = e.target.className.replace('dark', 'info');
             this.filters_selected = [...this.filters_selected, e.target.name]
         } else {
-            e.target.className = e.target.className.replace('dark', 'white');
+            e.target.className = e.target.className.replace('info', 'dark');
             let index = this.filters_selected.indexOf(e.target.name)
             this.filters_selected.splice(index, 1);
         }
@@ -74,25 +76,27 @@ class FiltrosForHome extends Component{
                     <Row>
                         <MDBCol>
                             <Row>
-                                <MDBIcon className='mt-1' icon={this.state.icons[key]} />
+                                <MDBIcon className='mt-1' icon={this.state.icons[key]} style={{color: '#000000'}}/>
                                 <h4 className="ml-1 ">
-                                    <a href={'/home/'+key} className={this.props.category === key ? 'text-dark':'text-white'}>{key}</a>
+                                    <a href={'/home/'+key} className={this.props.category === key ? 'text-info':'text-dark'}>{key}</a>
                                 </h4>
                             </Row>
                             <Row>
-                                <hr className="accent-4 ml-1 mt-1 mr-5 grey lighten-5" style={{ width: "150px", maxWidth: "576px" }} />
+                                <hr className="accent-4 ml-1 mt-1 mr-5 grey lighten-5 text-" style={{ width: "150px", maxWidth: "576px" }} />
                             </Row>
                         </MDBCol>
                     </Row>
                     {Object.values(this.state.filters[key]).map((value) =>
                           <div className="mt-2 ml-3"  >
-                            <h6>
-                              <a className='text-white'
+                            <h6 className='text-dark' >
+                              <a className='text-dark'
                                  // style={{color: this.state.filters_selected[index] ? 'black' : 'white'}}
-                                 name={value}
-                                 onClick={e => this.add_filter(e)}>
-                                 {value}
-                                 {/*TODO: agregar eso  */}
+                                name={value[0]}
+                                 onClick={e => this.add_filter(e)}
+                              >
+                                  {value[0]} <small>({value[1]})</small>
+                             {/*TODO: agregar eso  */}
+
                               </a>
                             </h6>
                           </div>
@@ -106,22 +110,23 @@ class FiltrosForHome extends Component{
                 {lugares}
                 <div >
                     <Row>
-                    <MDBIcon className='mt-1 ml-2' icon='dollar-sign' />
-                   <h4 className="ml-2 ">Precios</h4>
+                        <MDBIcon className='mt-1 ml-2' icon='dollar-sign' style={{color: '#000000'}} />
+                        <h4 className="ml-2 text-dark">Precios</h4>
                     </Row>
                         <hr className="accent-4 ml-0 mt-1 mr-5 mb-0 grey lighten-5" style={{ width: "150px" }} />
+                        <small className='text-dark'>*Busqueda por precio base</small>
                     </div>
                 <MDBRow >
                     <MDBCol className='mr-4 mt-0 pt-0'>
                         {/*<MDBRow className="mr-4 ml-2 m-0 p-0 my-0 mt-1 ">*/}
                             <MDBInput className="rounded-pill"
                                       // value={this.state.price_from}
-                                      background={"white"}
+                                      background={"black"}
                                       name="price_from"
                                       label='$ Desde'
                                       type='number'
                                       onChange={this.changeHandler}
-                                      style={{maxHeight: '38px'}}
+                                      style={{maxHeight: '39px'}}
                             />
                         {/*</MDBRow>*/}
                         {/*<MDBRow className="mr-4 ml-2 my-0 py-0  ">*/}

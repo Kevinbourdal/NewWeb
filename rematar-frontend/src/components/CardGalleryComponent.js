@@ -109,7 +109,7 @@ class CardGallery extends Component {
                     <MDBRow >
                         {/*<MDBRow  className="ml-2 col-sm-3 mt-3 col-md-2" >*/}
                         <MDBCol style={{maxWidth: '576px'}} className='ml-4 col-sm-2 mr-sm-2 mt-3 col-md-2'>
-                            <MDBRow className="rounded-lg info-color-dark" >
+                            <MDBRow className="rounded-lg bg-facebook" >
                                 <FiltrosForHome category={this.category.replace('category=', '')} submit={this.apply_filters}/>
                             </MDBRow>
                         </MDBCol>
