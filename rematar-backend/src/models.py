@@ -360,6 +360,7 @@ class OfferModel(ModelBase, db.Model):
     amount = db.Column('amount', db.Float(precision=2), unique=False)
     hour = db.Column('hour', db.Time, unique=False, nullable=False)
     date = db.Column('date', db.Date, unique=False)
+    finished = db.Column(db.Boolean(), default=False)
 
     def __init__(self, auction_id, account_id, amount, hour, date):
         super(OfferModel, self).__init__()

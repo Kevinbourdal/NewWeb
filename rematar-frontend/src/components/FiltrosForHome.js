@@ -19,7 +19,7 @@ class FiltrosForHome extends Component{
                     'Provincias': 'location-arrow',
                     'Localidades': 'map-marker-alt'}
         }
-        this.filters_selected = [];
+        this.filters_selected = {};
         this.submit = this.props.submit;
         this.get_filters = this.get_filters.bind(this);
         this.add_filter = this.add_filter.bind(this);
@@ -48,14 +48,16 @@ class FiltrosForHome extends Component{
         )
     }
 
-    add_filter (e) {
+    add_filter (key, e) {
+        if (typeof this.filters_selected[key] === 'undefined')
+            this.filters_selected[key] = [];
         if (e.target.className.search('dark') !== -1) {
             e.target.className = e.target.className.replace('dark', 'info');
-            this.filters_selected = [...this.filters_selected, e.target.name]
+            this.filters_selected[key] = [...this.filters_selected[key], e.target.name]
         } else {
             e.target.className = e.target.className.replace('info', 'dark');
-            let index = this.filters_selected.indexOf(e.target.name)
-            this.filters_selected.splice(index, 1);
+            let index = this.filters_selected[key].indexOf(e.target.name)
+            this.filters_selected[key].splice(index, 1);
         }
     }
 
@@ -70,7 +72,6 @@ class FiltrosForHome extends Component{
 
     render() {
         let lugares = Object.keys(this.state.filters).map((key) => {
-            // this.state.filters_selected
             return (
                 <div className="mb-5 ml-2">
                     <Row>
@@ -92,7 +93,7 @@ class FiltrosForHome extends Component{
                               <a className='text-dark'
                                  // style={{color: this.state.filters_selected[index] ? 'black' : 'white'}}
                                 name={value[0]}
-                                 onClick={e => this.add_filter(e)}
+                                 onClick={e => this.add_filter(key, e)}
                               >
                                   {value[0]} <small>({value[1]})</small>
                              {/*TODO: agregar eso  */}

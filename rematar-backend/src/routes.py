@@ -9,6 +9,7 @@ from views import (
     OfferView,
     FiltersView,
     SearchView,
+    OfferUserView,
 )
 
 
@@ -63,6 +64,11 @@ urls = [
         'resource': SearchView,
         'path': '/search',
         'endpoint': 'search',
-    }
+    },
+    {
+        'resource': OfferUserView,
+        'path': '/offer/user',
+        'endpoint': 'offer_user',
+    },
 
 ]

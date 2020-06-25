@@ -315,7 +315,13 @@ class AuctionView(BaseView):
         }
         try:
             category = request.args.get('category', None)
-            categories = request.args.get('filters', [])
+            inmueble = request.args.get('inmueble', '')
+            vehiculo = request.args.get('vehiculo', '')
+            mueble = request.args.get('mueble', '')
+            otro = request.args.get('otro', '')
+            localidades = request.args.get('localidades', '')
+            provincias = request.args.get('provincias', '')
+
             price_from = request.args.get('price_from', None)
             price_until = request.args.get('price_until', None)
 
@@ -330,9 +336,11 @@ class AuctionView(BaseView):
 
             for auction in auctions:
                 item = ItemModel.query.filter_by(auction_id=auction['id']).first()
-                if categories and item is not None:
-                    if item.item_category.lower() not in categories.lower() .split('.'):
-                        item = None
+                if inmueble or vehiculo or mueble or otro or localidades or provincias:
+                    if item.item_category.lower() not in '.'.join([inmueble, vehiculo, mueble, otro]).lower().split('.'):
+                        if item.province.lower() not in provincias.lower().split('.'):
+                            if item.city.lower() not in localidades.lower().split('.'):
+                                item = None
                 if item is None:
                     continue
                 url = UrlImageModel.query.filter_by(item_id=item.id).first()
@@ -666,4 +674,59 @@ class SearchView(BaseView):
             except Exception as ex:
                 return response(404)
 
+        return response(400)
+
+
+class OfferUserView(BaseView):
+
+    def __init__(self):
+        super(OfferUserView, self).__init__()
+        self.offer_schema = OfferSchema()
+        self.offers_schema = OfferSchema(many=True)
+
+    def get(self):
+        username = request.args.get('username', None)
+        account = AccountModel.query.filter_by(username=username).first()
+        result = {'started': [], 'finished': []}
+        if account is not None:
+            offers = OfferModel.query\
+                               .filter_by(account_id=account.id)\
+                               .order_by(OfferModel.id.desc())
+            auction_ids = []
+            started_offers = offers.filter_by(finished=False).all()
+            for offer in started_offers:
+                if offer.auction_id in auction_ids:
+                    continue
+                auction_ids.append(offer.auction_id)
+                auction = AuctionModel.query.filter_by(id=offer.auction_id).first()
+                row = {
+                    'offer': offer.amount,
+                    'position': '-',
+                    'auction': auction.title,
+                    'auction_id': offer.auction_id,
+                    'date': str(offer.hour),
+                    'time': str(offer.date),
+                    'end_date': str(auction.end_date),
+                }
+                result['started'].append(row)
+
+            auction_ids = []
+            finished_offers = offers.filter_by(finished=True).all()
+            for offer in finished_offers:
+                if offer.auction_id in auction_ids:
+                    continue
+                auction_ids.append(offer.auction_id)
+                auction = AuctionModel.query.filter_by(id=offer.auction_id).first()
+                row = {
+                    'offer': offer.amount,
+                    'position': '-',
+                    'auction': auction.title,
+                    'auction_id': offer.auction_id,
+                    'date': str(offer.hour),
+                    'time': str(offer.date),
+                    'end_date': str(auction.end_date),
+                }
+                result['finished'].append(row)
+
+            return response(200, data={'offers': result})
         return response(400)

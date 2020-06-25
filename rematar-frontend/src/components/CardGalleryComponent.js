@@ -56,7 +56,7 @@ class CardGallery extends Component {
     }
 
     get_items (filters, price_from, price_until) {
-        filters = typeof filters !== 'undefined' ?  '&filters='+filters : '';
+        filters = typeof filters !== 'undefined' ?  filters : '';
         price_from = typeof price_from !== 'undefined' ?  '&price_from='+price_from : '';
         price_until = typeof price_until !== 'undefined' ?  '&price_until='+price_until : '';
 
@@ -88,9 +88,15 @@ class CardGallery extends Component {
 
     apply_filters (filters, price_from, price_until) {
         let result = '';
-        for (var i = 0; i < filters.length; i++) {
-            result += filters[i] + '.'
-        }
+        Object.keys(filters).map((key) => {
+            if ( filters[key].length > 0 ) {
+                result += '&' + key.toLowerCase() + '='
+                for (let i = 0; i < filters[key].length; i++) {
+                    result += filters[key][i] + '.'
+                }
+            }
+        })
+
         if (result !== '')
             if (price_from > 0 && price_until > 0)
                 this.get_items(result.slice(0, -1), price_from, price_until)
