@@ -38,7 +38,8 @@ class BaseApp extends Component {
     render() {
         // // Descomentar para impermitir que se pueda navegar sin estar logueado
         if (!this.Auth.loggedIn()) {
-            if (this.props.location.pathname === '/mi_perfil' || this.props.location.pathname === '/profile' || this.props.location.pathname === '/new') {
+            if (this.props.location.pathname === '/mi_perfil' || this.props.location.pathname === '/profile' ||
+                this.props.location.pathname === '/new') {
                 this.internalLogout('/login');
             }
         }

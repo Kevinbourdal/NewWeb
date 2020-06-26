@@ -13,6 +13,7 @@ import {
 import {Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Row, Table} from "reactstrap";
 import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
+
 import AuthService from "../utils/AuthService";
 import config from "../config";
 import logo from '../img/logosubastas.png'
@@ -212,8 +213,8 @@ class Detail extends Component {
                                   {this.state.url_images.map((url, index) =>
                                       <MDBCarouselItem  itemId={index+1} >
                                           <img
-                                              height={450}
-                                              width={550}
+                                              // height={450}
+                                              // width={550}
                                               className="d-block w-100"
                                                src={url['url']}
                                                alt="slide" />
