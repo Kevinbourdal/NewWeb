@@ -91,7 +91,7 @@ class AccountView (BaseView):
             error = new_account.save()
             if not error:
                 return response(200, data={'id': new_account.id})
-
+        print('error', error)
         return response(400, msg="Error en backend")
 
 
@@ -129,27 +129,29 @@ class UserView(BaseView):
     def post(self):
         json_data, error = get_data(request)
         if not error:
-            try:
-                user_data = self.user_schema.load({'firstname': json_data['firstname'],
-                                                   'lastname': json_data['lastname'],
-                                                   'sex': json_data['sex'],
-                                                   'dni_type': json_data['dni_type'],
-                                                   'dni': json_data['dni'],
-                                                   'bdate': json_data['bdate'],
-                                                   'province': json_data['province'],
-                                                   'city': json_data['city'],
-                                                   'address': json_data['address'],
-                                                   'phone': str(json_data['phone']),
-                                                   'mStatus': str(json_data['mStatus'])})
-            except marshmallow.exceptions.ValidationError as errors:
-                print('error', errors)
-                return response(400, str(errors))
-            new_user = UserModel(**user_data)
             account = AccountModel.query.filter_by(username=json_data['username']).first()
-            new_user.account_id = account.id
-            error = new_user.save()
-            if not error:
-                return response(200, data={'id': new_user.id})
+            if account is not None:
+                try:
+                    user_data = self.user_schema.load({'firstname': json_data['firstname'],
+                                                       'lastname': json_data['lastname'],
+                                                       'sex': json_data['sex'],
+                                                       'dni_type': json_data['dni_type'],
+                                                       'dni': json_data['dni'],
+                                                       'bdate': json_data['bdate'],
+                                                       'province': json_data['province'],
+                                                       'city': json_data['city'],
+                                                       'address': json_data['address'],
+                                                       'phone': str(json_data['phone']),
+                                                       'mStatus': str(json_data['mStatus'])})
+                except marshmallow.exceptions.ValidationError as errors:
+                    print('error', errors)
+                    return response(400, str(errors))
+                new_user = UserModel(**user_data)
+                new_user.account_id = account.id
+                error = new_user.save()
+                if not error:
+                    return response(200, data={'id': new_user.id})
+            print('user don\'t exists')
         print(error)
         return response(400, msg="Error en backend")
 
@@ -289,6 +291,7 @@ class OfferView(BaseView):
                                                      'hour': json_data['hour'],
                                                      'date': json_data['date']})
             except marshmallow.exceptions.ValidationError as errors:
+                print(errors)
                 return response(400, str(errors))
             new_offer = OfferModel(**offer_data)
             error = new_offer.save()
@@ -355,6 +358,7 @@ class AuctionView(BaseView):
 
             return response(200, data={'auctions': result})
         except Exception as ex:
+            print(ex)
             return response(404)
 
 
@@ -495,8 +499,10 @@ class NewAuctionView(BaseView):
                             urls_data.append(self.urlimage_schema.load({'url': url}))
 
                     except ValidationError as e:
+                        print(e)
                         return response(400, str(e))
                     except Exception as ex:
+                        print(ex)
                         return response(400, str(ex))
 
                     for key, value in auction_data.items():
@@ -672,6 +678,7 @@ class SearchView(BaseView):
 
                 return response(200, data={'auctions': result})
             except Exception as ex:
+                print(ex)
                 return response(404)
 
         return response(400)
