@@ -99,8 +99,8 @@ class OffersLive extends Component {
                                             <thead className="thead-dark text-center">
                                                 <tr className="">
                                                     <th >#</th>
-                                                    <th >First Name</th>
-                                                    <th>Last Name</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellido</th>
                                                     <th>Oferta</th>
                                                     <th>Fecha</th>
                                                     <th>Hora</th>

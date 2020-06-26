@@ -8,7 +8,7 @@ if [ "$1" == 'prod' ];
 then
   echo "Start server on production mode"
 
-  exist_docker=$(docker images | grep DOCKER_PROD_NAME | wc -l)
+  exist_docker=$(docker | grep DOCKER_PROD_NAME | wc -l)
   if [ $(( $exist_docker )) == 0 ];
   then
     echo "Docker image not found. Building from file.."
@@ -16,7 +16,7 @@ then
   fi
 
   echo "Image ready, starting container.."
-  docker run --name=frontend -it -p 80:3000 $DOCKER_PROD_NAME
+  docker run --name=frontend -it -p 80:3000 -v $PWD/.:. $DOCKER_PROD_NAME
   exit 0;
 fi
 
@@ -28,6 +28,6 @@ then
 fi
 
 echo "Image ready, starting container.."
-docker run --name=frontend -it -p 80:3000 $DOCKER_NAME
+docker run --name=frontend -it -p 80:3000 -v $PWD/.:/app/ $DOCKER_NAME
 
 

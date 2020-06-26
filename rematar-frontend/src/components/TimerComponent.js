@@ -95,7 +95,7 @@ export default class Timer extends Component {
                 Tiempo restante:
                 { days === 0 && hour === 0 && minutes === 0 && seconds === 0
                     ? <h1>Finalizado!</h1>
-                    : <h4 className="text-black-50">{days} dias - {hour}:{minutes < 10? `0${minutes}`:minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
+                    : <h4 className="text-black mx-0">{days} dias - {hour}:{minutes < 10? `0${minutes}`:minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
                 }
             </Alert>
         )

@@ -36,7 +36,7 @@ class Footer extends Component {
             </MDBCol>
             <MDBCol md="3">
             <h5 className="text-uppercase mb-2 mt-3 font-weight-bold">
-              <strong>Contact</strong>
+              <strong>Contacto</strong>
             </h5>
              <hr className="accent-2 mb-2 mt-0 d-inline-block mx-auto info-color-dark" style={{ width: "70px" }} />
              <div className="mr-4 ">
