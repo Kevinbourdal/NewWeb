@@ -212,10 +212,7 @@ class Detail extends Component {
                                <MDBCarouselInner >
                                   {this.state.url_images.map((url, index) =>
                                       <MDBCarouselItem  itemId={index+1} >
-                                          <img
-                                              // height={450}
-                                              // width={550}
-                                              className="d-block w-100"
+                                          <img className="d-block w-100"
                                                src={url['url']}
                                                alt="slide" />
                                       </MDBCarouselItem>
@@ -264,7 +261,7 @@ class Detail extends Component {
                                     <div className="app flex-row align-items-center">
                                         <Container className="px-md-0 pl-md-4 pl-lg-4">
                                             <CardGroup>
-                                                <Card className="p-0 shadow">
+                                                <Card className="p-0 shadow-none border-0">
                                                     <br/>
                                                     <CardBody className="text-center">
                                                         <Row>
@@ -292,10 +289,9 @@ class Detail extends Component {
                                                                     $ { this.state.market_price }
                                                                 </h4>
                                                             </Col>
+                                                            <hr/>
                                                         </Row>
-                                                        <hr/>
-
-                                                        <Row>
+                                                        <Row className='mt-4'>
                                                             <Col>
                                                                 <h5>Tabla de información</h5>
                                                                 <Table responsive
@@ -311,7 +307,7 @@ class Detail extends Component {
                                                             </Col>
                                                         </Row>
                                                     </CardBody>
-                                                    <CardFooter className="justify-content-center align-content-center text-center">
+                                                    <CardFooter className="justify-content-center align-content-center text-center bg-white">
                                                         <Row>
                                                             <Col>
                                                                 <Button className="btn btn-lg"
