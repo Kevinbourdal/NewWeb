@@ -1,6 +1,6 @@
 # start from node 12 (last lts version at the moment)
 FROM node:12-alpine
-LABEL maintainer "cristiancontrera95@gmail.com"
+LABEL maintainer="cristiancontrera95@gmail.com"
 
 
 # set working directory
@@ -11,8 +11,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package*.json ./
-RUN npm install -g serve
-RUN npm ci --only=production
+RUN npm i
 
 # add app
 #COPY . ./
