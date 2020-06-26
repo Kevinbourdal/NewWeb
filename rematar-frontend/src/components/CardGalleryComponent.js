@@ -16,8 +16,8 @@ class CardGallery extends Component {
             loginError: false,
             items_started: [],
             items_future: [],
-            visible:3,
-            visible2:3
+            visible_started: 6,
+            visible_future: 6
         };
         this.category = '';
         let category = window.location.pathname.replace('/home', '').replace('/', '')
@@ -25,8 +25,8 @@ class CardGallery extends Component {
             this.category = 'category='+category;
         this.apply_filters = this.apply_filters.bind(this);
         this.get_items = this.get_items.bind(this);
-        this.loadMore = this.loadMore.bind(this);
-        this.loadMore2 = this.loadMore2.bind(this)
+        this.load_more_started = this.load_more_started.bind(this);
+        this.load_more_future = this.load_more_future.bind(this)
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
         this.get_items();
@@ -111,14 +111,14 @@ class CardGallery extends Component {
             this.get_items()
     }
 
-    loadMore(){
-        this.setState((old)=>{
-            return{visible : old.visible + 3}
+    load_more_started(){
+        this.setState({
+            visible_started : this.state.visible_started + 6
         })
     }
-    loadMore2(){
-        this.setState((old)=>{
-            return{visible2 : old.visible2 + 1  }
+    load_more_future(){
+        this.setState({
+            visible_future : this.state.visible_future + 6
         })
     }
 
@@ -144,7 +144,7 @@ class CardGallery extends Component {
                                         <h3>Subastas Activas</h3>
                                         <hr />
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
-                                            {this.state.items_started.slice(0,this.state.visible).map((data, index) =>
+                                            {this.state.items_started.slice(0,this.state.visible_started).map((data, index) =>
                                                 <div className="col-4 pr-0 pl-0" style={{maxWidth: '576px'}}>
                                                     <div className="p-2 mr-0 ml-0">
                                                         <CardItem title={data['title']}
@@ -157,12 +157,12 @@ class CardGallery extends Component {
                                                 </div>
                                             )}
 
-                                            <div hidden={this.state.items_started.length === this.state.visible}
+                                            <div hidden={this.state.items_started.length <= this.state.visible_started}
                                                  className='col-md-12 mt-5 my-0 text-center'>
                                                 <Button type='Button'
                                                         color="info"
                                                         style={{color:'#424242'}}
-                                                        onClick={this.loadMore} >
+                                                        onClick={this.load_more_started} >
                                                     <Row>
                                                         <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar Mas</h6>
                                                     </Row>
@@ -174,7 +174,7 @@ class CardGallery extends Component {
                                         <h3>Subastas Futuras</h3>
                                         <hr/>
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
-                                            {this.state.items_future.slice(0,this.state.visible2).map((data, index) =>
+                                            {this.state.items_future.slice(0,this.state.visible_future).map((data, index) =>
                                                 <div className="col-4  pr-2 pl-2" style={{maxWidth:'576px'}}>
                                                     <div className="pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
@@ -186,12 +186,12 @@ class CardGallery extends Component {
                                                     </div>
                                                 </div>
                                             )}
-                                            <div hidden={this.state.items_future.length === this.state.visible2}
+                                            <div hidden={this.state.items_future.length <= this.state.visible_future}
                                                  className='col-md-12 mt-5 my-0 text-center'>
                                             <Button type='Button'
                                                     style={{color:'#424242'}}
                                                     color="info"
-                                                    onClick={this.loadMore2} >
+                                                    onClick={this.load_more_future} >
                                                 <Row>
                                                     <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar Mas</h6>
                                                 </Row>
