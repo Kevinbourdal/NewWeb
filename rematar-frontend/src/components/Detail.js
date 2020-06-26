@@ -206,8 +206,8 @@ class Detail extends Component {
                                   {this.state.url_images.map((url, index) =>
                                       <MDBCarouselItem  itemId={index+1} >
                                           <img
-                                              height={400}
-                                              width={700}
+                                              height={450}
+                                              width={550}
                                               className="d-block w-100"
                                                src={url['url']}
                                                alt="slide" />
