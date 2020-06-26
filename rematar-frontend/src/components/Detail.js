@@ -11,7 +11,6 @@ import {
     MDBCarouselItem
 } from "mdbreact";
 import {Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Row, Table} from "reactstrap";
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
 import AuthService from "../utils/AuthService";
