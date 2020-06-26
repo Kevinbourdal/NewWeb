@@ -15,7 +15,7 @@ RUN npm install -g serve
 RUN npm ci --only=production
 
 # add app
-COPY . ./
+#COPY . ./
 
 # RUN npm run build
 

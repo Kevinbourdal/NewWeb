@@ -11,6 +11,7 @@ import {
     MDBCarouselItem
 } from "mdbreact";
 import {Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Row, Table} from "reactstrap";
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
 import AuthService from "../utils/AuthService";
@@ -148,10 +149,10 @@ class Detail extends Component {
 
        let data_table = this.state.key_values.map((dato, index) => {
            return (
-
-               <tr className="ml-5" key={index}>
-                   <th className="ml-5"><b>{ dato[0].toUpperCase() } :</b></th>
-                   <th className="ml-5">{ dato[1] }</th>
+               <tr className="ml-5 col-6" key={index} >
+                   <th className="my-0"><b className='ml-2 col-sm-auto'>{ dato[0].toUpperCase() }: </b></th>
+                   <th className="my-0 ml-5">{ dato[1] }</th>
+                   <td hidden={true} className="my-0 ml-5">{ dato[1] }</td>
                </tr>
            )
        });
@@ -171,11 +172,17 @@ class Detail extends Component {
                <h5 className="dark-grey-text mx-auto text-center">
                   { this.state.subtitle }
                </h5>
-                <MDBRow>
-                    <i className="fas fa-map-marked-alt ml-3 mr-2"/>
-                    <p><h6>
-                        {this.state.province + ', ' +this.state.city + ', ' +this.state.address }
-                    </h6></p>
+                <MDBRow className='my-2'>
+                    <h6>
+                        <a href={'https://www.google.com.ar/maps/search/' + this.state.province+'-'+this.state.city+'-'+this.state.address}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style={{color:"black"}}
+                        >
+                        <i className="fas fa-map-marked-alt ml-3 mr-2"/>
+                            <b>{this.state.province + ', ' +this.state.city + ', ' +this.state.address }</b>
+                        </a>
+                    </h6>
                 </MDBRow>
                 { this.state.start_date < Date.now() ?
                     <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
@@ -194,7 +201,7 @@ class Detail extends Component {
                     </div>
                 }
 
-               <MDBRow className="p-0">
+               <MDBRow className="p-0 pl-2">
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
                       <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'}/>
@@ -217,25 +224,28 @@ class Detail extends Component {
                               </MDBCarouselInner>
                            </MDBCarousel>
                         </MDBView>
-                        <div className="d-flex justify-content-between">
-                            <a className="deep-orange-text">
-                                <h5 className="font-weight-bold">
-                                    <MDBIcon icon="book-open" className="pr-2" />
-                                    Descripcion
-                                </h5>
-                            </a>
-
-                            <p className="font-weight-bold text-right dark-grey-text">
-                                <MDBIcon far icon="clock" className="pr-2" />
-                                Subasta desde {this.state.start_date.toLocaleString().split(' ')[0]} {this.state.start_hour}
+                        <div className="d-flex justify-content-between" unselectable={"on"}>
+                            <h4 className="font-weight-bold dark-grey-text mb-3 p-0">
+                                {this.state.title}
+                            </h4>
+                            <p className="font-weight-bold text-right dark-grey-text" unselectable={"on"}>
+                                <MDBIcon far icon="clock" className="pr-2" unselectable={"on"}/>
+                                Desde {this.state.start_date.toLocaleString().split(' ')[0]} {this.state.start_hour}
 
                                 <br/>
-                                hasta {this.state.end_date.toLocaleString().split(' ')[0]} {this.state.end_hour}
+                                Hasta {this.state.end_date.toLocaleString().split(' ')[0]} {this.state.end_hour}
                             </p>
                         </div>
-                        <h6 className="font-weight-bold dark-grey-text mb-3 p-0">
-                            {this.state.title}
-                        </h6>
+                         <div>
+                             <Row>
+                             <Col className='col-8'>
+                             <h5 className=" text-dark font-weight-bold">
+                                 {/*<MDBIcon icon="book-open" className="pr-2" style={{color: '#000000'}}/>*/}
+                                 Descripcion
+                             </h5>
+                             </Col>
+                         </Row>
+                         </div>
                         { DescriptionText }
                      </div>
                   </MDBCol>
@@ -260,7 +270,7 @@ class Detail extends Component {
                                                         <Row>
                                                             <Col>
                                                                 <h3><b>Precio Actual</b></h3>
-                                                                <h1 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
+                                                                <h1 className="text-center" style={{color:'black'}} >
                                                                     $ { this.state.curr_price === this.state.base_price ?
                                                                     this.state.curr_price
                                                                         :
@@ -268,26 +278,33 @@ class Detail extends Component {
                                                                 </h1>
                                                             </Col>
                                                         </Row>
-                                                        <Row>
+                                                        <hr/>
+                                                        <Row hidden={true}>
                                                             <Col>
-                                                                <h6><b>Precio Base</b></h6>
-                                                                <h4 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
+                                                                <h6><b style={{textDecorationLine : 'underline'}}>Precio Base</b></h6>
+                                                                <h4 className="rounded-pill text-center" style={{color:'black'}} >
                                                                     $ { this.state.base_price }
                                                                 </h4>
                                                             </Col>
                                                             <Col>
-                                                                <h6><b>Precio Mercado</b></h6>
-                                                                <h4 className="rounded-pill text-center border grey darken-3" style={{color:'white'}} >
+                                                                <h6><b style={{textDecorationLine : 'underline'}}>Precio Mercado</b></h6>
+                                                                <h4 className="rounded-pill text-center " style={{color:'black'}} >
                                                                     $ { this.state.market_price }
                                                                 </h4>
                                                             </Col>
                                                         </Row>
-                                                        <br/>
+                                                        <hr/>
+
                                                         <Row>
                                                             <Col>
                                                                 <h5>Tabla de información</h5>
-                                                                <Table  responsive={true} striped={true} className="text-left table-bordered table-info" >
-                                                                    <tbody >
+                                                                <Table responsive
+                                                                       hover
+                                                                       striped={true}
+                                                                       className="text-left table-info rounded"
+                                                                       size={'sm'}
+                                                                >
+                                                                    <tbody className='rounded-top'>
                                                                     { data_table }
                                                                     </tbody>
                                                                 </Table>
@@ -336,6 +353,18 @@ class Detail extends Component {
                       </div>
                   </MDBCol>
                </MDBRow>
+
+                <Row className='mt-5 pl-2'>
+                    <Col className='col-6 rounded-lg' style={{'background': '#000000'}}>
+                        <h5 className='mt-3 text-white'>Subasta</h5>
+                        <hr className='white mb-2'/>
+                        <h6 className='mt-2 mb-4 text-left'>
+                            <p className='my-1'><b className='text-white'>Base $ { this.state.base_price }</b></p>
+                            <p><b className='text-white' >Valor de Mercado $ { this.state.market_price }</b></p>
+                        </h6>
+                    </Col>
+                </Row>
+
                <MDBRow className='my-5'>
                    <MDBCol>
                        <div>
@@ -356,11 +385,11 @@ class Detail extends Component {
                    </MDBCol>
                </MDBRow>
 
-               {/*<MDBRow className="mt-5">*/}
-               {/*   <MDBCol>*/}
-               {/*     <SimpleMap />*/}
-               {/*   </MDBCol>*/}
-               {/*</MDBRow>*/}
+               <MDBRow className="mt-5">
+                  <MDBCol>
+                        {/*<SimpleMap />*/}
+                  </MDBCol>
+               </MDBRow>
 
             </MDBCardBody>
          </MDBCard>

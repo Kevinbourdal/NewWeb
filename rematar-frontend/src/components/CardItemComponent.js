@@ -81,7 +81,7 @@ class CardItem extends Component {
                     </CardHeader>
                     <CardBody >
                         <CardTitle >
-                            <a href={this.href || '#'} className="text-dark" type=""><h5 className='h4-responsive'><b>{ this.title || '' }</b></h5></a>
+                            <a href={this.href || '#'} className="text-dark" type=""><h5 className='h4-responsive'><b >{ this.title || '' }</b></h5></a>
                         </CardTitle>
                         <CardSubtitle className="my-0" >
                             <b>{ this.subtitle || '' }</b>
@@ -97,7 +97,7 @@ class CardItem extends Component {
                                     >
                                         <Row>
                                             {/*<img src ={logos} style={{width:"40px",height:"29px"}}></img>*/}
-                                            <b><h5 className='my-0 h5-responsive'>Detalles</h5></b>
+                                            <b><h5 className='my-0 h5-responsive' unselectable={true}>Detalles</h5></b>
                                         </Row>
                                     </Button>
                                 </a>

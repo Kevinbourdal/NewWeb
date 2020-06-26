@@ -77,7 +77,7 @@ class Header extends Component {
                                 </div>
                             }
                             <hr className='hr-bold' color='white'/>
-                            <NavLink href="/new" className="text-right" style={{color: "white"}} hidden={this.Auth.getRole() !== 'admin'}>
+                            <NavLink href="/new" className="text-right" style={{color: "white"}} hidden={this.Auth.getRole() !== 'admin' || !this.Auth.loggedIn()}>
                                 <i className="fas fa-plus-circle"/> <b color='danger'>Nueva subasta</b>
                             </NavLink>
 
