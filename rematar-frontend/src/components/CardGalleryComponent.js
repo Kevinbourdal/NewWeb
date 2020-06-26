@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { CardDeck } from 'reactstrap';
+import {Button, CardDeck, Col, Row} from 'reactstrap';
 import CardItem from "./CardItemComponent";
 import Container from "reactstrap/es/Container";
 import {MDBCol, MDBRow} from "mdbreact";
 import FiltrosForHome from "./FiltrosForHome";
 import config from "../config";
+import logos from "../img/logosubastas.png";
 
 
 class CardGallery extends Component {
@@ -15,6 +16,8 @@ class CardGallery extends Component {
             loginError: false,
             items_started: [],
             items_future: [],
+            visible:3,
+            visible2:3
         };
         this.category = '';
         let category = window.location.pathname.replace('/home', '').replace('/', '')
@@ -22,6 +25,8 @@ class CardGallery extends Component {
             this.category = 'category='+category;
         this.apply_filters = this.apply_filters.bind(this);
         this.get_items = this.get_items.bind(this);
+        this.loadMore = this.loadMore.bind(this);
+        this.loadMore2 = this.loadMore2.bind(this)
         //this.handleChange = this.handleChange.bind(this);
         //this.Auth = new AuthService();  TODO:  ver AuthService
         this.get_items();
@@ -106,6 +111,18 @@ class CardGallery extends Component {
             this.get_items()
     }
 
+    loadMore(){
+        this.setState((old)=>{
+            return{visible : old.visible + 3}
+        })
+    }
+    loadMore2(){
+        this.setState((old)=>{
+            return{visible2 : old.visible2 + 1  }
+        })
+    }
+
+
     render() {
         return (
 
@@ -127,7 +144,7 @@ class CardGallery extends Component {
                                         <h3>Subastas Activas</h3>
                                         <hr />
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
-                                            {this.state.items_started.map((data, index) =>
+                                            {this.state.items_started.slice(0,this.state.visible).map((data, index) =>
                                                 <div className="col-4 pr-0 pl-0" style={{maxWidth: '576px'}}>
                                                     <div className="p-2 mr-0 ml-0">
                                                         <CardItem title={data['title']}
@@ -139,13 +156,25 @@ class CardGallery extends Component {
                                                     </div>
                                                 </div>
                                             )}
+
+                                            <div hidden={this.state.items_started.length === this.state.visible}
+                                                 className='col-md-12 mt-5 my-0 text-center'>
+                                                <Button type='Button'
+                                                        color="info"
+                                                        style={{color:'#424242'}}
+                                                        onClick={this.loadMore} >
+                                                    <Row>
+                                                        <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar Mas</h6>
+                                                    </Row>
+                                                </Button>
+                                            </div>
                                         </CardDeck>
                                     </div>
                                     <div className='my-5' hidden={this.state.items_future.length === 0}>
                                         <h3>Subastas Futuras</h3>
                                         <hr/>
                                         <CardDeck className="mx-md-1 col-12 px-md-1">
-                                            {this.state.items_future.map((data, index) =>
+                                            {this.state.items_future.slice(0,this.state.visible2).map((data, index) =>
                                                 <div className="col-4  pr-2 pl-2" style={{maxWidth:'576px'}}>
                                                     <div className="pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
@@ -157,6 +186,17 @@ class CardGallery extends Component {
                                                     </div>
                                                 </div>
                                             )}
+                                            <div hidden={this.state.items_future.length === this.state.visible2}
+                                                 className='col-md-12 mt-5 my-0 text-center'>
+                                            <Button type='Button'
+                                                    style={{color:'#424242'}}
+                                                    color="info"
+                                                    onClick={this.loadMore2} >
+                                                <Row>
+                                                    <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar Mas</h6>
+                                                </Row>
+                                            </Button>
+                                            </div>
                                         </CardDeck>
                                     </div>
                                 </div>

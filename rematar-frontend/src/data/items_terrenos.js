@@ -6,15 +6,15 @@ const item1 = {
     'href': '/detail',
     'items': [
         {
-            src: 'https://mobimg.b-cdn.net/pic/v2/gallery/preview/dorogi-gory-pejzazh-9109.jpg',
+            src: 'https://www.defachadas.com/wp-content/uploads/2015/02/caba%C3%B1a.jpg',
             key: '1'
         },
         {
-            src: 'https://wallpapercave.com/wp/LRB9LM1.jpg',
+            src: 'http://www.lacumbre.gob.ar/admin/static/images/1450559570938.jpg',
             key: '3'
         },
         {
-            src: 'https://i.pinimg.com/originals/15/a7/a8/15a7a873c0e04fcfcae5c6be5365818f.jpg',
+            src: 'https://www.premioseducacionvial.com/wp-content/themes/premioseducacionvial.wp/theme/img/educacion-vial/educacion-vial-04.jpg',
             key: '2'
         },
     ]
