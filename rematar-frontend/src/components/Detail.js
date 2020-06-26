@@ -13,7 +13,7 @@ import {
 import {Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Row, Table} from "reactstrap";
 import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
-
+import fixC from "../fixC.css";
 import AuthService from "../utils/AuthService";
 import config from "../config";
 import logo from '../img/logosubastas.png'
