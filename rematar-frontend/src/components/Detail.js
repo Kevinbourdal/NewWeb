@@ -10,10 +10,10 @@ import {
     MDBCarouselInner,
     MDBCarouselItem
 } from "mdbreact";
-import {Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Row, Table} from "reactstrap";
+import {Button, Card, CardBody, CardFooter, CardGroup, Col, Container, Row, Table, Breadcrumb, BreadcrumbItem} from "reactstrap";
 import Timer from './TimerComponent';
 import OffersLive from './OffersLiveComponent';
-import fixC from "../fixC.css";
+import "../fixC.css";
 import AuthService from "../utils/AuthService";
 import config from "../config";
 import logo from '../img/logosubastas.png'
@@ -163,15 +163,33 @@ class Detail extends Component {
            });
 
       return (
-         <MDBCard className="my-4 px-0 mx-auto shadow" style={{ fontWeight: 60, maxWidth: "90%" , }}>
+          <div >
+              <div className='mx-5 px-4'>
+                  <Breadcrumb className='mt-4' tag="div" listTag="div">
+                      <h5 >
+                          <BreadcrumbItem className='text-dark' tag="a" href={"/home/"} >
+                              Home
+                          </BreadcrumbItem>
+                          <BreadcrumbItem className='text-dark' tag="a" href={"/home/" + this.state.category} >
+                              {this.state.category}
+                          </BreadcrumbItem>
+                          <BreadcrumbItem className='text-dark' tag="a" href="#">
+                              {this.state.item_category}
+                          </BreadcrumbItem>
+                      </h5>
+                  </Breadcrumb>
+              </div>
+         <MDBCard className="mb-4 px-0 mx-auto shadow-none border-0" style={{ fontWeight: 60, maxWidth: "90%", backgroundColor:'#F5F5F5' }} >
 
             <MDBCardBody style={{ height:'70%',paddingTop: 0 }}>
-               <h2 className="h1-responsive mt-2 font-weight-bold my-1 text-center">
+
+               <h2 className="h1-responsive mt-0 font-weight-bold mb-3 text-center">
                   { this.state.title }
                </h2>
                <h5 className="dark-grey-text mx-auto text-center">
                   { this.state.subtitle }
                </h5>
+
                 <MDBRow className='my-2'>
                     <h6>
                         <a href={'https://www.google.com.ar/maps/search/' + this.state.province+'-'+this.state.city+'-'+this.state.address}
@@ -179,53 +197,50 @@ class Detail extends Component {
                            rel="noopener noreferrer"
                            style={{color:"black"}}
                         >
-                        <i className="fas fa-map-marked-alt ml-3 mr-2"/>
-                            <b>{this.state.province + ', ' +this.state.city + ', ' +this.state.address }</b>
+                            <h5>
+                                <i className="fas fa-map-marked-alt ml-3 mr-2"/>
+                                {this.state.province + ', ' +this.state.city + ', ' +this.state.address }
+                            </h5>
                         </a>
                     </h6>
                 </MDBRow>
-                { this.state.start_date < Date.now() ?
-                    <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
-                    :
-                    <div>
-                        <MDBRow>
-                            <MDBCol>
-                                <h3>Esta subasta aun no ha comenzado</h3>
-                            </MDBCol>
-                            <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
-                                <a href={'/new'+window.location.pathname.replace('detail/', '')} style={{color: 'black'}}>
-                                    <i className="far fa-edit" /></a>
-                            </MDBCol>
-                        </MDBRow>
-                        <hr />
-                    </div>
-                }
+
 
                <MDBRow className="p-0 pl-2">
                   <MDBCol className="m-0 p-0">
                      <div className="m-0 p-0">
                       <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'}/>
-                        <MDBView hover rounded className="z-depth-1-half mb-4 img-thumbnail">
+                        <MDBView hover rounded className="mb-4 mt-0 shadow-none">
                            <MDBCarousel activeItem={1} length={this.state.url_images.length}
                                         showControls={true}  showIndicators={true} thumbnails={true}
-                                        className="z-depth-1 w-100">
-                               <MDBCarouselInner >
+                                        className="w-100">
+                               <MDBCarouselInner style={{backgroundColor:'#F5F5F5'}}>
                                   {this.state.url_images.map((url, index) =>
-                                      <MDBCarouselItem  itemId={index+1} >
-                                          <img
-                                              // height={450}
-                                              // width={550}
-                                              className="d-block w-100"
-                                               src={url['url']}
-                                               alt="slide" />
+                                      <MDBCarouselItem itemId={index+1} className='justify-content-center'>
+                                          <Row className='justify-content-center shadow-none m-auto'
+                                               style={{'width': '750px', 'height': '600px'}}
+                                          ><div className='mt-auto mb-auto'>
+                                              <img className="d-inline-block align-content-center"
+                                                   src={url['url']}
+                                                   alt="slide"
+                                                   style={{
+                                                       'max-width': '750px',
+                                                       'max-height': '600px',
+                                                       'min-width': '500px',
+                                                       'min-height': '300px',
+                                                   }}
+                                                   sizes=''
+                                              />
+                                          </div>
+                                          </Row>
                                       </MDBCarouselItem>
                                   )}
                               {/*    TODO:  Agregar Caption con descripcion de la foto    */}
                               </MDBCarouselInner>
                            </MDBCarousel>
                         </MDBView>
-                        <div className="d-flex justify-content-between" unselectable={"on"}>
-                            <h4 className="font-weight-bold dark-grey-text mb-3 p-0">
+                        <div className="d-flex justify-content-between my-4" >
+                            <h4 className="font-weight-bold dark-grey-text p-0 ">
                                 {this.state.title}
                             </h4>
                             <p className="font-weight-bold text-right dark-grey-text" unselectable={"on"}>
@@ -261,12 +276,12 @@ class Detail extends Component {
                                   {/*/>*/}
 
                                   {/*==================   TODO: Borrar todo lo de abajo   ============*/}
-                                    <div className="app flex-row align-items-center">
+                                    <div className="app flex-row align-items-center mt-5">
                                         <Container className="px-md-0 pl-md-4 pl-lg-4">
                                             <CardGroup>
-                                                <Card className="p-0 shadow">
+                                                <Card className="p-0 shadow-none border-0">
                                                     <br/>
-                                                    <CardBody className="text-center">
+                                                    <CardBody className="text-center pt-0">
                                                         <Row>
                                                             <Col>
                                                                 <h3><b>Precio Actual</b></h3>
@@ -279,6 +294,26 @@ class Detail extends Component {
                                                             </Col>
                                                         </Row>
                                                         <hr/>
+                                                        <Row>
+                                                            <Col>
+                                                                { this.state.start_date < Date.now() ?
+                                                                    <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
+                                                                    :
+                                                                    <div>
+                                                                        <MDBRow>
+                                                                            <MDBCol>
+                                                                                <h3>Esta subasta aun no ha comenzado</h3>
+                                                                            </MDBCol>
+                                                                            <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
+                                                                                <a href={'/new'+window.location.pathname.replace('detail/', '')} style={{color: 'black'}}>
+                                                                                    <i className="far fa-edit" /></a>
+                                                                            </MDBCol>
+                                                                        </MDBRow>
+                                                                    </div>
+                                                                }
+                                                            </Col>
+                                                        </Row>
+                                                        <hr />
                                                         <Row hidden={true}>
                                                             <Col>
                                                                 <h6><b style={{textDecorationLine : 'underline'}}>Precio Base</b></h6>
@@ -292,16 +327,15 @@ class Detail extends Component {
                                                                     $ { this.state.market_price }
                                                                 </h4>
                                                             </Col>
+                                                            <hr/>
                                                         </Row>
-                                                        <hr/>
-
-                                                        <Row>
+                                                        <Row className='mt-4'>
                                                             <Col>
-                                                                <h5>Tabla de información</h5>
+                                                                <h5><b>Tabla de información</b></h5>
                                                                 <Table responsive
                                                                        hover
                                                                        striped={true}
-                                                                       className="text-left table-info rounded"
+                                                                       className="text-left table-dark rounded"
                                                                        size={'sm'}
                                                                 >
                                                                     <tbody className='rounded-top'>
@@ -311,7 +345,7 @@ class Detail extends Component {
                                                             </Col>
                                                         </Row>
                                                     </CardBody>
-                                                    <CardFooter className="justify-content-center align-content-center text-center">
+                                                    <CardFooter className="justify-content-center align-content-center text-center bg-white">
                                                         <Row>
                                                             <Col>
                                                                 <Button className="btn btn-lg"
@@ -371,7 +405,7 @@ class Detail extends Component {
                            <h5 className='my-4'>Caracteristicas</h5>
                            <Row className='ml-3'>
                            {this.state.values.map((value, index) =>
-                                <p className='col-4 mt-2 text-left'><i className="fas fa-check-square mr-2"/>{value}</p>
+                                <p className='col-4 mt-2 text-left' unselectable={"on"}><i className="fas fa-check-square mr-2"/>{value}</p>
                            )}
                            </Row>
                        </div>
@@ -393,6 +427,7 @@ class Detail extends Component {
 
             </MDBCardBody>
          </MDBCard>
+          </div>
       );
    }
 }

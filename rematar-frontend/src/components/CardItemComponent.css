@@ -1,8 +1,14 @@
-:root {
-    --mainOpacity: rgba(0, 0, 0, 0.55);
+img {
+    opacity: 1.0;
 }
 
-#card-img:hover {
-    transition: all 0.5s ease-in-out;
-    background-color: var(--mainOpacity) !important;
+img:hover {
+    opacity: .7;
+}
+
+.img-hover-effect img {
+    opacity: 1;
+    transition: opacity .15s ease-in-out;
+    -moz-transition: opacity .15s ease-in-out;
+    -webkit-transition: opacity .15s ease-in-out;
 }

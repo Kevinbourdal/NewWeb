@@ -137,7 +137,7 @@ class CardGallery extends Component {
                             </MDBRow>
                         </MDBCol>
                         {/*</MDBRow>*/}
-                        <MDBCol className="mx-md-5 px-md-4">
+                        <MDBCol className="mx-md-5 ">
                             <Container className="col-12">
                                 <div className=" mt-0">
                                     <div className='mt-3' hidden={this.state.items_started.length === 0}>

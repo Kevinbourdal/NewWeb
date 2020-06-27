@@ -95,14 +95,14 @@ class HomePage extends Component {
         return (
 
             <div>
-                <div className="p-0 m-0" style={{ height: '400px'}}>
+                <div className="p-0 m-0" style={{ height: '500px'}}>
                     <div className="container-fluid no-padding h-25 p-0 m-0 ">
 
-                        <div  style={{ height: '70vh' }} className="">
+                        <div  style={{ height: '80vh' }} className="">
                             <style>
                                 {`.custom-tag {
                               max-width: 100%;
-                              height: 400px;
+                              height: 500px;
                               background: black;
                         }`}
                             </style>
@@ -122,7 +122,7 @@ class HomePage extends Component {
                                 <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
                                     <Container className="mt-4">
                                         <Row className="d-sm-block">
-                                            <h2 className="w-100">Encontra las mejores inversiones</h2>
+                                            <h1 className="w-100 text-dark">Encontra las mejores inversiones</h1>
                                         </Row>
                                         <MDBContainer  className=" my-5">
                                             <MDBFormInline className="md-form mt-5 ml-5">

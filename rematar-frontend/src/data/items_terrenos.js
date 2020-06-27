@@ -6,15 +6,15 @@ const item1 = {
     'href': '/detail',
     'items': [
         {
-            src: 'https://www.defachadas.com/wp-content/uploads/2015/02/caba%C3%B1a.jpg',
+            src: 'https://www.dediosblog.com/wp-content/uploads/2019/11/MERLO_796701853_Luis-Fabian-Blanco.jpg',
             key: '1'
         },
         {
-            src: 'http://www.lacumbre.gob.ar/admin/static/images/1450559570938.jpg',
+            src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Embalse%2C_C%C3%B3rdoba%2C_reservoir.jpg/1200px-Embalse%2C_C%C3%B3rdoba%2C_reservoir.jpg',
             key: '3'
         },
         {
-            src: 'https://www.premioseducacionvial.com/wp-content/themes/premioseducacionvial.wp/theme/img/educacion-vial/educacion-vial-04.jpg',
+            src: 'https://www.comarcaturistica.com.ar/img/slides/slide_1.jpg',
             key: '2'
         },
     ]

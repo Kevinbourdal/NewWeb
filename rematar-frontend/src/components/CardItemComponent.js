@@ -54,11 +54,11 @@ class CardItem extends Component {
                         {/*    <Col>*/}
                                 <MDBCarousel activeItem={1} length={0} showControls={false} showIndicators={false} thumbnails className="z-depth-1">
                                     <MDBCarouselInner >
-                                            <MDBCarouselItem itemId={1} className=''  style={{height: '230px'}}>
+                                            <MDBCarouselItem itemId={1} className='' style={{height: '230px'}}>
                                                 <div>
                                                     <img width={'200px'}
-                                                        height={'230px'}
-                                                        className="w-100 my-1"
+                                                         height={'230px'}
+                                                         className="w-100 my-auto img-hover-effect"
                                                          src={this.url_image || no_img}
                                                          alt="slide"
 
@@ -79,15 +79,22 @@ class CardItem extends Component {
                         {/*    </Col>*/}
                         {/*</Row>*/}
                     </CardHeader>
-                    <CardBody >
-                        <CardTitle >
+                    <CardBody className='mb-0 pb-0'>
+                        <CardTitle className='mt-1'>
                             <a href={this.href || '#'} className="text-dark" type=""><h5 className='h4-responsive'><b >{ this.title || '' }</b></h5></a>
                         </CardTitle>
-                        <CardSubtitle className="my-0" >
-                            <b>{ this.subtitle || '' }</b>
+                        <CardSubtitle className="my-0 h6-responsive" >
+                            <b className='w-responsive'>{ this.subtitle.toLowerCase() || '' }</b>
                         </CardSubtitle>
+                        <CardText className="text-right">
+                            <MDBIcon far icon="calendar-alt" />
+                            <small className=""
+                                   hidden={this.footer === ''}
+                                   style={{fontSize: "11px"}}
+                            >{ this.footer.toLowerCase() }</small>
+                        </CardText>
                     </CardBody>
-                    <CardFooter className="mb-0 pb-0 bg-white" >
+                    <CardFooter className="mb-0 pb-0 pl-2 bg-white" >
                         <div className="text-center">
                             <Col>
                                 <a href={this.href || '#'}>
@@ -102,14 +109,6 @@ class CardItem extends Component {
                                     </Button>
                                 </a>
                             </Col>
-
-                            <CardText className="text-center">
-                                <MDBIcon far icon="calendar-alt" />
-                                <small className="ml-2"
-                                       hidden={this.footer === ''}
-                                       style={{fontSize: "11px"}}
-                                >{ this.footer.toLowerCase() }</small>
-                            </CardText>
                         </div>
                     </CardFooter>
                 </Card>

@@ -37,11 +37,11 @@ class Header extends Component {
     render() {
         return (
             <div className="Head">
-                <Navbar color='dark' className="text-right" light style={{background:"black"}}>
+                <Navbar color='dark' className="text-right my-0 py-0" light style={{background: "#00B9EB"}}>
 
                     <Col className="text-left p-0" href="home">
                         <a href="/home" className='ml-2 p-0' style={{color: "white"}}>
-                            <img src={logo} alt="Logo" className="m-0 p-0" style={{ blockSize: "40px"}} />
+                            <img src={logo} alt="Logo" className="m-0 p-0" style={{ blockSize: "70px"}} />
                             {/*<b style={{ fontSize: "70px" }}>Subastas en Web</b>*/}
                         </a>
                     </Col>
@@ -58,7 +58,7 @@ class Header extends Component {
                         null
                     }
                     <bc/>
-                    <NavbarToggler color='white' className="ml-auto navbar-toggler-right" style={{background: "info"}} onClick={this.toggle} />
+                    <NavbarToggler className="ml-auto navbar-toggler-right" style={{background: "info"}} onClick={this.toggle} />
 
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="mr-auto" navbar >

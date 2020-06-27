@@ -91,7 +91,7 @@ export default class Timer extends Component {
         if (this.props.end_hour !== '')
             console.log(typeof this.props.end_hour)
         return (
-            <Alert color={this.state.started ? "info" : "danger"} className="text-center" >
+            <Alert style={{'background': this.state.started ? "#000000" : "red", color: 'white'}} className="text-center" >
                 Tiempo restante:
                 { days === 0 && hour === 0 && minutes === 0 && seconds === 0
                     ? <h1>Finalizado!</h1>
