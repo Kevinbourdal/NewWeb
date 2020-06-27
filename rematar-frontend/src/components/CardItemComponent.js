@@ -58,7 +58,7 @@ class CardItem extends Component {
                                                 <div>
                                                     <img width={'200px'}
                                                          height={'230px'}
-                                                         className="w-100 my-1"
+                                                         className="w-100 my-auto img-hover-effect"
                                                          src={this.url_image || no_img}
                                                          alt="slide"
 
@@ -84,7 +84,7 @@ class CardItem extends Component {
                             <a href={this.href || '#'} className="text-dark" type=""><h5 className='h4-responsive'><b >{ this.title || '' }</b></h5></a>
                         </CardTitle>
                         <CardSubtitle className="my-0 h6-responsive" >
-                            <p>{ this.subtitle.toLowerCase() || '' }</p>
+                            <b className='w-responsive'>{ this.subtitle.toLowerCase() || '' }</b>
                         </CardSubtitle>
                         <CardText className="text-right">
                             <MDBIcon far icon="calendar-alt" />
