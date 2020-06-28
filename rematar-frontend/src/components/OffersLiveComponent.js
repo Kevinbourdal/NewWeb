@@ -82,11 +82,11 @@ class OffersLive extends Component {
             </tbody>)
 
         return (
-            <div className="app flex-row align-items-center">
-                <Container className="px-md-0 pl-md-4 pl-lg-4">
+            <div className="app flex-row align-items-center col-12 px-0 mx-0">
+                <Container className="px-0 pl-md-4 pl-lg-4 col-12">
                     <CardGroup>
                         <Card className="p-0 shadow">
-                            <CardBody className="text-center">
+                            <CardBody className="text-center px-sm-0 px-md-4">
                                 <Row>
                                     <Col>
                                         <h3  style={{fontSize:'60px',color:'#424242'}}><b>Ofertas</b></h3>
