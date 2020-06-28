@@ -71,11 +71,6 @@ class Footer extends Component {
                 <i className="fa fa-phone  mr-2" /> + 54 351-856975
               </a>
             </p>
-            <p>
-              <a href={"tel:+ 54 351-2475869"} style={{color: "white"}}>
-                <i className="fa fa-print  mr-2" /> + 54 351-2475869
-              </a>
-            </p>
           </MDBCol>
           </MDBRow>
         </MDBContainer>

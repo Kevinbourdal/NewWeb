@@ -64,6 +64,7 @@ class Header extends Component {
                         <Nav className="mr-auto" navbar >
                             <NavLink href="/home" className="mt-3 text-right" style={{color: "white"}} >Inicio</NavLink>
                             <NavLink href="/contact" className=" text-right" style={{color: "white"}} >Contacto</NavLink>
+                            <NavLink href="/contact" className=" text-right" style={{color: "white"}} >Quiero Subastar mi Bien</NavLink>
                             <NavLink href="/faqs" className=" text-right" style={{color: "white"}} >FaQs</NavLink>
                             <br/>
                             { this.state.isAuthenticated ?
@@ -77,9 +78,13 @@ class Header extends Component {
                                 </div>
                             }
                             <hr className='hr-bold' color='white'/>
-                            <NavLink href="/new" className="text-right" style={{color: "white"}} hidden={this.Auth.getRole() !== 'admin' || !this.Auth.loggedIn()}>
+                            <NavLink href="/new" className="text-right" style={{color: "white"}}
+                                     hidden={this.Auth.getRole() !== 'admin' || !this.Auth.loggedIn()}>
                                 <i className="fas fa-plus-circle"/> <b color='danger'>Nueva subasta</b>
                             </NavLink>
+                            <NavLink href="/accept_auction" className=" text-right" style={{color: "white"}}
+                             hidden={this.Auth.getRole() !== 'admin' || !this.Auth.loggedIn()}>Aceptar subastas</NavLink>
+
 
 
                         </Nav>
