@@ -195,11 +195,6 @@ class ToRegister extends React.Component {
                                    Debe aceptar antes de enviar.
                                 </div>
                              </div>
-                              <div className='mt-4 ml-4'>
-                                  <a style={{color:'black'}} href='/recover_password'>
-                                      Olvide mi contraseña
-                                  </a>
-                              </div>
                              <div className="text-center my-4">
                                 <MDBBtn className="ml-4 " color='info' type='submit' disabled={this.validate_pass()}>
                                     <Row>

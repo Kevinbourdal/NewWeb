@@ -122,7 +122,12 @@ class Login extends Component {
                                                     </Col>
                                                 </Row>
                                             ) : null}
-                                            <Row>
+                                            <Col>
+                                                <Row className='ml-2'>
+                                                    <a style={{color:'black'}} href='/recover_password'>
+                                                        Olvide mi contraseña
+                                                    </a>
+                                                </Row>
                                                 <Col>
                                                     <Button color="info" disabled={!this.validateForm()}>
                                                         <Row>
@@ -131,7 +136,7 @@ class Login extends Component {
                                                         </Row>
                                                     </Button>
                                                 </Col>
-                                            </Row>
+                                            </Col>
                                         </Form>
                                     </CardBody>
                                 </Card>
