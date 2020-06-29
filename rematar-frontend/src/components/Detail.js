@@ -219,7 +219,7 @@ class Detail extends Component {
                                       <MDBCarouselItem itemId={index+1} className='justify-content-center'>
                                           <Row className='justify-content-center shadow-none m-auto'
                                                style={{'width': '750px', 'height': '600px'}}
-                                          ><div className='mt-auto mb-auto'>
+                                          ><div className='mt-auto mb-auto mx-sm-auto '>
                                               <img className="d-inline-block align-content-center"
                                                    src={url['url']}
                                                    alt="slide"
@@ -355,15 +355,16 @@ class Detail extends Component {
                                                                         disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now())}
                                                                         hidden={!this.Auth.loggedIn()}>
                                                                     <Row>
-                                                                    <img src ={logo} style={{width:"60px",height:"44px"}}></img>
-                                                                    <b><h5 className='mt-2'>
+                                                                        <b><h5 className='mt-2 h5-responsive'>
+                                                                        <img src ={logo} style={{width:"45px",height:"38px"}}></img>
+
                                                                         Ofertar con ${
                                                                             // this.state.curr_price > this.state.base_price ?
                                                                             (this.state.curr_price).toFixed(2)
                                                                             // :
                                                                             // (this.state.base_price).toFixed(2)
                                                                         }
-                                                                    </h5></b>
+                                                                        </h5></b>
                                                                      </Row>
                                                                 </Button>
                                                                 <p className="text-muted"
@@ -389,7 +390,7 @@ class Detail extends Component {
                </MDBRow>
 
                 <Row className='mt-5 pl-2'>
-                    <Col className='col-6 rounded-lg' style={{'background': '#000000'}}>
+                    <Col className='col-md-6 col-sm-12 rounded-lg' style={{'background': '#000000'}}>
                         <h5 className='mt-3 text-white'>Subasta</h5>
                         <hr className='white mb-2'/>
                         <h6 className='mt-2 mb-4 text-left'>
@@ -414,7 +415,7 @@ class Detail extends Component {
                <hr/>
 
                <MDBRow className="mt-5">
-                   <MDBCol>
+                   <MDBCol className='col-12 px-0 mx-0'>
                       <OffersLive update_price={this.update_price}/>
                    </MDBCol>
                </MDBRow>
