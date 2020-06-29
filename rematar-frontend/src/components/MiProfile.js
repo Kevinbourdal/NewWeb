@@ -108,10 +108,7 @@ class MiProfile extends React.Component {
                                                 />
                                             </MDBCol>
                                         </MDBRow>
-                                        <p className="text-muted">
-                                            Subastas en web
-                                        </p>
-                                        <h2 className="mt-5 ">
+                                        <h2 className="mt-3 ">
                                             Datos Personales
                                         </h2>
                                     </MDBContainer>

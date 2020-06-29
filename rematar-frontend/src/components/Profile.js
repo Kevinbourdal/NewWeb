@@ -110,11 +110,17 @@ render() {
                 <MDBListGroupItem><i className="text-muted" >Direccion: </i>{this.state.address}</MDBListGroupItem>
                 <MDBListGroupItem><i className="text-muted" >Provinica: </i>{this.state.province}</MDBListGroupItem>
                 <MDBListGroupItem><i className="text-muted" >Telefono: </i>{this.state.phone}</MDBListGroupItem>
-            </MDBCardBody>
+                 <div className='ml-2 mt-3'>
+                     <a style={{color:'black'}} href='/change_password' >
+                        * Cambiar contraseña
+                     </a>
+                 </div>
+             </MDBCardBody>
+
           </MDBCard>
      </MDBCol>
    <MDBCol className=" mt-2 col-9 " >
-       <MDBCard >
+       <MDBCard>
          <MDBCardBody className="" style={{ width: '100%' }} >
              <h5>Ofertas activas</h5>
              <hr />

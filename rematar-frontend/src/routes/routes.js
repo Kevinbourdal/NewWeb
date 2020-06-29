@@ -8,6 +8,8 @@ import Profile from "../components/Profile";
 import Faqs from "../components/Faqs";
 import MiProfile from "../components/MiProfile";
 import AcceptAuctions from "../components/AcceptAuctions";
+import RecoverPassword from "../components/RecoverPassword";
+import ChangePassword from "../components/ChangePassword";
 
 const routes = [
     { path: '/login', name: 'Login', component: LoginForm },
@@ -22,7 +24,9 @@ const routes = [
     { path: '/new', name: 'New', component: AddCards },
     { path: '/faqs', name: 'Faqs', component: Faqs },
     { path: '/mi_perfil', name: 'MiProfile', component: MiProfile},
-    { path: '/accept_auction', name: 'AcceptAuctions', component: AcceptAuctions}
+    { path: '/accept_auction', name: 'AcceptAuctions', component: AcceptAuctions},
+    { path: '/recover_password', name: 'RecoverPassword', component: RecoverPassword},
+    { path: '/change_password', name: 'ChangePassword', component: ChangePassword}
 ];
 
 export default routes;

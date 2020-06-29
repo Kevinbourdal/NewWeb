@@ -108,10 +108,7 @@ class ToRegister extends React.Component {
                                 />
                              </MDBCol>
                           </MDBRow>
-                          <p className="text-muted">
-                             Subastas en web
-                          </p>
-                          <h2 className="mt-5 ">
+                          <h2 className="mt-2 ">
                              Registrarse
                           </h2>
                        </MDBContainer>
@@ -188,7 +185,7 @@ class ToRegister extends React.Component {
                                    id='invalidCheck'
                                    required
                                 />
-                                <label className='custom-control-label' htmlFor='invalidCheck'>
+                                <label className='custom-control-label ml-2' htmlFor='invalidCheck'>
                                     <TermsAndConditions toggle={this.toggle2} modal={this.state.modal2} />
                                     <a style={{textDecorationLine : 'underline'}} onClick={this.toggle2}>
                                         Terminos y condiciones
@@ -198,6 +195,11 @@ class ToRegister extends React.Component {
                                    Debe aceptar antes de enviar.
                                 </div>
                              </div>
+                              <div className='mt-4 ml-4'>
+                                  <a style={{color:'black'}} href='/recover_password'>
+                                      Olvide mi contraseña
+                                  </a>
+                              </div>
                              <div className="text-center my-4">
                                 <MDBBtn className="ml-4 " color='info' type='submit' disabled={this.validate_pass()}>
                                     <Row>
