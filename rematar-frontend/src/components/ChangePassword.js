@@ -7,19 +7,24 @@ import logos from '../img/logosubastas.png';
 import config from "../config";
 import TermsAndConditions from "./TermsAndConditions";
 import ModalPage from "./Moddal";
+import AuthService from "../utils/AuthService";
 
 class ChangePassword extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
             password: '',
+            email: '',
             repeat_pass:'',
             modal2: false,
             modal: false,
             modal_ok: true,
-            modal_msg: ''
+            modal_msg: '',
+            new_user: false
         };
         this.validate_pass = this.validate_pass.bind(this);
+        this.Auth = new AuthService();
+        this.username = this.Auth.getUsername();
         this.toggle = this.toggle.bind(this)
         this.toggle2 = this.toggle2.bind(this)
     }
@@ -46,6 +51,7 @@ class ChangePassword extends React.Component {
             modal2: !this.state.modal2
         });
     }
+
     submitHandler = event => {
 
         event.target.className += ' was-validated';
@@ -57,9 +63,10 @@ class ChangePassword extends React.Component {
                 headers: {
                     Accept: 'application/json',
                 },
-                method: 'POST',
+                method: 'PUT',
                 body: JSON.stringify({
-                    ...this.state
+                    ...this.state,
+                    username: this.username
                 })
             }
         ).then(data => {
@@ -119,7 +126,7 @@ class ChangePassword extends React.Component {
                                                 type='password'
                                                 id='materialFormRegisterPasswordEx4'
                                                 name='password'
-                                                label='Contraseña'
+                                                label='Nueva Contraseña'
                                                 outline
                                                 required
 

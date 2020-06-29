@@ -74,6 +74,29 @@ class AccountView (BaseView):
         self.account_schema = AccountSchema()
         self.accounts_schema = AccountSchema(many=True)
 
+    def put(self):
+        json_data, error = get_data(request)
+        if not error:
+            try:
+                account = AccountModel.query.filter_by(username=json_data['username']).first()
+                user = UserModel.query.filter_by(account_id=account.id).first()
+                user_data = self.account_schema.load(({'username': json_data['username'],
+                                                       'email': json_data['email'],
+                                                       'password': json_data['password'],
+                                                       'role_id': 3,  # common user
+                                                       }))
+            except marshmallow.exceptions.ValidationError as errors:
+                print('error', errors)
+                return response(400, str(errors))
+
+            account.password = user_data['password']
+
+            error = user.save()
+            if not error:
+                return response(200, data={'id': user.id})
+
+        return response(400, msg="Error en backend")
+
     def post(self):
         json_data, error = get_data(request)
         if not error:
@@ -106,7 +129,6 @@ class UserView(BaseView):
         self.users_schema = UserSchema(many=True)
 
     def get(self):
-        a = request
         username = request.args.get('username', None)
         if username is not None:
             account = AccountModel.query.filter_by(username=username).first()
