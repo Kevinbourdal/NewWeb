@@ -30,7 +30,7 @@ class BaseApp extends Component {
     }
 
     internalLogout(path) {
-        this.setState( {userHasAuthenticated: false});
+        // this.setState( {userHasAuthenticated: false});
         this.Auth.logout();
         this.props.history.push(path);
     }
