@@ -90,10 +90,11 @@ class AddCards extends Component {
                  })
              }
          ).then(data => {
-            if (data.status !== 200)
-                 this.setState({
-                     modal_ok: !this.state.modal_ok
+            if (data.status !== 200) {
+                this.setState({
+                    modal_ok: !this.state.modal_ok
                 })
+            }
             return data.json()
      }
          ).then(res => {this.toggle()}
