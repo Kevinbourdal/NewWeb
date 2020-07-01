@@ -176,8 +176,8 @@ class ContactModel(ModelBase, db.Model):
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
     fullname = db.Column('fullname', db.String(255), unique=False)
     email = db.Column('email', db.String(255), unique=False)
-    cel_phone = db.Column('phone', db.String(100), nullable=True)
-    body = db.Column('body', db.String(1000), nullable=True)
+    cel_phone = db.Column('phone', db.String(30), nullable=True)
+    body = db.Column('body', db.String(10000), nullable=True)
 
     def __init__(self, fullname, cel_phone, body, email):
         super(ContactModel, self).__init__()
@@ -208,7 +208,7 @@ class AuctionModel(ModelBase, db.Model):
     __tablename__ = 'auction'
 
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
-    title = db.Column('title', db.String(50), unique=False)
+    title = db.Column('title', db.String(100), unique=False)
     subtitle = db.Column('subtitle', db.String(256), unique=False, nullable=True)
     category = db.Column('category', db.String(256), unique=False)  # Categorias definidas por nosotros
     base_price = db.Column('base_price', db.Float(precision=2), unique=False)
@@ -254,7 +254,7 @@ class ItemModel(ModelBase, db.Model):
     auction_id = db.Column('auction_id', db.ForeignKey('auction.id', ondelete='CASCADE'), nullable=False)
     item_category = db.Column('item_category', db.String(256), unique=False)  # Categorias definidas por usuarios
     description = db.Column('description', db.String(256), unique=False)
-    province = db.Column('province', db.String(256), unique=False)
+    province = db.Column('province', db.String(1000), unique=False)
     city = db.Column('city', db.String(256), unique=False)
     address = db.Column('address', db.String(256), unique=False)
 
@@ -280,7 +280,7 @@ class UrlImageModel(ModelBase, db.Model):
 
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
     item_id = db.Column('item_id', db.ForeignKey('item.id', ondelete='CASCADE'), nullable=False)
-    url = db.Column('url', db.String(256), unique=False)
+    url = db.Column('url', db.String(2048), unique=False)
 
     def __init__(self, url):
         self.url = url

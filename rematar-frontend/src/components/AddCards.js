@@ -23,7 +23,7 @@ class AddCards extends Component {
                 start_hour: '',
                 end_date: '',
                 end_hour: '',
-                category: '',
+                category: 'Vehiculo',
                 item_category: '',
                 description: '',
                 province: '',

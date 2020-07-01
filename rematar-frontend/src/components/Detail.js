@@ -220,7 +220,7 @@ class Detail extends Component {
                         <MDBView hover rounded className="mb-4 mt-0 shadow-none">
                            <MDBCarousel activeItem={1} length={this.state.url_images.length}
                                         showControls={true}  showIndicators={true} thumbnails={true}
-                                        className="w-100">
+                                        className="w-100" >
                                <MDBCarouselInner style={{backgroundColor:'#F5F5F5'}}>
                                   {this.state.url_images.map((url, index) =>
                                       <MDBCarouselItem itemId={index+1} className='justify-content-center'>
