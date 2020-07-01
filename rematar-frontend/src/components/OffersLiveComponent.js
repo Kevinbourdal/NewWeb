@@ -46,7 +46,7 @@ class OffersLive extends Component {
                             <th className="ml-5">{index+1}</th>
                             <td className="ml-5 ">{offer['fname']}</td>
                             <td className="ml-5">{offer['lname']}</td>
-                            <td className="ml-5"><b>{offer['amount']}</b></td>
+                            <td className="ml-5"><b>{offer['amount'].toLocaleString()}</b></td>
                             <td className="ml-5">{offer['date']}</td>
                             <td className="ml-5">{offer['hour']}</td>
                             <td className="ml-5">+{offer['diff']}</td>
@@ -56,7 +56,7 @@ class OffersLive extends Component {
                             <th className="ml-5">{index+1}</th>
                             <td className="ml-5">{offer['fname']}</td>
                             <td className="ml-5">{offer['lname']}</td>
-                            <td className="ml-5"><b>{offer['amount']}</b></td>
+                            <td className="ml-5"><b>{offer['amount'].toLocaleString()}</b></td>
                             <td className="ml-5">{offer['date']}</td>
                             <td className="ml-5">{offer['hour']}</td>
                             <td className="ml-5">+{offer['diff']}</td>

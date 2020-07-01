@@ -149,7 +149,7 @@ class CardGallery extends Component {
                                                     <div className="p-2 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}
-                                                                  footer={' hasta ' + data['end_date']}  //TODO: Dar formato a la fecha
+                                                                  footer={' hasta  ' + data['end_date']}  //TODO: Dar formato a la fecha
                                                                   href={'/detail/' + data['id']}
                                                                   url_image={data['url_image']}  //TODO: cargar images desde la api
                                                         />
@@ -179,7 +179,7 @@ class CardGallery extends Component {
                                                     <div className="pt-3 pb-3 mr-0 ml-0">
                                                         <CardItem title={data['title']}
                                                                   subtitle={data['subtitle']}
-                                                                  footer={'desde '+data['start_date']}  //TODO: Dar formato a la fecha
+                                                                  footer={'desde '+ data['start_date']}  //TODO: Dar formato a la fecha
                                                                   href={'/detail/' + data['id']}
                                                                   url_image={data['url_image']}  //TODO: cargar images desde la api
                                                         />

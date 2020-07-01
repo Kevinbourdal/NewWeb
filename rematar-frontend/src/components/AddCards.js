@@ -184,6 +184,7 @@ class AddCards extends Component {
     //     this.setState({ [event.target.name]: event.target.value });
     // };
 
+
  render() {
    return (
        <div  className="app flex-row align-items-center mt-4">
@@ -213,7 +214,8 @@ class AddCards extends Component {
                                        <InputField name={"base_price"} label={"Precio base"} type={"number"} value={this.state.base_price} change={this.handleInputChange}/>
                                    </div>
                                    <div className="form-group">
-                                       <InputField name={"market_price"} label={"Precio de mercado"} type={"number"} value={this.state.market_price} change={this.handleInputChange}/>
+                                       <InputField name={"market_price"} label={"Precio de mercado"}
+                                                   type={"number"} value={this.state.market_price}  change={this.handleInputChange}/>
                                    </div>
                                    <Row>
                                        <Col>

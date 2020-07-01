@@ -1,5 +1,5 @@
 import random
-
+from datetime import datetime as dt
 import marshmallow
 from flask import request
 from flask_restful import Resource
@@ -79,21 +79,15 @@ class AccountView (BaseView):
         if not error:
             try:
                 account = AccountModel.query.filter_by(username=json_data['username']).first()
-                user = UserModel.query.filter_by(account_id=account.id).first()
-                user_data = self.account_schema.load(({'username': json_data['username'],
-                                                       'email': json_data['email'],
-                                                       'password': json_data['password'],
-                                                       'role_id': 3,  # common user
-                                                       }))
             except marshmallow.exceptions.ValidationError as errors:
                 print('error', errors)
                 return response(400, str(errors))
 
-            account.password = user_data['password']
-
-            error = user.save()
-            if not error:
-                return response(200, data={'id': user.id})
+            if account is not None:
+                account.password = json_data['password']
+                error = account.save()
+                if not error:
+                    return response(200, data={'id': account.id})
 
         return response(400, msg="Error en backend")
 
@@ -291,7 +285,7 @@ class OfferView(BaseView):
             for offer in offers:
                 account = AccountModel.query.filter_by(id=offer['account_id']).first()
                 user = UserModel.query.filter_by(account_id=offer['account_id']).first()
-
+                offer['date'] = dt.strptime(offer['date'], '%m/%d/%Y').strftime('%d-%m-%Y')
                 offer['fname'] = user.firstname if user is not None else 'xxx'
                 offer['lname'] = user.lastname if user is not None else 'xxx'
                 offer['diff'] = 0.05  # TODO: esto esta al pedo
@@ -370,7 +364,9 @@ class AuctionView(BaseView):
                     continue
                 url = UrlImageModel.query.filter_by(item_id=item.id).first()
                 auction['url_image'] = url.url if url is not None else None  # En el front esta una imagen por defecto
-                if validate_dates(auction['start_date']):
+                auction['start_date'] = dt.strptime(auction['start_date'], '%Y-%m-%d').strftime('%d-%m-%Y')
+                auction['end_date'] = dt.strptime(auction['end_date'], '%Y-%m-%d').strftime('%d-%m-%Y')
+                if validate_dates(auction['start_date'], date_format='%d-%m-%Y'):
                     result['started'].append(auction)
                 else:
                     result['future'].append(auction)
@@ -419,9 +415,9 @@ class NewAuctionView(BaseView):
                                                'base_price': auction.base_price,
                                                'market_price': auction.market_price,
                                                'currency': auction.currency,
-                                               'start_date': str(auction.start_date),
+                                               'start_date': auction.start_date.strftime('%d-%m-%Y'),
                                                'start_hour': str(auction.start_hour),
-                                               'end_date': str(auction.end_date),
+                                               'end_date': auction.end_date.strftime('%d-%m-%Y'),
                                                'end_hour': str(auction.end_hour),
                                                'category': auction.category,
                                                'item_category': item.item_category,
@@ -734,8 +730,8 @@ class OfferUserView(BaseView):
                     'auction': auction.title,
                     'auction_id': offer.auction_id,
                     'date': str(offer.hour),
-                    'time': str(offer.date),
-                    'end_date': str(auction.end_date),
+                    'time': offer.date.strftime('%d-%m-%Y'),
+                    'end_date': auction.end_date.strftime('%d-%m-%Y'),
                 }
                 result['started'].append(row)
 
@@ -752,8 +748,8 @@ class OfferUserView(BaseView):
                     'auction': auction.title,
                     'auction_id': offer.auction_id,
                     'date': str(offer.hour),
-                    'time': str(offer.date),
-                    'end_date': str(auction.end_date),
+                    'time': offer.date.strftime('%d-%m-%Y'),
+                    'end_date': auction.end_date.strftime('%d-%m-%Y'),
                 }
                 result['finished'].append(row)
 

@@ -47,7 +47,7 @@ class Detail extends Component {
            key_values: [],
            url_images: [],
            values: [],
-           modal: false
+           modal: false,
        };
 
        this.Auth = new AuthService();
@@ -56,6 +56,7 @@ class Detail extends Component {
        this.make_offer = this.make_offer.bind(this);
        this.update_price = this.update_price.bind(this);
        this.toggle = this.toggle.bind(this);
+
   }
 
    get_detail() {
@@ -109,7 +110,6 @@ class Detail extends Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
-
             this.toggle()}
         ).then(res => {
                 // this.get_detail();
@@ -287,9 +287,9 @@ class Detail extends Component {
                                                                 <h3><b>Precio Actual</b></h3>
                                                                 <h1 className="text-center" style={{color:'black'}} >
                                                                     $ { this.state.curr_price === this.state.base_price ?
-                                                                    this.state.curr_price
+                                                                    this.state.curr_price.toLocaleString()
                                                                         :
-                                                                    (this.state.curr_price / config.PRICE_INCREASE).toFixed(2) }
+                                                                    (this.state.curr_price / config.PRICE_INCREASE).toLocaleString() }
                                                                 </h1>
                                                             </Col>
                                                         </Row>
@@ -318,7 +318,7 @@ class Detail extends Component {
                                                             <Col>
                                                                 <h6><b style={{textDecorationLine : 'underline'}}>Precio Base</b></h6>
                                                                 <h4 className="rounded-pill text-center" style={{color:'black'}} >
-                                                                    $ { this.state.base_price }
+                                                                    $ { this.state.base_price.toLocaleString() }
                                                                 </h4>
                                                             </Col>
                                                             <Col>
@@ -356,11 +356,11 @@ class Detail extends Component {
                                                                         hidden={!this.Auth.loggedIn()}>
                                                                     <Row>
                                                                         <b><h5 className='mt-2 h5-responsive'>
-                                                                        <img src ={logo} style={{width:"45px",height:"38px"}}></img>
+                                                                        <img src ={logo} style={{width:"45px",height:"38px"}}/>
 
                                                                         Ofertar con ${
                                                                             // this.state.curr_price > this.state.base_price ?
-                                                                            (this.state.curr_price).toFixed(2)
+                                                                            this.state.curr_price.toLocaleString()
                                                                             // :
                                                                             // (this.state.base_price).toFixed(2)
                                                                         }
@@ -394,8 +394,8 @@ class Detail extends Component {
                         <h5 className='mt-3 text-white'>Subasta</h5>
                         <hr className='white mb-2'/>
                         <h6 className='mt-2 mb-4 text-left'>
-                            <p className='my-1'><b className='text-white'>Base $ { this.state.base_price }</b></p>
-                            <p><b className='text-white' >Valor de Mercado $ { this.state.market_price }</b></p>
+                            <p className='my-1'><b className='text-white'>Base $ { this.state.base_price.toLocaleString() }</b></p>
+                            <p><b className='text-white' >Valor de Mercado $ { this.state.market_price.toLocaleString() }</b></p>
                         </h6>
                     </Col>
                 </Row>
