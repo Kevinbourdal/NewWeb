@@ -582,6 +582,7 @@ class AuctionDetailView(BaseView):
                 auction = self.auction_schema.dump(auction)
                 item = self.item_schema.dump(item)
 
+                auction['title'] = auction['title'].title()
                 item['province'] = item['province'].title()
                 item['city'] = item['city'].title()
                 item['address'] = item['address'].title()
