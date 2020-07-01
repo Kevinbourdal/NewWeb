@@ -52,20 +52,26 @@ class CardItem extends Component {
                     <CardHeader className="m-0 p-0" style={{maxWidth: '576px',height: '230px'}}>
                         {/*<Row className="position-static" style={{width: '350px', height: '350px'}}>*/}
                         {/*    <Col>*/}
-                                <MDBCarousel activeItem={1} length={0} showControls={false} showIndicators={false} thumbnails className="w-100">
-                                    <MDBCarouselInner  >
-                                            <MDBCarouselItem itemId={1} className='justify-content-center' style={{height: '230px', backgroundColor:'#F5F5F5'}}>
-                                                <div className='m-auto justify-content-center shadow-sm'
+                                <MDBCarousel activeItem={1} length={0} showControls={false} showIndicators={false} thumbnails
+                                             className="w-100 ">
+                                    <MDBCarouselInner style={{backgroundColor:'white'}}>
+                                            <MDBCarouselItem itemId={1} className='justify-content-center'>
+                                                <Row className='justify-content-center m-auto'
                                                      style={{'width': '200px', 'height': '230px'}}
-                                                >
-                                                    <img width={'200px'}
-                                                         height={'230px'}
-                                                         className="w-100 my-auto img-hover-effect"
+                                                 >
+                                                    <div className='mt-auto mb-auto mx-sm-auto shadow-sm'>
+                                                    <img className="w-100 my-auto img-hover-effect"
                                                          src={this.url_image || no_img}
                                                          alt="slide"
-
+                                                         style={{
+                                                             'max-width': '200px',
+                                                             'max-height': '230px',
+                                                             'min-width': '100px',
+                                                             'min-height': '100px',
+                                                         }}
                                                     />
                                                 </div>
+                                                </Row>
 
                                             </MDBCarouselItem>
                                         {/*    TODO:  Agregar Caption con descripcion de la foto    */}
