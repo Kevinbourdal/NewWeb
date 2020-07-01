@@ -13,6 +13,9 @@ class OffersLive extends Component {
         this.Auth = new AuthService();
         this.get_table_data = this.get_table_data.bind(this);
         this.get_table_data();
+        if (this.state.offers.length > 0)
+            this.update_price(this.state['offers'][0]['amount'])
+
     }
 
     get_table_data() {
@@ -37,7 +40,6 @@ class OffersLive extends Component {
     };
 
     render() {
-
         let data_table = this.state.offers.map((offer, index) => {
             return (
                 <tbody>

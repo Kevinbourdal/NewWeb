@@ -106,7 +106,7 @@ class Detail extends Component {
                     'username': this.username,
                     'amount': (this.state.curr_price).toFixed(2),
                     'hour': date.getHours()+':'+date.getMinutes(),  //+':'+date.getSeconds()
-                    'date': date.getDay()+'-'+date.getMonth()+'-'+date.getFullYear()
+                    'date': date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear()
                 })
             }
         ).then(data => {return data.json()}
