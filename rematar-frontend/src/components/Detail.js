@@ -82,7 +82,7 @@ class Detail extends Component {
                'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
                'url_images': res['data']['url_images'],
                'values': res['data']['values'].map((value) => value['value']),
-               'curr_price': res['data']['curr_price'] !== res['data']['auction']['base_price'] ?
+               'curr_price': res['data']['curr_price'] !== -1 ?
                    config.PRICE_INCREASE * res['data']['curr_price'] : res['data']['auction']['base_price']
            })
            }
@@ -109,7 +109,7 @@ class Detail extends Component {
                     'username': this.username,
                     'amount': (this.state.curr_price).toFixed(2),
                     'hour': date.getHours()+':'+date.getMinutes(),  //+':'+date.getSeconds()
-                    'date': date.getDay()+'-'+date.getMonth()+'-'+date.getFullYear()
+                    'date': date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear()
                 })
             }
         ).then(data => {return data.json()}
