@@ -122,7 +122,7 @@ class HomePage extends Component {
                                 <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
                                     <Container className="mt-4">
                                         <Row className="d-sm-block">
-                                            <h1 className="w-100 text-dark">Encontra las mejores inversiones</h1>
+                                            <h1 className="w-100 text-dark">Encontrá las mejores inversiones</h1>
                                         </Row>
                                         <MDBContainer  className=" my-5">
                                             <MDBFormInline className="md-form mt-5 ml-5">
