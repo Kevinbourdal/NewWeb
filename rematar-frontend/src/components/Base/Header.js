@@ -55,8 +55,11 @@ class Header extends Component {
                             </NavbarBrand>
                         </NavLink>
                         :
-                        null
-                    }
+                        <div className='row mr-2'>
+                            <NavLink  href="/login" className="text-right custom-control" style={{color: "white"}}>Login</NavLink>
+                            <NavLink href="/register" className="text-right" style={{color: "white"}} >Registrarse</NavLink>
+                        </div>
+                            }
                     <bc/>
                     <NavbarToggler className="ml-auto navbar-toggler-right" style={{background: "info"}} onClick={this.toggle} />
 
@@ -72,10 +75,7 @@ class Header extends Component {
                                     <i className="fas fa-times-circle"/><b> Logout </b>
                                 </NavLink>
                                 :
-                                <div>
-                                    <NavLink href="/login" className="text-right " style={{color: "white"}}>Login</NavLink>
-                                    <NavLink href="/register" className="text-right" style={{color: "white"}} >Registrarse</NavLink>
-                                </div>
+                                null
                             }
                             <hr className='hr-bold' color='white'/>
                             <NavLink href="/new" className="text-right" style={{color: "white"}}
@@ -84,9 +84,6 @@ class Header extends Component {
                             </NavLink>
                             <NavLink href="/accept_auction" className=" text-right" style={{color: "white"}}
                              hidden={this.Auth.getRole() !== 'admin' || !this.Auth.loggedIn()}>Aceptar subastas</NavLink>
-
-
-
                         </Nav>
                     </Collapse>
                 </Navbar>

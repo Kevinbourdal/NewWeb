@@ -87,11 +87,11 @@ export default class Timer extends Component {
     }
 
     render() {
-        const { days, hour, minutes, seconds } = this.state;
+        const  { days, hour, minutes, seconds } = this.state;
         return (
             <Alert style={{'background': this.state.started ? "#000000" : "red", color: 'white'}} className="text-center" >
                 Tiempo restante:
-                { days === 0 && hour === 0 && minutes === 0 && seconds === 0
+                { days <= 1
                     ? <h1>Finalizado!</h1>
                     : <h4 className="text-black mx-0">{days} dias - {hour}:{minutes < 10? `0${minutes}`:minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
                 }

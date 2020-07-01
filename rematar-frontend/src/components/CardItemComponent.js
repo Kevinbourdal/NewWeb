@@ -56,9 +56,10 @@ class CardItem extends Component {
                                     <MDBCarouselInner  >
                                             <MDBCarouselItem itemId={1} className='justify-content-center' style={{height: '230px', backgroundColor:'#F5F5F5'}}>
                                                 <div className='m-auto justify-content-center shadow-sm'
-                                                     style={{'width': '200px', 'height': '230px'}}
+                                                     style={{maxWidth: '240px', 'height': '230px'}}
                                                 >
-                                                    <img width={'200px'}
+                                                    <img
+                                                         width={'240px'}
                                                          height={'230px'}
                                                          className="w-100 my-auto img-hover-effect"
                                                          src={this.url_image || no_img}

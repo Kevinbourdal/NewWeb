@@ -257,7 +257,7 @@ class AddCards extends Component {
                                        <InputField name={"item_category"} label={"Categoria especifica"} type={"text"} value={this.state.item_category} change={this.handleInputChange}/>
                                    </div>
                                    <div className="form-group">
-                                       <InputField name={"description"} label={"Descripcion"} type={"textarea"} value={this.state.description} change={this.handleInputChange}/>
+                                       <InputField maxlength={'999'} name={"description"}  style={{maxlength:'1000'}} label={"Descripcion"} type={"textarea"} value={this.state.description} change={this.handleInputChange}/>
                                    </div>
                                    <div className="form-group">
                                        <Label>Provincia</Label>
