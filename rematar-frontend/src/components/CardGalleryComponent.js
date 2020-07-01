@@ -86,7 +86,6 @@ class CardGallery extends Component {
                 })
             }
         ).catch(e => {
-            alert(e)
                 console.log(e);
                 // this.props.history.push('/mi_perfil');
             }
@@ -126,7 +125,6 @@ class CardGallery extends Component {
 
 
     render() {
-        // alert(this.category)
         return (
             <div>
                 {this.props.in_detail ?

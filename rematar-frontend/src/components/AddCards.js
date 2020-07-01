@@ -23,13 +23,14 @@ class AddCards extends Component {
                 start_hour: '',
                 end_date: '',
                 end_hour: '',
-                category: '',
+                category: 'Vehiculo',
                 item_category: '',
                 description: '',
                 province: '',
                 city: '',
                 address: '',
                 url_images: [],
+                url_aux: '',
                 key_value: [],
                 values: [],
                 value2_aux: '',
@@ -291,7 +292,13 @@ class AddCards extends Component {
                                                   ft={"Pegar url a imagen"}/>
                                            </Col>
                                            <Col className="mt-4 p-0 ml-5 ">
-                                               <button className="btn btn-primary" onClick={this.handleDataAdd3} type="button">Agregar</button>
+                                               <button className="btn btn-primary"
+                                                       onClick={this.handleDataAdd3}
+                                                       type="button"
+                                                       disabled={this.state.url_aux === ''}
+                                               >
+                                                   Agregar
+                                               </button>
                                            </Col>
                                        </Row>
 
@@ -323,7 +330,13 @@ class AddCards extends Component {
                                                <InputField name={"value_aux"} value={this.state.value_aux} label={"Info"} type={"text"} change={this.handleInputChange}/>
                                             </Col>
                                            <Col className="mt-5 p-0 ml-5 ">
-                                               <button className="btn btn-primary mr-0" onClick={this.handleDataAdd} type="button">Agregar</button>
+                                               <button className="btn btn-primary mr-0"
+                                                       onClick={this.handleDataAdd}
+                                                       type="button"
+                                                       disabled={this.state.key_aux === '' || this.state.value_aux === ''}
+                                               >
+                                                   Agregar
+                                               </button>
                                            </Col>
                                        </Row>
                                        <ListGroup variant="flush" className="mb-4">
@@ -366,7 +379,9 @@ class AddCards extends Component {
                                        <Col className="mt-4 p-0 ml-5 ">
                                            <button className="btn btn-primary"
                                                    onClick={this.handleDataAdd4}
-                                                   type="button">
+                                                   type="button"
+                                                   disabled={this.state.value2_aux === ''}
+                                           >
                                                Agregar
                                            </button>
                                        </Col>

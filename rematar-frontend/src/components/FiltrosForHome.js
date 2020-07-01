@@ -79,7 +79,12 @@ class FiltrosForHome extends Component{
                             <Row>
                                 <MDBIcon className='mt-1' icon={this.state.icons[key]} style={{color: '#000000'}}/>
                                 <h4 className="ml-1 ">
-                                    <a href={'/home/'+key} className={this.props.category === key ? 'text-info':'text-dark'}>{key}</a>
+                                    {key === 'Localidades' || key === 'Provincias' ?
+                                        <a href={'#'} className={this.props.category === key ? 'text-info':'text-dark'}>{key}</a>
+                                        :
+                                        <a href={'/home/'+key} className={this.props.category === key ? 'text-info':'text-dark'}>{key}</a>
+                                    }
+
                                 </h4>
                             </Row>
                             <Row>
@@ -92,8 +97,9 @@ class FiltrosForHome extends Component{
                             <h6 className='text-dark' >
                               <a className='text-dark'
                                  // style={{color: this.state.filters_selected[index] ? 'black' : 'white'}}
-                                name={value[0]}
+                                 name={value[0]}
                                  onClick={e => this.add_filter(key, e)}
+
                               >
                                   {value[0]} <small>({value[1]})</small>
                              {/*TODO: agregar eso  */}
