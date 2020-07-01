@@ -168,7 +168,7 @@ class HomePage extends Component {
                     :
                     <div>
                         <h1 className="text-center mt-3 w-100" hidden={this.category===''}>{ this.category }s</h1>
-                        <CardGallery auctions={this.state.auctions}/>
+                        <CardGallery auctions={this.state.auctions} in_detail={false}/>
                     </div>
                 }
 

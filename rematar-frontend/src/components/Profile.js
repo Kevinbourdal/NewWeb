@@ -7,7 +7,7 @@ import {
     MDBCardTitle,
     MDBCol,
     MDBListGroupItem,
-    MDBTable,
+    MDBTable, MDBIcon,
 } from 'mdbreact';
 import { ofertas } from "../data/ofertasenvivo";
 import AuthService from "../utils/AuthService";
@@ -99,7 +99,9 @@ render() {
              <MDBCardImage className="img-fluid ml-3" src="https://www.rasoyasociados.com/se/wp-content/uploads/2018/01/sin-imagen-2.png" />
              <MDBCardBody className="col-12">
                 <MDBRow>
-                    <MDBCol><MDBCardTitle >Perfil</MDBCardTitle></MDBCol>
+                    <MDBCol><MDBCardTitle>
+                        <MDBIcon className='mt-1' icon={'id-card'} style={{color: '#000000'}}/> Perfil
+                    </MDBCardTitle></MDBCol>
                     <MDBCol className='text-right'>
                         <a href='/mi_perfil' style={{color: 'black'}}><i className="far fa-edit" /></a>
                     </MDBCol>

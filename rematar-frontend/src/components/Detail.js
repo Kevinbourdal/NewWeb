@@ -19,6 +19,8 @@ import config from "../config";
 import logo from '../img/logosubastas.png'
 import ModalPage from "./Moddal";
 import {toNumber} from "reactstrap/es/utils";
+import CardGallery from "./CardGalleryComponent";
+import logos_pagos from "../img/formas_de_pago.png"
 
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
@@ -80,7 +82,8 @@ class Detail extends Component {
                'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
                'url_images': res['data']['url_images'],
                'values': res['data']['values'].map((value) => value['value']),
-               'curr_price': res['data']['auction']['base_price']
+               'curr_price': res['data']['curr_price'] !== res['data']['auction']['base_price'] ?
+                   config.PRICE_INCREASE * res['data']['curr_price'] : res['data']['auction']['base_price']
            })
            }
        ).catch(e => {
@@ -128,6 +131,7 @@ class Detail extends Component {
        this.setState({
            curr_price: price * config.PRICE_INCREASE
        })
+        alert(this.state.curr_price)
     }
 
     toggle = (e) => {
@@ -167,7 +171,8 @@ class Detail extends Component {
           <div >
               <div className='mx-5 px-4'>
                   <Breadcrumb className='mt-4' tag="div" listTag="div">
-                      <h5 >
+                      <h6 >
+                          <Row>
                           <BreadcrumbItem className='text-dark' tag="a" href={"/home/"} >
                               Home
                           </BreadcrumbItem>
@@ -177,7 +182,8 @@ class Detail extends Component {
                           <BreadcrumbItem className='text-dark' tag="a" href="#">
                               {this.state.item_category}
                           </BreadcrumbItem>
-                      </h5>
+                          </Row>
+                      </h6>
                   </Breadcrumb>
               </div>
          <MDBCard className="mb-4 px-0 mx-auto shadow-none border-0" style={{ fontWeight: 60, maxWidth: "90%", backgroundColor:'#F5F5F5' }} >
@@ -199,7 +205,7 @@ class Detail extends Component {
                            style={{color:"black"}}
                         >
                             <h5>
-                                <i className="fas fa-map-marked-alt ml-3 mr-2"/>
+                                <i className="fas fa-map-marked-alt ml-3 mr-2" style={{color: '#00A60A'}}/>
                                 {this.state.province + ', ' +this.state.city + ', ' +this.state.address }
                             </h5>
                         </a>
@@ -288,9 +294,9 @@ class Detail extends Component {
                                                                 <h3><b>Precio Actual</b></h3>
                                                                 <h1 className="text-center" style={{color:'black'}} >
                                                                     $ { this.state.curr_price === this.state.base_price ?
-                                                                    this.state.curr_price.toLocaleString()
+                                                                    toNumber((this.state.curr_price).toFixed(2)).toLocaleString()
                                                                         :
-                                                                    (this.state.curr_price / config.PRICE_INCREASE).toLocaleString() }
+                                                                    toNumber((this.state.curr_price / config.PRICE_INCREASE).toFixed(2)).toLocaleString() }
                                                                 </h1>
                                                             </Col>
                                                         </Row>
@@ -356,15 +362,11 @@ class Detail extends Component {
                                                                         disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now())}
                                                                         hidden={!this.Auth.loggedIn()}>
                                                                     <Row>
-                                                                        <b><h5 className='mt-2 h5-responsive'>
-                                                                        <img src ={logo} style={{width:"45px",height:"38px"}}/>
+                                                                        <b><h5 className='mt-0 mb-0 h5-responsive'>
 
-                                                                        Ofertar con ${
-                                                                            // this.state.curr_price > this.state.base_price ?
-                                                                            toNumber((this.state.curr_price).toFixed(2)).toLocaleString()
-                                                                            // :
-                                                                            // (this.state.base_price).toFixed(2)
-                                                                        }
+                                                                            <img src ={logo} style={{width:"50px", height:"38px"}}/>
+                                                                            Ofertar con ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
+
                                                                         </h5></b>
                                                                      </Row>
                                                                 </Button>
@@ -386,6 +388,20 @@ class Detail extends Component {
                                   {/*==================   Hasta aca   ============*/}
                               </Col>
                           </Row>
+                      </div>
+                      <div className='mt-5'>
+                          <Container className="px-md-0 pl-md-4 pl-lg-4">
+                              <CardGroup>
+                                  <Card className="p-0 shadow-none border-0">
+                                      <br/>
+                                      <CardBody className="text-center pt-0">
+                                          <h4>Formas de pago</h4>
+                                          <img src={logos_pagos}  alt='Macro'/>
+
+                                      </CardBody>
+                                  </Card>
+                              </CardGroup>
+                          </Container>
                       </div>
                   </MDBCol>
                </MDBRow>
@@ -429,6 +445,11 @@ class Detail extends Component {
 
             </MDBCardBody>
          </MDBCard>
+              <hr className='my-5' />
+              <div>
+                  <CardGallery auctions={[]} in_detail={true}/>
+              </div>
+
           </div>
       );
    }

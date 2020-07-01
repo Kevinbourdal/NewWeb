@@ -2,8 +2,8 @@ img {
     opacity: 1.0;
 }
 
-img:hover {
-    opacity: .7;
+.img-hover-effect:hover {
+    opacity: .8;
 }
 
 .img-hover-effect img {
