@@ -14,8 +14,8 @@ class FiltrosForHome extends Component{
             filters_selected: [],
             icons:{'Vehiculo':'car',
                     'Inmueble':'home',
-                    'Muebles':'couch',
-                    'Otros':'circle',
+                    'Mueble':'couch',
+                    'Otro':'store',
                     'Provincias': 'location-arrow',
                     'Localidades': 'map-marker-alt'}
         }

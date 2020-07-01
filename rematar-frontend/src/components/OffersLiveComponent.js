@@ -27,8 +27,8 @@ class OffersLive extends Component {
         ).then(data => {return data.json()}
         ).then(res => {
                 this.setState({...res['data']})
-                if (res['data']['offers'].length > 0)
-                    this.update_price(res['data']['offers'][0]['amount'])
+                // if (res['data']['offers'].length > 0)
+                //     this.update_price(res['data']['offers'][0]['amount'])
             }
         ).catch(e => {
             console.log("Fail:", e);
@@ -49,7 +49,7 @@ class OffersLive extends Component {
                             <td className="ml-5"><b>{offer['amount'].toLocaleString()}</b></td>
                             <td className="ml-5">{offer['date']}</td>
                             <td className="ml-5">{offer['hour']}</td>
-                            <td className="ml-5">+{offer['diff']}</td>
+                            <td className="ml-5">{offer['diff']}</td>
                         </tr>
                     :
                         <tr className="ml-5">
@@ -59,7 +59,7 @@ class OffersLive extends Component {
                             <td className="ml-5"><b>{offer['amount'].toLocaleString()}</b></td>
                             <td className="ml-5">{offer['date']}</td>
                             <td className="ml-5">{offer['hour']}</td>
-                            <td className="ml-5">+{offer['diff']}</td>
+                            <td className="ml-5"><b className='text-success'>+</b>{offer['diff']}</td>
                         </tr>
                     }
                 </tbody>

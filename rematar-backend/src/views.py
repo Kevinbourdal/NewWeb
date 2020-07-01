@@ -128,15 +128,15 @@ class UserView(BaseView):
             account = AccountModel.query.filter_by(username=username).first()
             user = UserModel.query.filter_by(account_id=account.id).first()
             if user is not None:
-                return response(200, data={'user': {'firstname': user.firstname,
-                                                    'lastname': user.lastname,
+                return response(200, data={'user': {'firstname': user.firstname.title(),
+                                                    'lastname': user.lastname.title(),
                                                     'sex': user.sex,
                                                     'dni_type': user.dni_type,
                                                     'dni': user.dni,
                                                     'bdate': user.bdate,
-                                                    'province': user.province,
-                                                    'city': user.city,
-                                                    'address': user.address,
+                                                    'province': user.province.title(),
+                                                    'city': user.city.title(),
+                                                    'address': user.address.title(),
                                                     'phone': str(user.phone),
                                                     'mStatus': user.mStatus,
                                                     'email': account.email}})
@@ -279,15 +279,14 @@ class OfferView(BaseView):
 
     def get(self, auction_id):
         auction = AuctionModel.query.filter_by(id=auction_id).first()
-        offers = OfferModel.query.filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).limit(6)
+        offers = OfferModel.query.filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).limit(7)
         if offers is not None:
             offers = self.offers_schema.dump(offers)
             for offer in offers:
-                account = AccountModel.query.filter_by(id=offer['account_id']).first()
                 user = UserModel.query.filter_by(account_id=offer['account_id']).first()
                 # offer['date'] = dt.strptime(offer['date'], '%m/%d/%Y').strftime('%d-%m-%Y')
-                offer['fname'] = user.firstname if user is not None else 'xxx'
-                offer['lname'] = user.lastname if user is not None else 'xxx'
+                offer['fname'] = user.firstname.title() if user is not None else 'xxx'
+                offer['lname'] = user.lastname.title() if user is not None else 'xxx'
                 offer['diff'] = 0.05  # TODO: esto esta al pedo
 
             return response(200, data={'offers': offers})
@@ -409,7 +408,6 @@ class NewAuctionView(BaseView):
                     # urls = self.urlimage_schema.dump(urls)
                     # auction = self.auction_schema.dump(auction)
                     # item = self.item_schema.dump(item)
-                    print('acaa')
                     return response(200, data={'title': auction.title,
                                                'subtitle': auction.subtitle,
                                                'base_price': auction.base_price,
@@ -422,9 +420,9 @@ class NewAuctionView(BaseView):
                                                'category': auction.category,
                                                'item_category': item.item_category,
                                                'description': item.description,
-                                               'province': item.province,
-                                               'city': item.city,
-                                               'address': item.address,
+                                               'province': item.province.title(),
+                                               'city': item.city.title(),
+                                               'address': item.address.title(),
                                                'url_images': [url.url for url in urls],
                                                'key_value': [(key_value.key, key_value.value) for key_value in key_values],
                                                'values': [value.value for value in values]
@@ -566,6 +564,7 @@ class AuctionDetailView(BaseView):
         self.urlimage_schema = UrlImageSchema(many=True, unknown='EXCLUDE')
         self.keyvalue_schema = CharacteristicKeyValueSchema(many=True, unknown='EXCLUDE')
         self.value_schema = CharacteristicValueSchema(many=True, unknown='EXCLUDE')
+        self.offer_schema = OfferSchema(unknown='EXCLUDE')
 
     def get(self, auction_id):
         auction = AuctionModel.query.filter_by(id=auction_id).first()
@@ -578,14 +577,22 @@ class AuctionDetailView(BaseView):
                 urls = self.urlimage_schema.dump(urls)
                 values = CharacteristicValueModel.query.filter_by(item_id=item.id).all()
                 values = self.value_schema.dump(values)
+                offer = OfferModel.query.filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
+                offer = self.offer_schema.dump(offer)
                 auction = self.auction_schema.dump(auction)
-
                 item = self.item_schema.dump(item)
+
+                item['province'] = item['province'].title()
+                item['city'] = item['city'].title()
+                item['address'] = item['address'].title()
+
                 return response(200, data={'auction': auction,
                                            'item': item,
                                            'key_values': key_values,
                                            'url_images': urls,
-                                           'values': values})
+                                           'values': values,
+                                           'curr_price': offer['amount'] if offer is not None else auction['base_price']
+                                           })
         return response(400)
 
 
