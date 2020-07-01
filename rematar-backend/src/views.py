@@ -285,7 +285,7 @@ class OfferView(BaseView):
             for offer in offers:
                 account = AccountModel.query.filter_by(id=offer['account_id']).first()
                 user = UserModel.query.filter_by(account_id=offer['account_id']).first()
-                offer['date'] = dt.strptime(offer['date'], '%m/%d/%Y').strftime('%d-%m-%Y')
+                # offer['date'] = dt.strptime(offer['date'], '%m/%d/%Y').strftime('%d-%m-%Y')
                 offer['fname'] = user.firstname if user is not None else 'xxx'
                 offer['lname'] = user.lastname if user is not None else 'xxx'
                 offer['diff'] = 0.05  # TODO: esto esta al pedo

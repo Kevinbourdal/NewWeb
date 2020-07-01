@@ -18,6 +18,7 @@ import AuthService from "../utils/AuthService";
 import config from "../config";
 import logo from '../img/logosubastas.png'
 import ModalPage from "./Moddal";
+import {toNumber} from "reactstrap/es/utils";
 
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
@@ -105,7 +106,7 @@ class Detail extends Component {
                     'username': this.username,
                     'amount': (this.state.curr_price).toFixed(2),
                     'hour': date.getHours()+':'+date.getMinutes(),  //+':'+date.getSeconds()
-                    'date': date.toLocaleDateString(),  //getFullYear()+'-'+date.getMonth()+'-'+date.getDay(),
+                    'date': date.getDay()+'-'+date.getMonth()+'-'+date.getFullYear()
                 })
             }
         ).then(data => {return data.json()}
@@ -360,7 +361,7 @@ class Detail extends Component {
 
                                                                         Ofertar con ${
                                                                             // this.state.curr_price > this.state.base_price ?
-                                                                            this.state.curr_price.toLocaleString()
+                                                                            toNumber((this.state.curr_price).toFixed(2)).toLocaleString()
                                                                             // :
                                                                             // (this.state.base_price).toFixed(2)
                                                                         }
