@@ -253,8 +253,8 @@ class ItemModel(ModelBase, db.Model):
     id = db.Column('id', db.Integer, autoincrement=True, primary_key=True)
     auction_id = db.Column('auction_id', db.ForeignKey('auction.id', ondelete='CASCADE'), nullable=False)
     item_category = db.Column('item_category', db.String(256), unique=False)  # Categorias definidas por usuarios
-    description = db.Column('description', db.String(256), unique=False)
-    province = db.Column('province', db.String(1000), unique=False)
+    description = db.Column('description', db.String(1000), unique=False)
+    province = db.Column('province', db.String(256), unique=False)
     city = db.Column('city', db.String(256), unique=False)
     address = db.Column('address', db.String(256), unique=False)
 
