@@ -591,7 +591,7 @@ class AuctionDetailView(BaseView):
                                            'key_values': key_values,
                                            'url_images': urls,
                                            'values': values,
-                                           'curr_price': offer['amount'] if offer is not None else auction['base_price']
+                                           'curr_price': offer['amount'] if 'amount' in offer.keys() else -1
                                            })
         return response(400)
 

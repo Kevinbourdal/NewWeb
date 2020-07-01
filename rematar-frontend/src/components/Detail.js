@@ -82,7 +82,7 @@ class Detail extends Component {
                'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
                'url_images': res['data']['url_images'],
                'values': res['data']['values'].map((value) => value['value']),
-               'curr_price': res['data']['curr_price'] !== res['data']['auction']['base_price'] ?
+               'curr_price': res['data']['curr_price'] !== -1 ?
                    config.PRICE_INCREASE * res['data']['curr_price'] : res['data']['auction']['base_price']
            })
            }
