@@ -20,7 +20,7 @@ import logo from '../img/logosubastas.png'
 import ModalPage from "./Moddal";
 import {toNumber} from "reactstrap/es/utils";
 import CardGallery from "./CardGalleryComponent";
-import logo_macro from "../img/banco-macro-vector-logo.svg"
+import logos_pagos from "../img/formas_de_pago.png"
 
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
@@ -395,8 +395,8 @@ class Detail extends Component {
                                   <Card className="p-0 shadow-none border-0">
                                       <br/>
                                       <CardBody className="text-center pt-0">
-                                          <h4>Bancos</h4>
-                                          <img src={logo_macro} style={{width: '150px', height: '100px'}} alt='Macro'/>
+                                          <h4>Formas de pago</h4>
+                                          <img src={logos_pagos}  alt='Macro'/>
 
                                       </CardBody>
                                   </Card>
