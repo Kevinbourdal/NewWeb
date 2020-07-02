@@ -70,7 +70,7 @@ class ChangePassword extends React.Component {
                 })
             }
         ).then(data => {
-                if (data.status !== 200)
+                if (data.code !== 200)
                     this.setState({
                         modal_ok: !this.state.modal_ok
                     })

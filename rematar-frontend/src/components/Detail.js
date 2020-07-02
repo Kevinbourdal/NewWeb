@@ -21,6 +21,7 @@ import ModalPage from "./Moddal";
 import {toNumber} from "reactstrap/es/utils";
 import CardGallery from "./CardGalleryComponent";
 import logos_pagos from "../img/formas_de_pago.png"
+import NavFiltro from "./NavFiltro";
 
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
@@ -131,7 +132,6 @@ class Detail extends Component {
        this.setState({
            curr_price: price * config.PRICE_INCREASE
        })
-        alert(this.state.curr_price)
     }
 
     toggle = (e) => {
@@ -169,6 +169,13 @@ class Detail extends Component {
 
       return (
           <div >
+              <div id="filterbar" className='mb-5 mt-0'>
+                  <Col className="">
+                      <Row className="justify-content-center" >
+                          <NavFiltro in_detail={true} />
+                      </Row>
+                  </Col>
+              </div>
               <div className='mx-5 px-4'>
                   <Breadcrumb className='mt-4' tag="div" listTag="div">
                       <h6 >
@@ -186,8 +193,8 @@ class Detail extends Component {
                       </h6>
                   </Breadcrumb>
               </div>
-         <MDBCard className="mb-4 px-0 mx-auto shadow-none border-0" style={{ fontWeight: 60, maxWidth: "90%", backgroundColor:'#F5F5F5' }} >
 
+              <MDBCard className="mb-4 px-0 mx-auto shadow-none border-0" style={{ fontWeight: 60, maxWidth: "90%", backgroundColor:'#F5F5F5' }} >
             <MDBCardBody style={{ height:'70%',paddingTop: 0 }}>
 
                <h2 className="h1-responsive mt-0 font-weight-bold mb-3 text-center">
@@ -212,7 +219,7 @@ class Detail extends Component {
                     </h6>
                 </MDBRow>
                <MDBRow className="p-0 pl-2">
-                  <MDBCol className="m-0 p-0 col-7">
+                  <MDBCol className="m-0 p-0 col-md-8 col-sm-12">
                      <div className="m-0 p-0">
                       <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'}/>
                         <MDBView hover rounded className="mb-4 mt-0 shadow-none">
@@ -223,15 +230,15 @@ class Detail extends Component {
                                   {this.state.url_images.map((url, index) =>
                                       <MDBCarouselItem itemId={index+1} className='justify-content-center'>
                                           <Row className='justify-content-center shadow-none m-auto'
-                                               style={{'width': '750px', 'height': '600px'}}
+                                               style={{'maxWidth': '700px', 'maxHeight': '500px'}}
                                           ><div className='mt-auto mb-auto mx-sm-auto '>
-                                              <img className="d-inline-block align-content-center"
+                                              <img className="d-inline-block align-content-center img-fluid"
                                                    src={url['url']}
                                                    alt="slide"
                                                    style={{
-                                                       maxWidth: '750px',
-                                                       maxHeight: '600px',
-                                                       'min-width': '500px',
+                                                       maxWidth: '700px',
+                                                       maxHeight: '500px',
+                                                       'min-width': '400px',
                                                        'min-height': '300px',
                                                    }}
                                                    sizes=''
@@ -269,7 +276,7 @@ class Detail extends Component {
                         { DescriptionText }
                      </div>
                   </MDBCol>
-                  <MDBCol className="m-0 p-0 col-5">
+                  <MDBCol className="m-0 p-0 col-md-4 col-sm-12">
                       <div>
                           <Row>
                               <Col>
@@ -387,31 +394,19 @@ class Detail extends Component {
                               </Col>
                           </Row>
                       </div>
-                      <div className='mt-5'>
-                          <Container className="px-md-0 pl-md-4 pl-lg-4">
-                              <CardGroup>
-                                  <Card className="p-0 shadow-none border-0">
-                                      <br/>
-                                      <CardBody className="text-center pt-0">
-                                          <h4>Formas de pago</h4>
-                                          <img src={logos_pagos}  alt='Macro'/>
-
-                                      </CardBody>
-                                  </Card>
-                              </CardGroup>
-                          </Container>
-                      </div>
                   </MDBCol>
                </MDBRow>
 
-                <Row className='mt-5 pl-2'>
-                    <Col className='col-md-6 col-sm-12 rounded-lg' style={{'background': '#000000'}}>
-                        <h5 className='mt-3 text-white'>Subasta</h5>
-                        <hr className='white mb-2'/>
-                        <h6 className='mt-2 mb-4 text-left'>
-                            <p className='my-1'><b className='text-white'>Base $ { this.state.base_price.toLocaleString() }</b></p>
-                            <p><b className='text-white' >Valor de Mercado $ { this.state.market_price.toLocaleString() }</b></p>
-                        </h6>
+                <Row className='mt-5 p-0'>
+                    <Col className='col-md-8 col-sm-12' >
+                        <div className='p-2 rounded-lg' style={{'background': '#000000'}}>
+                            <h5 className='mt-3 text-white'>Subasta</h5>
+                            <hr className='white mb-2'/>
+                            <h6 className='mt-2 mb-4 text-left text-white pl-2'>
+                                <h6>Martillero: <b className='ml-2 '> Sr Sebastián Ortiz MP 21222</b></h6>
+                                <h6 className='my-2'><b className=''>Base $ { this.state.base_price.toLocaleString() }</b></h6>
+                            </h6>
+                        </div>
                     </Col>
                 </Row>
 

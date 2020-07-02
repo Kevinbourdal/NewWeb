@@ -190,6 +190,7 @@ class MiProfile extends React.Component {
                                                     ><option>sexo</option>
                                                         <option>Masculino</option>
                                                         <option>Femenino</option>
+                                                        <option>Otro+</option>
                                                     </select>
                                                 </MDBCol>
                                             </MDBRow>

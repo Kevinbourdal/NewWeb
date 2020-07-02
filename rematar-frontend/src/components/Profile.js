@@ -131,7 +131,6 @@ render() {
                    <tr className="">
                        <th><b>#</b></th>
                        <th><b>Oferta</b></th>
-                       <th><b>Puesto</b></th>
                        <th><b>Subasta</b></th>
                        <th><b>Hora</b></th>
                        <th><b>Fecha oferta</b></th>
@@ -144,7 +143,6 @@ render() {
                    <tr className="ml-5 bg-light" style={{ color: "#000000" }}>
                        <th className="ml-5">{index+1}</th>
                        <td className="ml-5 "><b>$ {offer['offer'].toLocaleString()}</b></td>
-                       <td className="ml-5">{offer['position']}</td>
                        <td className="ml-5">
                            <a href={'/detail/'+offer['auction_id']}><b>{offer['auction']}</b></a>
                        </td>
@@ -168,7 +166,6 @@ render() {
                    <tr className="">
                        <th ><b>#</b></th>
                        <th ><b>Oferta</b></th>
-                       <th><b>Puesto</b></th>
                        <th><b>Terreno</b></th>
                        <th><b>Precio final</b></th>
                        <th><b>Hora</b></th>
@@ -181,7 +178,6 @@ render() {
                            <tr className="ml-5">
                                <th className="ml-5">{index+1}</th>
                                <td className="ml-5 ">{offer['offer'].toLocaleString()}</td>
-                               <td className="ml-5">{offer['position']}</td>
                                <td className="ml-5">
                                    <a href={'/detail/'+offer['auction_id']}><b>{offer['auction']}</b></a>
                                </td>

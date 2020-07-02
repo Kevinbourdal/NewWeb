@@ -10,6 +10,7 @@ import {
     CardSubtitle,
     CardFooter,
     Button } from 'reactstrap';
+import logo from '../img/logosubastas.png'
 import './CardItemComponent.css';
 import {MDBCarousel, MDBCarouselInner, MDBIcon, MDBCarouselItem} from "mdbreact";
 
@@ -48,52 +49,39 @@ class CardItem extends Component {
 
         // TODO: setear fijo el tamaño de la imagen
         return (
-                <Card className="imagen-fluid btn m-0 p-0">
-                    <CardHeader className="m-0 p-0" style={{maxWidth: '576px',height: '230px'}}>
-                        {/*<Row className="position-static" style={{width: '350px', height: '350px'}}>*/}
-                        {/*    <Col>*/}
+                <Card className="imagen-fluid btn m-0 p-0" > {/*style={{maxHeight: '450px'}}>*/}
+                    <CardHeader className="m-0 p-0" >
+                        <MDBCarousel activeItem={1} length={0} showControls={false} showIndicators={false} thumbnails
+                                     className="w-100 ">
+                            <MDBCarouselInner style={{backgroundColor:'white'}}>
+                                    <MDBCarouselItem itemId={1} className='justify-content-center'>
+                                        <Row className='justify-content-center m-auto w-100'
+                                             style={{'height': '230px'}}
+                                         >
+                                            <div className='mt-auto mb-auto mx-sm-auto shadow-sm'>
+                                            <img className="w-100 my-auto img-hover-effect"
+                                                 src={this.url_image || no_img}
+                                                 alt="slide"
+                                                 style={{
+                                                     maxHeight: '230px',
+                                                     'min-width': '250px',
+                                                     'min-height': '230px',
+                                                 }}
+                                            />
+                                        </div>
+                                        </Row>
 
-                                <MDBCarousel activeItem={1} length={0} showControls={false} showIndicators={false} thumbnails
-                                             className="w-100 ">
-                                    <MDBCarouselInner style={{backgroundColor:'white'}}>
-                                            <MDBCarouselItem itemId={1} className='justify-content-center'>
-                                                <Row className='justify-content-center m-auto'
-                                                     style={{'width': '240px', 'height': '230px'}}
-                                                 >
-                                                    <div className='mt-auto mb-auto mx-sm-auto shadow-sm'>
-                                                    <img className="w-100 my-auto img-hover-effect"
-                                                         src={this.url_image || no_img}
-                                                         alt="slide"
-                                                         style={{
-                                                             'max-width': '240px',
-                                                             'max-height': '230px',
-                                                             'min-width': '100px',
-                                                             'min-height': '100px',
-                                                         }}
-                                                    />
-                                                </div>
-                                                </Row>
-
-                                            </MDBCarouselItem>
-                                        {/*    TODO:  Agregar Caption con descripcion de la foto    */}
-                                    </MDBCarouselInner>
-                                </MDBCarousel>
-                                {/*<UncontrolledCarousel*/}
-                                {/*    items={[{src: this.url_image, key: 0}] || [{src: no_img, key: 0}]}*/}
-                                {/*    controls={false}*/}
-                                {/*    indicators={false}*/}
-                                {/*    autoPlay={false}*/}
-                                {/*    style={{width: '350px', height: '350px'}}*/}
-                                {/*/>*/}
-                        {/*    </Col>*/}
-                        {/*</Row>*/}
+                                    </MDBCarouselItem>
+                                {/*    TODO:  Agregar Caption con descripcion de la foto    */}
+                            </MDBCarouselInner>
+                        </MDBCarousel>
                     </CardHeader>
                     <CardBody className='mb-0 pb-0'>
-                        <CardTitle className='mt-1'>
+                        <CardTitle className='mt-1' > {/*style={{height: '40px'}}*/}
                             <a href={this.href || '#'} className="text-dark" type=""><h5 className='h4-responsive'><b >{ this.title || '' }</b></h5></a>
                         </CardTitle>
-                        <CardSubtitle className="my-0 h6-responsive" >
-                            <b className='w-responsive'>{ this.subtitle.toLowerCase() || '' }</b>
+                        <CardSubtitle className="my-0 h6-responsive" > {/* style={{height: '40px'}} */}
+                            <b className='w-responsive d-inline'>{ this.subtitle.toLowerCase() || '' }</b>
                         </CardSubtitle>
                         <CardText className="text-right">
                             <MDBIcon far icon="calendar-alt" />
@@ -109,11 +97,12 @@ class CardItem extends Component {
                                 <a href={this.href || '#'}>
                                     <Button className="btn-md"
                                             color={'info'}
-                                            style={{color:'#424242'}}
+                                            style={{color:'#424 242'}}
                                     >
-                                        <Row>
+                                        <Row className='my-0 p-0'>
+                                            <img src ={logo} style={{width:"30px", height:"25px"}}/>
                                             {/*<img src ={logos} style={{width:"40px",height:"29px"}}></img>*/}
-                                            <b><h5 className='my-0 h5-responsive' unselectable={true}>Detalles</h5></b>
+                                            <b><h5 className='mt-1 mb-0 h5-responsive' unselectable={true} style={{'font-family': 'Lucida Console'}}>Detalles</h5></b>
                                         </Row>
                                     </Button>
                                 </a>

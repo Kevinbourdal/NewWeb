@@ -29,6 +29,8 @@ class OffersLive extends Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
+            console.log(res['data'])
+
                 this.setState({...res['data']})
                 // if (res['data']['offers'].length > 0)
                 //     this.update_price(res['data']['offers'][0]['amount'])
@@ -46,22 +48,19 @@ class OffersLive extends Component {
                     { index === 0 ?
                         <tr className="ml-5 info-color-dark">
                             <th className="ml-5">{index+1}</th>
-                            <td className="ml-5 ">{offer['fname']}</td>
-                            <td className="ml-5">{offer['lname']}</td>
-                            <td className="ml-5"><b>{offer['amount'].toLocaleString()}</b></td>
-                            <td className="ml-5">{offer['date']}</td>
-                            <td className="ml-5">{offer['hour']}</td>
-                            <td className="ml-5">{offer['diff']}</td>
+                            <td className="ml-5 "><b>{offer['username']}</b></td>
+                            <td className="ml-5"><b>{offer['date']}</b></td>
+                            <td className="ml-5"><b>{offer['hour']}</b></td>
+                            <td className="ml-5"><b>$ {offer['amount'].toLocaleString()}</b></td>
                         </tr>
                     :
                         <tr className="ml-5">
                             <th className="ml-5">{index+1}</th>
-                            <td className="ml-5">{offer['fname']}</td>
-                            <td className="ml-5">{offer['lname']}</td>
-                            <td className="ml-5"><b>{offer['amount'].toLocaleString()}</b></td>
+                            <td className="ml-5"><b>{offer['username']}</b></td>
                             <td className="ml-5">{offer['date']}</td>
                             <td className="ml-5">{offer['hour']}</td>
-                            <td className="ml-5"><b className='text-success'>+</b>{offer['diff']}</td>
+                            <td className="ml-5"><b>$ {offer['amount'].toLocaleString()}</b></td>
+
                         </tr>
                     }
                 </tbody>
@@ -77,9 +76,6 @@ class OffersLive extends Component {
                 <td className="ml-5">{'-'}</td>
                 <td className="ml-5">{'-'}</td>
                 <td className="ml-5"><b>{'-'}</b></td>
-                <td className="ml-5">{'-'}</td>
-                <td className="ml-5">{'-'}</td>
-                <td className="ml-5">{'-'}</td>
             </tr>
             </tbody>)
 
@@ -92,7 +88,7 @@ class OffersLive extends Component {
                                 <Row>
                                     <Col>
                                         <h3  style={{fontSize:'60px',color:'#424242'}}><b>Ofertas</b></h3>
-                                        <hr className="d-inline-block mt-0 info-color-dark" style={{ width: "200px" }} />
+                                        {/*<hr className="d-inline-block mt-0 info-color-dark" style={{ width: "200px" }} />*/}
                                     </Col>
                                 </Row>
                                 <Row className="border-default">
@@ -101,12 +97,10 @@ class OffersLive extends Component {
                                             <thead className="thead-dark text-center">
                                                 <tr className="">
                                                     <th >#</th>
-                                                    <th>Nombre</th>
-                                                    <th>Apellido</th>
-                                                    <th>Oferta</th>
+                                                    <th>Usuario</th>
                                                     <th>Fecha</th>
                                                     <th>Hora</th>
-                                                    <th>Diferencia de suba</th>
+                                                    <th>Oferta</th>
                                                 </tr>
                                             </thead>
                                               { data_table }

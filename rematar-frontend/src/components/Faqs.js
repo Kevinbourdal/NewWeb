@@ -51,7 +51,7 @@ const Faqs = () => {
   	const toggle_list = [toggle1, toggle2, toggle3]
 	const isOpen_list = [isOpen1, isOpen2, isOpen3]
 	return (
-	    <div>
+	    <div className='my-5'>
 		  {/*<Card>*/}
 	      {/*   <CardImg  src="https://segurosypensionesparatodos.fundacionmapfre.org/syp/es/images/preguntas-892x350_tcm558-548340.png" alt="Card image cap" />*/}
 			{/* <div class="card-img-overlay mt-5">*/}
@@ -60,7 +60,7 @@ const Faqs = () => {
 	      {/*</Card>*/}
 			<h1 className="text-left ml-4 mt-5">Preguntas Frecuentes</h1>
 	      <hr className="d-inline-block info-color-dark" style={{ width: "100%" }}/>
-	      <div className=" justify-content-center text-center ">
+	      <div className=" justify-content-center text-center py-5">
 			  <Col className="text-left" >
 				{faq_list.map((faqs, idx) =>
 					<div className="mt-4">
