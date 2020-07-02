@@ -198,10 +198,12 @@ class ToRegister extends React.Component {
                              <div className="text-center my-4">
                                 <MDBBtn className="ml-4 " color='info' type='submit' disabled={this.validate_pass()}>
                                     <Row>
-                                        <img src ={logos} style={{width:"50px",height:"37px"}}></img>
+                                        <img src ={logos} style={{width:"50px",height:"37px"}}/>
                                         <b><h5 className='mt-2 mr-4'>Registrarse</h5></b>
                                     </Row>
                                 </MDBBtn>
+                                 <div className="g-recaptcha" data-sitekey="6Lc0sawZAAAAAIv-LTi4MuRGE9SlXC4DLLRIXRsu"/>
+
                              </div>
                           </Form>
                        </MDBContainer>

@@ -129,13 +129,12 @@ class HomePage extends Component {
                                             </Row>
                                         </Container>
                                     </Row>
-                                    <Row>
-                                        <MDBContainer className="mt-5 mb-0">
-                                            <MDBFormInline className="md-form mt-5 ml-5">
-                                                <Col>
+                                       <div  className='col-12 pt-md-5 ' >
+                                        {/*<Row className=' ml-0' >*/}
+                                            <Col className="p-0 m-0 ">
                                                 <input
-                                                    className="form-control mt-5 mr-sm-1 text-white search-bar w-responsive"
-                                                    style={{width:"80%"}}
+                                                    className="form-control md-form mt-5 mx-auto col-md-10 search-bar w-responsive"
+                                                    style={{height:"40%"}}
                                                     type={"text"}
                                                     name={"search"}
                                                     aria-label="Search"
@@ -144,23 +143,23 @@ class HomePage extends Component {
                                                     onSubmit={this.submitHandler}
                                                     autoComplete={'off'}
                                                 />
-                                                    <MDBBtn onClick={this.submitHandler}
-                                                            className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "13px"}}
-                                                            rounded
-                                                            circle={true}
-                                                            size="sm"
-                                                    >
-                                                        <MDBIcon className=' mr-2 ml-0 '  icon={'search'} style={{color: '#000000'}}/>
-                                                        <b>Buscar</b>
-                                                    </MDBBtn>
-                                                </Col>
-
-                                            </MDBFormInline>
-                                        </MDBContainer>
-                                    </Row>
-
+                                            </Col>
+                                            <Col className='p-o m-0'>
+                                                <MDBBtn onClick={this.submitHandler}
+                                                        className="mx-auto"
+                                                        rounded
+                                                        style={{color: '#424242'}}
+                                                        color='info'
+                                                        circle={true}
+                                                        size="sm"
+                                                >
+                                                    <MDBIcon className=' mr-2 ml-0'  icon={'search'}/>
+                                                <b>Buscar</b>
+                                            </MDBBtn>
+                                            </Col>
+                                        {/*</Row>*/}
+                                    </div>
                                 </CardImgOverlay>
-
                             </Card>
                         </div>
                     </div>
