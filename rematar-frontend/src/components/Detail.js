@@ -211,10 +211,8 @@ class Detail extends Component {
                         </a>
                     </h6>
                 </MDBRow>
-
-
                <MDBRow className="p-0 pl-2">
-                  <MDBCol className="m-0 p-0">
+                  <MDBCol className="m-0 p-0 col-7">
                      <div className="m-0 p-0">
                       <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'}/>
                         <MDBView hover rounded className="mb-4 mt-0 shadow-none">
@@ -231,8 +229,8 @@ class Detail extends Component {
                                                    src={url['url']}
                                                    alt="slide"
                                                    style={{
-                                                       'max-width': '750px',
-                                                       'max-height': '600px',
+                                                       maxWidth: '750px',
+                                                       maxHeight: '600px',
                                                        'min-width': '500px',
                                                        'min-height': '300px',
                                                    }}
@@ -271,7 +269,7 @@ class Detail extends Component {
                         { DescriptionText }
                      </div>
                   </MDBCol>
-                  <MDBCol className="m-0 p-0">
+                  <MDBCol className="m-0 p-0 col-5">
                       <div>
                           <Row>
                               <Col>
@@ -283,7 +281,7 @@ class Detail extends Component {
                                   {/*/>*/}
 
                                   {/*==================   TODO: Borrar todo lo de abajo   ============*/}
-                                    <div className="app flex-row align-items-center mt-5">
+                                    <div className="app flex-row align-items-center mt-4">
                                         <Container className="px-md-0 pl-md-4 pl-lg-4">
                                             <CardGroup>
                                                 <Card className="p-0 shadow-none border-0">
