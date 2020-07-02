@@ -1,5 +1,6 @@
 img {
     opacity: 1.0;
+    size: auto;
 }
 
 .img-hover-effect:hover {

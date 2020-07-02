@@ -5,7 +5,7 @@ import Container from "reactstrap/es/Container";
 import {MDBCol, MDBRow} from "mdbreact";
 import FiltrosForHome from "./FiltrosForHome";
 import config from "../config";
-import logos from "../img/logosubastas.png";
+import logo from '../img/logosubastas.png'
 
 
 class CardGallery extends Component {
@@ -70,7 +70,6 @@ class CardGallery extends Component {
             get_args = this.category !== '' ? '?'+this.category : '?'
             get_args += filters + price_from + price_until
         }
-
         get_args = this.props.in_detail ? '' : get_args
         fetch(
             config["api"]['BACKEND_ENDPOINT']+'/api/auction'+get_args,
@@ -102,14 +101,13 @@ class CardGallery extends Component {
                 }
             }
         })
-
-        if (result !== '')
-            if (price_from > 0 && price_until > 0)
-                this.get_items(result.slice(0, -1), price_from, price_until)
+        // if (result !== '')
+            if (price_from >= 0 && price_until > 0)
+                this.get_items(undefined, price_from, price_until)
             else
                 this.get_items(result.slice(0, -1))
-        else
-            this.get_items()
+        // else
+        //     this.get_items()
     }
 
     load_more_started(){
@@ -136,9 +134,9 @@ class CardGallery extends Component {
                                     <div className="p-2 mr-0 ml-0">
                                         <CardItem title={data['title']}
                                                   subtitle={data['subtitle']}
-                                                  footer={' hasta  ' + data['end_date']}  //TODO: Dar formato a la fecha
+                                                  footer={' hasta  ' + data['end_date']}
                                                   href={'/detail/' + data['id']}
-                                                  url_image={data['url_image']}  //TODO: cargar images desde la api
+                                                  url_image={data['url_image']}
                                         />
                                     </div>
                                 </div>
@@ -149,7 +147,8 @@ class CardGallery extends Component {
                                         color="info"
                                         style={{color: '#424242'}}
                                         onClick={this.load_more_started}>
-                                    <Row>
+                                    <Row className='mx-3'>
+                                        <img src ={logo} style={{width:"30px", height:"25px"}}/>
                                         <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar Mas</h6>
                                     </Row>
                                 </Button>
@@ -161,15 +160,13 @@ class CardGallery extends Component {
                         {this.state.items_started.length > 0 || this.state.items_future.length > 0 ?
                             <div className="mt-3 container-fluid">
                                 <MDBRow>
-                                    {/*<MDBRow  className="ml-2 col-sm-3 mt-3 col-md-2" >*/}
-                                    <MDBCol style={{maxWidth: '576px'}} className='ml-4 col-sm-2 mr-sm-2 mt-3 col-md-2'>
+                                    <MDBCol style={{maxWidth: '576px'}} className='ml-4 col-sm-5 mr-sm-2 mt-3 col-md-2'>
                                         <MDBRow className="rounded-lg bg-facebook">
                                             <FiltrosForHome category={this.category.replace('category=', '')}
                                                             submit={this.apply_filters}/>
                                         </MDBRow>
                                     </MDBCol>
-                                    {/*</MDBRow>*/}
-                                    <MDBCol className="mx-md-5 ">
+                                    <MDBCol className="mx-md-5 px-md-4">
                                         <Container className="col-12">
                                             <div className=" mt-0">
                                                 <div className='mt-3' hidden={this.state.items_started.length === 0}>
@@ -197,9 +194,9 @@ class CardGallery extends Component {
                                                                     color="info"
                                                                     style={{color: '#424242'}}
                                                                     onClick={this.load_more_started}>
-                                                                <Row>
-                                                                    <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar
-                                                                        Mas</h6>
+                                                                <Row className='mx-3'>
+                                                                    <img src ={logo} style={{width:"30px", height:"25px"}}/>
+                                                                    <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar Mas</h6>
                                                                 </Row>
                                                             </Button>
                                                         </div>
@@ -229,9 +226,9 @@ class CardGallery extends Component {
                                                                     style={{color: '#424242'}}
                                                                     color="info"
                                                                     onClick={this.load_more_future}>
-                                                                <Row>
-                                                                    <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar
-                                                                        Mas</h6>
+                                                                <Row className='mx-3'>
+                                                                    <img src ={logo} style={{width:"30px", height:"25px"}}/>
+                                                                    <h6 className='mr-2 ml-2 my-0 h6-responsive'>Cargar Mas</h6>
                                                                 </Row>
                                                             </Button>
                                                         </div>

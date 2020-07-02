@@ -40,7 +40,7 @@ class Header extends Component {
                 <Navbar color='dark' className="text-right my-0 py-0" light style={{background: "#00B9EB"}}>
 
                     <Col className="text-left p-0" href="home">
-                        <a href="/home" className='ml-2 p-0' style={{color: "white"}}>
+                        <a href="/home" className='ml-md-2 ml-sm-0 p-0' style={{color: "white"}}>
                             <img src={logo} alt="Logo" className="m-0 p-0" style={{ blockSize: "60px"}} />
                             {/*<b style={{ fontSize: "70px" }}>Subastas en Web</b>*/}
                         </a>
@@ -55,9 +55,11 @@ class Header extends Component {
                             </NavbarBrand>
                         </NavLink>
                         :
-                        <div className='row mr-2'>
-                            <NavLink  href="/login" className="text-right custom-control" style={{color: "white"}}>Login</NavLink>
-                            <NavLink href="/register" className="text-right" style={{color: "white"}} >Registrarse</NavLink>
+                        <div className='row mr-md-2 mr-sm-0'>
+                            <NavLink  href="/login" className="text-right custom-control" style={{color: "white"}}>
+                                <b>Login</b></NavLink>
+                            <NavLink href="/register" className="text-right" style={{color: "white"}} >
+                                <b>Registrarse</b></NavLink>
                         </div>
                             }
                     <bc/>

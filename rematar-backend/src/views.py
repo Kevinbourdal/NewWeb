@@ -250,8 +250,8 @@ class LoginView(BaseView):
         if not error:
             try:
                 account = AccountModel.query.filter_by(email=json_data['email']).first()
-                role = RoleModel.query.filter_by(id=account.role_id).first()
                 if account is not None:
+                    role = RoleModel.query.filter_by(id=account.role_id).first()
                     if account.password == json_data['password']:
                         user = UserModel.query.filter_by(account_id=account.id).first()  # deberia existir
                         token = gen_token({'email': account.email,
@@ -261,9 +261,11 @@ class LoginView(BaseView):
                                                    'username': account.username,
                                                    'has_user': user is not None,
                                                    'role': role.role_name if role is not None else 'commonuser'})  # send false if not has user already
+                else:
+                    return response(402)
             except Exception as ex:
                 print(ex)
-                response(400, ex)
+                return response(400, ex)
         return response(400, error)
 
 
@@ -283,11 +285,9 @@ class OfferView(BaseView):
         if offers is not None:
             offers = self.offers_schema.dump(offers)
             for offer in offers:
-                user = UserModel.query.filter_by(account_id=offer['account_id']).first()
+                account = AccountModel.query.filter_by(id=offer['account_id']).first()
                 # offer['date'] = dt.strptime(offer['date'], '%m/%d/%Y').strftime('%d-%m-%Y')
-                offer['fname'] = user.firstname.title() if user is not None else 'xxx'
-                offer['lname'] = user.lastname.title() if user is not None else 'xxx'
-                offer['diff'] = 0.05  # TODO: esto esta al pedo
+                offer['username'] = account.username.title() if account is not None else 'xxx'
 
             return response(200, data={'offers': offers})
         return response(400)
@@ -606,8 +606,8 @@ class FiltersView(BaseView):
     def get(self):
         filters = {}
         auctions = AuctionModel.query  # .filter_by(finished=False)
-        categories = auctions.with_entities(AuctionModel.category).distinct().all()
-        for (category,) in categories:
+        categories = [c for (c,) in auctions.with_entities(AuctionModel.category).distinct().all()]
+        for category in categories:
             filters[category] = []
             idxs = [a.id for a in auctions.filter_by(category=category).all()]
             items = ItemModel.query.filter(ItemModel.auction_id.in_(idxs)).with_entities(ItemModel.item_category)
@@ -626,6 +626,7 @@ class FiltersView(BaseView):
         for city in cities.distinct().all():
             filters['Localidades'].append((city, cities.filter_by(city=city).count()))
 
+        filters = {cat: filters[cat] for cat in ['Inmueble', 'Vehiculo', 'Mueble', 'Otro', 'Provincias', 'Localidades'] if cat in filters.keys()}
         return response(200, data={'filters': filters})
 
 
@@ -734,7 +735,6 @@ class OfferUserView(BaseView):
                 auction = AuctionModel.query.filter_by(id=offer.auction_id).first()
                 row = {
                     'offer': offer.amount,
-                    'position': '-',
                     'auction': auction.title,
                     'auction_id': offer.auction_id,
                     'date': str(offer.hour),

@@ -15,7 +15,7 @@ class FiltrosForHome extends Component{
             icons:{'Vehiculo':'car',
                     'Inmueble':'home',
                     'Mueble':'couch',
-                    'Otro':'store',
+                    'Otro': 'gift',
                     'Provincias': 'location-arrow',
                     'Localidades': 'map-marker-alt'}
         }
@@ -77,29 +77,26 @@ class FiltrosForHome extends Component{
                     <Row>
                         <MDBCol>
                             <Row>
-                                <MDBIcon className='mt-1' icon={this.state.icons[key]} style={{color: '#000000'}}/>
-                                <h4 className="ml-1 ">
+                                <MDBIcon className='mt-2 pt-1' icon={this.state.icons[key]} style={{color: '#000000'}}/>
                                     {key === 'Localidades' || key === 'Provincias' ?
-                                        <a href={'#'} className={this.props.category === key ? 'text-info':'text-dark'}>{key}</a>
+                                        <h5 className={"ml-2 mt-2 text-dark"}>{key}</h5>
                                         :
-                                        <a href={'/home/'+key} className={this.props.category === key ? 'text-info':'text-dark'}>{key}</a>
+                                        <h5 className={"ml-2 mt-2"}>
+                                            <a href={'/home/'+key} className={this.props.category === key ? 'text-info':'text-dark'} >{key}</a>
+                                        </h5>
                                     }
-
-                                </h4>
                             </Row>
                             <Row>
-                                <hr className="accent-4 ml-1 mt-1 mr-5 grey lighten-5 text-" style={{ width: "150px", maxWidth: "576px" }} />
+                                <hr className="accent-4 ml-1 mt-0 mr-5 grey lighten-5 text-" style={{ width: "150px", maxWidth: "576px" }} />
                             </Row>
                         </MDBCol>
                     </Row>
                     {Object.values(this.state.filters[key]).map((value) =>
-                          <div className="mt-2 ml-3"  >
+                          <div className="mt-2 ml-2"  >
                             <h6 className='text-dark' >
                               <a className='text-dark'
-                                 // style={{color: this.state.filters_selected[index] ? 'black' : 'white'}}
                                  name={value[0]}
                                  onClick={e => this.add_filter(key, e)}
-
                               >
                                   {value[0]} <small>({value[1]})</small>
                              {/*TODO: agregar eso  */}
@@ -117,14 +114,14 @@ class FiltrosForHome extends Component{
                 {lugares}
                 <div >
                     <Row>
-                        <MDBIcon className='mt-1 ml-2' icon='dollar-sign' style={{color: '#000000'}} />
-                        <h4 className="ml-2 text-dark">Precios</h4>
+                        <MDBIcon className='mt-2 ml-2 pt-1' icon='dollar-sign' style={{color: '#000000'}} />
+                        <h5 className="ml-2 mt-2 text-dark">Precios</h5>
                     </Row>
-                        <hr className="accent-4 ml-0 mt-1 mr-5 mb-0 grey lighten-5" style={{ width: "150px" }} />
-                        <small className='text-dark'>*Busqueda por precio base</small>
+                        <hr className="accent-4 ml-0 mt-0 mr-5 mb-0 grey lighten-5" style={{ width: "150px" }} />
+                        <small className='text-dark'>*Rango de precios</small>
                     </div>
                 <MDBRow >
-                    <MDBCol className='mr-4 mt-0 pt-0'>
+                    <MDBCol className='mr-4 mt-0 pt- col-sm-9'>
                         {/*<MDBRow className="mr-4 ml-2 m-0 p-0 my-0 mt-1 ">*/}
                             <MDBInput className="rounded-pill"
                                       // value={this.state.price_from}

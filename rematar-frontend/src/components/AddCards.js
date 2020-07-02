@@ -3,6 +3,7 @@ import {Row, Col, CardBody, CardGroup, Container } from 'reactstrap'
 import InputField from "./InputFieldComponent";
 import { ListGroup } from 'reactstrap';
 
+import logo from '../img/logosubastas.png'
 import {provincia} from "../data/items_filtro";
 import Label from "reactstrap/es/Label";
 import config from "../config";
@@ -91,7 +92,7 @@ class AddCards extends Component {
                  })
              }
          ).then(data => {
-            if (data.status !== 200) {
+            if (data.code !== 200) {
                 this.setState({
                     modal_ok: !this.state.modal_ok
                 })
@@ -323,13 +324,13 @@ class AddCards extends Component {
                                    </div>
                                <div className="picture-uploader-controls">
                                        <Row>
-                                           <Col className='mr-0 pr-1'>
+                                           <Col className='mr-0 pr-1 col-4'>
                                                 <InputField name={"key_aux"} value={this.state.key_aux} label={"Dato"} type={"text"} change={this.handleInputChange} />
                                             </Col>
-                                            <Col className='ml-0 pl-1'>
+                                            <Col className='ml-0 pl-1 col-4'>
                                                <InputField name={"value_aux"} value={this.state.value_aux} label={"Info"} type={"text"} change={this.handleInputChange}/>
                                             </Col>
-                                           <Col className="mt-5 p-0 ml-5 ">
+                                           <Col className="mt-4 p-0 ml-5 ">
                                                <button className="btn btn-primary mr-0"
                                                        onClick={this.handleDataAdd}
                                                        type="button"
@@ -406,8 +407,10 @@ class AddCards extends Component {
                                    </ListGroup>
                                </div>
 
-                                <button type="submit" className="btn btn-info"  disabled={!this.validateForm()}>
-                                    Agregar
+                                <button type="submit" className="mt-4 btn btn-info btn-md" disabled={!this.validateForm()}>
+                                    <Row className='my-0 py-0'>
+                                        <img src ={logo} style={{width:"55px", height:"43px"}}/><h6 className='mt-2 pt-1 mr-2'>Guardar</h6>
+                                    </Row>
                                  </button>
                                </form>
                              </CardBody>

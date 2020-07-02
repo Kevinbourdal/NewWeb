@@ -23,12 +23,17 @@ export default class AuthService {
             }
         })
         .then((res) => {
+
+            if (res.code !== 200) {
+                return res
+            }
             this.setToken(res['data']['token']);
             this.setUsername(res.data.username);
             this.setRole(res['data']['role'])
             return Promise.resolve(res);
         })
         .catch((res) => {
+
             return Promise.resolve(res);
         });
     }

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {Row, Carousel, CarouselItem, Card, CarouselIndicators, CarouselControl, CardImgOverlay} from 'reactstrap';
+import {Row, Col, Carousel, CarouselItem, Card, CarouselIndicators, CarouselControl, CardImgOverlay} from 'reactstrap';
 import CardGallery from "./CardGalleryComponent";
-import {MDBContainer, MDBBtn, MDBFormInline,} from "mdbreact";
+import {MDBContainer, MDBBtn, MDBFormInline, MDBIcon,} from "mdbreact";
 import { itemslist } from '../data/items_terrenos';
 import Container from "reactstrap/es/Container";
+import NavFiltro from './NavFiltro'
+import './HomePage.css'
 import config from "../config";
 
 
@@ -120,16 +122,21 @@ class HomePage extends Component {
                                 </Carousel>
 
                                 <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
-                                    <Container className="mt-4">
-                                        <Row className="d-sm-block">
-                                            <h1 className="w-100 text-dark">Encontrá las mejores inversiones</h1>
-                                        </Row>
-                                        <MDBContainer  className=" my-5">
+                                    <Row className='mb-md-5'>
+                                        <Container className="my-4">
+                                            <Row className="d-sm-block">
+                                                <h1 className="w-100 text-dark title">Encontrá las mejores inversiones</h1>
+                                            </Row>
+                                        </Container>
+                                    </Row>
+                                    <Row>
+                                        <MDBContainer className="mt-5 mb-0">
                                             <MDBFormInline className="md-form mt-5 ml-5">
+                                                <Col>
                                                 <input
-                                                    className="form-control mt-5 mr-sm-1 text-white"
+                                                    className="form-control mt-5 mr-sm-1 text-white search-bar w-responsive"
                                                     style={{width:"80%"}}
-                                                    type={"search"}
+                                                    type={"text"}
                                                     name={"search"}
                                                     placeholder="Buscar"
                                                     aria-label="Search"
@@ -138,36 +145,41 @@ class HomePage extends Component {
                                                     onSubmit={this.submitHandler}
                                                     autoComplete={'off'}
                                                 />
-                                                <MDBBtn onClick={this.submitHandler}
-                                                        className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "15px"}}
-                                                        rounded size="sm"
-                                                        // type='submit'
-                                                >
-                                                    <b>Buscar</b>
-                                                </MDBBtn>
+                                                    <MDBBtn onClick={this.submitHandler}
+                                                            className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "15px"}}
+                                                            rounded
+                                                            circle={true}
+                                                            size="sm"
+                                                    >
+                                                        <MDBIcon className='mt-1 pt-1' icon={'search'} style={{color: '#000000'}}/>
+                                                        {/*<b>Buscar</b>*/}
+                                                    </MDBBtn>
+                                                </Col>
+
                                             </MDBFormInline>
                                         </MDBContainer>
+                                    </Row>
 
-                                    </Container>
                                 </CardImgOverlay>
+
                             </Card>
                         </div>
                     </div>
                 </div>
-                {/*<div id="filterbar">*/}
-                {/*   <MDBCol className="">*/}
-                {/*      <MDBRow className="justify-content-center">*/}
-                {/*         /!*<NavFiltro/>*!/*/}
-                {/*      </MDBRow>*/}
-                {/*   </MDBCol>*/}
-                {/*</div>*/}
+                <div id="filterbar">
+                   <Col className="">
+                      <Row className="justify-content-center">
+                         <NavFiltro  in_detail={false} />
+                      </Row>
+                   </Col>
+                </div>
                 {this.state.non_results ?
                     <div className='my-5 text-center'>
                         <h3>Sin Resultados</h3>
                     </div>
                     :
                     <div>
-                        <h1 className="text-center mt-3 w-100" hidden={this.category===''}>{ this.category }s</h1>
+                        <h1 className="text-center mt-4 w-100 " hidden={this.category===''}>{ this.category }s</h1>
                         <CardGallery auctions={this.state.auctions} in_detail={false}/>
                     </div>
                 }

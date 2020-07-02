@@ -17,7 +17,7 @@ class Login extends Component {
             email: '',
             password: '',
             isLoading: false,
-            loginError: false,
+            loginError: 0,
             isAuthenticated: this.Auth.loggedIn()
         };
         this.handleChange = this.handleChange.bind(this);
@@ -35,10 +35,22 @@ class Login extends Component {
         try {
             this.Auth.login(this.state.email, this.state.password)
             .then((res) => {
+
+                if (res.code !== 200) {
+                    if (res.code === 402) {
+                        this.setState({loginError: 2})
+                    } else {
+                        this.setState({loginError: 1})
+                    }
+                    return
+                }
                 if (!res['data']['has_user']) {
                   return this.props.history.push('/mi_perfil');
                 } else {
-                    this.setState({isAuthenticated: true})
+                    this.setState({
+                        isAuthenticated: true,
+                        loginError: 0
+                    })
                 }
             })
             .catch((e) => {
@@ -113,15 +125,20 @@ class Login extends Component {
                                                      />
                                                 </Col>
                                             </Row>
-                                            {this.state.loginError ? (
-                                                <Row>
-                                                    <Col xs="12">
-                                                        <p className="text-danger">
-                                                            Error al hacer login, verificar usuario y contraseña
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                            ) : null}
+                                            <Row hidden={this.state.loginError !== 1}>
+                                                <Col xs="12">
+                                                    <p className="text-danger">
+                                                        Error al hacer login, verificar email y contraseña
+                                                    </p>
+                                                </Col>
+                                            </Row>
+                                            <Row hidden={this.state.loginError !== 2}>
+                                                <Col xs="12">
+                                                    <p className="text-danger">
+                                                        Email no registrado.
+                                                    </p>
+                                                </Col>
+                                            </Row>
                                             <Col>
                                                 <Row className='ml-2'>
                                                     <a style={{color:'black'}} href='/recover_password'>
