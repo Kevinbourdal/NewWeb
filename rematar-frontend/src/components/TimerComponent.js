@@ -20,16 +20,31 @@ export default class Timer extends Component {
     set_hour(nextProps) {
         if (typeof nextProps.end_date !== 'undefined' )
             if ( nextProps.end_date !== '' ) {
-                let diffDate = Math.abs(nextProps.end_date - new Date(Date.now()))
-                let days = Math.ceil(diffDate / (1000 * 60 * 60 * 24));
                 let hour = nextProps.end_hour.split(':').map((h) => parseInt(h, 10));
+                let end_auction = new Date(nextProps.end_date.getFullYear(),
+                                            nextProps.end_date.getMonth(),
+                                            nextProps.end_date.getDate(),
+                                            hour[0],
+                                            hour[1],
+                                            hour[2]
+                    )
 
+                let diffDate = Math.abs(end_auction.getTime() - new Date(Date.now()))
+                let days = Math.ceil(diffDate / (1000 * 60 * 60 * 24));
+                diffDate = diffDate % (1000 * 60 * 60 * 24)
+                let diffHour = Math.floor(diffDate / (1000 * 60 * 60));
+                diffDate = diffDate % (1000 * 60 * 60)
+                let diffMinut = Math.floor(diffDate / (1000 * 60));
+                diffDate = diffDate % (1000 * 60 )
+                let diffSeg= Math.floor(diffDate / (1000));
+
+                console.log(diffHour)
                 this.setState(
                     {
                         days: days,
-                        hour: hour[0],
-                        minutes: hour[1],
-                        seconds: hour[2],
+                        hour: diffHour,
+                        minutes: diffMinut,
+                        seconds: diffSeg,
                     }
                 )
             }
