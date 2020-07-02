@@ -168,8 +168,8 @@ class Detail extends Component {
            });
 
       return (
-          <div >
-              <div id="filterbar" className='mb-5 mt-0'>
+          <div  >
+              <div  hidden={true} id="filterbar" className='mb-5 mt-0'>
                   <Col className="">
                       <Row className="justify-content-center" >
                           <NavFiltro in_detail={true} />
@@ -204,20 +204,7 @@ class Detail extends Component {
                   { this.state.subtitle }
                </h5>
 
-                <MDBRow className='my-2'>
-                    <h6>
-                        <a href={'https://www.google.com.ar/maps/search/' + this.state.province+'-'+this.state.city+'-'+this.state.address}
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           style={{color:"black"}}
-                        >
-                            <h5>
-                                <i className="fas fa-map-marked-alt ml-3 mr-2" style={{color: '#00A60A'}}/>
-                                {this.state.province + ', ' +this.state.city + ', ' +this.state.address }
-                            </h5>
-                        </a>
-                    </h6>
-                </MDBRow>
+
                <MDBRow className="p-0 pl-2">
                   <MDBCol className="m-0 p-0 col-md-8 col-sm-12">
                      <div className="m-0 p-0">
@@ -254,7 +241,22 @@ class Detail extends Component {
                         <div className="d-flex justify-content-between my-4" >
                             <h4 className="font-weight-bold dark-grey-text p-0 ">
                                 {this.state.title}
+                                <MDBRow className='mt-3'>
+                                    <h6>
+                                        <a href={'https://www.google.com.ar/maps/search/' + this.state.province+'-'+this.state.city+'-'+this.state.address}
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           style={{color:"black"}}
+                                        >
+                                            <h6>
+                                                <i className="fas fa-map-marked-alt ml-3 mr-2" style={{color: '#00A60A'}}/>
+                                                {this.state.province + ', ' +this.state.city + ', ' +this.state.address }
+                                            </h6>
+                                        </a>
+                                    </h6>
+                                </MDBRow>
                             </h4>
+
                             <p className="font-weight-bold text-right dark-grey-text" unselectable={"on"}>
                                 <MDBIcon far icon="clock" className="pr-2" unselectable={"on"}/>
                                 Desde {this.state.start_date.toLocaleString().split(' ')[0]} {this.state.start_hour}
@@ -268,7 +270,7 @@ class Detail extends Component {
                              <Col className='col-8'>
                              <h5 className=" text-dark font-weight-bold">
                                  {/*<MDBIcon icon="book-open" className="pr-2" style={{color: '#000000'}}/>*/}
-                                 Descripcion
+                                 Descripción
                              </h5>
                              </Col>
                          </Row>
@@ -358,9 +360,9 @@ class Detail extends Component {
                                                         </Row>
                                                     </CardBody>
                                                     <CardFooter className="justify-content-center align-content-center text-center bg-white">
-                                                        <Row>
+                                                        <Row >
                                                             <Col>
-                                                                <Button className="btn btn-lg"
+                                                                <Button className="btn btn-lg col-12"
                                                                         color={'info'}
                                                                         style={{color:'#424242'}}
                                                                         onClick={this.make_offer}
@@ -368,7 +370,6 @@ class Detail extends Component {
                                                                         hidden={!this.Auth.loggedIn()}>
                                                                     <Row>
                                                                         <b><h5 className='mt-0 mb-0 h5-responsive'>
-
                                                                             <img src ={logo} style={{width:"50px", height:"38px"}}/>
                                                                             Ofertar con ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
 
@@ -413,7 +414,7 @@ class Detail extends Component {
                <MDBRow className='my-5'>
                    <MDBCol>
                        <div>
-                           <h5 className='my-4'>Caracteristicas</h5>
+                           <h5 className='my-4'>Características</h5>
                            <Row className='ml-3'>
                            {this.state.values.map((value, index) =>
                                 <p className='col-4 mt-2 text-left' unselectable={"on"}><i className="fas fa-check-square mr-2"/>{value}</p>

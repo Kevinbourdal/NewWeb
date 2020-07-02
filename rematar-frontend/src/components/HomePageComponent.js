@@ -138,7 +138,6 @@ class HomePage extends Component {
                                                     style={{width:"80%"}}
                                                     type={"text"}
                                                     name={"search"}
-                                                    placeholder="Buscar"
                                                     aria-label="Search"
                                                     value={this.state.query}
                                                     onChange={this.handlechange}
@@ -146,13 +145,13 @@ class HomePage extends Component {
                                                     autoComplete={'off'}
                                                 />
                                                     <MDBBtn onClick={this.submitHandler}
-                                                            className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "15px"}}
+                                                            className="info-color-dark mt-5 " style={{color: "#424242", fontSize: "13px"}}
                                                             rounded
                                                             circle={true}
                                                             size="sm"
                                                     >
-                                                        <MDBIcon className='mt-1 pt-1' icon={'search'} style={{color: '#000000'}}/>
-                                                        {/*<b>Buscar</b>*/}
+                                                        <MDBIcon className=' mr-2 ml-0 '  icon={'search'} style={{color: '#000000'}}/>
+                                                        <b>Buscar</b>
                                                     </MDBBtn>
                                                 </Col>
 
@@ -166,7 +165,7 @@ class HomePage extends Component {
                         </div>
                     </div>
                 </div>
-                <div id="filterbar">
+                <div hidden={true} id="filterbar">
                    <Col className="">
                       <Row className="justify-content-center">
                          <NavFiltro  in_detail={false} />

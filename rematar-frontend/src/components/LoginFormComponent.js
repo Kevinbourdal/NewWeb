@@ -89,13 +89,13 @@ class Login extends Component {
                                                 <Col>
                                                     <AppNavbarBrand
                                                     full={{ src: logo,
-                                                            width: 200,
+                                                            width: 300,
                                                             alt: 'Remates Calamuchita Logo' }}
                                                     />
                                                 </Col>
                                             </Row>
                                             <p className="text-muted">
-                                                <b>Login</b> - Subastas en web
+                                                <b>Login</b>
                                             </p>
                                             <Row>
                                                 <Col>
@@ -142,7 +142,7 @@ class Login extends Component {
                                             <Col>
                                                 <Row className='ml-2'>
                                                     <a style={{color:'black'}} href='/recover_password'>
-                                                        Olvide mi contraseña
+                                                        Olvidé mi contraseña
                                                     </a>
                                                 </Row>
                                                 <Col>

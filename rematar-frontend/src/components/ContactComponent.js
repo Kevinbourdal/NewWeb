@@ -83,15 +83,17 @@ class Contact extends Component {
                                 <Card className="p-4">
                                     <CardBody className="text-center">
                                         <form onSubmit={this.submitHandler}>
-                                                <Col className="mt-0 pt-0 p-0 ">
+                                            <Row>
+                                                <Col>
                                                     <AppNavbarBrand
-                                                    full={{ src: logo,
+                                                        full={{ src: logo,
                                                             width: 300,
                                                             alt: 'Remates Calamuchita Logo' }}
                                                     />
                                                 </Col>
-                                            <p className="text-muted">
-                                                <b>Contact</b> - Remates Calamuchita
+                                            </Row>
+                                            <p className="text-muted mt-1">
+                                                <b>Contact</b>
                                             </p>
                                             <Row>
                                                 <Col>

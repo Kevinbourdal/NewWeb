@@ -100,17 +100,17 @@ class ToRegister extends React.Component {
                     <div >
                        <MDBContainer className="text-center">
                           <MDBRow>
-                             <MDBCol>
+                             <MDBCol className='mt-4'>
                                 <AppNavbarBrand
                                    full={{ src: logo,
-                                      width: 400,
+                                      width: 300,
                                       alt: 'Remates Calamuchita Logo' }}
                                 />
                              </MDBCol>
                           </MDBRow>
-                          <h2 className="mt-2 ">
-                             Registrarse
-                          </h2>
+                          <p className="mt-1 text-muted">
+                            <b>Registrarse</b>
+                          </p>
                        </MDBContainer>
                        <MDBContainer className="col-md-11">
                           <Form className='needs-validation' onSubmit={this.submitHandler}>
@@ -188,7 +188,7 @@ class ToRegister extends React.Component {
                                 <label className='custom-control-label ml-2' htmlFor='invalidCheck'>
                                     <TermsAndConditions toggle={this.toggle2} modal={this.state.modal2} />
                                     <a style={{textDecorationLine : 'underline'}} onClick={this.toggle2}>
-                                        Terminos y condiciones
+                                        Términos y condiciones
                                     </a>
                                 </label>
                                 <div className='invalid-feedback'>

@@ -37,7 +37,7 @@ class Header extends Component {
     render() {
         return (
             <div className="Head">
-                <Navbar color='dark' className="text-right my-0 py-0" light style={{background: "#00B9EB"}}>
+                <Navbar color='dark' className=" text-right my-0 py-0 " light style={{background: "#00B9EB"}}>
 
                     <Col className="text-left p-0" href="home">
                         <a href="/home" className='ml-md-2 ml-sm-0 p-0' style={{color: "white"}}>
@@ -56,7 +56,7 @@ class Header extends Component {
                         </NavLink>
                         :
                         <div className='row mr-md-2 mr-sm-0'>
-                            <NavLink  href="/login" className="text-right custom-control" style={{color: "white"}}>
+                            <NavLink  href="/login" className="text-right " style={{color: "white"}}>
                                 <b>Login</b></NavLink>
                             <NavLink href="/register" className="text-right" style={{color: "white"}} >
                                 <b>Registrarse</b></NavLink>

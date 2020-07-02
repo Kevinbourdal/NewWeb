@@ -31,7 +31,7 @@ class Footer extends Component {
               </p>
               <TermsAndConditions toggle={this.toggle} modal={this.state.modal2} />
                   <a style={{textDecorationLine : 'underline'}} onClick={this.toggle}>
-                    Terminos y condiciones
+                    Términos y condiciones
                   </a>
             </MDBCol>
             <MDBCol md="3">
