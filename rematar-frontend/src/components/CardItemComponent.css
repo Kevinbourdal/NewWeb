@@ -13,3 +13,24 @@ img {
     -moz-transition: opacity .15s ease-in-out;
     -webkit-transition: opacity .15s ease-in-out;
 }
+
+@media only screen and (max-width: 780px) {
+    #filtros_for_home {
+        display: none;
+    }
+}
+
+.titulo {
+    height: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subtitulo {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

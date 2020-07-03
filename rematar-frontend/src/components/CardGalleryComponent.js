@@ -159,10 +159,11 @@ class CardGallery extends Component {
                     <div>
                         {this.state.items_started.length > 0 || this.state.items_future.length > 0 ?
                             <div className="mt-3 container-fluid">
-                                <MDBRow>
-                                    <MDBCol style={{maxWidth: '576px'}} className='ml-4 col-sm-5 mr-sm-2 mt-3 col-md-2'>
-                                        <MDBRow className="rounded-lg bg-facebook">
-                                            <FiltrosForHome category={this.category.replace('category=', '')}
+                                <MDBRow >
+                                    <MDBCol id={'filtros_for_home'} className='ml-4 m-0 p-0 col-md-2 col-sm-12 mr-sm-2 mt-3 col-md-2'>
+                                        <MDBRow  className="mx-md-1 col-12 px-md-1 rounded-lg bg-facebook">
+                                            <FiltrosForHome
+                                                            category={this.category.replace('category=', '')}
                                                             submit={this.apply_filters}/>
                                         </MDBRow>
                                     </MDBCol>

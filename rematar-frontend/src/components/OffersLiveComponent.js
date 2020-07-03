@@ -75,6 +75,7 @@ class OffersLive extends Component {
                 <th className="ml-5">{'-'}</th>
                 <td className="ml-5">{'-'}</td>
                 <td className="ml-5">{'-'}</td>
+                <td className="ml-5">{'-'}</td>
                 <td className="ml-5"><b>{'-'}</b></td>
             </tr>
             </tbody>)

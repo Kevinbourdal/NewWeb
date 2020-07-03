@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {MDBInput, MDBCol, MDBRow, MDBBtn,MDBIcon} from "mdbreact";
 import config from "../config";
 import Row from "reactstrap/es/Row";
+import '../index.css'
 
 
 class FiltrosForHome extends Component{
@@ -73,7 +74,7 @@ class FiltrosForHome extends Component{
     render() {
         let lugares = Object.keys(this.state.filters).map((key) => {
             return (
-                <div className="mb-5 ml-2">
+                <div  className="mb-5 ml-2">
                     <Row>
                         <MDBCol>
                             <Row>
@@ -110,7 +111,7 @@ class FiltrosForHome extends Component{
         })
 
         return(
-            <div style={{color:'white'}} className="mt-3 ml-3" >
+            <div style={{color:'white'}} className="mt-3 mx-auto" >
                 {lugares}
                 <div >
                     <Row>
