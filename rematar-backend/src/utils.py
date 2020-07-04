@@ -1,7 +1,6 @@
 import jwt
 from datetime import datetime as dt
 import smtplib
-from decouple import config
 
 STATUS = {200: 'Success',
           201: 'Created',
@@ -88,8 +87,7 @@ def validate_token(token):
     return None, response(400, 'Wrong token')
 
 
-def get_email(email_dest, message):
-
+def send_email(email_dest, message):
     subject = 'Mail enviado desde Subastas en Web, No responder'
     message = 'Subject : {} \n\n{}'.format(subject, message)
     try:
@@ -97,13 +95,13 @@ def get_email(email_dest, message):
         server.starttls()
         result = server.login('subastasenweb.info@gmail.com', MAIL_PASSWORD)
         if result[0] == 235:
-            server.sendmail('subastasenweb.info@gmail.com', email_dest, message)
+            server.sendmail('subastasenweb.info@gmail.com', email_dest, message.encode('utf-8'))
 
             server.quit()
             print('Mail enviado')
             return True
         print('Sesion no iniciada')
         return False
-    except:
-        print('Mail no enviado')
+    except Exception as ex:
+        print('Mail no enviado', ex)
         return False

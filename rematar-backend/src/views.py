@@ -4,7 +4,7 @@ import marshmallow
 from flask import request
 from flask_restful import Resource
 
-from message import message
+from message import message_register, message_contact
 
 from marshmallow.exceptions import ValidationError
 
@@ -37,7 +37,7 @@ from utils import (
     decode_token,
     validate_token,
     validate_json_payload,
-    get_email,
+    send_email,
 )
 
 
@@ -110,8 +110,8 @@ class AccountView(BaseView):
             new_account = AccountModel(**account_data)
             error = new_account.save()
             if not error:
-                msg = message.format(json_data['username'])
-                sent = get_email(json_data['email'], msg)
+                msg = message_register.format(json_data['username'])
+                sent = send_email(json_data['email'], msg)
                 return response(200, data={'id': new_account.id})
 
         print('error', error)
@@ -245,6 +245,11 @@ class ContactView(BaseView):
             new_contact = ContactModel(**contact_data)
             error = new_contact.save()
             if not error:
+                msg = message_contact.format(fullname=json_data['name'],
+                                             body=json_data['body'],
+                                             email=json_data['email'],
+                                             phone=json_data['phone'],)
+                sent = send_email('subastasenweb.contact@gmail.com', msg)
                 return response(200, data={'id': 'asfd'})
 
         return response(400, msg="Error en backend")
