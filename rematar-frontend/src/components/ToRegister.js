@@ -108,25 +108,26 @@ class ToRegister extends React.Component {
                                 />
                              </MDBCol>
                           </MDBRow>
+                           <div>
                           <p className="mt-1 text-muted">
                             <b>Registrarse</b>
                           </p>
+                           </div>
                        </MDBContainer>
                        <MDBContainer className="col-md-11">
                           <Form className='needs-validation' onSubmit={this.submitHandler}>
-                             <MDBInput
-                               icon='user'
-                               value={this.state.fname}
-                               name='username'
-                               onChange={this.changeHandler}
-                               type='text'
-                               id='materialFormRegisterNameEx'
-                               label='Nombre de usuario'
-                               outline
-                               required
-                             >
-                                <div className='invalid-feedback ml-3 pl-3'>Ingrese una contraseña</div>
-                             </MDBInput>
+                              <MDBInput
+                                  icon='user'
+                                  value={this.state.fname}
+                                  onChange={this.changeHandler}
+                                  type='user'
+                                  id='materialFormRegisterNameEx1'
+                                  name='username'
+                                  label='Nombre de usuario'
+                                  outline
+                                  required
+                              >
+                              </MDBInput>
                              <MDBInput
                                  icon='unlock'
                                  value={this.state.password}

@@ -124,17 +124,18 @@ class HomePage extends Component {
                                 <CardImgOverlay className="text-white justify-content-center text-center align-text-bottom h-75 mt-5">
                                     <Row className='mb-md-5'>
                                         <Container className="my-4">
-                                            <Row className="d-sm-block">
-                                                <h1 className="w-100 text-dark title">Encontrá las mejores inversiones</h1>
+                                            <Row className="mx-auto d-sm-block">
+                                                <h1 className="w-100  text-dark title">Encontrá las mejores inversiones</h1>
                                             </Row>
                                         </Container>
                                     </Row>
-                                       <div  className='col-12 pt-md-5 ' >
+                                       <div  className='col-9 mx-auto pt-md-5 ' >
                                         {/*<Row className=' ml-0' >*/}
                                             <Col className="p-0 m-0 ">
                                                 <input
-                                                    className="form-control md-form mt-5 mx-auto col-md-10 search-bar w-responsive"
-                                                    style={{height:"40%"}}
+                                                    className="form-control
+                                                    md-form mt-5 mx-auto Buscador col-md-10 search-bar w-responsive"
+                                                    style={{height:"40px"}}
                                                     type={"text"}
                                                     name={"search"}
                                                     aria-label="Search"
@@ -144,7 +145,7 @@ class HomePage extends Component {
                                                     autoComplete={'off'}
                                                 />
                                             </Col>
-                                            <Col className='p-o m-0'>
+                                            <Col className='p-0  m-0'>
                                                 <MDBBtn onClick={this.submitHandler}
                                                         className="mx-auto"
                                                         rounded

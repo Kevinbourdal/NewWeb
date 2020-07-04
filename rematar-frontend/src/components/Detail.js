@@ -209,7 +209,7 @@ class Detail extends Component {
                   <MDBCol className="m-0 p-0 col-md-8 col-sm-12">
                      <div className="m-0 p-0">
                       <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'}/>
-                        <MDBView hover rounded className="mb-4 mt-0 shadow-none">
+                        <MDBView hover rounded className="mb-4 mt-4 shadow-none">
                            <MDBCarousel activeItem={1} length={this.state.url_images.length}
                                         showControls={true}  showIndicators={true} thumbnails={true}
                                         className="w-100" >
@@ -349,7 +349,7 @@ class Detail extends Component {
                                                                 <Table responsive
                                                                        hover
                                                                        striped={true}
-                                                                       className="text-left table-dark rounded"
+                                                                       className="text-left table-striped "
                                                                        size={'sm'}
                                                                 >
                                                                     <tbody className='rounded-top'>
@@ -369,11 +369,13 @@ class Detail extends Component {
                                                                         disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now())}
                                                                         hidden={!this.Auth.loggedIn()}>
                                                                     <Row>
-                                                                        <b><h5 className='mt-0 mb-0 h5-responsive'>
-                                                                            <img src ={logo} style={{width:"50px", height:"38px"}}/>
-                                                                            Ofertar con ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
+                                                                       <em>
+                                                                            <strong><h5 className='mt-0 mb-0 h5-responsive'>
+                                                                                <img src ={logo} style={{width:"50px", height:"38px"}}/>
+                                                                                Ofertar con ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
 
-                                                                        </h5></b>
+                                                                            </h5></strong>
+                                                                       </em>
                                                                      </Row>
                                                                 </Button>
                                                                 <p className="text-muted"

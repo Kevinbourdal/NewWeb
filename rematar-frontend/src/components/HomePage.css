@@ -8,7 +8,7 @@
     -webkit-transition:height 1s;
 }
 
-input[type="text"] {
+.Buscador {
     font-size: 25px;
     color: white;
 }

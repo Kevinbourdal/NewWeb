@@ -128,7 +128,7 @@ class CardGallery extends Component {
                 {this.props.in_detail ?
                     <div className='mx-md-5 my-3'>
                         <h4 className='my-5'> Otras Subastas </h4>
-                        <CardDeck className="mx-md-5 col-12 px-md-1">
+                        <CardDeck className="mx-md-5  col-12 px-md-1">
                             {this.state.items_started.slice(0, this.state.visible_started).map((data, index) =>
                                 <div className="col-3 pr-0 pl-0" style={{maxWidth: '576px'}} hidden={data['id']===Number(this.category.replace('category=detail/', ''))}>
                                     <div className="p-2 mr-0 ml-0">
@@ -161,16 +161,16 @@ class CardGallery extends Component {
                             <div className="mt-3 container-fluid">
                                 <MDBRow >
                                     <MDBCol id={'filtros_for_home'} className='ml-4 m-0 p-0 col-md-2 col-sm-12 mr-sm-2 mt-3 col-md-2'>
-                                        <MDBRow  className="mx-md-1 col-12 px-md-1 rounded-lg bg-facebook">
+                                        <MDBRow  className="mx-md-1 mt-2 col-12 px-md-1 rounded-lg bg-facebook">
                                             <FiltrosForHome
-                                                            category={this.category.replace('category=', '')}
-                                                            submit={this.apply_filters}/>
+                                                category={this.category.replace('category=', '')}
+                                                submit={this.apply_filters}/>
                                         </MDBRow>
                                     </MDBCol>
                                     <MDBCol className="mx-md-5 px-md-4">
                                         <Container className="col-12">
                                             <div className=" mt-0">
-                                                <div className='mt-3' hidden={this.state.items_started.length === 0}>
+                                                <div className='mt-4' hidden={this.state.items_started.length === 0}>
                                                     <h3>Subastas Activas</h3>
                                                     <hr/>
                                                     <CardDeck className="mx-md-1 col-12 px-md-1">
