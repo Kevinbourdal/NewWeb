@@ -52,6 +52,7 @@ class Detail extends Component {
            url_images: [],
            values: [],
            modal: false,
+           modaloffert: false,
        };
 
        this.Auth = new AuthService();
@@ -60,6 +61,8 @@ class Detail extends Component {
        this.make_offer = this.make_offer.bind(this);
        this.update_price = this.update_price.bind(this);
        this.toggle = this.toggle.bind(this);
+       this.toggle_modaloffert = this.toggle_modaloffert.bind(this);
+       this.cancel_offert = this.cancel_offert.bind(this);
 
   }
 
@@ -115,7 +118,9 @@ class Detail extends Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
-            this.toggle()}
+            this.toggle_modaloffert(e)
+            this.toggle()
+        }
         ).then(res => {
                 // this.get_detail();
                 // window.location.reload();
@@ -143,6 +148,17 @@ class Detail extends Component {
                 window.location.reload();
     }
 
+    toggle_modaloffert(e) {
+        this.setState({
+            modaloffert: !this.state.modaloffert
+        });
+    }
+
+    cancel_offert() {
+        this.setState({
+            modaloffert: false
+        });
+    }
    render() {
 
        let DescriptionText = (
@@ -208,7 +224,6 @@ class Detail extends Component {
                <MDBRow className="p-0 pl-2">
                   <MDBCol className="m-0 p-0 col-md-8 col-sm-12">
                      <div className="m-0 p-0">
-                      <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'}/>
                         <MDBView hover rounded className="mb-4 mt-4 shadow-none">
                            <MDBCarousel activeItem={1} length={this.state.url_images.length}
                                         showControls={true}  showIndicators={true} thumbnails={true}
@@ -360,21 +375,27 @@ class Detail extends Component {
                                                         </Row>
                                                     </CardBody>
                                                     <CardFooter className="justify-content-center align-content-center text-center bg-white">
+                                                        <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'} />
+                                                        <ModalPage toggle={this.make_offer}
+                                                                   cancel_toggle={this.cancel_offert}
+                                                                   modal={this.state.modaloffert}
+                                                                   cancel={true}
+                                                                   body={'Ofertar en '+this.state.title+' con un valor de $'+toNumber((this.state.curr_price).toFixed(2)).toLocaleString()}
+                                                        />
                                                         <Row >
                                                             <Col>
                                                                 <Button className="btn btn-lg col-12"
                                                                         color={'info'}
                                                                         style={{color:'#424242'}}
-                                                                        onClick={this.make_offer}
+                                                                        onClick={this.toggle_modaloffert}
                                                                         disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now())}
                                                                         hidden={!this.Auth.loggedIn()}>
-                                                                    <Row>
-                                                                       <em>
-                                                                            <strong><h5 className='mt-0 mb-0 h5-responsive'>
+                                                                    <Row >
+                                                                       <em className='mx-auto'>
+                                                                            <strong><b className='mt-0 mb-0 h5-responsive'>
                                                                                 <img src ={logo} style={{width:"50px", height:"38px"}}/>
-                                                                                Ofertar con ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
-
-                                                                            </h5></strong>
+                                                                                Ofertar ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
+                                                                            </b></strong>
                                                                        </em>
                                                                      </Row>
                                                                 </Button>

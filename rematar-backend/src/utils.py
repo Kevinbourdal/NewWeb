@@ -1,7 +1,7 @@
 import jwt
 from datetime import datetime as dt
 import smtplib
-from decouple import config
+
 
 STATUS = {200: 'Success',
           201: 'Created',
