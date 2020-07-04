@@ -97,16 +97,16 @@ class HomePage extends Component {
         return (
 
             <div>
-                <div className="p-0 m-0" style={{ height: '500px'}}>
+                <div className="p-0 m-0" style={{ height: '600px'}}>
                     <div className="container-fluid no-padding h-25 p-0 m-0 ">
 
-                        <div  style={{ height: '80vh' }} className="">
+                        <div  style={{ height: '90vh' }} className="">
                             <style>
                                 {`.custom-tag {
-                              max-width: 100%;
-                              height: 500px;
-                              background: black;
-                        }`}
+                                  max-width: 100%;
+                                  height: 600px;
+                                  background: black;
+                                }`}
                             </style>
                             <Card style={{ width: "100%"}}>
                                 <Carousel
