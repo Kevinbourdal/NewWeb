@@ -124,10 +124,10 @@ class CardGallery extends Component {
 
     render() {
         return (
-            <div>
+            <div className='mt-5'>
                 {this.props.in_detail ?
                     <div className='mx-md-5 my-3'>
-                        <h4 className='my-4'> Otras Subastas </h4>
+                        <h4 className='my-5'> Otras Subastas </h4>
                         <CardDeck className="mx-md-5 col-12 px-md-1">
                             {this.state.items_started.slice(0, this.state.visible_started).map((data, index) =>
                                 <div className="col-3 pr-0 pl-0" style={{maxWidth: '576px'}} hidden={data['id']===Number(this.category.replace('category=detail/', ''))}>

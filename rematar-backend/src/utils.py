@@ -1,6 +1,7 @@
 import jwt
 from datetime import datetime as dt
-
+import smtplib
+from decouple import config
 
 STATUS = {200: 'Success',
           201: 'Created',
@@ -18,6 +19,7 @@ STATUS = {200: 'Success',
 JWT_SECRET_KEY = 'subastasenweb.key'
 JWT_ALGORITHM = 'HS256'
 JWT_NOISE = b'salt'
+MAIL_PASSWORD = 'Subastas2020!'
 
 
 def response(status_code, msg='', data=None):
@@ -84,3 +86,24 @@ def validate_token(token):
         return token_data['username'], None
 
     return None, response(400, 'Wrong token')
+
+
+def get_email(email_dest, message):
+
+    subject = 'Mail enviado desde Subastas en Web, No responder'
+    message = 'Subject : {} \n\n{}'.format(subject, message)
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        result = server.login('subastasenweb.info@gmail.com', MAIL_PASSWORD)
+        if result[0] == 235:
+            server.sendmail('subastasenweb.info@gmail.com', email_dest, message)
+
+            server.quit()
+            print('Mail enviado')
+            return True
+        print('Sesion no iniciada')
+        return False
+    except:
+        print('Mail no enviado')
+        return False

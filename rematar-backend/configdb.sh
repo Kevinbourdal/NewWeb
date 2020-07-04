@@ -20,8 +20,8 @@ docker inspect mysql-subastas | grep "IPAddress"
 #insert into role (id, role_name) values (2, 'fullview');
 #insert into role (id, role_name) values (3, 'commonuser');
 #
-#insert into account (id, role_id, username, email, password) values (1, 1, 'admin', 'admin@subastasenweb.com', 'subastas2020');
-#insert into account (id, role_id, username, email, password) values (2, 3, 'usuario', 'usuario@subastasenweb.com', 'subastas2020');
+insert into account (id, role_id, username, email, password) values (1, 1, 'admin', 'admin@subastasenweb.com', 'subastas2020');
+insert into account (id, role_id, username, email, password) values (2, 3, 'usuario', 'usuario@subastasenweb.com', 'subastas2020');
 ############
 
 

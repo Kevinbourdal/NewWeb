@@ -4,6 +4,8 @@ import marshmallow
 from flask import request
 from flask_restful import Resource
 
+from message import message
+
 from marshmallow.exceptions import ValidationError
 
 from models import (
@@ -35,6 +37,7 @@ from utils import (
     decode_token,
     validate_token,
     validate_json_payload,
+    get_email,
 )
 
 
@@ -67,7 +70,7 @@ class RoleView(BaseView):
         # self.roles_schema = RoleSchema(many=True)
 
 
-class AccountView (BaseView):
+class AccountView(BaseView):
 
     def __init__(self):
         super(AccountView, self).__init__()
@@ -107,7 +110,10 @@ class AccountView (BaseView):
             new_account = AccountModel(**account_data)
             error = new_account.save()
             if not error:
+                msg = message.format(json_data['username'])
+                sent = get_email(json_data['email'], msg)
                 return response(200, data={'id': new_account.id})
+
         print('error', error)
         return response(400, msg="Error en backend")
 
@@ -355,7 +361,8 @@ class AuctionView(BaseView):
             for auction in auctions:
                 item = ItemModel.query.filter_by(auction_id=auction['id']).first()
                 if inmueble or vehiculo or mueble or otro or localidades or provincias:
-                    if item.item_category.lower() not in '.'.join([inmueble, vehiculo, mueble, otro]).lower().split('.'):
+                    if item.item_category.lower() not in '.'.join([inmueble, vehiculo, mueble, otro]).lower().split(
+                            '.'):
                         if item.province.lower() not in provincias.lower().split('.'):
                             if item.city.lower() not in localidades.lower().split('.'):
                                 item = None
@@ -424,7 +431,8 @@ class NewAuctionView(BaseView):
                                                'city': item.city.title(),
                                                'address': item.address.title(),
                                                'url_images': [url.url for url in urls],
-                                               'key_value': [(key_value.key, key_value.value) for key_value in key_values],
+                                               'key_value': [(key_value.key, key_value.value) for key_value in
+                                                             key_values],
                                                'values': [value.value for value in values]
                                                })
         return response(400)
@@ -626,7 +634,8 @@ class FiltersView(BaseView):
         for city in cities.distinct().all():
             filters['Localidades'].append((city, cities.filter_by(city=city).count()))
 
-        filters = {cat: filters[cat] for cat in ['Inmueble', 'Vehiculo', 'Mueble', 'Otro', 'Provincias', 'Localidades'] if cat in filters.keys()}
+        filters = {cat: filters[cat] for cat in ['Inmueble', 'Vehiculo', 'Mueble', 'Otro', 'Provincias', 'Localidades']
+                   if cat in filters.keys()}
         return response(200, data={'filters': filters})
 
 
@@ -723,9 +732,9 @@ class OfferUserView(BaseView):
         account = AccountModel.query.filter_by(username=username).first()
         result = {'started': [], 'finished': []}
         if account is not None:
-            offers = OfferModel.query\
-                               .filter_by(account_id=account.id)\
-                               .order_by(OfferModel.id.desc())
+            offers = OfferModel.query \
+                .filter_by(account_id=account.id) \
+                .order_by(OfferModel.id.desc())
             auction_ids = []
             started_offers = offers.filter_by(finished=False).all()
             for offer in started_offers:
