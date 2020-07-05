@@ -397,7 +397,7 @@ class AuctionView(BaseView):
             price_from = request.args.get('price_from', None)
             price_until = request.args.get('price_until', None)
 
-            auctions = AuctionModel.query  # .filter_by(finished=False)
+            auctions = AuctionModel.query.filter(AuctionModel.end_date>=dt.now().date())  # .filter_by(finished=False)
             if category is not None:
                 auctions = auctions.filter_by(category=category)
             if price_from is not None:
