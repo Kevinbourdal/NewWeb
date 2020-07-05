@@ -1,5 +1,5 @@
 import jwt
-from datetime import datetime as dt
+from datetime import datetime as dt, date
 import smtplib
 
 
@@ -106,3 +106,12 @@ def send_email(email_dest, message):
     except Exception as ex:
         print('Mail no enviado', ex)
         return False
+
+
+def check_minuto_ley(auction, new_offer):
+    if auction.end_date == new_offer.date:
+        diff = (dt.combine(date.today(), auction.end_hour) - dt.combine(date.today(), new_offer.hour))
+        if diff.seconds <= 60:
+            return True
+    return False
+

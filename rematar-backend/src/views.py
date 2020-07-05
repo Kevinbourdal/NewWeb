@@ -1,5 +1,5 @@
 import random
-from datetime import datetime as dt
+from datetime import datetime as dt, date, timedelta
 import marshmallow
 from flask import request
 from flask_restful import Resource
@@ -38,6 +38,7 @@ from utils import (
     validate_token,
     validate_json_payload,
     send_email,
+    check_minuto_ley,
 )
 
 
@@ -358,7 +359,13 @@ class OfferView(BaseView):
             new_offer = OfferModel(**offer_data)
             error = new_offer.save()
             if not error:
-                return response(200, data={'id': new_offer.id})
+                auction = AuctionModel.query.filter_by(id=auction_id).first()
+                if check_minuto_ley(auction, new_offer):
+                    next_end = (dt.combine(date.today(), auction.end_hour) + timedelta(seconds=60)).time()
+                    auction.end_hour = next_end  #new_offer.hour + timedelta(minutes=1)
+                    error = auction.save()
+                if not error:
+                    return response(200, data={'id': new_offer.id})
 
         return response(400, msg="Error en backend")
 
