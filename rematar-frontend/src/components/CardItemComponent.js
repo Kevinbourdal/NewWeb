@@ -77,11 +77,11 @@ class CardItem extends Component {
                         </MDBCarousel>
                     </CardHeader>
                     <CardBody className='mb-0 pb-0'>
-                        <CardTitle className='mt-1 titulo' > {/*style={{height: '40px'}}*/}
+                        <CardTitle className='mt-1 titulo mx-auto' > {/*style={{height: '40px'}}*/}
                             <a href={this.href || '#'} className="text-dark" type=""><h5 className='h4-responsive'><b >{ this.title || '' }</b></h5></a>
                         </CardTitle>
                         <CardSubtitle className="my-0 justify-content-center mx-auto h6-responsive subtitulo" > {/* style={{height: '40px'}} */}
-                            <b className='w-responsive d-inline'>{ this.subtitle.toLowerCase() || '' }</b>
+                            <b className='w-responsive d-inline'>{ this.subtitle.toLowerCase() || '...' }</b>
                         </CardSubtitle>
                         <CardText className="text-right">
                             <MDBIcon far icon="calendar-alt" />

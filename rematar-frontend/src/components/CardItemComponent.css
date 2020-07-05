@@ -24,13 +24,17 @@ img {
     height: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    max-width: 400px;
 }
 
 .subtitulo {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    max-width: 250px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
 }

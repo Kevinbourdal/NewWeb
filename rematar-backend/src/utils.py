@@ -1,5 +1,5 @@
 import jwt
-from datetime import datetime as dt
+from datetime import datetime as dt, date
 import smtplib
 
 
@@ -81,7 +81,7 @@ def validate_json_payload(json_data, fileds):
 
 
 def validate_token(token):
-    token_data = token.decode_token().query.filter_by().first()
+    token_data = token.decode_token()
     if 'username' in token_data.keys():
         return token_data['username'], None
 
@@ -106,3 +106,12 @@ def send_email(email_dest, message, subject='Mail enviado desde Subastas en Web,
     except Exception as ex:
         print('Mail no enviado', ex)
         return False
+
+
+def check_minuto_ley(auction, new_offer):
+    if auction.end_date == new_offer.date:
+        diff = (dt.combine(date.today(), auction.end_hour) - dt.combine(date.today(), new_offer.hour))
+        if diff.seconds <= 60:
+            return True
+    return False
+

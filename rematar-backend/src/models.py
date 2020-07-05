@@ -29,7 +29,7 @@ class ModelBase:
             db.session.add(self)
             db.session.commit()
         except exc.IntegrityError as ex:
-            return response(409, f'Confict in Database: {ex.args[0].split(".")[4]}')
+            return response(409, f'Confict in Database: {ex.args[0]}')
         except Exception as ex:
             return response(500, f'Data base error\n{ex}')
 

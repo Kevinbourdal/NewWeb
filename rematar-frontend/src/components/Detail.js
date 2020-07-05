@@ -80,10 +80,18 @@ class Detail extends Component {
        ).then(res => {
            const start_date = new Date(res['data']['auction']['start_date'].split('-'))
            const end_date = new Date(res['data']['auction']['end_date'].split('-'))
-           let hour = res['data']['auction']['start_hour'].split(':').map((h) => parseInt(h, 10));
+           var hour = res['data']['auction']['start_hour'].split(':').map((h) => parseInt(h, 10));
            let full_start_date = new Date(start_date.getFullYear(),
                start_date.getMonth(),
                start_date.getDate(),
+               hour[0],
+               hour[1],
+               hour[2]
+           );
+           hour = res['data']['auction']['end_hour'].split(':').map((h) => parseInt(h, 10));
+           let full_end_date = new Date(end_date.getFullYear(),
+               end_date.getMonth(),
+               end_date.getDate(),
                hour[0],
                hour[1],
                hour[2]
@@ -94,6 +102,7 @@ class Detail extends Component {
                ...res['data']['auction'],
                ...res['data']['item'],
                'full_start_date': full_start_date,
+               'full_end_date': full_end_date,
                'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
                'url_images': res['data']['url_images'],
                'values': res['data']['values'].map((value) => value['value']),
@@ -118,6 +127,7 @@ class Detail extends Component {
             {
                 headers: {
                     "Content-Type": "text/plain",
+                    authorization: this.Auth.getToken(),
                 },
                 method: 'POST',
                 body: JSON.stringify({
@@ -129,6 +139,10 @@ class Detail extends Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
+            if (res.code === 409){
+                alert('Faltan cargar datos de usuario')
+                return
+            }
             this.toggle_modaloffert(e)
             this.toggle()
         }
@@ -413,7 +427,7 @@ class Detail extends Component {
                                                                         color={'info'}
                                                                         style={{color:'#424242'}}
                                                                         onClick={this.toggle_modaloffert}
-                                                                        disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now()) || (this.state.end_date <= Date.now())}
+                                                                        disabled={!this.Auth.loggedIn() || (this.state.full_start_date > Date.now()) || (this.state.full_end_date <= Date.now())}
                                                                         hidden={!this.Auth.loggedIn() }>
                                                                     <Row >
                                                                        <em className='mx-auto'>
