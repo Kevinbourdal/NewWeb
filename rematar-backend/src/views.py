@@ -239,7 +239,7 @@ class ContactView(BaseView):
                                                          'body': json_data['body'],
                                                          'email': json_data['email']})
             except marshmallow.exceptions.ValidationError as errors:
-                print('error', errors)
+                print('\033[93m' + 'error' + '\033[0m', errors)
                 return response(400, str(errors))
 
             new_contact = ContactModel(**contact_data)
@@ -248,8 +248,12 @@ class ContactView(BaseView):
                 msg = message_contact.format(fullname=json_data['name'],
                                              body=json_data['body'],
                                              email=json_data['email'],
-                                             phone=json_data['phone'],)
-                sent = send_email('subastasenweb.contact@gmail.com', msg)
+                                             phone=json_data['phone'], )
+                subject = f'Contacto de {json_data["name"].strip()}, el {dt.now().strftime("%d-%m-%Y")}.'
+                print(subject)
+                sent = send_email('subastasenweb.contact@gmail.com',
+                                  msg,
+                                  subject)
                 return response(200, data={'id': 'asfd'})
 
         return response(400, msg="Error en backend")

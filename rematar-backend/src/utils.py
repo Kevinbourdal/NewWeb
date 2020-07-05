@@ -88,8 +88,8 @@ def validate_token(token):
     return None, response(400, 'Wrong token')
 
 
-def send_email(email_dest, message):
-    subject = 'Mail enviado desde Subastas en Web, No responder'
+def send_email(email_dest, message, subject='Mail enviado desde Subastas en Web, No responder'):
+
     message = 'Subject : {} \n\n{}'.format(subject, message)
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -97,7 +97,7 @@ def send_email(email_dest, message):
         result = server.login('subastasenweb.info@gmail.com', MAIL_PASSWORD)
         if result[0] == 235:
             server.sendmail('subastasenweb.info@gmail.com', email_dest, message.encode('utf-8'))
-
+            print(message.encode('utf-8'))
             server.quit()
             print('Mail enviado')
             return True
