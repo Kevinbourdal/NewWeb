@@ -21,25 +21,17 @@ class AcceptAuctions extends Component {
         this.state = {
             firstname: '',
             lastname: '',
-            dni_type:'',
-            dni:'',
-            province: '',
-            city: '',
-            bdate:'',
-            phone :'',
-            email: '',
             offer_started: [],
         };
         this.Auth = new AuthService();
         this.username = this.Auth.getUsername();
-        this.submitHandler = this.submitHandler.bind(this);
         this.get_tables = this.get_tables.bind(this);
         this.get_tables();
     }
 
     get_tables () {
         fetch(
-            config["api"]['BACKEND_ENDPOINT']+'/api/offer/user?username='+this.username,
+            config["api"]['BACKEND_ENDPOINT']+'/api/offer_finished',
             {
                 headers: {
                     'Content-Type': 'text/json',
@@ -49,38 +41,15 @@ class AcceptAuctions extends Component {
         ).then(data => {return data.json()}
         ).then(res => {
                 this.setState({
-                    offer_started: res['data']['offers']['started'],
                     offer_finished: res['data']['offers']['finished'],
                 })
             }
         ).catch(e => {
-                this.props.history.push('/mi_perfil');
+            console.log("Fail");
             }
         )
     }
 
-
-    submitHandler = () => {
-        // recibimos los datos del backend
-        fetch(
-            config["api"]['BACKEND_ENDPOINT']+'/api/mi_perfil?username='+this.username,
-            {
-                headers: {
-                    'Content-Type': 'text/json',
-                },
-                mode: 'cors',
-                method: 'GET',
-            }
-        ).then(data => {return data.json()}
-        ).then(res => {
-                this.setState({...res['data']['user']})
-                // Object.keys(res['data']['user'])
-            }
-        ).catch(e => {
-                this.props.history.push('/mi_perfil');
-            }
-        )
-    };
     deletArgs(index, name){
         var new_list = this.state[name]
         new_list.pop(index)
@@ -125,7 +94,7 @@ class AcceptAuctions extends Component {
                                     </tr>
                                     </thead>
                                     <tbody className="text-center ">
-                                    {this.state.offer_started.map((offer, index) => {
+                                    {this.state.offer_finished.map((offer, index) => {
                                         return (
                                             <tr className="ml-5 bg-light" style={{ color: "#000000" }}>
                                                 <th className="ml-5">{index+1}</th>

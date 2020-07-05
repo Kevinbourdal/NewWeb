@@ -62,8 +62,8 @@ class Footer extends Component {
               <i className="fa fa-home mr-2 " /> Embalse de Calamuchita,Cordoba
             </p>
             <p>
-              <a href={"mailto:info@example.com"} style={{color: "white"}}>
-                <i className="fa fa-envelope mr-2" /> info@example.com
+              <a href={"subastasenweb.contact@gmail.com"} style={{color: "white"}}>
+                <i className="fa fa-envelope mr-2" /> subastasenweb.contact@gmail.com
               </a>
             </p>
             <p>

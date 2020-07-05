@@ -833,3 +833,13 @@ class OfferUserView(BaseView):
 
             return response(200, data={'offers': result})
         return response(400)
+
+
+class OfferFinished (BaseView):
+
+    def __init__(self):
+        self.offer_schema = OfferSchema()
+
+    def get(self):
+        
+
