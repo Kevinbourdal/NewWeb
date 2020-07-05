@@ -130,6 +130,10 @@ class Detail extends Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
+            if (res.code === 409){
+                alert('Faltan cargar datos de usuario')
+                return
+            }
             this.toggle_modaloffert(e)
             this.toggle()
         }

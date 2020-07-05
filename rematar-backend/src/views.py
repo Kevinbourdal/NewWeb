@@ -72,6 +72,11 @@ class BaseView(Resource):
         account = AccountModel.query.filter_by(username=username, email=email).first()
         return account is not None
 
+    def account_has_userdata(self, username):
+        account = AccountModel.query.filter_by(username=username).first()
+        user = UserModel.query.filter_by(account_id=account.id).first()
+        return user is not None
+
 
 class RoleView(BaseView):
 
@@ -334,6 +339,9 @@ class OfferView(BaseView):
             return response(401, 'Wrong token')
 
         json_data, error = get_data(request)
+        if not self.account_has_userdata(json_data['username']):
+            return response(409, 'Account don\'t has user data')
+
         if not error:
             try:
                 account = AccountModel.query.filter_by(username=json_data['username']).first()
