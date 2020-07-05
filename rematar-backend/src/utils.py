@@ -81,7 +81,7 @@ def validate_json_payload(json_data, fileds):
 
 
 def validate_token(token):
-    token_data = token.decode_token().query.filter_by().first()
+    token_data = token.decode_token()
     if 'username' in token_data.keys():
         return token_data['username'], None
 

@@ -9,6 +9,7 @@ import Label from "reactstrap/es/Label";
 import config from "../config";
 import ModalPage from "./Moddal";
 import {MDBCol, MDBRow} from "mdbreact";
+import AuthService from "../utils/AuthService";
 
 
 class AddCards extends Component {
@@ -42,7 +43,7 @@ class AddCards extends Component {
                 modal: false,
                 modal_ok: true
            };
-
+           this.Auth = new AuthService();
            this.handleDataAdd = this.handleDataAdd.bind(this);
            this.handleDataAdd2 = this.handleDataAdd2.bind(this);
            this.handleDataAdd3 = this.handleDataAdd3.bind(this);
@@ -82,6 +83,7 @@ class AddCards extends Component {
              {
                  headers: {
                      'Content-Type': 'text/json',
+                     authorization: this.Auth.getToken(),
                  },
                  mode: 'cors',
                  method: this.state.new_auction ? 'POST' : 'PUT',

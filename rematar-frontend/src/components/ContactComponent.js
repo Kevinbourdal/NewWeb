@@ -6,6 +6,7 @@ import logo from '../img/logofull.png'
 import config from "../config";
 import logos from "../img/logosubastas.png";
 import ModalPage from "./Moddal";
+import AuthService from "../utils/AuthService";
 
 
 class Contact extends Component {
@@ -24,7 +25,7 @@ class Contact extends Component {
 		};
 		this.handleChange = this.handleChange.bind(this);
         this.toggle = this.toggle.bind(this);
-		//this.Auth = new AuthService();
+		this.Auth = new AuthService();
 	}
     submitHandler = e => {
         //event.preventDefault();  No se que hace por eso lo comente
@@ -36,6 +37,7 @@ class Contact extends Component {
            {
                headers: {
                    "Content-Type": "text/plain",
+                   // authorization: this.Auth.getToken(),
                },
                 method: 'POST',
                 body: JSON.stringify({

@@ -62,6 +62,7 @@ class ChangePassword extends React.Component {
             {
                 headers: {
                     Accept: 'application/json',
+                    authorization: this.Auth.getToken(),
                 },
                 method: 'PUT',
                 body: JSON.stringify({

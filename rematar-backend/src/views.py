@@ -61,6 +61,17 @@ class BaseView(Resource):
     def delete(self, **kwargs):
         return response(401)
 
+    def exists_account(self, username=None, email=None):
+        if username:
+            username = AccountModel.query.filter_by(username=username).first()
+        if email:
+            email = AccountModel.query.filter_by(email=email).first()
+        return username is not None or email is not None
+
+    def is_valid_token_data(self, username, email):
+        account = AccountModel.query.filter_by(username=username, email=email).first()
+        return account is not None
+
 
 class RoleView(BaseView):
 
@@ -77,25 +88,10 @@ class AccountView(BaseView):
         self.account_schema = AccountSchema()
         self.accounts_schema = AccountSchema(many=True)
 
-    def put(self):
-        json_data, error = get_data(request)
-        if not error:
-            try:
-                account = AccountModel.query.filter_by(username=json_data['username']).first()
-            except marshmallow.exceptions.ValidationError as errors:
-                print('error', errors)
-                return response(400, str(errors))
-
-            if account is not None:
-                account.password = json_data['password']
-                error = account.save()
-                if not error:
-                    return response(200, data={'id': account.id})
-
-        return response(400, msg="Error en backend")
-
     def post(self):
         json_data, error = get_data(request)
+        if self.exists_account(username=json_data['username'], email=json_data['email']):
+            return response(409, 'Usuario ya registrado')
         if not error:
             try:
                 account_data = self.account_schema.load({'email': json_data['email'],
@@ -115,6 +111,26 @@ class AccountView(BaseView):
                 return response(200, data={'id': new_account.id})
 
         print('error', error)
+        return response(400, msg="Error en backend")
+
+    def put(self):
+        account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
+        if not self.is_valid_token_data(account_data['username'], account_data['email']):
+            return response(401, 'Wrong token')
+        json_data, error = get_data(request)
+        if not error:
+            try:
+                account = AccountModel.query.filter_by(username=json_data['username']).first()
+            except marshmallow.exceptions.ValidationError as errors:
+                print('error', errors)
+                return response(400, str(errors))
+
+            if account is not None:
+                account.password = json_data['password']
+                error = account.save()
+                if not error:
+                    return response(200, data={'id': account.id})
+
         return response(400, msg="Error en backend")
 
 
@@ -149,6 +165,9 @@ class UserView(BaseView):
         return response(400)
 
     def post(self):
+        account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
+        if not self.is_valid_token_data(account_data['username'], account_data['email']):
+            return response(401, 'Wrong token')
         json_data, error = get_data(request)
         if not error:
             account = AccountModel.query.filter_by(username=json_data['username']).first()
@@ -173,11 +192,17 @@ class UserView(BaseView):
                 error = new_user.save()
                 if not error:
                     return response(200, data={'id': new_user.id})
-            print('user don\'t exists')
+                print(error)
+                return error
+            else:
+                print('user don\'t exists')
         print(error)
         return response(400, msg="Error en backend")
 
     def put(self):
+        account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
+        if not self.is_valid_token_data(account_data['username'], account_data['email']):
+            return response(401, 'Wrong token')
         json_data, error = get_data(request)
         if not error:
             try:
@@ -248,7 +273,7 @@ class ContactView(BaseView):
                 msg = message_contact.format(fullname=json_data['name'],
                                              body=json_data['body'],
                                              email=json_data['email'],
-                                             phone=json_data['phone'],)
+                                             phone=json_data['phone'], )
                 sent = send_email('subastasenweb.contact@gmail.com', msg)
                 return response(200, data={'id': 'asfd'})
 
@@ -304,8 +329,11 @@ class OfferView(BaseView):
         return response(400)
 
     def post(self, auction_id):
-        json_data, error = get_data(request)
+        account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
+        if not self.is_valid_token_data(account_data['username'], account_data['email']):
+            return response(401, 'Wrong token')
 
+        json_data, error = get_data(request)
         if not error:
             try:
                 account = AccountModel.query.filter_by(username=json_data['username']).first()
@@ -443,6 +471,10 @@ class NewAuctionView(BaseView):
         return response(400)
 
     def post(self):
+        account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
+        if not self.is_valid_token_data(account_data['username'], account_data['email']):
+            return response(401, 'Wrong token')
+
         json_data, error = get_data(request)
         if not error:
             # se puede validar que los campos requeridos estan vacios
@@ -503,6 +535,10 @@ class NewAuctionView(BaseView):
         return response(400, str(error))
 
     def put(self):
+        account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
+        if not self.is_valid_token_data(account_data['username'], account_data['email']):
+            return response(401, 'Wrong token')
+
         json_data, error = get_data(request)
         auction_id = json_data.get('auction_id', None)
         if auction_id is not None:

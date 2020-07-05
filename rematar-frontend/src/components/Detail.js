@@ -118,6 +118,7 @@ class Detail extends Component {
             {
                 headers: {
                     "Content-Type": "text/plain",
+                    authorization: this.Auth.getToken(),
                 },
                 method: 'POST',
                 body: JSON.stringify({

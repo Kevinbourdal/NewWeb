@@ -7,6 +7,7 @@ import logos from '../img/logosubastas.png';
 import config from "../config";
 import TermsAndConditions from "./TermsAndConditions";
 import ModalPage from "./Moddal";
+import AuthService from "../utils/AuthService";
 
 class RecoverPassword extends React.Component {
     constructor (props) {
@@ -20,6 +21,7 @@ class RecoverPassword extends React.Component {
         };
         this.toggle = this.toggle.bind(this)
         this.toggle2 = this.toggle2.bind(this)
+        this.Auth = new AuthService();
     }
 
     toggle = (e) => {
@@ -46,6 +48,7 @@ class RecoverPassword extends React.Component {
             {
                 headers: {
                     Accept: 'application/json',
+                    authorization: this.Auth.getToken(),
                 },
                 method: 'POST',
                 body: JSON.stringify({

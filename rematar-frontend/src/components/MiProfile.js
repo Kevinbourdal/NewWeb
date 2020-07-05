@@ -25,7 +25,8 @@ class MiProfile extends React.Component {
             mStatus: '',
             dni_types: ['DNI', 'CUIT', 'CUIL', 'LIBRETA CÍVICA', 'LIBRETA DE ENROLAMIENTO'],
             new_user: false,
-            modal: false
+            modal: false,
+            modal_ok: true
         };
         this.Auth = new AuthService();
         this.username = this.Auth.getUsername();
@@ -43,6 +44,7 @@ class MiProfile extends React.Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
+            if (res.code !== 200)
                 this.setState({...res['data']['user']})
             }
         ).catch(e => {
@@ -62,6 +64,7 @@ class MiProfile extends React.Component {
             {
                 headers: {
                     Accept: 'application/json',
+                    authorization: this.Auth.getToken(),
                 },
                 method: this.state.new_user ? 'POST' : 'PUT',
                 body: JSON.stringify({
@@ -69,7 +72,16 @@ class MiProfile extends React.Component {
                     username: this.username
                 })
             }
-        ).then(data => {this.toggle()}
+        ).then(data => {
+            alert(data.code)
+            if (data.code === 200){
+                this.setState({modal_ok: true})
+                this.toggle()
+            } else {
+                this.setState({modal_ok: false})
+                this.toggle(false)
+            }
+        }
         ).catch(error => {
             console.log("Fail", error);
             // alert('error')
@@ -82,7 +94,8 @@ class MiProfile extends React.Component {
         });
         if (typeof e !== 'undefined')
             if (e.target.name === 'boton modal')
-                this.props.history.push('/profile');
+                if (this.state.modal_ok)
+                    this.props.history.push('/profile');
     }
 
     changeHandler = event => {
@@ -92,7 +105,9 @@ class MiProfile extends React.Component {
     render() {
         return (
             <div className="app flex-row align-items-center mt-5 mb-5">
-                <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Perfil actualizado'}/>
+                <ModalPage toggle={this.toggle}
+                           modal={this.state.modal}
+                           body={this.state.modal_ok ? 'Perfil actualizado' : 'Error al guardar los datos. Revisar los campos.'}/>
                 <MDBContainer>
                     <div>
                         <MDBRow className="justify-content-center">
