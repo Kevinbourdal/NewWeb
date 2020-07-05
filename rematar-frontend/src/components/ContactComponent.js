@@ -18,7 +18,9 @@ class Contact extends Component {
 			phone: '',
 			body: '',
 			loginError: false,
-            modal: false
+            modal: false,
+            modal_ok: true,
+            modal_msg: ''
 		};
 		this.handleChange = this.handleChange.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -60,10 +62,13 @@ class Contact extends Component {
 		});
 	};
 
-    toggle = () => {
+    toggle = (e) => {
         this.setState({
             modal: !this.state.modal
         });
+        if (typeof e !== 'undefined')
+            if (e.target.name === 'boton modal'  && this.state.modal_ok)
+                return this.props.history.push('/home');
     }
 
     validateForm() {
@@ -75,7 +80,13 @@ class Contact extends Component {
 	render() {
 	    return(
 	         <div className="app flex-row align-items-center mt-4">
-              <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Su consulta se ha enviado correctamente'}/>
+                 <ModalPage
+                     toggle={this.toggle}
+                     modal={this.state.modal}
+                     body={this.state.modal_ok ?
+                         'Su mensaje ha sido enviado exitosamente'
+                         :
+                         'No se pudo enviar el mensaje. Intente de nuevo mas tarde'+this.state.modal_msg}/>
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="8">

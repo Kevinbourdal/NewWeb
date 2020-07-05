@@ -30,7 +30,7 @@ export default class Timer extends Component {
                     )
 
                 let diffDate = Math.abs(end_auction.getTime() - new Date(Date.now()))
-                let days = Math.ceil(diffDate / (1000 * 60 * 60 * 24));
+                let days = Math.floor(diffDate / (1000 * 60 * 60 * 24));
                 diffDate = diffDate % (1000 * 60 * 60 * 24)
                 let diffHour = Math.floor(diffDate / (1000 * 60 * 60));
                 diffDate = diffDate % (1000 * 60 * 60)
@@ -38,7 +38,6 @@ export default class Timer extends Component {
                 diffDate = diffDate % (1000 * 60 )
                 let diffSeg= Math.floor(diffDate / (1000));
 
-                console.log(diffHour)
                 this.setState(
                     {
                         days: days,
@@ -106,7 +105,7 @@ export default class Timer extends Component {
         return (
             <Alert style={{'background': this.state.started ? "#000000" : "red", color: 'white'}} className="text-center" >
                 Tiempo restante:
-                { days <= 1
+                { days === 0 && hour === 0 && minutes === 0 & seconds === 0
                     ? <h1>Finalizado!</h1>
                     : <h4 className="text-black mx-0">{days} dias - {hour}:{minutes < 10? `0${minutes}`:minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
                 }

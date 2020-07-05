@@ -53,6 +53,7 @@ class Detail extends Component {
            values: [],
            modal: false,
            modaloffert: false,
+           full_start_date: 0,
        };
 
        this.Auth = new AuthService();
@@ -63,6 +64,7 @@ class Detail extends Component {
        this.toggle = this.toggle.bind(this);
        this.toggle_modaloffert = this.toggle_modaloffert.bind(this);
        this.cancel_offert = this.cancel_offert.bind(this);
+       this.is_old_date = this.is_old_date.bind(this);
 
   }
 
@@ -78,11 +80,20 @@ class Detail extends Component {
        ).then(res => {
            const start_date = new Date(res['data']['auction']['start_date'].split('-'))
            const end_date = new Date(res['data']['auction']['end_date'].split('-'))
+           let hour = res['data']['auction']['start_hour'].split(':').map((h) => parseInt(h, 10));
+           let full_start_date = new Date(start_date.getFullYear(),
+               start_date.getMonth(),
+               start_date.getDate(),
+               hour[0],
+               hour[1],
+               hour[2]
+           );
            res['data']['auction']['start_date'] = start_date
            res['data']['auction']['end_date'] = end_date
            this.setState({
                ...res['data']['auction'],
                ...res['data']['item'],
+               'full_start_date': full_start_date,
                'key_values': res['data']['key_values'].map((kv) => [kv['key'], kv['value']]),
                'url_images': res['data']['url_images'],
                'values': res['data']['values'].map((value) => value['value']),
@@ -159,6 +170,20 @@ class Detail extends Component {
             modaloffert: false
         });
     }
+
+    is_old_date (start_date, start_hour) {
+       if (typeof start_date === 'string')
+            return false
+        let hour = start_hour.split(':').map((h) => parseInt(h, 10));
+        let full_date = new Date(start_date.getFullYear(),
+            start_date.getMonth(),
+            start_date.getDate(),
+            hour[0],
+            hour[1],
+            hour[2]
+        )
+        return (full_date.getTime() - new Date(Date.now())) <= 0
+    }
    render() {
 
        let DescriptionText = (
@@ -182,7 +207,6 @@ class Detail extends Component {
            this.setState({
                url_images: [{'url': no_img}]
            });
-
       return (
           <div  >
               <div  hidden={true} id="filterbar" className='mb-5 mt-0'>
@@ -325,7 +349,8 @@ class Detail extends Component {
                                                         <hr/>
                                                         <Row>
                                                             <Col>
-                                                                { this.state.start_date < Date.now() ?
+                                                                {/*{ typeof this.state.start_date !== 'string' && this.is_old_date(this.state.start_date, this.state.start_hour) ?*/}
+                                                                    { this.state.full_start_date < Date.now() ?
                                                                     <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
                                                                     :
                                                                     <div>
@@ -388,8 +413,8 @@ class Detail extends Component {
                                                                         color={'info'}
                                                                         style={{color:'#424242'}}
                                                                         onClick={this.toggle_modaloffert}
-                                                                        disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now())}
-                                                                        hidden={!this.Auth.loggedIn()}>
+                                                                        disabled={!this.Auth.loggedIn() || (this.state.start_date > Date.now()) || (this.state.end_date <= Date.now())}
+                                                                        hidden={!this.Auth.loggedIn() }>
                                                                     <Row >
                                                                        <em className='mx-auto'>
                                                                             <strong><b className='mt-0 mb-0 h5-responsive'>
