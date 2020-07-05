@@ -21,7 +21,14 @@ class AcceptAuctions extends Component {
         this.state = {
             firstname: '',
             lastname: '',
-            offer_started: [],
+            dni_type:'',
+            dni:'',
+            province: '',
+            city: '',
+            bdate:'',
+            phone :'',
+            email: '',
+            offer_finished: [],
         };
         this.Auth = new AuthService();
         this.username = this.Auth.getUsername();
@@ -40,9 +47,8 @@ class AcceptAuctions extends Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
-                this.setState({
-                    offer_finished: res['data']['offers']['finished'],
-                })
+                this.setState({ offer_finished : res['data']['offers'] })
+            console.log(res)
             }
         ).catch(e => {
             console.log("Fail");
@@ -68,9 +74,6 @@ class AcceptAuctions extends Component {
 
 
     render() {
-        if (this.state.firstname === '') {
-            this.submitHandler()
-        }
         return (
             <MDBCol >
                 <MDBRow className="mt-4 ml-2 col-12 " style={{height:'400%'}}>
@@ -84,9 +87,7 @@ class AcceptAuctions extends Component {
                                     <tr className="">
                                         <th><b>#</b></th>
                                         <th><b>Nombre</b></th>
-                                        <th><b>Apellido</b></th>
                                         <th><b>Oferta</b></th>
-                                        <th><b>Puesto</b></th>
                                         <th><b>Subasta</b></th>
                                         <th><b>Hora</b></th>
                                         <th><b>Fecha oferta</b></th>
@@ -98,21 +99,20 @@ class AcceptAuctions extends Component {
                                         return (
                                             <tr className="ml-5 bg-light" style={{ color: "#000000" }}>
                                                 <th className="ml-5">{index+1}</th>
-                                                <td className="ml-5">{this.state.firstname}</td>
-                                                <td className="ml-5">{this.state.lastname}</td>
-                                                <td className="ml-5 "><b>$ {offer['offer']}</b></td>
-                                                <td className="ml-5">{offer['position']}</td>
+                                                <td className="ml-5">{offer['username']}</td>
+                                                <td className="ml-5 "><b>$ {offer['amount']}</b></td>
                                                 <td className="ml-5">
-                                                    <a href={'/detail/'+offer['auction_id']}><b>{offer['auction']}</b></a>
+                                                    <a href={'/detail/'+offer['auction_id']}>
+                                                        <b>{offer['auction']}</b></a>
                                                 </td>
                                                 <td className="ml-5">{offer['date']}</td>
                                                 <td className="ml-5">{offer['time']}</td>
                                                 <MDBCol className='mt-2 text-left'>
                                                     <a className='btn green' style={{color:'black'}}
-                                                       onClick={(e) => this.acceptArgs(index, 'offer_started')}>Aceptar</a>
+                                                       onClick={(e) => this.acceptArgs(index, 'offer_finished')}>Aceptar</a>
 
                                                     <a className='btn danger-color-dark ml-2 ' style={{color:'black'}}
-                                                       onClick={(e) => this.deletArgs(index, 'offer_started')} >Denegar</a>
+                                                       onClick={(e) => this.deletArgs(index, 'offer_finished')} >Denegar</a>
                                                 </MDBCol>
                                             </tr>
                                         )
