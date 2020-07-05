@@ -463,7 +463,7 @@ class Detail extends Component {
             </MDBCardBody>
          </MDBCard>
               <hr className='my-5' />
-              <div>
+              <div >
                   <CardGallery auctions={[]} in_detail={true}/>
               </div>
 
