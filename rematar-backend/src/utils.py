@@ -1,5 +1,5 @@
 import jwt
-from datetime import datetime as dt, date
+from datetime import datetime as dt, date, timedelta
 import smtplib
 
 
@@ -61,7 +61,7 @@ def decode_token(token):
 
 def validate_dates(first_date, last_date=None, date_format='%Y-%m-%d'):
     if last_date is None:
-        last_date = dt.now()
+        last_date = (dt.now() - timedelta(hours=3))
     if isinstance(first_date, str):
         first_date = dt.strptime(first_date, date_format)
     return first_date < last_date
