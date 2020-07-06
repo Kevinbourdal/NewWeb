@@ -318,7 +318,7 @@ class LoginView(BaseView):
         json_data, error = get_data(request)
         if not error:
             try:
-                account = AccountModel.query.filter_by(email=json_data['email']).first()
+                account = AccountModel.query.filter_by(validated=True).filter_by(email=json_data['email']).first()
                 if account is not None:
                     role = RoleModel.query.filter_by(id=account.role_id).first()
                     if account.password == json_data['password']:
