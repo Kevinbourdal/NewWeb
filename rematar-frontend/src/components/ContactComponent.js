@@ -48,7 +48,15 @@ class Contact extends Component {
             console.log('data')
             // return data.json()
         }
-        ).then(res => {this.toggle()}
+        ).then(data => {
+            if (data.status === 200){
+                this.setState({modal_ok: true})
+                this.toggle()
+            } else {
+                this.setState({modal_ok: false})
+                this.toggle(false)
+            }
+            }
         ).catch(error => {console.log("Fail",error);
 
             }
