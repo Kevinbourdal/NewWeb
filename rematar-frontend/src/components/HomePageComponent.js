@@ -97,14 +97,14 @@ class HomePage extends Component {
         return (
 
             <div>
-                <div className="p-0 m-0" style={{ height: '550px'}}>
+                <div className="p-0 m-0" style={{ height: '500px'}}>
                     <div className="container-fluid no-padding h-25 p-0 m-0 ">
 
                         <div  style={{ height: '90vh' }} className="">
                             <style>
                                 {`.custom-tag {
                                   max-width: 100%;
-                                  height: 550px;
+                                  height: 500px;
                                   background: black;
                                 }`}
                             </style>
@@ -134,7 +134,7 @@ class HomePage extends Component {
                                             <Col className="p-0 m-0 ">
                                                 <input
                                                     className="form-control
-                                                    md-form mt-5 mx-auto Buscador col-md-10 search-bar w-responsive"
+                                                    md-form mt-2 mx-auto Buscador col-md-10 search-bar w-responsive"
                                                     style={{height:"40px"}}
                                                     type={"text"}
                                                     name={"search"}
