@@ -104,6 +104,7 @@ class AccountModel(ModelBase, db.Model):
     email = db.Column('email', db.String(255), unique=True)
     username = db.Column('username', db.String(255), unique=True)
     password = db.Column('password', db.String(255), nullable=False)
+    validated = db.Column(db.Boolean(), default=False)
     # last_update = db.Column('last_update', db.DateTime,server_default=db.func.current_timestamp(), nullable=True)
 
     def __init__(self, role_id, password, email, username):

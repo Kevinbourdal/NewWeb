@@ -62,7 +62,6 @@ class Header extends Component {
                                 <b>Registrarse</b></NavLink>
                         </div>
                             }
-                    <bc/>
                     <NavbarToggler className="ml-auto navbar-toggler-right" style={{background: "info"}} onClick={this.toggle} />
 
                     <Collapse isOpen={this.state.isOpen} navbar>

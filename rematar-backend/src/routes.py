@@ -76,5 +76,4 @@ urls = [
         'path': '/offer_finished',
         'endpoint': 'offer_finished',
     },
-
 ]
