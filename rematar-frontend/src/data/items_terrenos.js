@@ -1,4 +1,6 @@
-
+import picture from '../img/Picture_whap_1.jpeg'
+import picture2 from '../img/Picture_whap_2.jpeg'
+import picture3 from '../img/Picture_whap_3.jpeg'
 
 const item1 = {
     'title': 'Terreno en villa del dique',
@@ -7,15 +9,15 @@ const item1 = {
     'href': '/detail',
     'items': [
         {
-            src: 'src/img/Picture_whap_1.jpeg',
+            src: picture,
             key: '1'
         },
         {
-            src: 'src/img/Picture_whap_3.jpeg',
+            src: picture2,
             key: '3'
         },
         {
-            src: 'src/img/Picture_whap_2.jpeg',
+            src: picture3,
             key: '2'
         },
     ]
