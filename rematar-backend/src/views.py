@@ -367,7 +367,7 @@ class OfferView(BaseView):
                 auction = AuctionModel.query.filter_by(id=auction_id).first()
                 if check_minuto_ley(auction, new_offer):
                     next_end = (dt.combine(date.today(), auction.end_hour) + timedelta(seconds=60)).time()
-                    auction.end_hour = next_end  #new_offer.hour + timedelta(minutes=1)
+                    auction.end_hour = next_end  # new_offer.hour + timedelta(minutes=1)
                     error = auction.save()
                 if not error:
                     return response(200, data={'id': new_offer.id})
@@ -402,7 +402,9 @@ class AuctionView(BaseView):
             price_from = request.args.get('price_from', None)
             price_until = request.args.get('price_until', None)
 
-            auctions = AuctionModel.query.filter(AuctionModel.end_date>=dt.now().date())  # .filter_by(finished=False)
+            auctions = AuctionModel.query.filter((AuctionModel.end_date > dt.now().date()) |
+                                                 ((AuctionModel.end_date == dt.now().date()) & (
+                                                             AuctionModel.end_hour > dt.now().time())))
             if category is not None:
                 auctions = auctions.filter_by(category=category)
             if price_from is not None:
