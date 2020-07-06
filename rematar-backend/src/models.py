@@ -33,6 +33,15 @@ class ModelBase:
         except Exception as ex:
             return response(500, f'Data base error\n{ex}')
 
+    def delete_(self):
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except exc.IntegrityError as ex:
+            return response(409, f'Confict in Database: {ex.args[0]}')
+        except Exception as ex:
+            return response(500, f'Data base error\n{ex}')
+
 
 class Permission(ModelBase, db.Model):
     __tablename__ = 'permission'
@@ -216,9 +225,9 @@ class AuctionModel(ModelBase, db.Model):
     currency = db.Column('currency', db.String(15), unique=False, nullable=True)
     start_date = db.Column('start_date', db.Date, unique=False, nullable=False)
     start_hour = db.Column('start_hour', db.Time, unique=False, nullable=False)
-    end_date = db.Column('end_date', db.Date, unique=False, nullable=False)
+    end_date = db.Column('end_date', db.Date, unique=False, nullable=False)  # Se usa para ver si termino el tiempo de ofertar
     end_hour = db.Column('end_hour', db.Time, unique=False, nullable=False)
-    # finished = db.Column('finished', db.SmallInteger, default=0)
+    finished = db.Column(db.Boolean(), default=False)  # Si es true la subasta ya se pago
 
     def __init__(self, title, subtitle, category,
                  base_price, market_price, currency, start_date, start_hour, end_date, end_hour):

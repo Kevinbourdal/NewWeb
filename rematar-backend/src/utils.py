@@ -117,3 +117,5 @@ def check_minuto_ley(auction, new_offer):
             return True
     return False
 
+
+
