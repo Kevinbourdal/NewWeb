@@ -94,7 +94,25 @@ class AccountView(BaseView):
         self.account_schema = AccountSchema()
         self.accounts_schema = AccountSchema(many=True)
 
+    def get(self):
+        """
+        Method to validate email
+        """
+        token = request.args.get('token', '')
+        if token:
+            token_data = decode_token(token)
+            account = AccountModel.query.filter_by(username=token_data['username']).first()
+            if account:
+                account.validated = True
+                errors = account.save()
+                if not errors:
+                    return response(200, data={'username': token_data['username']})
+        return response(400)
+
     def post(self):
+        """
+        Method to register a new user
+        """
         json_data, error = get_data(request)
         if self.exists_account(username=json_data['username'], email=json_data['email']):
             return response(409, 'Usuario ya registrado')
@@ -112,7 +130,8 @@ class AccountView(BaseView):
             new_account = AccountModel(**account_data)
             error = new_account.save()
             if not error:
-                msg = message_register.format(json_data['username'])
+                token = gen_token({'email': json_data['email'], 'username': json_data['username']})
+                msg = message_register.format(json_data['username'], token)
                 sent = send_email(json_data['email'], msg)
                 return response(200, data={'id': new_account.id})
 
@@ -120,6 +139,9 @@ class AccountView(BaseView):
         return response(400, msg="Error en backend")
 
     def put(self):
+        """
+        Method to allow change password
+        """
         account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
         if not self.is_valid_token_data(account_data['username'], account_data['email']):
             return response(401, 'Wrong token')
@@ -296,7 +318,7 @@ class LoginView(BaseView):
         json_data, error = get_data(request)
         if not error:
             try:
-                account = AccountModel.query.filter_by(email=json_data['email']).first()
+                account = AccountModel.query.filter_by(validated=True).filter_by(email=json_data['email']).first()
                 if account is not None:
                     role = RoleModel.query.filter_by(id=account.role_id).first()
                     if account.password == json_data['password']:
@@ -402,7 +424,9 @@ class AuctionView(BaseView):
             price_from = request.args.get('price_from', None)
             price_until = request.args.get('price_until', None)
 
-            auctions = AuctionModel.query.filter(AuctionModel.end_date >= dt.now().date())  # .filter_by(finished=False)
+            auctions = AuctionModel.query.filter((AuctionModel.end_date > dt.now().date()) |
+                                                 ((AuctionModel.end_date == dt.now().date()) & (
+                                                             AuctionModel.end_hour > dt.now().time())))
             if category is not None:
                 auctions = auctions.filter_by(category=category)
             if price_from is not None:

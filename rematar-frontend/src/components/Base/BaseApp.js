@@ -42,7 +42,7 @@ class BaseApp extends Component {
                 this.internalLogout('/login');
             } }
             if(this.Auth.getRole() !== 'admin'){
-                if (this.props.location.pathname === '/new' || this.props.location.pathname === '/accept_auction' ){
+                if (this.props.location.pathname.includes('/new') || this.props.location.pathname === '/accept_auction' ){
                     this.internalLogout('/home');
                 }
             }
