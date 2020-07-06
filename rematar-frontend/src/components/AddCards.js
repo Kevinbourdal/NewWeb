@@ -68,8 +68,23 @@ class AddCards extends Component {
              }
          ).then(data => {return data.json()}
          ).then(res => {
-                 this.setState({...res['data'],new_auction: false})
+             const start_date = new Date(res['data']['start_date'].split('-')[2], Number(res['data']['start_date'].split('-')[1])-1, res['data']['start_date'].split('-')[0])
+             var hour = res['data']['start_hour'].split(':').map((h) => parseInt(h, 10));
+             let full_start_date = new Date(start_date.getFullYear(),
+                 start_date.getMonth(),
+                 start_date.getDate(),
+                 hour[0],
+                 hour[1],
+                 hour[2]
+             );
+             if (full_start_date <= Date.now()) {
+                 this.props.history.push('/detail/'+auction_id)
              }
+             this.setState({
+                 ...res['data'],
+                 new_auction: false,
+             })
+         }
          ).catch(e => {
                  console.log("error:", e);
              }
