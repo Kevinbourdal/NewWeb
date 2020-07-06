@@ -1,4 +1,5 @@
 
+
 const item1 = {
     'title': 'Terreno en villa del dique',
     'subtitle': 'Sierras de cordoba\n1000mts2\nacceso al rio',
@@ -6,15 +7,15 @@ const item1 = {
     'href': '/detail',
     'items': [
         {
-            src: 'https://www.dediosblog.com/wp-content/uploads/2019/11/MERLO_796701853_Luis-Fabian-Blanco.jpg',
+            src: 'src/img/Picture_whap_1.jpeg',
             key: '1'
         },
         {
-            src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Embalse%2C_C%C3%B3rdoba%2C_reservoir.jpg/1200px-Embalse%2C_C%C3%B3rdoba%2C_reservoir.jpg',
+            src: 'src/img/Picture_whap_3.jpeg',
             key: '3'
         },
         {
-            src: 'https://www.comarcaturistica.com.ar/img/slides/slide_1.jpg',
+            src: 'src/img/Picture_whap_2.jpeg',
             key: '2'
         },
     ]

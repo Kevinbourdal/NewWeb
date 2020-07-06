@@ -28,6 +28,10 @@ class Contact extends Component {
 		this.Auth = new AuthService();
 	}
     submitHandler = e => {
+        document.getElementById("button").disabled = true;
+        setTimeout((e) =>{
+            document.getElementById("button").disabled = false;
+        }, 6000)
         //event.preventDefault();  No se que hace por eso lo comente
         e.target.className += ' was-validated';
         e.preventDefault();  // No se que have pero va como piña
@@ -44,24 +48,23 @@ class Contact extends Component {
                     ...this.state
                 })
            }
-        ).then(() => {
-            console.log('data')
-            // return data.json()
-        }
+        ).then(data => {return data.json()}
         ).then(data => {
-            if (data.status === 200){
-                this.setState({modal_ok: true})
-                this.toggle()
-            } else {
+                if (data.code === 200){
+                    this.setState({modal_ok: true})
+                    this.toggle()
+                } else {
+                    this.setState({modal_ok: false})
+                    this.toggle()
+                }
+            }
+        ).catch(error => {
+                console.log("Fail" + error);
                 this.setState({modal_ok: false})
-                this.toggle(false)
-            }
-            }
-        ).catch(error => {console.log("Fail",error);
-
+                this.toggle()
             }
         )
-    }
+    };
 
 	handleChange = async (event) => {
 		const { target } = event;
@@ -173,7 +176,7 @@ class Contact extends Component {
                                             </Row>
                                             <Row>
                                                 <Col>
-                                                    <Button type={'submit'} color="info" disabled={!this.validateForm()}>
+                                                    <Button type={'submit'} color="info" id='button' disabled={!this.validateForm()}>
                                                         <Row>
                                                             <img src ={logos} style={{width:"53px",height:"38px"}}></img>
                                                             <b><h5 className='mt-2 mr-4'>Enviar</h5></b>
