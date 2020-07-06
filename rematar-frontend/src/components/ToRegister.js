@@ -50,32 +50,36 @@ class ToRegister extends React.Component {
     }
   submitHandler = event => {
 
-      event.target.className += ' was-validated';
-      event.preventDefault();  //No se que hace por eso lo comente
-    // enviamos los datos al backend
-    fetch(
+        event.target.className += ' was-validated';
+        event.preventDefault();  //No se que hace por eso lo comente
+        // enviamos los datos al backend
+        fetch(
         config["api"]['BACKEND_ENDPOINT']+'/api/register',
         {
-          headers: {
-              Accept: 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            ...this.state
-          })
+              headers: {
+                  Accept: 'application/json',
+              },
+              method: 'POST',
+              body: JSON.stringify({
+                  ...this.state
+              })
+            }
+        ).then(data => {return data.json()}
+        ).then(data => {
+            if (data.code === 200){
+                this.setState({modal_ok: true})
+                this.toggle()
+            } else {
+                this.setState({modal_ok: false})
+                this.toggle()
+            }
         }
-    ).then(data => {
-        if (data.code !== 200)
-            this.setState({
-                modal_ok: !this.state.modal_ok
-            })
-        return data.json()
-    }
-    ).then(res => {this.toggle()
-    }).catch(error => {
-      console.log("Fail" + error);
-    }
-    )
+        ).catch(error => {
+            console.log("Fail" + error);
+            this.setState({modal_ok: false})
+            this.toggle()
+            }
+        )
   };
 
   changeHandler = event => {
@@ -90,7 +94,8 @@ class ToRegister extends React.Component {
            toggle={this.toggle}
            modal={this.state.modal}
            body={this.state.modal_ok ?
-               'Su registro ha sido exitoso'
+               'Gracias por su registro!. Revise su casilla de correo para validar su identidad.'
+
                :
                'No se pudo registrar. Intente con otro email o username'+this.state.modal_msg}/>
          <MDBContainer>

@@ -47,10 +47,10 @@ class Header extends Component {
                     </Col>
                     { this.state.isAuthenticated ?
                         <NavLink className="text-left" href="/profile">
-                            <NavbarBrand className="mr-2 ml-2 text-left" style={{color: "white"}}>
+                            <NavbarBrand className="mr-0 ml-0 text-left" style={{color: "white"}}>
                                 <Row>
-                                    <Col><b>{ this.Auth.getUsername() }</b></Col>
-                                    <Col><i className="fas fa-user-circle fa-stack-1x" /></Col>
+                                    <Col className=''><b>{ this.Auth.getUsername() }</b></Col>
+                                    <Col className='col-1'><i className="fas fa-user-circle fa-stack-1x" /></Col>
                                 </Row>
                             </NavbarBrand>
                         </NavLink>
@@ -61,7 +61,7 @@ class Header extends Component {
                             <NavLink href="/register" className="text-right" style={{color: "white"}} >
                                 <b>Registrarse</b></NavLink>
                         </div>
-                            }
+                    }
                     <NavbarToggler className="ml-auto navbar-toggler-right" style={{background: "info"}} onClick={this.toggle} />
 
                     <Collapse isOpen={this.state.isOpen} navbar>
