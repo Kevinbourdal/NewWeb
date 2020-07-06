@@ -328,7 +328,7 @@ class OfferView(BaseView):
 
     def get(self, auction_id):
         auction = AuctionModel.query.filter_by(id=auction_id).first()
-        offers = OfferModel.query.filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).limit(7)
+        offers = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).limit(7)
         if offers is not None:
             offers = self.offers_schema.dump(offers)
             for offer in offers:
@@ -646,7 +646,7 @@ class AuctionDetailView(BaseView):
                 urls = self.urlimage_schema.dump(urls)
                 values = CharacteristicValueModel.query.filter_by(item_id=item.id).all()
                 values = self.value_schema.dump(values)
-                offer = OfferModel.query.filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
+                offer = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
                 offer = self.offer_schema.dump(offer)
                 auction = self.auction_schema.dump(auction)
                 item = self.item_schema.dump(item)
@@ -794,39 +794,47 @@ class OfferUserView(BaseView):
         result = {'started': [], 'finished': []}
         if account is not None:
             offers = OfferModel.query \
+                .filter_by(finished=False) \
                 .filter_by(account_id=account.id) \
-                .order_by(OfferModel.id.desc())
+                # .order_by(OfferModel.id.desc())
             auction_ids = []
-            started_offers = offers.filter_by(finished=False).all()
-            for offer in started_offers:
+            auctions = AuctionModel.query.filter_by(finished=False)
+            for offer in offers.all():
                 if offer.auction_id in auction_ids:
                     continue
                 auction_ids.append(offer.auction_id)
-                auction = AuctionModel.query.filter_by(id=offer.auction_id).first()
+                auction = auctions.filter_by(id=offer.auction_id).first()
+                if auction is None:
+                    continue
+                offer_ = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
                 row = {
-                    'offer': offer.amount,
+                    'offer': offer_.amount,
                     'auction': auction.title,
-                    'auction_id': offer.auction_id,
-                    'date': str(offer.hour),
-                    'time': offer.date.strftime('%d-%m-%Y'),
+                    'auction_id': offer_.auction_id,
+                    'date': str(offer_.hour),
+                    'time': offer_.date.strftime('%d-%m-%Y'),
                     'end_date': auction.end_date.strftime('%d-%m-%Y'),
                 }
                 result['started'].append(row)
 
+            finished_offers = offers.all()
+            auctions = AuctionModel.query.filter_by(finished=True)
             auction_ids = []
-            finished_offers = offers.filter_by(finished=True).all()
             for offer in finished_offers:
                 if offer.auction_id in auction_ids:
                     continue
                 auction_ids.append(offer.auction_id)
-                auction = AuctionModel.query.filter_by(id=offer.auction_id).first()
+                auction = auctions.filter_by(id=offer.auction_id).first()
+                if auction is None:
+                    continue
+                offer_ = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
                 row = {
-                    'offer': offer.amount,
+                    'offer': offer_.amount,
                     'position': '-',
                     'auction': auction.title,
-                    'auction_id': offer.auction_id,
-                    'date': str(offer.hour),
-                    'time': offer.date.strftime('%d-%m-%Y'),
+                    'auction_id': offer_.auction_id,
+                    'date': str(offer_.hour),
+                    'time': offer_.date.strftime('%d-%m-%Y'),
                     'end_date': auction.end_date.strftime('%d-%m-%Y'),
                 }
                 result['finished'].append(row)
@@ -842,24 +850,54 @@ class OfferFinished(BaseView):
         self.offers_schema = OfferSchema(many=True)
 
     def get(self):
-        auctions = AuctionModel.query.filter((AuctionModel.end_date <= dt.now().date()) |
-                                             ((AuctionModel.end_date == dt.now().date()) & (
-                                              AuctionModel.end_hour <= dt.now().time()))).all()
+
+        auctions = AuctionModel.query.filter_by(finished=False).filter((AuctionModel.end_date < dt.now().date()) |
+                                                                       ((AuctionModel.end_date == dt.now().date()) & (
+                                                                        AuctionModel.end_hour < dt.now().time()))).all()
 
         offers = []
-        a = auctions
-        for auc in auctions:
-            offer = OfferModel.query.filter_by(id=auc.id).order_by(OfferModel.amount.desc()).first()
+        for auction in auctions:
+            offer = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
             account = AccountModel.query.filter_by(id=offer.account_id).first()
-
             row = {
                 'username': account.username,
                 'amount': offer.amount,
-                'auction': auc.title,
+                'auction': auction.title,
                 'auction_id': offer.auction_id,
                 'date': str(offer.hour),
                 'time': offer.date.strftime('%d-%m-%Y'),
-                'end_date': auc.end_date.strftime('%d-%m-%Y'),
+                'offer_id': offer.id,
             }
             offers.append(row)
         return response(200, data={'offers': offers})
+
+    def post(self):
+        account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
+        if not self.is_valid_token_data(account_data['username'], account_data['email']):
+            return response(401, 'Wrong token')
+
+        json_data, error = get_data(request)
+        if not error:
+            offer = OfferModel.query.filter_by(id=json_data['offer_id']).first()
+            auction = AuctionModel.query.filter_by(id=offer.auction_id).first()
+            if auction is not None:
+                auction.finished = True
+                errors = auction.save()
+                if not errors:
+                    return response(200)
+        return response(400)
+
+    def put(self):
+        account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
+        if not self.is_valid_token_data(account_data['username'], account_data['email']):
+            return response(401, 'Wrong token')
+
+        json_data, error = get_data(request)
+        if not error:
+            offer = OfferModel.query.filter_by(id=json_data['offer_id']).first()
+            if offer is not None:
+                offer.finished = True
+                errors = offer.save()
+                if not errors:
+                    return response(200)
+        return response(400)

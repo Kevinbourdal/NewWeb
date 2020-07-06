@@ -28,10 +28,14 @@ class AcceptAuctions extends Component {
             bdate:'',
             phone :'',
             email: '',
+            offer_id:'',
             offer_finished: [],
         };
         this.Auth = new AuthService();
         this.username = this.Auth.getUsername();
+        this.submitHandler = this.submitHandler.bind(this);
+        this.submitHandlerDelete = this.submitHandlerDelete.bind(this);
+        this.acceptArgs = this.acceptArgs.bind(this);
         this.get_tables = this.get_tables.bind(this);
         this.get_tables();
     }
@@ -56,6 +60,62 @@ class AcceptAuctions extends Component {
         )
     }
 
+    submitHandler = (event, index) => {
+        event.target.className += ' was-validated';
+        // enviamos los datos al backend
+        event.preventDefault()
+        let offer_id = this.state.offer_finished[index]['offer_id']
+        fetch(
+            config["api"]['BACKEND_ENDPOINT']+'/api/offer_finished',
+            {
+                headers: {
+                    Accept: 'application/json',
+                    authorization: this.Auth.getToken(),
+                },
+                method:  'POST' ,
+                body: JSON.stringify({
+                    offer_id: offer_id
+                })
+            }
+        ).then(data => {return data.json()}
+        ).then(res => {
+            if(res.code === 200){
+                window.location.reload();
+            }
+        }).catch(error => {
+            console.log("Fail", error);
+        });
+    };
+
+
+    submitHandlerDelete = (event, index) => {
+        event.target.className += ' was-validated';
+        // enviamos los datos al backend
+        event.preventDefault()
+        let offer_id = this.state.offer_finished[index]['offer_id']
+        fetch(
+            config["api"]['BACKEND_ENDPOINT']+'/api/offer_finished',
+            {
+                headers: {
+                    Accept: 'application/json',
+                    authorization: this.Auth.getToken(),
+                },
+                method:  'PUT' ,
+                body: JSON.stringify({
+                    offer_id: offer_id
+                })
+            }
+        ).then(data => {return data.json()}
+        ).then(res => {
+            if(res.code === 200){
+                window.location.reload();
+            }
+        }).catch(error => {
+            console.log("Fail", error);
+        });
+    };
+
+
     deletArgs(index, name){
         var new_list = this.state[name]
         new_list.pop(index)
@@ -66,7 +126,7 @@ class AcceptAuctions extends Component {
 
     acceptArgs(index, name){
         var new_list = this.state[name]
-        new_list.pop(index)
+        new_list.push(index)
         this.setState({
             name: new_list,
         })
@@ -100,19 +160,19 @@ class AcceptAuctions extends Component {
                                             <tr className="ml-5 bg-light" style={{ color: "#000000" }}>
                                                 <th className="ml-5">{index+1}</th>
                                                 <td className="ml-5">{offer['username']}</td>
-                                                <td className="ml-5 "><b>$ {offer['amount']}</b></td>
+                                                <td className="ml-5 "><b>$ {offer['amount'].toLocaleString()}</b></td>
                                                 <td className="ml-5">
                                                     <a href={'/detail/'+offer['auction_id']}>
                                                         <b>{offer['auction']}</b></a>
                                                 </td>
                                                 <td className="ml-5">{offer['date']}</td>
                                                 <td className="ml-5">{offer['time']}</td>
-                                                <MDBCol className='mt-2 text-left'>
+                                                <MDBCol className='mt-2 text-center'>
                                                     <a className='btn green' style={{color:'black'}}
-                                                       onClick={(e) => this.acceptArgs(index, 'offer_finished')}>Aceptar</a>
+                                                       onClick={(e) => this.submitHandler(e, index)}>Aceptar</a>
 
                                                     <a className='btn danger-color-dark ml-2 ' style={{color:'black'}}
-                                                       onClick={(e) => this.deletArgs(index, 'offer_finished')} >Denegar</a>
+                                                       onClick={(e) => this.submitHandlerDelete(e, index)} >Denegar</a>
                                                 </MDBCol>
                                             </tr>
                                         )
