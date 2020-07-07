@@ -77,13 +77,13 @@ class CardItem extends Component {
                         </MDBCarousel>
                     </CardHeader>
                     <CardBody className='mb-0 pb-0'>
-                        <CardTitle className='mt-1 titulo mx-auto' > {/*style={{height: '40px'}}*/}
-                            <a href={this.href || '#'} className="text-dark" type=""><h5 className='h4-responsive'><b >{ this.title || '' }</b></h5></a>
+                        <CardTitle className='titulo mx-auto' > {/*style={{height: '40px'}}*/}
+                            <a href={this.href || '#'} className="text-dark" type=""><h5 className='h5-responsive'><b >{ this.title || '' }</b></h5></a>
                         </CardTitle>
-                        <CardSubtitle className="my-0 justify-content-center mx-auto h6-responsive subtitulo" > {/* style={{height: '40px'}} */}
+                        <CardSubtitle className=" justify-content-center mx-auto h6-responsive subtitulo" > {/* style={{height: '40px'}} */}
                             <b className='w-responsive d-inline'>{ this.subtitle.toLowerCase() || '...' }</b>
                         </CardSubtitle>
-                        <CardText className="text-right">
+                        <CardText className="text-justify-center my-2 mt-2">
                             <MDBIcon far icon="calendar-alt" />
                             <small className=""
                                    hidden={this.footer === ''}
@@ -99,8 +99,8 @@ class CardItem extends Component {
                                             color={'info'}
                                             style={{color:'#424 242'}}
                                     >
-                                        <Row className='my-0 p-0'>
-                                            <img src ={logo} style={{width:"30px", height:"25px"}}/>
+                                        <Row className='my-0 p-0 '>
+                                            <img src ={logo} style={{width:"30px", height:"23px"}}/>
                                             {/*<img src ={logos} style={{width:"40px",height:"29px"}}></img>*/}
                                             <b><h5 className='mt-1 mb-0 h5-responsive' unselectable={true} style={{'font-family': 'Lucida Console'}}>Detalles</h5></b>
                                         </Row>

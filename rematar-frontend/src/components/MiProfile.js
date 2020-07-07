@@ -55,6 +55,10 @@ class MiProfile extends React.Component {
     }
 
     submitHandler = event => {
+        document.getElementById("button").disabled = true;
+        setTimeout((e) =>{
+            document.getElementById("button").disabled = false;
+        }, 3000)
         //event.preventDefault();  No se que hace por eso lo comente
         event.target.className += ' was-validated';
         // enviamos los datos al backend
@@ -73,8 +77,7 @@ class MiProfile extends React.Component {
                 })
             }
         ).then(data => {
-            alert(data.code)
-            if (data.code === 200){
+            if (data.status === 200){
                 this.setState({modal_ok: true})
                 this.toggle()
             } else {
@@ -270,7 +273,7 @@ class MiProfile extends React.Component {
                                                 >
                                             </MDBInput>
                                             <div className="text-center my-4">
-                                                <MDBBtn className="ml-4 " color='danger' type='submit'>
+                                                <MDBBtn className="ml-4 " id="button" color='danger' type='submit'>
                                                     Guardar
                                                 </MDBBtn>
                                             </div>

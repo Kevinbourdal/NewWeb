@@ -41,7 +41,7 @@ class AddCards extends Component {
                 value_aux: '',
                 new_auction: true,
                 modal: false,
-                modal_ok: true
+                modal_ok: true,
            };
            this.Auth = new AuthService();
            this.handleDataAdd = this.handleDataAdd.bind(this);
@@ -54,6 +54,7 @@ class AddCards extends Component {
            this.get_auction_data = this.get_auction_data.bind(this);
            this.get_auction_data();
            this.toggle = this.toggle.bind(this);
+           this.validateForm = this.validateForm.bind(this);
      }
 
      get_auction_data () {
@@ -91,7 +92,12 @@ class AddCards extends Component {
          )
      }
 
-     handleSubmit(e) {
+    handleSubmit(e) {
+        document.getElementById("button").disabled = true;
+        setTimeout((e) =>{
+            document.getElementById("button").disabled = false;
+        }, 3000)
+
          e.preventDefault();
          fetch(
              config["api"]['BACKEND_ENDPOINT'] +'/api/newauction',
@@ -109,14 +115,16 @@ class AddCards extends Component {
                  })
              }
          ).then(data => {
-            if (data.code !== 200) {
-                this.setState({
-                    modal_ok: !this.state.modal_ok
-                })
-            }
+                 if (data.status === 200){
+                     this.setState({modal_ok: true})
+                     this.toggle()
+                 } else {
+                     this.setState({modal_ok: false})
+                     this.toggle(false)
+                 }
+
             return data.json()
      }
-         ).then(res => {this.toggle()}
          ).catch(error => {
                  console.log("Fail");
              }
@@ -169,7 +177,7 @@ class AddCards extends Component {
             });
         }
     }
-    validateForm() {
+    validateForm(e) {
         return this.state.title.length > 0 &&
                this.state.base_price >= 0 &&
                this.state.start_date.length > 0 ;
@@ -424,7 +432,7 @@ class AddCards extends Component {
                                    </ListGroup>
                                </div>
 
-                                <button type="submit" className="mt-4 btn btn-info btn-md" disabled={!this.validateForm()}>
+                                <button onClick={this.handleSubmit} id="button" className="mt-4 btn btn-info btn-md" disabled={!this.validateForm()}>
                                     <Row className='my-0 py-0'>
                                         <img src ={logo} style={{width:"55px", height:"43px"}}/><h6 className='mt-2 pt-1 mr-2'>Guardar</h6>
                                     </Row>

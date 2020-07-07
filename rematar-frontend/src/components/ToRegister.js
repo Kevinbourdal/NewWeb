@@ -49,6 +49,10 @@ class ToRegister extends React.Component {
         });
     }
   submitHandler = event => {
+      document.getElementById("button").disabled = true;
+      setTimeout((e) =>{
+          document.getElementById("button").disabled = false;
+      }, 3000)
 
         event.target.className += ' was-validated';
         event.preventDefault();  //No se que hace por eso lo comente
@@ -202,7 +206,7 @@ class ToRegister extends React.Component {
                                 </div>
                              </div>
                              <div className="text-center my-4">
-                                <MDBBtn className="ml-4 " color='info' type='submit' disabled={this.validate_pass()}>
+                                <MDBBtn className="ml-4 " color='info' type='submit'  id='button' disabled={this.validate_pass()}>
                                     <Row>
                                         <img src ={logos} style={{width:"50px",height:"37px"}}/>
                                         <b><h5 className='mt-2 mr-4'>Registrarse</h5></b>

@@ -1,3 +1,6 @@
+import picture from '../img/Picture_whap_1.jpeg'
+import picture2 from '../img/Picture_whap_2.jpeg'
+import picture3 from '../img/Picture_whap_3.jpeg'
 
 const item1 = {
     'title': 'Terreno en villa del dique',
@@ -6,15 +9,15 @@ const item1 = {
     'href': '/detail',
     'items': [
         {
-            src: 'https://www.dediosblog.com/wp-content/uploads/2019/11/MERLO_796701853_Luis-Fabian-Blanco.jpg',
+            src: picture,
             key: '1'
         },
         {
-            src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Embalse%2C_C%C3%B3rdoba%2C_reservoir.jpg/1200px-Embalse%2C_C%C3%B3rdoba%2C_reservoir.jpg',
+            src: picture2,
             key: '3'
         },
         {
-            src: 'https://www.comarcaturistica.com.ar/img/slides/slide_1.jpg',
+            src: picture3,
             key: '2'
         },
     ]
