@@ -440,7 +440,7 @@ class AuctionView(BaseView):
                 if inmueble or vehiculo or mueble or otro:
                     if item.item_category.lower() not in '.'.join([inmueble, vehiculo, mueble, otro]).lower().split('.'):
                         item = None
-                if (item is not None) and localidades or provincias:
+                if (item is not None) and (localidades or provincias):
                     if item.province.lower() not in provincias.lower().split('.'):
                         if item.city.lower() not in localidades.lower().split('.'):
                             item = None
