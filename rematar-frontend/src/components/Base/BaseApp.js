@@ -14,6 +14,15 @@ class BaseApp extends Component {
     constructor(props) {
         super(props);
         this.Auth = new AuthService();
+        if (!this.Auth.loggedIn()) {
+            if (this.props.location.pathname === '/mi_perfil' || this.props.location.pathname === '/profile') {
+                this.internalLogout('/login');
+            } }
+        if(this.Auth.getRole() !== 'admin'){
+            if (this.props.location.pathname.includes('/new') || this.props.location.pathname === '/accept_auction' ){
+                this.internalLogout('/home');
+            }
+        }
         this.state = {
             isAuthenticated: this.Auth.loggedIn()
         };
@@ -36,17 +45,6 @@ class BaseApp extends Component {
     }
 
     render() {
-        // // Descomentar para impermitir que se pueda navegar sin estar logueado
-        if (!this.Auth.loggedIn()) {
-            if (this.props.location.pathname === '/mi_perfil' || this.props.location.pathname === '/profile') {
-                this.internalLogout('/login');
-            } }
-            if(this.Auth.getRole() !== 'admin'){
-                if (this.props.location.pathname.includes('/new') || this.props.location.pathname === '/accept_auction' ){
-                    this.internalLogout('/home');
-                }
-            }
-
         return (
             <div className="app">
                 <div className="app-header">

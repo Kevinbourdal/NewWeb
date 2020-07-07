@@ -1,6 +1,9 @@
 import jwt
 from datetime import datetime as dt, date, timedelta
 import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 
 
 STATUS = {200: 'Success',
@@ -90,16 +93,20 @@ def validate_token(token):
     return None, response(400, 'Wrong token')
 
 
-def send_email(email_dest, message, subject='Mail enviado desde Subastas en Web, No responder'):
+def send_email(email_dest, message, subject='Mail enviado desde Subastas en Web, No responder.'):
 
-    message = 'Subject : {} \n\n{}'.format(subject, message)
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = subject
+    part1 = MIMEText(message.encode('utf-8'), "html", "utf-8")
+    msg.attach(part1)
+
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         result = server.login('subastasenweb.info@gmail.com', MAIL_PASSWORD)
         if result[0] == 235:
-            server.sendmail('subastasenweb.info@gmail.com', email_dest, message.encode('utf-8'))
-            print(message.encode('utf-8'))
+            server.sendmail('subastasenweb.info@gmail.com', email_dest, msg.as_string())
+            # print(msg)
             server.quit()
             print('Mail enviado')
             return True

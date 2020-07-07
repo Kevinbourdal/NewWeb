@@ -46,8 +46,6 @@ class CardItem extends Component {
     }
 
     render(){
-
-        // TODO: setear fijo el tamaño de la imagen
         return (
                 <Card className="imagen-fluid btn m-0 p-0" > {/*style={{maxHeight: '450px'}}>*/}
                     <CardHeader className="m-0 p-0" >

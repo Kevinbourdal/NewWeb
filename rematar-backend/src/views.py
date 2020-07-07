@@ -4,7 +4,7 @@ import marshmallow
 from flask import request
 from flask_restful import Resource
 
-from message import message_register, message_contact
+from message import message_register, message_contact, message_recovery_password
 
 from marshmallow.exceptions import ValidationError
 
@@ -60,6 +60,9 @@ class BaseView(Resource):
         return response(401)
 
     def delete(self, **kwargs):
+        return response(401)
+
+    def patch(self, **kwargs):
         return response(401)
 
     def exists_account(self, username=None, email=None):
@@ -155,6 +158,28 @@ class AccountView(BaseView):
 
             if account is not None:
                 account.password = json_data['password']
+                error = account.save()
+                if not error:
+                    return response(200, data={'id': account.id})
+
+        return response(400, msg="Error en backend")
+
+    def patch(self):
+        json_data, error = get_data(request)
+        if not error:
+            try:
+                account = AccountModel.query.filter_by(email=json_data['email']).first()
+            except marshmallow.exceptions.ValidationError as errors:
+                print('error', errors)
+                return response(400, str(errors))
+
+            if account is not None:
+                password = gen_token({'now': dt.now().second})[:16]
+                account.password = password
+
+                msg = message_recovery_password.format(account.password)
+                send_email(json_data['email'], msg)
+
                 error = account.save()
                 if not error:
                     return response(200, data={'id': account.id})

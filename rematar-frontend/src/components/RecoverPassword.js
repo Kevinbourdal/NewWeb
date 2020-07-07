@@ -14,15 +14,47 @@ class RecoverPassword extends React.Component {
         super(props);
         this.state = {
             email: '',
-            modal2: false,
+            modal_tyc: false,
             modal: false,
-            modal_ok: true,
+            modal_ok: false,
             modal_msg: ''
         };
         this.toggle = this.toggle.bind(this)
-        this.toggle2 = this.toggle2.bind(this)
+        this.toggle_tyc = this.toggle_tyc.bind(this)
         this.Auth = new AuthService();
     }
+
+    submitHandler = event => {
+        document.getElementById("button").disabled = true;
+        setTimeout((e) =>{
+            document.getElementById("button").disabled = false;
+        }, 5000)
+
+        event.target.className += ' was-validated';
+        event.preventDefault();
+
+        fetch(
+            config["api"]['BACKEND_ENDPOINT']+'/api/register',
+            {
+                headers: {
+                    Accept: 'application/json',
+                },
+                method: 'PATCH',
+                body: JSON.stringify({email: this.state.email})
+            }
+        ).then(res => {return res.json()}
+        ).then(data => {
+                if (data.code === 200)
+                    this.setState({modal_ok: true})
+                else
+                    this.setState({modal_ok: false})
+                this.toggle()
+            }
+        ).catch(error => {
+                console.log("Fail" + error);
+            }
+        )
+    };
 
     toggle = (e) => {
         this.setState({
@@ -33,41 +65,11 @@ class RecoverPassword extends React.Component {
                 return this.props.history.push('/login');
     }
 
-    toggle2 = () => {
+    toggle_tyc = () => {
         this.setState({
-            modal2: !this.state.modal2
+            modal_tyc: !this.state.modal_tyc
         });
     }
-    submitHandler = event => {
-
-        event.target.className += ' was-validated';
-        event.preventDefault();  //No se que hace por eso lo comente
-        // enviamos los datos al backend
-        fetch(
-            config["api"]['BACKEND_ENDPOINT']+'/api/register',
-            {
-                headers: {
-                    Accept: 'application/json',
-                    authorization: this.Auth.getToken(),
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    ...this.state
-                })
-            }
-        ).then(data => {
-                if (data.code !== 200)
-                    this.setState({
-                        modal_ok: !this.state.modal_ok
-                    })
-                return data.json()
-            }
-        ).then(res => {this.toggle()
-        }).catch(error => {
-                console.log("Fail" + error);
-            }
-        )
-    };
 
     changeHandler = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -114,19 +116,27 @@ class RecoverPassword extends React.Component {
                                                 label='Email'
                                                 outline
                                                 required
-                                            >
-                                            </MDBInput>
-                                                <label className='ml-4 custom-control-label' htmlFor='invalidCheck'>
-                                                    <TermsAndConditions toggle={this.toggle2} modal={this.state.modal2} />
-                                                    <a style={{textDecorationLine : 'underline'}} onClick={this.toggle2}>
+                                            />
+                                            <div className='custom-control custom-checkbox pl-3'>
+                                                <input
+                                                    className='custom-control-input'
+                                                    type='checkbox'
+                                                    value=''
+                                                    id='invalidCheck'
+                                                    required
+                                                />
+                                                <label className='ml-4 custom-control-label' htmlFor='invalidCheck' >
+                                                    <TermsAndConditions toggle={this.toggle_tyc} modal={this.state.modal_tyc} />
+                                                    <a style={{textDecorationLine : 'underline'}} onClick={this.toggle_tyc}>
                                                         Terminos y condiciones
                                                     </a>
                                                 </label>
                                                 <div className='invalid-feedback'>
                                                     Debe aceptar antes de enviar.
                                                 </div>
+                                            </div>
                                             <div className="text-center my-4">
-                                                <MDBBtn className="ml-4 " color='info' type='submit' >
+                                                <MDBBtn id='button' className="ml-4 " color='info' type='submit' disabled={this.state.email === ''}>
                                                     <Row>
                                                         <img src ={logos} style={{width:"50px",height:"37px"}}></img>
                                                         <b><h5 className='mt-2 mr-4'>Enviar</h5></b>

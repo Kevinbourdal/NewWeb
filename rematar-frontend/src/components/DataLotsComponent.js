@@ -40,7 +40,6 @@ class DataAuction extends Component {
                 )
         }
          */
-        //TODO: poner como ImgOverlay la siguente imagen del caroucel
         return (
             <div className="app flex-row align-items-center">
                 <Container className="px-md-0 pl-md-4 pl-lg-4">

@@ -13,6 +13,9 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.Auth = new AuthService();
+        if (this.Auth.loggedIn()) {
+            this.props.history.push('/profile')
+        }
         this.state = {
             email: '',
             password: '',
@@ -73,9 +76,6 @@ class Login extends Component {
 	}
 
     render() {
-        if (this.state.isAuthenticated) {
-            return <Redirect to={{ pathname: '/home' }}/>;
-        }
         return (
             <div className="app flex-row align-items-center mt-4">
                 <Container>

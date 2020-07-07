@@ -7,10 +7,16 @@ import logos from '../img/logosubastas.png';
 import config from "../config";
 import TermsAndConditions from "./TermsAndConditions";
 import ModalPage from "./Moddal";
+import AuthService from '../utils/AuthService';
+
 
 class ToRegister extends React.Component {
   constructor (props) {
       super(props);
+      this.Auth = new AuthService();
+      if (this.Auth.loggedIn()) {
+          this.props.history.push('/profile')
+      }
           this.state = {
               username: '',
               email: '',
