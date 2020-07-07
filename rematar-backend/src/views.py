@@ -437,12 +437,13 @@ class AuctionView(BaseView):
 
             for auction in auctions:
                 item = ItemModel.query.filter_by(auction_id=auction['id']).first()
-                if inmueble or vehiculo or mueble or otro or localidades or provincias:
+                if inmueble or vehiculo or mueble or otro:
                     if item.item_category.lower() not in '.'.join([inmueble, vehiculo, mueble, otro]).lower().split('.'):
                         item = None
-                if item.province.lower() not in provincias.lower().split('.'):
-                    if item.city.lower() not in localidades.lower().split('.'):
-                        item = None
+                if localidades or provincias:
+                    if item.province.lower() not in provincias.lower().split('.'):
+                        if item.city.lower() not in localidades.lower().split('.'):
+                            item = None
                 if item is None:
                     continue
                 url = UrlImageModel.query.filter_by(item_id=item.id).first()
