@@ -70,16 +70,16 @@ class ChangePassword extends React.Component {
                     username: this.username
                 })
             }
+        ).then(data =>{return data.json()}
         ).then(data => {
-                if (data.code !== 200)
-                    this.setState({
-                        modal_ok: !this.state.modal_ok
-                    })
-                return data.json()
+                if (data.code === 200){
+                    this.setState({modal_ok: true})
+                } else {
+                    this.setState({modal_ok: false})
+                }
+            this.toggle()
             }
-        ).then(res => {this.toggle()
-        }).catch(error => {
-                console.log("Fail" + error);
+        ).catch(error => {console.log("Fail" + error);
             }
         )
     };

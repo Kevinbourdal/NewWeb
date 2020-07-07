@@ -44,7 +44,7 @@ class MiProfile extends React.Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
-            if (res.code !== 200)
+            if (res.code === 200)
                 this.setState({...res['data']['user']})
             }
         ).catch(e => {
@@ -77,6 +77,7 @@ class MiProfile extends React.Component {
                 })
             }
         ).then(data => {
+            alert(data.status)
             if (data.status === 200){
                 this.setState({modal_ok: true})
                 this.toggle()

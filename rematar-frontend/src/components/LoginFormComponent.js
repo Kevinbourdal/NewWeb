@@ -47,13 +47,16 @@ class Login extends Component {
                     }
                     return
                 }
-                if (!res['data']['has_user']) {
-                  return this.props.history.push('/mi_perfil');
-                } else {
-                    this.setState({
-                        isAuthenticated: true,
-                        loginError: 0
-                    })
+                else {
+                    if (!res['data']['has_user']) {
+                        return this.props.history.push('/mi_perfil');
+                    } else {
+                        return this.props.history.push('/home');
+                        // this.setState({
+                        //     isAuthenticated: true,
+                        //     loginError: 0
+                        // })
+                    }
                 }
             })
             .catch((e) => {

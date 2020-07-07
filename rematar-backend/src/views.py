@@ -375,7 +375,8 @@ class OfferView(BaseView):
 
     def get(self, auction_id):
         auction = AuctionModel.query.filter_by(id=auction_id).first()
-        offers = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).limit(7)
+        offers = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(
+            OfferModel.amount.desc()).limit(7)
         if offers is not None:
             offers = self.offers_schema.dump(offers)
             for offer in offers:
@@ -451,7 +452,7 @@ class AuctionView(BaseView):
 
             auctions = AuctionModel.query.filter((AuctionModel.end_date > dt.now().date()) |
                                                  ((AuctionModel.end_date == dt.now().date()) & (
-                                                             AuctionModel.end_hour > dt.now().time())))
+                                                         AuctionModel.end_hour > dt.now().time())))
             if category is not None:
                 auctions = auctions.filter_by(category=category)
             if price_from is not None:
@@ -463,7 +464,8 @@ class AuctionView(BaseView):
             for auction in auctions:
                 item = ItemModel.query.filter_by(auction_id=auction['id']).first()
                 if inmueble or vehiculo or mueble or otro:
-                    if item.item_category.lower() not in '.'.join([inmueble, vehiculo, mueble, otro]).lower().split('.'):
+                    if item.item_category.lower() not in '.'.join([inmueble, vehiculo, mueble, otro]).lower().split(
+                            '.'):
                         item = None
                 if (item is not None) and (localidades or provincias):
                     if item.province.lower() not in provincias.lower().split('.'):
@@ -696,7 +698,8 @@ class AuctionDetailView(BaseView):
                 urls = self.urlimage_schema.dump(urls)
                 values = CharacteristicValueModel.query.filter_by(item_id=item.id).all()
                 values = self.value_schema.dump(values)
-                offer = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
+                offer = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(
+                    OfferModel.amount.desc()).first()
                 offer = self.offer_schema.dump(offer)
                 auction = self.auction_schema.dump(auction)
                 item = self.item_schema.dump(item)
@@ -734,8 +737,10 @@ class FiltersView(BaseView):
                 filters[category].append((item_category[0].title(),
                                           items.filter_by(item_category=item_category).count()))
 
-        provinces = ItemModel.query.with_entities(ItemModel.province)
-        cities = ItemModel.query.with_entities(ItemModel.city)
+        provinces = ItemModel.query.filter(ItemModel.auction_id.in_([auction.id for auction in auctions]))\
+                                   .with_entities(ItemModel.province)
+        cities = ItemModel.query.filter(ItemModel.auction_id.in_([auction.id for auction in auctions]))\
+                                .with_entities(ItemModel.city)
 
         filters['Provincias'] = []
         for province in provinces.distinct().all():
@@ -786,7 +791,7 @@ class SearchView(BaseView):
 
             auctions = auctions.union(
                 AuctionModel.query.filter(AuctionModel.id.in_([item.auction_id for item in items]))
-            ).distinct().all()  # .filter_by(finished=False)
+            ).filter_by(finished=False).distinct().all()  # .filter_by(finished=False)
 
             result = {
                 'started': [],
@@ -856,7 +861,8 @@ class OfferUserView(BaseView):
                 auction = auctions.filter_by(id=offer.auction_id).first()
                 if auction is None:
                     continue
-                offer_ = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
+                offer_ = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(
+                    OfferModel.amount.desc()).first()
                 row = {
                     'offer': offer_.amount,
                     'auction': auction.title,
@@ -877,7 +883,8 @@ class OfferUserView(BaseView):
                 auction = auctions.filter_by(id=offer.auction_id).first()
                 if auction is None:
                     continue
-                offer_ = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
+                offer_ = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(
+                    OfferModel.amount.desc()).first()
                 row = {
                     'offer': offer_.amount,
                     'position': '-',
@@ -903,11 +910,12 @@ class OfferFinished(BaseView):
 
         auctions = AuctionModel.query.filter_by(finished=False).filter((AuctionModel.end_date < dt.now().date()) |
                                                                        ((AuctionModel.end_date == dt.now().date()) & (
-                                                                        AuctionModel.end_hour < dt.now().time()))).all()
+                                                                               AuctionModel.end_hour < dt.now().time()))).all()
 
         offers = []
         for auction in auctions:
-            offer = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(OfferModel.amount.desc()).first()
+            offer = OfferModel.query.filter_by(finished=False).filter_by(auction_id=auction.id).order_by(
+                OfferModel.amount.desc()).first()
             account = AccountModel.query.filter_by(id=offer.account_id).first()
             row = {
                 'username': account.username,

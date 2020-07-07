@@ -157,16 +157,16 @@ class CardGallery extends Component {
                     </div>
                     :
                     <div>
-                        {this.state.items_started.length > 0 || this.state.items_future.length > 0 ?
-                            <div className="mt-3 container-fluid">
-                                <MDBRow >
-                                    <MDBCol id={'filtros_for_home'} className='ml-4 m-0 p-0 col-md-2 col-sm-12 mr-sm-2 mt-3 col-md-2'>
-                                        <MDBRow  className="mx-md-1 mt-2 col-12 px-md-1 rounded-lg bg-facebook">
-                                            <FiltrosForHome
-                                                category={this.category.replace('category=', '')}
-                                                submit={this.apply_filters}/>
-                                        </MDBRow>
-                                    </MDBCol>
+                        <div className="mt-3 container-fluid">
+                            <MDBRow >
+                                <MDBCol id={'filtros_for_home'} className='ml-4 m-0 p-0 col-md-2 col-sm-12 mr-sm-2 mt-3 col-md-2'>
+                                    <MDBRow  className="mx-md-1 mt-2 col-12 px-md-1 rounded-lg bg-facebook">
+                                        <FiltrosForHome
+                                            category={this.category.replace('category=', '')}
+                                            submit={this.apply_filters}/>
+                                    </MDBRow>
+                                </MDBCol>
+                                {this.state.items_started.length > 0 || this.state.items_future.length > 0 ?
                                     <MDBCol className="mx-md-5 px-md-4">
                                         <Container className="col-12">
                                             <div className=" mt-0">
@@ -238,11 +238,14 @@ class CardGallery extends Component {
                                             </div>
                                         </Container>
                                     </MDBCol>
+                                        :
+                                        <div className='mx-auto'>
+                                            <h1 className="my-5 text-center">No hay items en la categoria</h1>
+                                        </div>
+                                    }
                                 </MDBRow>
                             </div>
-                            :
-                            <div><h1 className="my-5 text-center">No hay items en la categoria</h1></div>
-                        }
+
                     </div>
                 }
             </div>

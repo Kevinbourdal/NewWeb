@@ -8,7 +8,9 @@ Entre al siguiente enlace para validar su email:</p>
 
     <a href='http://www.subastasenweb.com/validate_email?token={}'><h3>Validar email</h3></a>
 
-
+<br>
+<br>
+<br>
 <a href='http://www.subastasenweb.com'><h3> Subastas en Web </h3></a>
 """
 # Entre al siguiente enlace para completar los datos de usuario \n  http://subastasenweb.com/home
@@ -18,11 +20,13 @@ message_contact = \
 """Contacto recibido de <b>{fullname}</b>.
     <p>{body}.</p>
     
-Dato de contacto:
-    <i>email:</i> <b>{email}</b>
-    <i>celular:</i <b>{phone}</b>
+<p>Dato de contacto:</p>
+    <p><i>email:</i> <b>{email}</b></p>
+    <p><i>celular:</i <b>{phone}</b></p>
 
-
+<br>
+<br>
+<br>
 <a href='http://www.subastasenweb.com'><h3> Subastas en Web </h3></a>
 """
 
@@ -36,5 +40,8 @@ Su contraseña ha sido cambiada a
 Recomendamos cambiarla desde la pestaña Perfil.</p>
     
     
+<br>
+<br>
+<br>
 <a href='http://www.subastasenweb.com'><h3> Subastas en Web </h3></a>
 """
