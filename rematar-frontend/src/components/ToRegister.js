@@ -217,7 +217,7 @@ class ToRegister extends React.Component {
                                    Debe aceptar antes de enviar.
                                 </div>
                              </div>
-                              <div className="my-3 g-recaptcha"  data-sitekey="6Lc0sawZAAAAAIv-LTi4MuRGE9SlXC4DLLRIXRsu"/>
+                              <div id="captcha" className="my-3 g-recaptcha"  data-sitekey="6Lc0sawZAAAAAIv-LTi4MuRGE9SlXC4DLLRIXRsu"/>
                              <div className="text-center my-4">
                                 <MDBBtn className="ml-4 " color='info' type='submit'  id='button' disabled={this.validate_pass()}>
                                     <Row>
