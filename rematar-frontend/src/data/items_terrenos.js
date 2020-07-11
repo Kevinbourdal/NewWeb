@@ -1,6 +1,6 @@
-import picture from '../img/Picture_whap_1.jpeg'
-import picture2 from '../img/Picture_whap_2.jpeg'
-import picture3 from '../img/Picture_whap_3.jpeg'
+import picture from '../img/Picture_whap_1.jpg'
+import picture2 from '../img/Picture_whap_2.jpg'
+import picture3 from '../img/Picture_whap_3.jpg'
 
 const item1 = {
     'title': 'Terreno en villa del dique',
