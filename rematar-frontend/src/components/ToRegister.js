@@ -56,6 +56,7 @@ class ToRegister extends React.Component {
     }
   submitHandler = event => {
       var captcha = document.getElementById("captcha").val();
+
       if(captcha.length === 0) {
           alert('Debe hacer click en reCAPTCHA antes de registrarse.')
           return false
