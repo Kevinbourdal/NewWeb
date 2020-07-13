@@ -125,7 +125,7 @@ class HomePage extends Component {
                                     <Row className='mb-5 h-50'>
                                         <Container className="my-4">
                                             <Row className="mx-auto d-sm-block">
-                                                <h1 className="w-100  text-dark title">Encontrá las mejores inversiones</h1>
+                                                {/*<h1 className="w-100  text-dark title">Encontrá las mejores inversiones</h1>*/}
                                             </Row>
                                         </Container>
                                     </Row>

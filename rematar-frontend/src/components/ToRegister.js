@@ -55,12 +55,6 @@ class ToRegister extends React.Component {
         });
     }
   submitHandler = event => {
-      var captcha = document.getElementById("captcha").val();
-
-      if(captcha.length === 0) {
-          alert('Debe hacer click en reCAPTCHA antes de registrarse.')
-          return false
-      }
 
       document.getElementById("button").disabled = true;
       setTimeout((e) =>{
@@ -218,8 +212,7 @@ class ToRegister extends React.Component {
                                    Debe aceptar antes de enviar.
                                 </div>
                              </div>
-                              <div id="captcha" className="my-3 g-recaptcha"  data-sitekey="6Lc0sawZAAAAAIv-LTi4MuRGE9SlXC4DLLRIXRsu"/>
-                             <div className="text-center my-4">
+                              <div className="text-center my-4">
                                 <MDBBtn className="ml-4 " color='info' type='submit'  id='button' disabled={this.validate_pass()}>
                                     <Row>
                                         <img src ={logos} style={{width:"50px",height:"37px"}}/>

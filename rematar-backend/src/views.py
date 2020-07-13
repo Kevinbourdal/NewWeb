@@ -39,6 +39,8 @@ from utils import (
     validate_json_payload,
     send_email,
     check_minuto_ley,
+    hashed_password,
+    comparate_hashed,
 )
 
 
@@ -123,7 +125,7 @@ class AccountView(BaseView):
             try:
                 account_data = self.account_schema.load({'email': json_data['email'],
                                                          'username': json_data['username'],
-                                                         'password': json_data['password'],
+                                                         'password': hashed_password(json_data['password']),
                                                          'role_id': 3,  # common user
                                                          })
             except marshmallow.exceptions.ValidationError as errors:
@@ -157,7 +159,7 @@ class AccountView(BaseView):
                 return response(400, str(errors))
 
             if account is not None:
-                account.password = json_data['password']
+                account.password = hashed_password(json_data['password'])
                 error = account.save()
                 if not error:
                     return response(200, data={'id': account.id})
@@ -175,9 +177,9 @@ class AccountView(BaseView):
 
             if account is not None:
                 password = gen_token({'now': dt.now().second})[:16]
-                account.password = password
+                account.password = hashed_password(password)
 
-                msg = message_recovery_password.format(account.password)
+                msg = message_recovery_password.format(password)
                 send_email(json_data['email'], msg)
 
                 error = account.save()
@@ -346,7 +348,7 @@ class LoginView(BaseView):
                 account = AccountModel.query.filter_by(validated=True).filter_by(email=json_data['email']).first()
                 if account is not None:
                     role = RoleModel.query.filter_by(id=account.role_id).first()
-                    if account.password == json_data['password']:
+                    if comparate_hashed(json_data['password'], account.password):
                         user = UserModel.query.filter_by(account_id=account.id).first()  # deberia existir
                         token = gen_token({'email': account.email,
                                            'username': account.username})

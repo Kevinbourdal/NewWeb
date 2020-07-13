@@ -44,12 +44,16 @@ class MiProfile extends React.Component {
             }
         ).then(data => {return data.json()}
         ).then(res => {
-            if (res.code === 200)
+            if (res.code === 200){
                 this.setState({...res['data']['user']})
+            }
+            else{
+                this.setState({new_user: true})
+            }
             }
         ).catch(e => {
                 console.log("No user:", e);
-                this.setState({new_user: true})
+
             }
         )
     }
@@ -59,7 +63,7 @@ class MiProfile extends React.Component {
         setTimeout((e) =>{
             document.getElementById("button").disabled = false;
         }, 3000)
-        //event.preventDefault();  No se que hace por eso lo comente
+
         event.target.className += ' was-validated';
         // enviamos los datos al backend
         event.preventDefault()
@@ -67,6 +71,7 @@ class MiProfile extends React.Component {
             config["api"]['BACKEND_ENDPOINT']+'/api/mi_perfil',
             {
                 headers: {
+                    mode: 'cors',
                     Accept: 'application/json',
                     authorization: this.Auth.getToken(),
                 },
@@ -77,7 +82,6 @@ class MiProfile extends React.Component {
                 })
             }
         ).then(data => {
-            alert(data.status)
             if (data.status === 200){
                 this.setState({modal_ok: true})
                 this.toggle()

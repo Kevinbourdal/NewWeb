@@ -3,8 +3,7 @@ from datetime import datetime as dt, date, timedelta
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-
+import bcrypt
 
 STATUS = {200: 'Success',
           201: 'Created',
@@ -94,7 +93,6 @@ def validate_token(token):
 
 
 def send_email(email_dest, message, subject='Mail enviado desde Subastas en Web, No responder.'):
-
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
     part1 = MIMEText(message.encode('utf-8'), "html", "utf-8")
@@ -125,4 +123,15 @@ def check_minuto_ley(auction, new_offer):
     return False
 
 
+def hashed_password(password):
+    password_hash = password
+    hashed = bcrypt.hashpw(password_hash.encode(), bcrypt.gensalt())
+    return hashed.decode()
 
+
+def comparate_hashed(password, hashed):
+    if bcrypt.checkpw(password.encode(), hashed.encode()):
+        return True
+    else:
+        print("Las contraseñas no son iguales")
+        return False
