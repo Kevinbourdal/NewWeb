@@ -97,13 +97,10 @@ class Login extends Component {
                                                     />
                                                 </Col>
                                             </Row>
-                                            <p className="text-muted">
-                                                <b>Login</b>
-                                            </p>
                                             <Row>
                                                 <Col>
                                                     <InputField label={'Email'}
-                                                                type={"email"}
+                                                                type={"user"}
                                                                 ph ={'Ejemplo@hotmail.com'}
                                                                 name={"email"}
                                                                 i={'y'}

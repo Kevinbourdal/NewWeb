@@ -124,11 +124,6 @@ class ToRegister extends React.Component {
                                 />
                              </MDBCol>
                           </MDBRow>
-                           <div>
-                          <p className="mt-1 text-muted">
-                            <b>Registrarse</b>
-                          </p>
-                           </div>
                        </MDBContainer>
                        <MDBContainer className="col-md-11">
                           <Form className='needs-validation' onSubmit={this.submitHandler}>

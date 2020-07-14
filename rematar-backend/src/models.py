@@ -105,6 +105,7 @@ class AccountModel(ModelBase, db.Model):
     username = db.Column('username', db.String(255), unique=True)
     password = db.Column('password', db.String(255), nullable=False)
     validated = db.Column(db.Boolean(), default=False)
+
     # last_update = db.Column('last_update', db.DateTime,server_default=db.func.current_timestamp(), nullable=True)
 
     def __init__(self, role_id, password, email, username):
@@ -206,6 +207,7 @@ class AuctionSchema(ma.Schema):
     subtitle = fields.String()
     category = fields.String(required=True)
     base_price = fields.Float(required=True)
+    hammer = fields.String()
     market_price = fields.Float()
     currency = fields.String()
     start_date = fields.Date(required=True, format='%Y-%m-%d')
@@ -222,20 +224,23 @@ class AuctionModel(ModelBase, db.Model):
     subtitle = db.Column('subtitle', db.String(256), unique=False, nullable=True)
     category = db.Column('category', db.String(256), unique=False)  # Categorias definidas por nosotros
     base_price = db.Column('base_price', db.Float(precision=2), unique=False)
+    hammer = db.Column('hammer', db.String(40), unique=False)
     market_price = db.Column('market_price', db.Float(precision=2), unique=False, nullable=True)
     currency = db.Column('currency', db.String(15), unique=False, nullable=True)
     start_date = db.Column('start_date', db.Date, unique=False, nullable=False)
     start_hour = db.Column('start_hour', db.Time, unique=False, nullable=False)
-    end_date = db.Column('end_date', db.Date, unique=False, nullable=False)  # Se usa para ver si termino el tiempo de ofertar
+    end_date = db.Column('end_date', db.Date, unique=False,
+                         nullable=False)  # Se usa para ver si termino el tiempo de ofertar
     end_hour = db.Column('end_hour', db.Time, unique=False, nullable=False)
     finished = db.Column(db.Boolean(), default=False)  # Si es true la subasta ya se pago
 
     def __init__(self, title, subtitle, category,
-                 base_price, market_price, currency, start_date, start_hour, end_date, end_hour):
+                 base_price, market_price, currency, start_date, start_hour, hammer, end_date, end_hour):
         self.title = title
         self.subtitle = subtitle
         self.category = category
         self.base_price = base_price
+        self.hammer = hammer
         self.market_price = market_price
         self.currency = currency
         self.start_date = start_date

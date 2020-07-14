@@ -22,7 +22,7 @@ import {toNumber} from "reactstrap/es/utils";
 import CardGallery from "./CardGalleryComponent";
 import logos_pagos from "../img/formas_de_pago.png"
 import NavFiltro from "./NavFiltro";
-
+import "./Detail.css";
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
 
@@ -46,6 +46,7 @@ class Detail extends Component {
            item_category: '',
            description: '',
            province: '',
+           hammer: '',
            city: '',
            address: '',
            key_values: [],
@@ -429,13 +430,11 @@ class Detail extends Component {
                                                                         onClick={this.toggle_modaloffert}
                                                                         disabled={!this.Auth.loggedIn() || (this.state.full_start_date > Date.now()) || (this.state.full_end_date <= Date.now())}
                                                                         hidden={!this.Auth.loggedIn() }>
-                                                                    <Row >
-                                                                       <em className='mx-auto'>
-                                                                            <strong><b className='mt-0 mb-0 h5-responsive'>
-                                                                                <img src ={logo} style={{width:"50px", height:"38px"}}/>
+                                                                    <Row className='text-left' >
+                                                                            <strong><b className='mt-0 mb-0 h4-responsive boton ' >
+                                                                                <img src ={logo} style={{width:"53px", height:"40px"}}/>
                                                                                 Ofertar ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
                                                                             </b></strong>
-                                                                       </em>
                                                                      </Row>
                                                                 </Button>
                                                                 <p className="text-muted"
@@ -466,8 +465,8 @@ class Detail extends Component {
                             <h5 className='mt-3 text-white'>Subasta</h5>
                             <hr className='white mb-2'/>
                             <h6 className='mt-2 mb-4 text-left text-white pl-2'>
-                                <h6>Martillero: <b className='ml-2 '> Sr Sebastián Ortiz MP 21222</b></h6>
-                                <h6 className='my-2'><b className=''>Base $ { this.state.base_price.toLocaleString() }</b></h6>
+                                <h6>Martillero:<b className='ml-2'>Sr { this.state.hammer}</b></h6>
+                                <h6 className='my-2'><b className=''>Base : $ { this.state.base_price.toLocaleString() }</b></h6>
                             </h6>
                         </div>
                     </Col>

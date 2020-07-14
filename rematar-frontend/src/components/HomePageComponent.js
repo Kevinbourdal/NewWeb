@@ -149,7 +149,7 @@ class HomePage extends Component {
                                                 <MDBBtn onClick={this.submitHandler}
                                                         className="mx-auto"
                                                         rounded
-                                                        style={{color: '#424242'}}
+                                                        style={{color:'#424242'}}
                                                         color='info'
                                                         circle={true}
                                                         size="sm"

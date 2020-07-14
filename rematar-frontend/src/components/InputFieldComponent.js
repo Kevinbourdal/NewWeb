@@ -13,7 +13,9 @@ const InputField = ({name, label, type, value, id, ft, i, change, ph, maxlength}
     if (i) {
         var icon_type;
         if (type === 'email') {
-            icon_type = 'user';
+            icon_type = 'envelope-open';
+        }else if (type === 'user') {
+                icon_type = "user";
         } else if (type === 'number') {
             icon_type = "phone";
         }  else if (type === 'name') {

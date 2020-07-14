@@ -12,7 +12,7 @@ import {
     Button } from 'reactstrap';
 import logo from '../img/logosubastas.png'
 import './CardItemComponent.css';
-import {MDBCarousel, MDBCarouselInner, MDBIcon, MDBCarouselItem} from "mdbreact";
+import {MDBCarousel, MDBCarouselInner, MDBIcon, MDBCarouselItem, MDBBtn, MDBCol} from "mdbreact";
 
 
 
@@ -93,16 +93,17 @@ class CardItem extends Component {
                         <div className="text-center">
                             <Col>
                                 <a href={this.href || '#'}>
-                                    <Button className="btn-md"
-                                            color={'info'}
-                                            style={{color:'#424 242'}}
-                                    >
-                                        <Row className='my-0 p-0 '>
-                                            <img src ={logo} style={{width:"30px", height:"23px"}}/>
-                                            {/*<img src ={logos} style={{width:"40px",height:"29px"}}></img>*/}
-                                            <b><h5 className='mt-1 mb-0 h5-responsive' unselectable={true} style={{'font-family': 'Lucida Console'}}>Detalles</h5></b>
-                                        </Row>
-                                    </Button>
+                                    <MDBCol>
+                                        <MDBBtn onClick={this.submitHandler}
+                                                className="mx-auto"
+                                                rounded
+                                                style={{color:'#424242'}}
+                                                color='info'
+                                                size="sm"
+                                        >
+                                            <b>Detalles</b>
+                                        </MDBBtn>
+                                    </MDBCol>
                                 </a>
                             </Col>
                         </div>

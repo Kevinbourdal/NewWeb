@@ -29,3 +29,9 @@
 	color:rgba(0,0,0,.35);
 	float:right;
 }
+
+.filtro{
+	position: relative;
+	margin-top: 0rem;
+	margin-bottom: 0rem;
+}

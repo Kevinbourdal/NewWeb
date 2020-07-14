@@ -116,9 +116,6 @@ class Contact extends Component {
                                                     />
                                                 </Col>
                                             </Row>
-                                            <p className="text-muted mt-1">
-                                                <b>Contact</b>
-                                            </p>
                                             <Row>
                                                 <Col>
                                                     <InputField label={'Nombre'}
@@ -162,7 +159,7 @@ class Contact extends Component {
                                                 </Col>
                                             </Row>
                                             <Row>
-                                                <Col>
+                                                <Col className='ml-3'>
                                                     <InputField label={'Consulta'}
                                                                 type={"textarea"}
                                                                 ph={'Tu consulta'}

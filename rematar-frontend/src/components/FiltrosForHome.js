@@ -118,13 +118,12 @@ class FiltrosForHome extends Component{
                         <MDBIcon className='mt-2 ml-2 pt-1' icon='dollar-sign' style={{color: '#000000'}} />
                         <h5 className="ml-2 mt-2 text-dark">Precios</h5>
                     </Row>
-                        <hr className="accent-4 ml-0 mt-0 mr-5 mb-0 grey lighten-5" style={{ width: "150px" }} />
+                        <hr className="accent-4  ml-0 mt-0 mr-5 mb-0 grey lighten-5" style={{ width: "150px" }} />
                         <small className='text-dark'>*Rango de precios</small>
                     </div>
-                <MDBRow >
-                    <MDBCol className='mr-4 mt-0 pt- col-sm-9'>
-                        {/*<MDBRow className="mr-4 ml-2 m-0 p-0 my-0 mt-1 ">*/}
-                            <MDBInput className="rounded-pill"
+                <MDBRow>
+                    <MDBCol className='mr-4 mt-0 pt-0 col-sm-9'>
+                            <MDBInput className="rounded-pill filtro mx-auto "
                                       // value={this.state.price_from}
                                       background={"black"}
                                       name="price_from"
@@ -133,9 +132,7 @@ class FiltrosForHome extends Component{
                                       onChange={this.changeHandler}
                                       style={{maxHeight: '39px'}}
                             />
-                        {/*</MDBRow>*/}
-                        {/*<MDBRow className="mr-4 ml-2 my-0 py-0  ">*/}
-                            <MDBInput className="rounded-pill"
+                            <MDBInput className="rounded-pill mx-auto"
                                       // value={this.state.price_until}
                                       background={"white"}
                                       name="price_until"
@@ -144,10 +141,9 @@ class FiltrosForHome extends Component{
                                       onChange={this.changeHandler}
                                       style={{maxHeight: '38px'}}
                             />
-                        {/*</MDBRow>*/}
                     </MDBCol>
                 </MDBRow>
-                <div className="text-center mr-4 ">
+                <div className="mx-auto mr-4 ">
                     <MDBBtn color="grey darken-3" style={{color:'white'}} className="my-4" type='submit' onClick={this.submit_filters}>
                         Filtrar
                     </MDBBtn>

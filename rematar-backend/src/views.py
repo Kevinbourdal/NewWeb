@@ -526,6 +526,7 @@ class NewAuctionView(BaseView):
                                                'subtitle': auction.subtitle,
                                                'base_price': auction.base_price,
                                                'market_price': auction.market_price,
+                                               'hammer': auction.hammer,
                                                'currency': auction.currency,
                                                'start_date': auction.start_date.strftime('%d-%m-%Y'),
                                                'start_hour': str(auction.start_hour),
@@ -739,10 +740,10 @@ class FiltersView(BaseView):
                 filters[category].append((item_category[0].title(),
                                           items.filter_by(item_category=item_category).count()))
 
-        provinces = ItemModel.query.filter(ItemModel.auction_id.in_([auction.id for auction in auctions]))\
-                                   .with_entities(ItemModel.province)
-        cities = ItemModel.query.filter(ItemModel.auction_id.in_([auction.id for auction in auctions]))\
-                                .with_entities(ItemModel.city)
+        provinces = ItemModel.query.filter(ItemModel.auction_id.in_([auction.id for auction in auctions])) \
+            .with_entities(ItemModel.province)
+        cities = ItemModel.query.filter(ItemModel.auction_id.in_([auction.id for auction in auctions])) \
+            .with_entities(ItemModel.city)
 
         filters['Provincias'] = []
         for province in provinces.distinct().all():

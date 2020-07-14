@@ -31,6 +31,7 @@ class AddCards extends Component {
                 province: '',
                 city: '',
                 address: '',
+                hammer:'',
                 url_images: [],
                 url_aux: '',
                 key_value: [],
@@ -241,10 +242,10 @@ class AddCards extends Component {
                                    <div className="form-group">
                                        <InputField name={"base_price"} label={"Precio base"} type={"number"} value={this.state.base_price} change={this.handleInputChange}/>
                                    </div>
-                                   <div className="form-group">
-                                       <InputField name={"market_price"} label={"Precio de mercado"}
-                                                   type={"number"} value={this.state.market_price}  change={this.handleInputChange}/>
-                                   </div>
+                                   {/*<div className="form-group">*/}
+                                   {/*    <InputField name={"market_price"} label={"Precio de mercado"}*/}
+                                   {/*                type={"number"} value={this.state.market_price}  change={this.handleInputChange}/>*/}
+                                   {/*</div>*/}
                                    <Row>
                                        <Col>
                                            <div className="form-group">
@@ -304,6 +305,9 @@ class AddCards extends Component {
 
                                    <div className="form-group">
                                        <InputField name={"address"} label={"Direccion"} type={"text"} value={this.state.address} change={this.handleInputChange}/>
+                                   </div>
+                                   <div className="form-group">
+                                       <InputField name={"hammer"} label={"Martillero"} type={"text"} value={this.state.hammer} change={this.handleInputChange}/>
                                    </div>
 
                                    <div className="picture-uploader-controls">

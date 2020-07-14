@@ -56,6 +56,11 @@ class Footer extends Component {
                      <i  className="fab fa-google" style={{color: "#D44638"}} aria-hidden="true"> </i>
                    </a>
                  </li>
+                 <li  className="list-inline-item">
+                   <a href="https://www.instagram.com/" className=" btn-floating btn-gplus mx-3 fa-2x">
+                     <i  className="fab fa-instagram" style={{color: "#ba68c8"}} aria-hidden="true"> </i>
+                   </a>
+                 </li>
                </ul>
              </div>
             <p>
