@@ -123,7 +123,7 @@ class FiltrosForHome extends Component{
                     </div>
                 <MDBRow>
                     <MDBCol className='mr-4 mt-0 pt-0 col-sm-9'>
-                            <MDBInput className="rounded-pill filtro mx-auto "
+                            <MDBInput className=" uno rounded-pill mx-auto p-0"
                                       // value={this.state.price_from}
                                       background={"black"}
                                       name="price_from"

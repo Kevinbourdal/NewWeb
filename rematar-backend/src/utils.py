@@ -1,9 +1,11 @@
 import jwt
 from datetime import datetime as dt, date, timedelta
 import smtplib
+import bcrypt
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import bcrypt
+# from email.mime.image import MIMEImage
+
 
 STATUS = {200: 'Success',
           201: 'Created',
@@ -96,6 +98,10 @@ def send_email(email_dest, message, subject='Mail enviado desde Subastas en Web,
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
     part1 = MIMEText(message.encode('utf-8'), "html", "utf-8")
+    # file = open("img/logofull.png", "rb")
+    # attach_image = MIMEImage(file.read())
+    # attach_image.add_header('Content-Disposition', 'attachment; filename = "logofull.png"')
+    # msg.attach(attach_image)
     msg.attach(part1)
 
     try:
