@@ -466,8 +466,8 @@ class AuctionView(BaseView):
             for auction in auctions:
                 item = ItemModel.query.filter_by(auction_id=auction['id']).first()
                 if inmueble or vehiculo or mueble or otro:
-                    if item.item_category.lower() not in '.'.join([inmueble, vehiculo, mueble, otro]).lower().split(
-                            '.'):
+                    if item.item_category.lower() not in map(lambda x: x.lower() if x is not None else x,
+                                                             [inmueble, vehiculo, mueble, otro]):
                         item = None
                 if (item is not None) and (localidades or provincias):
                     if item.province.lower() not in provincias.lower().split('.'):
