@@ -90,7 +90,7 @@ class HomePage extends Component {
                     onExiting={() => this.setState({animating: true})}
                     onExited={() => this.setState({animating: false})}
                 >
-                    <img src={item.src} className="w-header" style={{height: "100%", width: "100%"}} alt={"fondo"}/>
+                    <img src={item.src} className="w-header" style={{height: "auto", width: "100%"}} alt={"fondo"}/>
                 </CarouselItem>
             );
         });
@@ -99,15 +99,7 @@ class HomePage extends Component {
             <div>
                 <div className="p-0 m-0" style={{ height: '500px'}}>
                     <div className="container-fluid no-padding h-25 p-0 m-0 ">
-
                         <div  style={{ height: '90vh' }} className="">
-                            <style>
-                                {`.custom-tag {
-                                  max-width: 100%;
-                                  height: 500px;
-                                  background: black;
-                                }`}
-                            </style>
                             <Card style={{ width: "100%"}}>
                                 <Carousel
                                     slide={false}
@@ -131,7 +123,7 @@ class HomePage extends Component {
                                     </Row>
                                        <div  className='col-9 mx-auto  pt-5  ' >
                                         {/*<Row className=' ml-0' >*/}
-                                            <Col className="p-0 m-0 ">
+                                            <Col id={'Buscador'} className="p-0 m-0 ">
                                                 <input
                                                     className="form-control
                                                     md-form mt-2 mx-auto Buscador col-md-10 search-bar w-responsive"
@@ -145,7 +137,7 @@ class HomePage extends Component {
                                                     autoComplete={'off'}
                                                 />
                                             </Col>
-                                            <Col className='p-0  m-0'>
+                                            <Col id={'Buscador'} className='p-0  m-0'>
                                                 <MDBBtn onClick={this.submitHandler}
                                                         className="mx-auto"
                                                         rounded

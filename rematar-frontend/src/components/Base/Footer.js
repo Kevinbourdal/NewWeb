@@ -34,7 +34,7 @@ class Footer extends Component {
                     Términos y condiciones
                   </a>
             </MDBCol>
-            <MDBCol md="3">
+            <MDBCol md="4" className='mx-auto' >
             <h5 className="text-uppercase mb-2 mt-3 font-weight-bold">
               <strong>Contacto</strong>
             </h5>
@@ -66,9 +66,9 @@ class Footer extends Component {
             <p>
               <i className="fa fa-home mr-2 " /> Embalse de Calamuchita,Cordoba
             </p>
-            <p>
+            <p >
               <a href={"subastasenweb.contact@gmail.com"} style={{color: "white"}}>
-                <i className="fa fa-envelope mr-2" /> subastasenweb.contact@gmail.com
+                <i className="fa fa-envelope mr-2" />subastasenweb.contact@gmail.com
               </a>
             </p>
             <p>

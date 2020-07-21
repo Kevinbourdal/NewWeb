@@ -15,7 +15,7 @@ message_register = \
     <img src="http://subastasenweb.com/static/media/logofull.af4b67e5.png" style=width:350px>
     <a/>
     <br>
-        <p>
+            <p>
               Localidad : Embalse de Calamuchita,Cordoba
             </p>
             <p>
@@ -24,6 +24,14 @@ message_register = \
             <p>
                 Cel : + 54 351-856975
             </p>
+            <div class="social">
+       <a href = '#'>
+            <img style=width:30px src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png" alt="facebook">
+         <a/>
+        <a href = '#' >
+            <img style=width:30px  src="https://cdn4.iconfinder.com/data/icons/social-media-2146/512/25_social-512.png" alt="instagram">
+    </div>
+        <a/>
     """
 # Entre al siguiente enlace para completar los datos de usuario \n  http://subastasenweb.com/home
 
@@ -52,7 +60,15 @@ message_contact = \
             <p>
                 Cel : + 54 351-856975
             </p>
-    """
+    <div class="social">
+       <a href = '#'>
+            <img style=width:30px src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png" alt="facebook">
+         <a/>
+        <a href = '#' >
+            <img style=width:30px  src="https://cdn4.iconfinder.com/data/icons/social-media-2146/512/25_social-512.png" alt="instagram">
+    </div>
+        <a/>
+                """
 
 message_recovery_password = \
     """
@@ -79,4 +95,12 @@ message_recovery_password = \
             <p>
                 Cel : + 54 351-856975
             </p>
+            <div class="social">
+       <a href = '#'>
+            <img style=width:30px src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png" alt="facebook">
+         <a/>
+        <a href = '#' >
+            <img style=width:30px  src="https://cdn4.iconfinder.com/data/icons/social-media-2146/512/25_social-512.png" alt="instagram">
+    </div>
+        <a/>
     """

@@ -7,10 +7,24 @@
     transition:height 1s;
     -webkit-transition:height 1s;
 }
-
+@media only screen and (max-width: 1000px) {
+    #Buscador {
+        display: none;
+    }
+}
 .Buscador {
     font-size: 25px;
     color: white;
+}
+.custom-tag {
+    max-width: 100%;
+    height: auto;
+    background: black;
+}
+.img{
+    width:100%;
+    max-width:640px;
+    height: auto;
 }
 
 .title {
