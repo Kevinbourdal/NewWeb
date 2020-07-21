@@ -50,7 +50,7 @@ class Header extends Component {
                         <NavLink className="text-left" href="/profile">
                             <NavbarBrand className="mr-0 ml-0 text-left" style={{color: "white"}}>
                                 <Row id={'Username'}>
-                                    <Col ><b>{ this.Auth.getUsername() }</b></Col>
+                                    <Col><b>{ this.Auth.getUsername() }</b></Col>
                                     <Col className='col-1'><i className="fas fa-user-circle fa-stack-1x" /></Col>
                                 </Row>
                             </NavbarBrand>

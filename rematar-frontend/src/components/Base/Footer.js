@@ -1,20 +1,28 @@
 import React, {Component} from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import TermsAndConditions from "../TermsAndConditions";
+import Developer from "../Developer";
 
 
 class Footer extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        modal2: false
+        modal2: false,
+        modal: false,
       }
       this.toggle = this.toggle.bind(this)
+      this.develop = this.develop.bind(this)
     }
 
   toggle = () => {
     this.setState({
       modal2: !this.state.modal2
+    });
+  }
+  develop = () => {
+    this.setState({
+      modal: !this.state.modal
     });
   }
 
@@ -77,10 +85,17 @@ class Footer extends Component {
               </a>
             </p>
           </MDBCol>
-          </MDBRow>
+         </MDBRow>
+          <div className='text-left bg-dark '>
+            <Developer toggle={this.develop} modal={this.state.modal} />
+            <i style={{textDecorationLine : 'underline'}} onClick={this.develop}>
+              Desarrolladores
+            </i>
+          </div>
         </MDBContainer>
+
           <div className="footer-copyright info-color-dark text-center py-3">
-          <MDBContainer fluid style={{color:'black'}}>
+          <MDBContainer  fluid style={{color:'black'}}>
             &copy; {new Date().getFullYear()} Copyright <a href="/home" style={{color:"black"}} > Subastas en web </a>
           </MDBContainer>
         </div>
