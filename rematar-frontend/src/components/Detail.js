@@ -123,7 +123,7 @@ class Detail extends Component {
         document.getElementById("button").disabled = true;
         setTimeout((e) =>{
             document.getElementById("button").disabled = false;
-        }, 6000)
+        }, 7000)
         // alert('Comprar la version pro.');
         let date = new Date();
         e.preventDefault()
@@ -182,7 +182,7 @@ class Detail extends Component {
         document.getElementById("button").disabled = true;
         setTimeout((e) =>{
             document.getElementById("button").disabled = false;
-        }, 6000)
+        }, 7000)
         this.setState({
             modaloffert: !this.state.modaloffert
         });
