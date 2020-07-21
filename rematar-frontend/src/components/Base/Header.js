@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import AuthService from "../../utils/AuthService";
 import logo from '../../img/logofull.png'
+import './Header.css'
 
 
 class Header extends Component {
@@ -48,8 +49,8 @@ class Header extends Component {
                     { this.state.isAuthenticated ?
                         <NavLink className="text-left" href="/profile">
                             <NavbarBrand className="mr-0 ml-0 text-left" style={{color: "white"}}>
-                                <Row>
-                                    <Col className=''><b>{ this.Auth.getUsername() }</b></Col>
+                                <Row id={'Username'}>
+                                    <Col ><b>{ this.Auth.getUsername() }</b></Col>
                                     <Col className='col-1'><i className="fas fa-user-circle fa-stack-1x" /></Col>
                                 </Row>
                             </NavbarBrand>

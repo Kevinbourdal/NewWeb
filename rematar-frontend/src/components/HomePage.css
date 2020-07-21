@@ -21,12 +21,6 @@
     height: auto;
     background: black;
 }
-.img{
-    width:100%;
-    max-width:640px;
-    height: auto;
-}
-
 .title {
     font-family: 'Arial Black';
 }

@@ -97,9 +97,9 @@ class HomePage extends Component {
         return (
 
             <div>
-                <div className="p-0 m-0" style={{ height: '500px'}}>
+                <div className="p-0 m-0" style={{ height: 'auto'}}>
                     <div className="container-fluid no-padding h-25 p-0 m-0 ">
-                        <div  style={{ height: '90vh' }} className="">
+                        <div>
                             <Card style={{ width: "100%"}}>
                                 <Carousel
                                     slide={false}
