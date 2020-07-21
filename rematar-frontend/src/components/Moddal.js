@@ -33,7 +33,7 @@ class ModalPage extends Component {
                                 <MDBBtn name='boton_modal_cancel' color="danger" onClick={(e) => this.props.cancel_toggle(e)}>Cancel</MDBBtn>
                             </MDBCol>
                             <MDBCol className={this.props.cancel? 'col-6' : 'col-12'}>
-                                <MDBBtn name='boton modal' color="info" onClick={(e) => this.props.toggle(e)}>Ok!</MDBBtn>
+                                <MDBBtn id='button' name='boton modal' color="info" onClick={(e) => this.props.toggle(e)}>Ok!</MDBBtn>
                             </MDBCol>
                         </MDBRow>
                     </MDBModalFooter>

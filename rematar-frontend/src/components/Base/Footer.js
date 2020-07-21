@@ -50,7 +50,7 @@ class Footer extends Component {
              <div className="mr-4 ">
                <ul className="list-unstyled list-inline">
                  <li className="list-inline-item">
-                   <a href="https://www.facebook.com/" className="btn-floating btn-bg btn-fb mx-3 fa-2x">
+                   <a href="https://www.facebook.com/subastasenweb" className="btn-floating btn-bg btn-fb mx-3 fa-2x">
                      <i className="fab fa-facebook-f" style={{color: "#4267B2"}}> </i>
                    </a>
                  </li>
@@ -65,7 +65,7 @@ class Footer extends Component {
                    </a>
                  </li>
                  <li  className="list-inline-item">
-                   <a href="https://www.instagram.com/" className=" btn-floating btn-gplus mx-3 fa-2x">
+                   <a href="https://www.instagram.com/subastasenweb" className=" btn-floating btn-gplus mx-3 fa-2x">
                      <i  className="fab fa-instagram" style={{color: "#ba68c8"}} aria-hidden="true"> </i>
                    </a>
                  </li>
@@ -81,7 +81,8 @@ class Footer extends Component {
             </p>
             <p>
               <a href={"tel:+ 54 351-856975"} style={{color: "white"}}>
-                <i className="fa fa-phone  mr-2" /> + 54 351-856975
+                <i className="fa fa-phone  mr-2" /> + 54 3571-573482<br/>
+                <i className="fa fa-phone  mr-2" /> + 54 351-6645348
               </a>
             </p>
           </MDBCol>

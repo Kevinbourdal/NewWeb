@@ -120,6 +120,10 @@ class Detail extends Component {
 
 
     make_offer(e) {
+        document.getElementById("button").disabled = true;
+        setTimeout((e) =>{
+            document.getElementById("button").disabled = false;
+        }, 6000)
         // alert('Comprar la version pro.');
         let date = new Date();
         e.preventDefault()
@@ -175,6 +179,10 @@ class Detail extends Component {
     }
 
     toggle_modaloffert(e) {
+        document.getElementById("button").disabled = true;
+        setTimeout((e) =>{
+            document.getElementById("button").disabled = false;
+        }, 6000)
         this.setState({
             modaloffert: !this.state.modaloffert
         });
@@ -416,7 +424,7 @@ class Detail extends Component {
                                                     </CardBody>
                                                     <CardFooter className="justify-content-center align-content-center text-center bg-white">
                                                         <ModalPage toggle={this.toggle} modal={this.state.modal} body={'Oferta Guardada'} />
-                                                        <ModalPage toggle={this.make_offer}
+                                                        <ModalPage id='button' toggle={this.make_offer}
                                                                    cancel_toggle={this.cancel_offert}
                                                                    modal={this.state.modaloffert}
                                                                    cancel={true}
@@ -424,7 +432,7 @@ class Detail extends Component {
                                                         />
                                                         <Row >
                                                             <Col>
-                                                                <Button className="btn btn-lg col-12"
+                                                                <Button id='button' className="btn btn-lg col-12"
                                                                         color={'info'}
                                                                         style={{color:'#424242'}}
                                                                         onClick={this.toggle_modaloffert}
