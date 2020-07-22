@@ -23,6 +23,8 @@ import CardGallery from "./CardGalleryComponent";
 import logos_pagos from "../img/formas_de_pago.png"
 import NavFiltro from "./NavFiltro";
 import "./Detail.css";
+import Developer from "./Developer";
+import MLawMinute from "./MLawMinute";
 
 const no_img = 'https://www.capiovi.misiones.gov.ar/wp-content/uploads/2019/10/noimageavailable.png';
 
@@ -55,6 +57,7 @@ class Detail extends Component {
            modal: false,
            modaloffert: false,
            full_start_date: 0,
+           minute: false,
        };
 
        this.Auth = new AuthService();
@@ -66,6 +69,7 @@ class Detail extends Component {
        this.toggle_modaloffert = this.toggle_modaloffert.bind(this);
        this.cancel_offert = this.cancel_offert.bind(this);
        this.is_old_date = this.is_old_date.bind(this);
+       this.law_minute = this.law_minute.bind(this);
 
   }
 
@@ -123,7 +127,7 @@ class Detail extends Component {
         document.getElementById("button").disabled = true;
         setTimeout((e) =>{
             document.getElementById("button").disabled = false;
-        }, 7000)
+        }, 9000)
         // alert('Comprar la version pro.');
         let date = new Date();
         e.preventDefault()
@@ -168,6 +172,11 @@ class Detail extends Component {
            curr_price: price * config.PRICE_INCREASE
        })
     }
+    law_minute = () => {
+        this.setState({
+            minute: !this.state.minute
+        });
+    }
 
     toggle = (e) => {
         this.setState({
@@ -182,7 +191,7 @@ class Detail extends Component {
         document.getElementById("button").disabled = true;
         setTimeout((e) =>{
             document.getElementById("button").disabled = false;
-        }, 7000)
+        }, 9000)
         this.setState({
             modaloffert: !this.state.modaloffert
         });
@@ -390,7 +399,14 @@ class Detail extends Component {
                                                                 }
                                                             </Col>
                                                         </Row>
+                                                        <div>
+                                                            <MLawMinute toggle={this.law_minute} modal={this.state.minute} />
+                                                            <strong style={{textDecorationLine : 'underline'}} onClick={this.law_minute}>
+                                                                ¿Qué es el minuto ley?
+                                                            </strong>
+                                                        </div>
                                                         <hr />
+
                                                         <Row hidden={true}>
                                                             <Col>
                                                                 <h6><b style={{textDecorationLine : 'underline'}}>Precio Base</b></h6>
