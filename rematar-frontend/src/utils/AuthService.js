@@ -54,32 +54,32 @@ export default class AuthService {
     }
 
     setToken(token) {
-        localStorage.setItem('__user_token', token);
+        sessionStorage.setItem('__user_token', token);
     }
 
     setUsername(username) {
-        localStorage.setItem('__username', username);
+        sessionStorage.setItem('__username', username);
     }
 
     setRole(role) {
-        localStorage.setItem('__user_role', role);
+        sessionStorage.setItem('__user_role', role);
     }
 
     getToken() {
-        return localStorage.getItem('__user_token');
+        return sessionStorage.getItem('__user_token');
     }
 
     getUsername() {
-        return localStorage.getItem('__username');
+        return sessionStorage.getItem('__username');
     }
 
     getRole() {
-        return localStorage.getItem('__user_role');
+        return sessionStorage.getItem('__user_role');
     }
 
     logout() {
-        localStorage.removeItem('__user_token');
-        localStorage.removeItem('__username');
+        sessionStorage.removeItem('__user_token');
+        sessionStorage.removeItem('__username');
     }
 
     fetch(url, options, skipDomain) {
