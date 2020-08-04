@@ -6,12 +6,12 @@ message_register = \
     <p>Su registro ha sido exitoso, con el usuario <b>{}</b>.
     Entre al siguiente enlace para validar su email:</p>
     
-        <a href='http://www.subastasenweb.com/validate_email?token={}'><h3>Validar email</h3></a>
+        <a href='http://subastasenweb.com/validate_email?token={}'><h3>Validar email</h3></a>
     
     <br>
     <br>
     <br>
-    <a href='http://www.subastasenweb.com'>
+    <a href='http://subastasenweb.com'>
     <img src="http://subastasenweb.com/static/media/logofull.af4b67e5.png" style=width:350px>
     <a/>
     <br>
@@ -47,7 +47,7 @@ message_contact = \
     <br>
     <br>
     <br>
-    <a href='http://www.subastasenweb.com'>
+    <a href='http://subastasenweb.com'>
     <img src="http://subastasenweb.com/static/media/logofull.af4b67e5.png" style=width:350px>
     <a/>
     <br>
@@ -82,7 +82,7 @@ message_recovery_password = \
     <br>
     <br>
     <br>
-    <a href='http://www.subastasenweb.com'>
+    <a href='http://subastasenweb.com'>
     <img src="http://subastasenweb.com/static/media/logofull.af4b67e5.png" style=width:350px>
     <a/>
     <br>
