@@ -454,8 +454,8 @@ class Detail extends Component {
                                                                         onClick={this.toggle_modaloffert}
                                                                         disabled={!this.Auth.loggedIn() || (this.state.full_start_date > Date.now()) || (this.state.full_end_date <= Date.now())}
                                                                         hidden={!this.Auth.loggedIn() }>
-                                                                    <Row className='text-left' >
-                                                                            <strong><b className='mt-0 mb-0 h4-responsive boton ' >
+                                                                    <Row className='text-center mx-auto'>
+                                                                            <strong className="mx-auto"><b className='mx-auto mt-0 mb-0 h4-responsive boton ' >
                                                                                 <img src ={logo} style={{width:"53px", height:"40px"}}/>
                                                                                 Ofertar ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
                                                                             </b></strong>
