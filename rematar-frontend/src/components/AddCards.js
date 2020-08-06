@@ -85,6 +85,8 @@ class AddCards extends Component {
              this.setState({
                  ...res['data'],
                  new_auction: false,
+                 start_date: res['data']['start_date'].split('-')[2]+'-'+res['data']['start_date'].split('-')[1]+'-'+ res['data']['start_date'].split('-')[0],
+                 end_date: res['data']['end_date'].split('-')[2]+'-'+res['data']['end_date'].split('-')[1]+'-'+ res['data']['end_date'].split('-')[0],
              })
          }
          ).catch(e => {
@@ -251,7 +253,9 @@ class AddCards extends Component {
                                    <Row>
                                        <Col>
                                            <div className="form-group">
-                                               <InputField name={"start_date"} label={"Fecha de inicio"} type={"date"} value={this.state.start_date} change={this.handleInputChange} />
+                                               <InputField name={"start_date"} label={"Fecha de inicio"} type={"date"}
+                                                           value={this.state.start_date}
+                                                           change={this.handleInputChange} />
                                            </div>
                                        </Col>
                                        <Col>
@@ -263,7 +267,9 @@ class AddCards extends Component {
                                    <Row>
                                        <Col>
                                            <div className="form-group">
-                                               <InputField name={"end_date"} label={"Fecha de finalizacion"} type={"date"} value={this.state.end_date} change={this.handleInputChange}/>
+                                               <InputField name={"end_date"} label={"Fecha de finalizacion"} type={"date"}
+                                                           value={this.state.end_date}
+                                                           change={this.handleInputChange}/>
                                            </div>
                                        </Col>
                                        <Col>

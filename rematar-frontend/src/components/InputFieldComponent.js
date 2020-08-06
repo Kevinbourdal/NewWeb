@@ -28,15 +28,20 @@ const InputField = ({name, label, type, value, id, ft, i, change, ph, maxlength}
             icon_type = ">";
         }
         icon = (
-            <MDBIcon className="mt-2 mr-2" icon={icon_type} ></MDBIcon>
+            <MDBIcon className="mt-2 mr-2" icon={icon_type} />
         )
     }
+    // console.log(name, type, value, value.length)
     return (
+
         <FormGroup>
             <Label for={id || name}>{label}</Label>
             <InputGroup>
                 {icon}
-                <Input maxlength={maxlength} type={type} name={name} id={id || name} value={value} placeholder={ph} onChange={change}/>
+                <Input maxlength={maxlength} type={type} name={name} id={id || name}
+                       value={value}
+                       placeholder={ph}
+                       onChange={change}/>
             </InputGroup>
             {formtext}
         </FormGroup>
