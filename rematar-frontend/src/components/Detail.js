@@ -217,7 +217,6 @@ class Detail extends Component {
         return (full_date.getTime() - new Date(Date.now())) <= 0
     }
    render() {
-
        let DescriptionText = (
           this.state.description.split('\n').map((item, i) =>
              <p className="dark-grey-text mb-lg-0 mb-md-5 mb-4" key={i}>
@@ -239,6 +238,7 @@ class Detail extends Component {
            this.setState({
                url_images: [{'url': no_img}]
            });
+
       return (
           <div  >
               <div  hidden={true} id="filterbar" className='mb-5 mt-0'>
@@ -384,7 +384,7 @@ class Detail extends Component {
                                                                 {/*{ typeof this.state.start_date !== 'string' && this.is_old_date(this.state.start_date, this.state.start_hour) ?*/}
                                                                     { this.state.full_start_date < Date.now() ?
                                                                     <div>
-                                                                        <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
+                                                                        <MDBCol>
                                                                             <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
                                                                         </MDBCol>
                                                                         <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
