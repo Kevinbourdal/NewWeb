@@ -383,7 +383,15 @@ class Detail extends Component {
                                                             <Col>
                                                                 {/*{ typeof this.state.start_date !== 'string' && this.is_old_date(this.state.start_date, this.state.start_hour) ?*/}
                                                                     { this.state.full_start_date < Date.now() ?
-                                                                    <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
+                                                                    <div>
+                                                                        <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
+                                                                            <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
+                                                                        </MDBCol>
+                                                                        <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
+                                                                            <a href={'/new'+window.location.pathname.replace('detail/', '')} style={{color: 'black'}}>
+                                                                                <i className="far fa-edit" /></a>
+                                                                        </MDBCol>
+                                                                    </div>
                                                                     :
                                                                     <div>
                                                                         <MDBRow>
@@ -462,11 +470,11 @@ class Detail extends Component {
                                                                      </Row>
                                                                 </Button>
                                                                 <p className="text-muted"
-                                                                   hidden={this.Auth.loggedIn()}>*Debes logearte
+                                                                   hidden={this.Auth.loggedIn()}>*Debes loguearte
                                                                 </p>
                                                                 <p className="text-muted"
                                                                    hidden={this.state.start_date < Date.now()}>
-                                                                    *La subaste aun no ha comenzado
+                                                                    *La subasta aun no ha comenzado
                                                                 </p>
                                                             </Col>
                                                         </Row>

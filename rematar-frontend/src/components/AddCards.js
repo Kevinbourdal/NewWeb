@@ -123,10 +123,12 @@ class AddCards extends Component {
                      this.setState({modal_ok: false})
                      this.toggle(false)
                  }
+                 document.getElementById("button").disabled = false;
 
             return data.json()
      }
          ).catch(error => {
+             document.getElementById("button").disabled = false;
                  console.log("Fail");
              }
          )
