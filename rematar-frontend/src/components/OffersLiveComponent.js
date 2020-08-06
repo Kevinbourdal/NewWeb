@@ -52,6 +52,7 @@ class OffersLive extends Component {
                             <td className="ml-5"><b>{offer['date']}</b></td>
                             <td className="ml-5"><b>{offer['hour']}</b></td>
                             <td className="ml-5"><b>$ {offer['amount'].toLocaleString()}</b></td>
+                            <td className="ml-5"><b>$ {(offer['amount']*1.15).toLocaleString()}</b></td>
                         </tr>
                     :
                         <tr className="ml-5">
@@ -60,7 +61,7 @@ class OffersLive extends Component {
                             <td className="ml-5">{offer['date']}</td>
                             <td className="ml-5">{offer['hour']}</td>
                             <td className="ml-5"><b>$ {offer['amount'].toLocaleString()}</b></td>
-
+                            <td className="ml-5"><b>$ {(offer['amount']*1.15).toLocaleString()}</b></td>
                         </tr>
                     }
                 </tbody>
@@ -76,6 +77,7 @@ class OffersLive extends Component {
                 <td className="ml-5">{'-'}</td>
                 <td className="ml-5">{'-'}</td>
                 <td className="ml-5">{'-'}</td>
+                <td className="ml-5"><b>{'-'}</b></td>
                 <td className="ml-5"><b>{'-'}</b></td>
             </tr>
             </tbody>)
@@ -102,6 +104,7 @@ class OffersLive extends Component {
                                                     <th>Fecha</th>
                                                     <th>Hora</th>
                                                     <th>Oferta</th>
+                                                    <th>Precio final</th>
                                                 </tr>
                                             </thead>
                                               { data_table }

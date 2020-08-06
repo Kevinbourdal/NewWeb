@@ -456,24 +456,28 @@ class Detail extends Component {
                                                         />
                                                         <Row >
                                                             <Col>
-                                                                <Button id='button' className="btn btn-lg col-12"
-                                                                        color={'info'}
-                                                                        style={{color:'#424242'}}
-                                                                        onClick={this.toggle_modaloffert}
-                                                                        disabled={!this.Auth.loggedIn() || (this.state.full_start_date > Date.now()) || (this.state.full_end_date <= Date.now())}
-                                                                        hidden={!this.Auth.loggedIn() }>
-                                                                    <Row className='text-center mx-auto'>
+                                                                <div hidden={!this.Auth.loggedIn() }>
+                                                                    <Button id='button' className="btn btn-lg col-12"
+                                                                            color={'info'}
+                                                                            style={{color:'#424242'}}
+                                                                            onClick={this.toggle_modaloffert}
+                                                                            disabled={!this.Auth.loggedIn() || (this.state.full_start_date > Date.now()) || (this.state.full_end_date <= Date.now())}
+                                                                            >
+                                                                        <Row className='text-center mx-auto'>
                                                                             <strong className="mx-auto"><b className='mx-auto mt-0 mb-0 h4-responsive boton ' >
                                                                                 <img src ={logo} style={{width:"53px", height:"40px"}}/>
                                                                                 Ofertar ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
                                                                             </b></strong>
-                                                                     </Row>
-                                                                </Button>
-                                                                <p className="text-muted"
-                                                                   hidden={this.Auth.loggedIn()}>*Debes loguearte
+                                                                        </Row>
+                                                                    </Button>
+                                                                    <p>
+                                                                        (*) Monto final:<b> ${ toNumber((this.state.curr_price).toFixed(2) * 1.15).toLocaleString() }</b>
+                                                                    </p>
+                                                                </div>
+                                                                <p className="text-muted" hidden={this.Auth.loggedIn()}>
+                                                                    *Debes loguearte
                                                                 </p>
-                                                                <p className="text-muted"
-                                                                   hidden={this.state.start_date < Date.now()}>
+                                                                <p className="text-muted" hidden={this.state.start_date < Date.now()}>
                                                                     *La subasta aun no ha comenzado
                                                                 </p>
                                                             </Col>
@@ -496,9 +500,10 @@ class Detail extends Component {
                         <div className='p-2 rounded-lg' style={{'background': '#000000'}}>
                             <h5 className='mt-3 text-white'>Subasta</h5>
                             <hr className='white mb-2'/>
-                            <h6 className='mt-2 mb-4 text-left text-white pl-2'>
+                            <h6 className='mt-2 mb-3 text-left text-white pl-2'>
                                 <h6>Martillero:<b className='ml-2'>Sr { this.state.hammer}</b></h6>
-                                <h6 className='my-2'><b className=''>Base : $ { this.state.base_price.toLocaleString() }</b></h6>
+                                <h6 className='my-2'>Base:<b className='ml-2'> $ { this.state.base_price.toLocaleString() }</b></h6>
+                                <h6 className='my-2'>(*) Monto final:<b className='ml-2'><b>Precio Actual + 15%</b> en concepto de Comisión al Martillero, Gastos Administrativos e Impuestos.</b></h6>
                             </h6>
                         </div>
                     </Col>
