@@ -79,12 +79,14 @@ class AddCards extends Component {
                  hour[1],
                  hour[2]
              );
-             if (full_start_date <= Date.now()) {
-                 this.props.history.push('/detail/'+auction_id)
-             }
+             // if (full_start_date <= Date.now()) {
+             //     this.props.history.push('/detail/'+auction_id)
+             // }
              this.setState({
                  ...res['data'],
                  new_auction: false,
+                 start_date: res['data']['start_date'].split('-')[2]+'-'+res['data']['start_date'].split('-')[1]+'-'+ res['data']['start_date'].split('-')[0],
+                 end_date: res['data']['end_date'].split('-')[2]+'-'+res['data']['end_date'].split('-')[1]+'-'+ res['data']['end_date'].split('-')[0],
              })
          }
          ).catch(e => {
@@ -123,10 +125,12 @@ class AddCards extends Component {
                      this.setState({modal_ok: false})
                      this.toggle(false)
                  }
+                 document.getElementById("button").disabled = false;
 
             return data.json()
      }
          ).catch(error => {
+             document.getElementById("button").disabled = false;
                  console.log("Fail");
              }
          )
@@ -249,7 +253,9 @@ class AddCards extends Component {
                                    <Row>
                                        <Col>
                                            <div className="form-group">
-                                               <InputField name={"start_date"} label={"Fecha de inicio"} type={"date"} value={this.state.start_date} change={this.handleInputChange}/>
+                                               <InputField name={"start_date"} label={"Fecha de inicio"} type={"date"}
+                                                           value={this.state.start_date}
+                                                           change={this.handleInputChange} />
                                            </div>
                                        </Col>
                                        <Col>
@@ -261,7 +267,9 @@ class AddCards extends Component {
                                    <Row>
                                        <Col>
                                            <div className="form-group">
-                                               <InputField name={"end_date"} label={"Fecha de finalizacion"} type={"date"} value={this.state.end_date} change={this.handleInputChange}/>
+                                               <InputField name={"end_date"} label={"Fecha de finalizacion"} type={"date"}
+                                                           value={this.state.end_date}
+                                                           change={this.handleInputChange}/>
                                            </div>
                                        </Col>
                                        <Col>

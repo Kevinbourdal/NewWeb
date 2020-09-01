@@ -80,6 +80,7 @@ export default class AuthService {
     logout() {
         sessionStorage.removeItem('__user_token');
         sessionStorage.removeItem('__username');
+        sessionStorage.removeItem('__user_role');
     }
 
     fetch(url, options, skipDomain) {

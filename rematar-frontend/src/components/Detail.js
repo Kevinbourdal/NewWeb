@@ -217,7 +217,6 @@ class Detail extends Component {
         return (full_date.getTime() - new Date(Date.now())) <= 0
     }
    render() {
-
        let DescriptionText = (
           this.state.description.split('\n').map((item, i) =>
              <p className="dark-grey-text mb-lg-0 mb-md-5 mb-4" key={i}>
@@ -239,6 +238,7 @@ class Detail extends Component {
            this.setState({
                url_images: [{'url': no_img}]
            });
+
       return (
           <div  >
               <div  hidden={true} id="filterbar" className='mb-5 mt-0'>
@@ -383,7 +383,15 @@ class Detail extends Component {
                                                             <Col>
                                                                 {/*{ typeof this.state.start_date !== 'string' && this.is_old_date(this.state.start_date, this.state.start_hour) ?*/}
                                                                     { this.state.full_start_date < Date.now() ?
-                                                                    <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
+                                                                    <div>
+                                                                        <MDBCol>
+                                                                            <Timer end_hour={ this.state.end_hour } end_date={ this.state.end_date }/>
+                                                                        </MDBCol>
+                                                                        <MDBCol className='text-right' hidden={this.Auth.getRole() !== 'admin'}>
+                                                                            <a href={'/new'+window.location.pathname.replace('detail/', '')} style={{color: 'black'}}>
+                                                                                <i className="far fa-edit" /></a>
+                                                                        </MDBCol>
+                                                                    </div>
                                                                     :
                                                                     <div>
                                                                         <MDBRow>
@@ -448,25 +456,29 @@ class Detail extends Component {
                                                         />
                                                         <Row >
                                                             <Col>
-                                                                <Button id='button' className="btn btn-lg col-12"
-                                                                        color={'info'}
-                                                                        style={{color:'#424242'}}
-                                                                        onClick={this.toggle_modaloffert}
-                                                                        disabled={!this.Auth.loggedIn() || (this.state.full_start_date > Date.now()) || (this.state.full_end_date <= Date.now())}
-                                                                        hidden={!this.Auth.loggedIn() }>
-                                                                    <Row className='text-left' >
-                                                                            <strong><b className='mt-0 mb-0 h4-responsive boton ' >
+                                                                <div hidden={!this.Auth.loggedIn() }>
+                                                                    <Button id='button' className="btn btn-lg col-12"
+                                                                            color={'info'}
+                                                                            style={{color:'#424242'}}
+                                                                            onClick={this.toggle_modaloffert}
+                                                                            disabled={!this.Auth.loggedIn() || (this.state.full_start_date > Date.now()) || (this.state.full_end_date <= Date.now())}
+                                                                            >
+                                                                        <Row className='text-center mx-auto'>
+                                                                            <strong className="mx-auto"><b className='mx-auto mt-0 mb-0 h4-responsive boton ' >
                                                                                 <img src ={logo} style={{width:"53px", height:"40px"}}/>
                                                                                 Ofertar ${ toNumber((this.state.curr_price).toFixed(2)).toLocaleString() }
                                                                             </b></strong>
-                                                                     </Row>
-                                                                </Button>
-                                                                <p className="text-muted"
-                                                                   hidden={this.Auth.loggedIn()}>*Debes logearte
+                                                                        </Row>
+                                                                    </Button>
+                                                                    <p>
+                                                                        (*) Monto final:<b> ${ toNumber((this.state.curr_price).toFixed(2) * 1.15).toLocaleString() }</b>
+                                                                    </p>
+                                                                </div>
+                                                                <p className="text-muted" hidden={this.Auth.loggedIn()}>
+                                                                    *Debes loguearte
                                                                 </p>
-                                                                <p className="text-muted"
-                                                                   hidden={this.state.start_date < Date.now()}>
-                                                                    *La subaste aun no ha comenzado
+                                                                <p className="text-muted" hidden={this.state.start_date < Date.now()}>
+                                                                    *La subasta aun no ha comenzado
                                                                 </p>
                                                             </Col>
                                                         </Row>
@@ -488,9 +500,10 @@ class Detail extends Component {
                         <div className='p-2 rounded-lg' style={{'background': '#000000'}}>
                             <h5 className='mt-3 text-white'>Subasta</h5>
                             <hr className='white mb-2'/>
-                            <h6 className='mt-2 mb-4 text-left text-white pl-2'>
+                            <h6 className='mt-2 mb-3 text-left text-white pl-2'>
                                 <h6>Martillero:<b className='ml-2'>Sr { this.state.hammer}</b></h6>
-                                <h6 className='my-2'><b className=''>Base : $ { this.state.base_price.toLocaleString() }</b></h6>
+                                <h6 className='my-2'>Base:<b className='ml-2'> $ { this.state.base_price.toLocaleString() }</b></h6>
+                                <h6 className='my-2'>(*) Monto final:<b className='ml-2'><b>Precio Actual + 15%</b> en concepto de Comisión al Martillero, Gastos Administrativos e Impuestos.</b></h6>
                             </h6>
                         </div>
                     </Col>
