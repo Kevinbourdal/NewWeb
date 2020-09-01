@@ -42,7 +42,7 @@ message_contact = \
         
     <p>Dato de contacto:</p>
         <p><i>email:</i> <b>{email}</b></p>
-        <p><i>celular:</i <b>{phone}</b></p>
+        <p><i>celular:</i> <b>{phone}</b></p>
     
     <br>
     <br>

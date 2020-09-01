@@ -451,10 +451,10 @@ class AuctionView(BaseView):
 
             price_from = request.args.get('price_from', None)
             price_until = request.args.get('price_until', None)
-
-            auctions = AuctionModel.query.filter((AuctionModel.end_date > dt.now().date()) |
-                                                 ((AuctionModel.end_date == dt.now().date()) & (
-                                                         AuctionModel.end_hour > dt.now().time())))
+            auctions = AuctionModel.query.filter_by(finished=False)
+            # auctions = AuctionModel.query.filter((AuctionModel.end_date > dt.now().date()) |
+            #                                      ((AuctionModel.end_date == dt.now().date()) & (
+            #                                              AuctionModel.end_hour > dt.now().time())))
             if category is not None:
                 auctions = auctions.filter_by(category=category)
             if price_from is not None:
@@ -950,7 +950,7 @@ class OfferFinished(BaseView):
                     return response(200)
         return response(400)
 
-    def put(self):
+    def delete(self):
         account_data = decode_token(request.headers.environ['HTTP_AUTHORIZATION'])
         if not self.is_valid_token_data(account_data['username'], account_data['email']):
             return response(401, 'Wrong token')
@@ -959,8 +959,7 @@ class OfferFinished(BaseView):
         if not error:
             offer = OfferModel.query.filter_by(id=json_data['offer_id']).first()
             if offer is not None:
-                offer.finished = True
-                errors = offer.save()
-                if not errors:
+                result = offer.delete_()
+                if result is None:
                     return response(200)
         return response(400)

@@ -100,7 +100,7 @@ class AcceptAuctions extends Component {
                     Accept: 'application/json',
                     authorization: this.Auth.getToken(),
                 },
-                method:  'PUT' ,
+                method:  'DELETE' ,
                 body: JSON.stringify({
                     offer_id: offer_id
                 })
